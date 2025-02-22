@@ -1,0 +1,222 @@
+:root{
+    --color: green;
+    --text-color:#737373;
+    --title-color:#3B9E29;
+}
+
+/* font */
+.tajawal-regular {
+    font-family: "Tajawal", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.tajawal-medium {
+    font-family: "Tajawal", serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.tajawal-bold {
+    font-family: "Tajawal", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* start style for Structure */
+
+.sidebar{
+    background-color: #FFFFFF;
+    box-shadow: inset 5px 0px 2px -2px #e9ebe9 !important;
+    /* width: 321px !important; */
+}
+
+main{
+    /* width: calc(100% - 321px) !important; */
+    background-color: #fbfdfb;
+}
+
+/* end style for Structure */
+
+/* start style for sidebar */
+.sidebar ul{
+    list-style: none;
+}
+
+.sidebar p,
+.sidebar li,
+.sidebar a{
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 17px;
+}
+
+.sidebar .links .link-active{
+    border-radius: 5px;
+    background-color: #3B9E2933;
+}
+
+.sidebar .links .link-active a{
+    color: var(--color);
+    padding-right: 10px !important;
+}
+
+/* end style for sidebar */
+
+/*start general style */
+hr{
+    color: #ACACAC;
+}
+
+h2{
+    color: var(--title-color);
+}
+
+.title-color{
+    color: var(--title-color) !important;
+}
+
+label{
+    font-weight: 500 !important;
+}
+
+.add-button{
+    background-color: var(--title-color);
+    color:white;
+    border: 1px solid var(--title-color);
+    border-radius: 5px;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.add-button:hover{
+    background-color:var(--title-color);
+    color:white;
+}
+
+.add-button-style{
+    border: 1px solid var(--title-color);
+    color: var(--title-color);
+}
+
+.add-button-style:hover{
+    border: 1px solid var(--title-color);
+    color: var(--title-color);
+}
+
+table th,
+table td{
+    border-bottom-width: 0px  !important;
+    vertical-align: middle;
+}
+
+/* for input file */
+.hidden-file-style {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: 1px solid green;
+    color: green;
+    border-radius: 5px;
+}
+
+.view-file{
+    padding: 3px;
+    text-align: center;
+    color: var(--title-color);
+    border: 1px solid var(--title-color);
+    border-radius: 5px;
+}
+
+.count,
+.title{
+    color: var(--text-color);
+
+}
+
+/* for action button in table */
+.show-action{
+    cursor: pointer;
+}
+
+.action {
+    width: 165px;
+    display: none;
+    position: absolute;
+    background: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+
+
+/*End general style */
+
+/* Start Style for supporters */
+
+/* supporters-form in _form page */
+.supporters-form input{
+    border-color:#C1C1C1;
+}
+
+/* supporters-view in view page */
+.supporters-view .title{
+    color: var(--text-color);
+}
+
+@media(max-width:991px){
+    .supporters .intro{
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+
+    .supporters .intro .search{
+        width: 100% !important;
+    }
+
+    .supporters .intro .add-support button{
+        width: 150px !important;
+
+    }
+}
+
+
+/* End Style for supporters */
+
+/* Start Style for volunteers */
+
+.images-files p{
+    color: var(--text-color);
+}
+
+
+
+
+/* End Style for volunteers */
+
+
+/* Start Style for orphans */
+
+/* orphans-view */
+.orphans-view .title{
+    color: var(--text-color);
+}
+
+.orphans_form label {
+    font-weight:500
+}
+
+
+/* End Style for orphans */
+
+
+
+
+
+
