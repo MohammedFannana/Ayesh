@@ -1,63 +1,63 @@
 <x-main-layout>
 
-    <h2 class="mb-5">يتيم جديد</h2>
+    <h2 class="mb-5">{{__('يتيم جديد')}}</h2>
 
     <div class="orphans-view bg-white rounded shadow-sm p-3 mb-4">
 
         <div class="row">
 
-            <p class="title mb-4"> المعلومات الأساسية </p>
+            <p class="title mb-4"> {{__('المعلومات الأساسية ')}}</p>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> كود اليتيم الداخلي</p>
-                <p class="fw-semibold"> #55558</p>
+                <p class="title"> {{__('كود اليتيم الداخلي ')}}</p>
+                <p class="fw-semibold"> {{$orphan->internal_code}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> استمارة تقديم الايتام  </p>
-                <p class="view-file">استمارة محمد.pdf</p>
+                <p class="title"> {{__('استمارة تقديم الايتام ')}} </p>
+                <p class="view-file"> {{$orphan->application_form}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> اسم اليتيم</p>
-                <p class="fw-semibold">  محمد أحمد </p>
+                <p class="title"> {{__('اسم اليتيم ')}}</p>
+                <p class="fw-semibold">  $orphan->name</p>
             </div>
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">  الرقم القومى لليتيم </p>
-                <p class="fw-semibold">#5528</p>
-            </div>
-
-            <hr>
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> تاريخ الميلاد</p>
-                <p class="fw-semibold">10/8/2020</p>
-            </div>
-
-
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> جهة الميلاد</p>
-                <p class="fw-semibold">فلسطين</p>
-            </div>
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> النوع </p>
-                <p class="fw-semibold"> ذكر </p>
-            </div>
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> السن </p>
-                <p class="fw-semibold"> 8 سنوات </p>
+                <p class="title">  {{__('الرقم القومى لليتيم ')}}</p>
+                <p class="fw-semibold">{{$orphan->national_id}}</p>
             </div>
 
             <hr>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> نوع الحالة</p>
-                <p class="fw-semibold">  يتيم الأبوين</p>
+                <p class="title"> {{__('تاريخ الميلاد ')}}</p>
+                <p class="fw-semibold">{{$orphan->birth_date}}</p>
+            </div>
+
+
+
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title"> {{__('جهة الميلاد ')}}</p>
+                <p class="fw-semibold">{{$orphan->birth_place}}</p>
+            </div>
+
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title"> {{__('النوع')}} </p>
+                <p class="fw-semibold"> {{$orphan->gender}} </p>
+            </div>
+
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title"> {{(__'السن')}} </p>
+                <p class="fw-semibold"> {{$orphan->age}} سنوات </p>
+            </div>
+
+            <hr>
+
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title"> {{__('نوع الحالة ')}}</p>
+                <p class="fw-semibold">  $orphan-></p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
@@ -241,7 +241,7 @@
             <hr>
 
             <div class="d-flex justify-content-end">
-                <a href="" class="add-button pt-2 pb-2 text-decoration-none "> عرض أقل للتفاصيل </a>
+                <a href="{{route('orphan.registered.show' , $orphan->id)}}" class="add-button pt-2 pb-2 text-decoration-none "> عرض أقل للتفاصيل </a>
             </div>
 
         </div>
@@ -255,7 +255,7 @@
 
         <div class="row">
 
-            <p class="title mb-4"> الصور و الملفات </p>
+            <p class="title mb-4">{{__(' الصور و الملفات ')}}</p>
 
 
             <div class="flex flex-column col-3 mb-3">
@@ -346,7 +346,7 @@
             <hr>
 
             <div class="d-flex justify-content-end">
-                <a href="" class="add-button pt-2 pb-2 text-decoration-none "> عرض أقل للتفاصيل </a>
+                <a href="{{route('orphan.registered.show' , $orphan->id)}}" class="add-button pt-2 pb-2 text-decoration-none "> عرض أقل للتفاصيل </a>
             </div>
 
 

@@ -10,9 +10,13 @@ class DonorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages.donors.view');
+        $donors = Donor::when($request->search, function ($builder, $value) {
+            $builder->where('name', 'LIKE', "%{$value}%");
+        })->paginate(10);
+        $count = $donors->total(); // هذا يعطي العدد الكلي للمتبرعين
+        return view('pages.donors.index' , compact('donors' , 'count'));
     }
 
     /**
@@ -20,7 +24,8 @@ class DonorController extends Controller
      */
     public function create()
     {
-        //
+        $donor = new Donor();
+        return view('pages.donors.create' , compact('donor'));
     }
 
     /**
@@ -28,7 +33,20 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['string' , 'required'],
+            'country' => ['string' , 'required'],
+            'phone' => ['string' , 'required' , 'unique:donors,phone'],
+            'fax' => ['string' , 'required'],
+            'website' => ['string' , 'required'],
+            'email' => ['string' , 'required' ,'email' , 'unique:donors,email'],
+            'address' => ['string' , 'required'],
+        ]);
+
+        Donor::create($validated);
+        return redirect()->back()->with('success', __('تمت اضافة المتبرع بنجاح'));
+
+
     }
 
     /**
@@ -36,7 +54,7 @@ class DonorController extends Controller
      */
     public function show(Donor $donor)
     {
-        //
+        return view('pages.donors.view' , compact('donor'));
     }
 
     /**
@@ -60,6 +78,7 @@ class DonorController extends Controller
      */
     public function destroy(Donor $donor)
     {
-        //
+        $donor->delete();
+        return redirect()->route('donor.index')->with('success' , __(' تم حذف المتبرع بنجاح '));
     }
 }

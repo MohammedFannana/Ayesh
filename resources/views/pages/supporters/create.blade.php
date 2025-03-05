@@ -1,16 +1,18 @@
 <x-main-layout>
 
-    <h2 class="mb-5"> الداعمين </h2>
+    <h2 class="mb-5"> {{__('الداعمين')}} </h2>
 
     <div class="supporters bg-white rounded shadow-sm p-3">
 
-        <h3 class="mb-4" style="color:var(--title-color);"> إضافة داعمين </h3>
+        <h4 class="mb-4 title-color" > {{__('إضافة داعمين ')}}</h4>
+        <x-alert name="success" />
 
-        <form action="" method="post" enctype="multipart/form-data">
+
+        <form action="{{route('supporter.store')}}" method="post" enctype="multipart/form-data">
             @csrf
 
             @include('pages.supporters._form' , [
-                    'button' => ' حفظ '])
+                    'button' => 'حفظ' ])
 
         </form>
 

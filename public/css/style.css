@@ -155,6 +155,38 @@ table td{
 }
 
 
+/* تغيير لون radio button */
+input[type="radio"] {
+    accent-color: var(--title-color);
+}
+
+/* تغيير لون checkbox */
+input[type="checkbox"] {
+    accent-color:  var(--title-color);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(34%) sepia(87%) saturate(451%) hue-rotate(74deg) brightness(94%) contrast(96%);
+    cursor: pointer;
+}
+
+
+/*  */
+
+input[type="email"],
+input[type="date"] {
+    text-align: right; /* محاذاة النص إلى اليمين */
+    direction: rtl; /* جعل الاتجاه من اليمين لليسار */
+}
+
+
+input[type="email"]::placeholder,
+input[type="date"]::placeholder {
+    text-align: right; /* محاذاة الـ placeholder فقط إلى اليمين */
+    direction: rtl;
+}
+
+
 
 /*End general style */
 

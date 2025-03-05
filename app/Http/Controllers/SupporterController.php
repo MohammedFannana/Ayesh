@@ -10,9 +10,13 @@ class SupporterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages.supporters.view');
+        $supporters = Supporter::when($request->search, function ($builder, $value) {
+            $builder->where('name', 'LIKE', "%{$value}%");
+        })->paginate(10);
+        $count = $supporters ->total();
+        return view('pages.supporters.index' , compact('supporters' , 'count'));
     }
 
     /**
@@ -20,6 +24,7 @@ class SupporterController extends Controller
      */
     public function create()
     {
+        // $supporter = new Supporter();
         return view('pages.supporters.create');
 
     }
@@ -29,7 +34,22 @@ class SupporterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['string' , 'required'],
+            'country' => ['string' , 'required'],
+            'phone' => ['string' , 'required' , 'unique:donors,phone'],
+            'fax' => ['string' , 'required'],
+            'association_name' => ['string' , 'required'],
+            'department_name' => ['string' , 'required'],
+            'administrator_name' => ['string' , 'required'],
+            'website' => ['string' , 'required'],
+            'email' => ['string' , 'required' ,'email' , 'unique:donors,email'],
+            'address' => ['string' , 'required'],
+
+        ]);
+
+        Supporter::create($validated);
+        return redirect()->back()->with('success', __('تمت اضافة الداعم بنجاح'));
     }
 
     /**
@@ -37,7 +57,7 @@ class SupporterController extends Controller
      */
     public function show(Supporter $supporter)
     {
-        return view('pages.supporters.view');
+        return view('pages.supporters.view' , compact('supporter'));
 
     }
 
@@ -63,6 +83,8 @@ class SupporterController extends Controller
      */
     public function destroy(Supporter $supporter)
     {
-        //
+        $supporter->delete();
+        return redirect()->route('supporter.index')->with('success' , __(' تم حذف الداعم بنجاح '));
+
     }
 }

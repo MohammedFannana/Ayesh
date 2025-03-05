@@ -1,7 +1,7 @@
 <x-main-layout>
 
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="mb-5"> جمعية البر </h2>
+        <h2 class="mb-5"> {{$supporter->name}}</h2>
         {{-- <div class="mb-4">
             <a href="" class="btn add-button"> تعديل </a>
         </div> --}}
@@ -12,53 +12,53 @@
         <div class="supporters-view row">
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">الموقع الالكتروني</p>
-                <p class="fw-semibold">www.mariam.com</p>
+                <p class="title"> {{__(' الموقع الالكتروني ')}} </p>
+                <p class="fw-semibold">{{$supporter->website}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> الدولة </p>
-                <p class="fw-semibold">  فلسطين </p>
+                <p class="title"> {{__('الدولة')}} </p>
+                <p class="fw-semibold">  {{$supporter->country}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> رقم الجوال </p>
-                <p class="fw-semibold">0594599056</p>
+                <p class="title"> {{__('رقم الجوال ')}}</p>
+                <p class="fw-semibold">{{$supporter->phone}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> الفاكس</p>
-                <p class="fw-semibold">0594599056</p>
-            </div>
-
-            <hr>
-
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> اسم الجمعية </p>
-                <p class="fw-semibold"> فلسطين-غزة </p>
-            </div>
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> القسم </p>
-                <p class="fw-semibold">فلسطين - غزة</p>
-            </div>
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> المسؤول </p>
-                <p class="fw-semibold"> فلسطين-غزة </p>
-            </div>
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> العنوان </p>
-                <p class="fw-semibold"> فلسطين-غزة </p>
+                <p class="title"> {{__('الفاكس')}}</p>
+                <p class="fw-semibold">{{$supporter->fax}}</p>
             </div>
 
             <hr>
 
+
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> البريد الالكتروني </p>
-                <p class="fw-semibold"> mohamed@gmail.com </p>
+                <p class="title"> {{__('اسم الجمعية ')}}</p>
+                <p class="fw-semibold"> {{$supporter->association_name}}</p>
+            </div>
+
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title"> {{__('القسم')}} </p>
+                <p class="fw-semibold"> {{$supporter->department_name}} </p>
+            </div>
+
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title"> {{__('اسم المسؤول ')}} </p>
+                <p class="fw-semibold"> {{$supporter->administrator_name}} </p>
+            </div>
+
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title"> {{__('العنوان')}} </p>
+                <p class="fw-semibold"> {{$supporter->address}} </p>
+            </div>
+
+            <hr>
+
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title"> {{__('البريد الالكتروني ')}}</p>
+                <p class="fw-semibold"> {{$supporter->email}} </p>
             </div>
 
         </div>
@@ -68,7 +68,7 @@
     <div class="incoming_statements bg-white rounded shadow-sm p-3 mb-4">
 
         <div class="d-flex justify-content-between align-items-center">
-            <p class="mb-3 fs-5 fw-semibold title-color"> الكشوفات الواردة </p>
+            <p class="mb-3 fs-5 fw-semibold title-color"> {{__('الكشوفات الواردة ')}}</p>
             <div class="mb-2">
                 <a href="" class="btn add-button"> عرض الكل </a>
             </div>

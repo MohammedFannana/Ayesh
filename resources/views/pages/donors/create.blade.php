@@ -6,7 +6,9 @@
 
         <h3 class="mb-4" style="color:var(--title-color);"> إضافة متبرع </h3>
 
-        <form action="" method="post" enctype="multipart/form-data">
+        <x-alert name="success" />
+
+        <form action="{{route('donor.store')}}" method="post" enctype="multipart/form-data">
             @csrf
 
             @include('pages.donors._form' , [

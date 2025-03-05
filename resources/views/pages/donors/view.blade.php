@@ -1,7 +1,7 @@
 <x-main-layout>
 
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="mb-4"> محمد أحمد </h2>
+        <h2 class="mb-4"> {{__($donor->name)}} </h2>
         {{-- <div class="mb-4">
             <a href="" class="btn add-button"> تعديل </a>
         </div> --}}
@@ -12,36 +12,36 @@
         <div class="supporters-view row">
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">الموقع الالكتروني</p>
-                <p class="fw-semibold">www.mariam.com</p>
+                <p class="title"> {{__('الموقع الالكتروني ')}}  </p>
+                <p class="fw-semibold">{{$donor->website}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> الدولة</p>
-                <p class="fw-semibold">  فلسطين </p>
+                <p class="title"> {{__('الدولة')}}</p>
+                <p class="fw-semibold">  {{$donor->country}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> رقم الجوال </p>
-                <p class="fw-semibold">0594599056</p>
+                <p class="title"> {{__('رقم الجوال')}}</p>
+                <p class="fw-semibold">{{$donor->phone}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> الفاكس</p>
-                <p class="fw-semibold">0594599056</p>
+                <p class="title"> {{__('الفاكس')}} </p>
+                <p class="fw-semibold">{{$donor->fax}}</p>
             </div>
 
             <hr>
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">البريد الالكتروني</p>
-                <p class="fw-semibold">mohammed@gmail.com</p>
+                <p class="title"> {{__('البريد الالكتروني ')}} </p>
+                <p class="fw-semibold">{{$donor->email}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> العنوان </p>
-                <p class="fw-semibold">فلسطين - غزة</p>
+                <p class="title"> {{__(' العنوان ')}} </p>
+                <p class="fw-semibold"> {{$donor->address}} </p>
             </div>
 
         </div>

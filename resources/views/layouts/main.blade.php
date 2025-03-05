@@ -143,19 +143,27 @@
                             <li class="p-2 me-5"> <a href=""> المتبرعين </a></li>
                             <li class="p-2 me-5">
                                 الحالات
-                                <ul>
-                                    <li class="p-1 me-5"><a href=""></a></li>
-                                    <li class="p-1 me-5"><a href=""></a></li>
+                                <ul style="display: none">
+                                    <li class="p-1 me-5"><a href="">c</a></li>
+                                    <li class="p-1 me-5"><a href="">c</a></li>
                                 </ul>
 
                             </li>
 
                             <li class="p-2 me-5"> <a href=""> المتطوعين </a></li>
                             <li class="p-2 me-5"> <a href=""> المبالغ المقبوضة </a></li>
-                            <li class="p-2 me-5"> <a href=""> المبالف المدفوعة </a></li>
+                            <li class="p-2 me-5"> <a href=""> المبالغ المدفوعة </a></li>
                             <li class="p-2 me-5"> <a href=""> الملفات </a> </li>
-                            <li class="p-2 me-5"> <a href=""> التقارير </a> </li>
+                            <li class="p-2 me-5">
+                                التقارير
+                                <ul style="display: none">
+                                    <li class="p-1 me-5"><a href="">c</a></li>
+                                    <li class="p-1 me-5"><a href="">c</a></li>
+                                </ul>
+
+                            </li>
                             <li class="p-2 me-5"> <a href=""> الرسائل </a></li>
+                            <li class="p-2 me-5"> <a href=""> الاشعارات </a></li>
                             <li class="p-2 me-5"> <a href=""> الشكاوي </a></li>
 
                         </ul>

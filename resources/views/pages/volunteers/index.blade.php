@@ -1,12 +1,16 @@
 <x-main-layout>
 
-    <h2 class="mb-5"> المتطوعين </h2>
+    <h2 class="mb-5"> {{__(('المتطوعين'))}} </h2>
+
+    <x-alert name="success" />
+    <x-alert name="danger" />
+
 
     <div class="volunteers bg-white rounded shadow-sm p-3">
 
         <div class="intro  row justify-content-between align-items-center">
             <div class="count col-2">
-                30 متطوع
+                {{$count}} {{__('متطوع')}}
             </div>
 
             <div class="search mb-1 col-7">
@@ -22,7 +26,7 @@
             </div>
 
             <div class="add-support col-3 d-flex justify-content-end">
-                <button class="btn add-button ps-4 pe-4"> إضافة متطوع </button>
+                <a href="{{route('volunteer.create')}}" class="btn add-button ps-4 pe-4"> {{__('إضافة متطوع')}}</a>
             </div>
 
         </div>
@@ -34,12 +38,12 @@
             <thead>
 
                 <tr>
-                    <th scope="col">الرقم</th>
-                    <th scope="col"> الاسم </th>
-                    <th scope="col"> الدولة </th>
-                    <th scope="col"> الهاتف </th>
-                    <th scope="col"> البريد الالكتروني </th>
-                    <th scope="col"> Actions </th>
+                    <th scope="col">{{__('الرقم')}}</th>
+                    <th scope="col"> {{__('الاسم')}} </th>
+                    <th scope="col"> {{__('الدولة')}} </th>
+                    <th scope="col"> {{__('الهاتف')}} </th>
+                    <th scope="col"> {{__('البريد الالكتروني ')}}</th>
+                    <th scope="col"> {{__('الاجراء')}} </th>
 
                 </tr>
 
@@ -47,41 +51,56 @@
 
             <tbody>
 
+                @forelse ($volunteers as $volunteer)
+
+                    <tr>
+                        <th scope="row"> {{$volunteer->id}} </th>
+                        <td> {{$volunteer->name}} </td>
+                        <td> {{$volunteer->country}} </td>
+                        <td> {{$volunteer->phone}} </td>
+                        <td> {{$volunteer->email}} </td>
+                        <td style="position: relative;">
+
+                            <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">
+
+                            <div class="action" style="left: 20px">
+                                <a href="{{route('volunteer.show' , $volunteer->id)}}" class="text-decoration-none">
+                                    <img src="{{asset('image/Show.svg')}}" alt="">
+                                    <span style="color: var(--text-color);"> {{__(' مشاهدة التفاصيل ')}} </span>
+                                </a>
+
+                                <br>
+                                <a href="" class="text-decoration-none">
+                                    <img src="{{asset('image/Message.svg')}}" alt="">
+                                    <span style="color: var(--text-color);">{{__(' مراسلة الجمعية ')}} </span>
+                                </a>
+
+                                <form action="{{route('volunteer.destroy' , $volunteer->id)}}" method="post" style="margin-right: -5px">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="submit border-0 bg-transparent">
+                                        <img src="{{asset('image/Delete.svg')}}" alt="">
+                                        <span style="color: var(--text-color);"> {{__(' حذف ')}} </span>
+                                    </button>
+                                </form>
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                @empty
+
                 <tr>
-                    <th scope="row">1</th>
-                    <td>محمد احمد</td>
-                    <td> فلسطين </td>
-                    <td>0594599056</td>
-                    <td>mohammed@gmail.com</td>
-                    <td style="position: relative;">
+                    <td colspan="6" class="text-center fs-5 rounded text-white" style="background-color: var(--title-color)">
 
-                        <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">
-
-                        <div class="action">
-                            <a href="" class="text-decoration-none">
-                                <img src="{{asset('image/Show.svg')}}" alt="">
-                                <span style="color: var(--text-color);">مشاهدة التفاصيل</span>
-                            </a>
-
-                            <br>
-                            <a href="" class="text-decoration-none">
-                                <img src="{{asset('image/Message.svg')}}" alt="">
-                                <span style="color: var(--text-color);">مراسلة الجمعية</span>
-                            </a>
-
-                            <form action="" method="post" style="margin-right: -5px">
-                                @csrf
-                                @method('delete')
-                                <button class="submit border-0 bg-transparent">
-                                    <img src="{{asset('image/Delete.svg')}}" alt="">
-                                    <span style="color: var(--text-color);">حذف</span>
-                                </button>
-                            </form>
-                        </div>
+                        {{__(' لا يوجد متطوعين ')}}
 
                     </td>
-
                 </tr>
+
+                @endforelse
+
 
             </tbody>
 

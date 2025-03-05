@@ -2,13 +2,21 @@
 
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisteredOrphanController;
 use App\Http\Controllers\SupporterController;
 use App\Http\Controllers\VolunteerController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('/supporter' , SupporterController::class);
-Route::resource('/doner' , DonorController::class);
+Route::resource('/donor' , DonorController::class);
 Route::resource('/volunteer' , VolunteerController::class);
+
+Route::prefix('orphans')->name('orphan.')->group(function(){
+
+    Route::resource('/registered' , RegisteredOrphanController::class);
+    Route::get('/registered/details/{registered}' , [RegisteredOrphanController::class , 'details'])->name('registered.details');
+
+});
 
 
 

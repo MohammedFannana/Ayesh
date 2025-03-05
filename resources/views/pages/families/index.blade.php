@@ -98,7 +98,7 @@
                     <td>محمد احمد</td>
                     <td> فقير  </td>
                     <td> 0594599056 </td>
-                    <td style="position: relative;">
+                   <td style="position: relative;">
 
                         <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">
 

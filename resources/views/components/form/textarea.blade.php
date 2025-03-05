@@ -3,7 +3,7 @@
 'name',
 'value' => '',
 'label' => false,
-'placeholder' => false,
+'placeholder' => '',
 ])
 
 <!-- {{$attributes}} to echo any un except attribute insert into input -->
@@ -12,7 +12,7 @@
     @if($label)
     <label class="mb-2"> {{$label}}</label>
     @endif
-    <textarea name="{{$name}}" {{$attributes->class(['form-control' , 'is-invalid' => $errors->has($name)])}} style="height:100px; color:#737373"> {{ old($name , $value ) }} </textarea>
+    <textarea placeholder="{{$placeholder}}" name="{{$name}}" {{$attributes->class(['form-control' , 'is-invalid' => $errors->has($name)])}} style="height:100px; color:#737373"> {{ old($name , $value ) }} </textarea>
     @error($name)
     <div class="text-danger">
         {{$message}}
