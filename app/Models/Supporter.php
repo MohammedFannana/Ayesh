@@ -10,4 +10,6 @@ class Supporter extends Model
         'name' , 'country' , 'phone' , 'phone' , 'fax' , 'association_name' ,
         'department_name' , 'administrator_name' , 'address' , 'website' , 'email'
     ];
+
+
 }

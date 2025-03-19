@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donor;
+use App\Models\Orphan;
 use Illuminate\Http\Request;
 
 class DonorController extends Controller
@@ -54,7 +55,18 @@ class DonorController extends Controller
      */
     public function show(Donor $donor)
     {
-        return view('pages.donors.view' , compact('donor'));
+        $donorId = $donor->id;
+
+        $donor_balances = $donor->balances()->take(5)->get();
+
+        $orphans = Orphan::where('status' , 'sponsored')
+        ->whereHas('sponsorship', function ($query) use ($donorId) {
+            $query->where('donor_id', $donorId);
+        })->with(['expenses:id,orphan_id,amount' , 'profile:orphan_id,phone' , 'sponsorship:orphan_id,external_code'])
+        ->take(5)
+        ->get();
+        // $orphans->take(5);
+        return view('pages.donors.view' , compact('donor' , 'donor_balances' ,'orphans'));
     }
 
     /**
@@ -81,4 +93,32 @@ class DonorController extends Controller
         $donor->delete();
         return redirect()->route('donor.index')->with('success' , __(' تم حذف المتبرع بنجاح '));
     }
+
+    public function incomingStatements(Donor $donor){
+        $donor_name = $donor->name;
+        $donor_balances = $donor->balances()->paginate(10);
+        return view('pages.donors.payment_details' , compact('donor_name' , 'donor_balances'));
+
+    }
+
+    public function ListSponsored(Request $request, String $donorId){
+
+        $donor = Donor::where('id' , $donorId)->select(['id','name'])->first();
+
+        $orphans = Orphan::where('status' , 'sponsored')
+        ->whereHas('sponsorship', function ($query) use ($donorId) {
+            $query->where('donor_id', $donorId);
+        })
+        ->when($request->search, function ($builder, $value) {
+            $builder->where('name', 'LIKE', "%{$value}%");
+        })
+        ->with(['expenses:id,orphan_id,amount' , 'profile:orphan_id,phone' , 'sponsorship:orphan_id,external_code'])
+        ->paginate(10);
+
+        return view('pages.donors.cases_list' ,compact('donor' , 'orphans'));
+
+    }
+
+
+
 }

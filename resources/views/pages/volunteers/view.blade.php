@@ -37,12 +37,23 @@
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('المناطق التي ستقوم بتفطيتها ')}}</p>
-                <p class="fw-semibold"> #4565754 </p>
+                <p class="fw-semibold">
+                    @foreach ($volunteer->area as $area )
+                        {{$area}} ,
+                    @endforeach
+                </p>
             </div>
+
+
+
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('اللغة')}} </p>
-                <p class="fw-semibold"> فقير </p>
+                <p class="fw-semibold">
+                    @foreach ($volunteer->languages as $language )
+                        {{$language}} ,
+                    @endforeach
+                </p>
             </div>
 
         </div>
@@ -50,9 +61,16 @@
 
     </div>
 
-    <div class="images-files bg-white rounded shadow-sm p-3 w-25">
+    <div class="images-files bg-white rounded shadow-sm p-3 ">
         <p class="mb-3"> {{__('الصور والملفات المطلوبة ')}}</p>
-        <p class="mb-3 view-file"> صورة تحقيق الشخصية .pdf</p>
+
+        <div class="mb-3">
+            <p class="title"> {{__(' صورة تحقيق الشخصية ')}}</p>
+            <a  href="{{route('orphan.image' , ['file' => encrypt($volunteer->selfie_image)])}}" type="button" class="text-decoration-none view-file w-25">
+                {{ __('صورة للتوقيع') }}.{{ pathinfo($volunteer->selfie_image, PATHINFO_EXTENSION) }}
+            </a>
+        </div>
+
 
     </div>
 

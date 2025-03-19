@@ -3,10 +3,10 @@
     {{-- title & search --}}
     <div class="row mb-3" >
 
-        <h2 class="col-3"> مدير الملفات </h2>
+        <h2 class="col-3"> {{__('مدير الملفات ')}}</h2>
 
         {{-- search --}}
-        <div class="search mb-3 col-9">
+        {{-- <div class="search mb-3 col-9">
 
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="addon-wrapping">
@@ -16,7 +16,7 @@
                 <input type="text" class="form-control" placeholder="البحث عن ملف"  aria-describedby="addon-wrapping">
             </div>
 
-        </div>
+        </div> --}}
 
     </div>
 
@@ -31,8 +31,8 @@
                 <img class="mb-2" src="{{asset('image/orphans.svg')}}" alt="">
 
                 <div>
-                    <p class="fs-5 fw-semibold mb-1">الأيتام</p>
-                    <p class="title"> 20 يتيم </p>
+                    <p class="fs-5 fw-semibold mb-1">{{__('الأيتام')}}</p>
+                    <p class="title"> {{$orphan_count}} {{__('يتيم')}} </p>
                 </div>
 
             </div>
@@ -50,8 +50,8 @@
                 <img class="mb-2" src="{{asset('image/projects.svg')}}" alt="">
 
                 <div>
-                    <p class="fs-5 fw-semibold mb-1">المشاريع</p>
-                    <p class="title"> 20 مشروع </p>
+                    <p class="fs-5 fw-semibold mb-1">{{__('المشاريع')}}</p>
+                    <p class="title"> 20 {{__('مشروع')}} </p>
                 </div>
 
             </div>
@@ -69,8 +69,8 @@
                 <img class="mb-2" src="{{asset('image/Associations.svg')}}" alt="">
 
                 <div>
-                    <p class="fs-5 fw-semibold mb-1">الجمعيات</p>
-                    <p class="title"> 20 جمعية </p>
+                    <p class="fs-5 fw-semibold mb-1">{{__('الجمعيات')}}</p>
+                    <p class="title"> {{$donor_count}} {{__('جمعية')}} </p>
                 </div>
 
             </div>
@@ -88,8 +88,8 @@
                 <img class="mb-2" src="{{asset('image/volunteer.svg')}}" alt="">
 
                 <div>
-                    <p class="fs-5 fw-semibold mb-1">المتطوعين</p>
-                    <p class="title"> 20 متطوع </p>
+                    <p class="fs-5 fw-semibold mb-1">{{__('المتطوعين')}}</p>
+                    <p class="title"> {{$volunteer_count}} {{__('متطوع')}} </p>
                 </div>
 
             </div>
@@ -107,7 +107,7 @@
 
         {{-- upload_file --}}
         <div class="col-12  mb-4">
-            <label class="mb-3 title-color fs-5"> رفع الملف  </label> <br>
+            <label class="mb-3 title-color fs-5"> {{__('رفع الملف ')}} </label> <br>
             <label for="upload_file" class="custom-file-upload w-100 text-center p-3">
                 <img src="{{asset('image/upload.png')}}" alt=""> <br>
                 اضغط هنا لتحميل ملف

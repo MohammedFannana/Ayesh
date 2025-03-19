@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     protected $fillable = [
-        'orphan_id' , 'name' , 'status' , 'reason' ,'review_date' ,'review_number'
+        'orphan_id' , 'name' , 'status', 'report' , 'rejected_reason' ,'review_date' ,'review_number'
     ];
 
     // relationship with orphan

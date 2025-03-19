@@ -95,7 +95,7 @@ class RegisteredOrphanController extends Controller
             'mother_name' => ['required' , 'string'],
             'mother_national_id' => ['required','string'],
             'mother_work' => ['required','string','in:نعم,لا'],
-            'mother_status' => ['required','string','in:يتيم الأبوين,مريض مزمن,حالات خاصة,قريب السن'],
+            'mother_status' => ['required','string','in:متزوجة,أرملة'],
             'academic_stage' => ['required','string','in:الابتدائية,الاعدادية'],
             'class' => ['required','string'],
             'phone' => ['required','string'],
@@ -153,7 +153,7 @@ class RegisteredOrphanController extends Controller
             if ($request->hasFile('application_form')) {    //to check if image file is exit
                 $file = $request->file('application_form');
                 $fileName = $request->input('name') . 'استمارة' . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs($request->input('internal_code'), $fileName, 'public');
+                $path = $file->storeAs($request->input('name'), $fileName, 'public');
                 $validatedData['application_form'] = $path;
             }
 
@@ -210,7 +210,7 @@ class RegisteredOrphanController extends Controller
                     // تحديد اسم الصورة
                     $fileName = $counter . '.' . $file->getClientOriginalExtension();
                     // تخزين الصورة في المجلد المحدد
-                    $path = $file->storeAs($request->input('internal_code'), $fileName, 'public');
+                    $path = $file->storeAs($request->input('name'), $fileName, 'public');
                     // إضافة المسار إلى البيانات المعتمدة
                     $imageData[$key] = $path;
 

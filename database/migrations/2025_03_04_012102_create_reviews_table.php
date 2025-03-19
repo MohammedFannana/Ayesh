@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('orphan_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->enum('status' , ['approved' , 'rejected']);
-            $table->text('reason');
+            $table->text('rejected_reason')->nullable();
+            $table->text('report');
             $table->enum('review_number' , ['first','final']);
             $table->date('review_date');
             $table->timestamps();

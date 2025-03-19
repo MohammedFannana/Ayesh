@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('orphans', function (Blueprint $table) {
             $table->id();
             $table->enum('status' ,
-                    ['registered' , 'under_review' , 'rejected' , 'pending_approval' , 'approved' , 'marketing_provider' ,'waiting' , 'sponsored' , 'archived'])->default('registered');
+            // 'pending_approval'
+                    ['registered' , 'under_review' , 'rejected'  , 'approved' , 'marketing_provider' ,'waiting' , 'sponsored' , 'archived'])->default('registered');
             $table->string('internal_code')->unique();
             $table->string('application_form');
             $table->string('name');
