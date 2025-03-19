@@ -119,6 +119,9 @@ Route::get('/download-report/{report}', [ReportController::class, 'DownloadRepor
 
 
 Route::get('files' , [FileController::class , 'index'])->name('file.index');
+Route::get('/files/categories', [FileController::class, 'getCategories']);
+Route::post('files' , [FileController::class , 'store'])->name('file.store');
+
 
 
 

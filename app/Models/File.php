@@ -8,7 +8,7 @@ class File extends Model
 {
 
     protected $fillable = [
-        'type' , 'owner_file' ,'file'
+        'type' , 'owner_file_id', 'owner_file_type' ,'file'
     ];
 
     public function ownerFile()
