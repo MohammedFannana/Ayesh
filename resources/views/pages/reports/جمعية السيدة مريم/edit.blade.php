@@ -4,7 +4,7 @@
 
     <div class="supporters bg-white rounded shadow-sm p-3">
 
-        <form action="{{route('report.update' , [$report->id , $report->donor_id])}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('report.update' , [$report->id , $report->supporter_id])}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
 

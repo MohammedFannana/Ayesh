@@ -41,7 +41,7 @@
                     <th scope="col"> {{('الاسم')}} </th>
                     <th scope="col"> {{('الدولة')}}   </th>
                     <th scope="col"> {{('الفاكس')}} </th>
-                    <th scope="col"> {{('البريد الالكتروني ')}}</th>
+                    {{-- <th scope="col"> {{('البريد الالكتروني ')}}</th> --}}
                     <th scope="col"> {{('الموقع الالكتروني ')}}</th>
                     <th scope="col"> {{__('الاجراء')}} </th>
 
@@ -58,7 +58,7 @@
                         <td> {{$supporter->name}} </td>
                         <td> {{$supporter->country}} </td>
                         <td> {{$supporter->phone}} </td>
-                        <td> {{$supporter->email}} </td>
+                        {{-- <td> {{$supporter->email}} </td> --}}
                         <td> {{$supporter->website}} </td>
 
                         <td style="position: relative;">
@@ -94,7 +94,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="7" class="text-center fs-5 rounded text-white" style="background-color: var(--title-color)">
+                        <td colspan="6" class="text-center fs-5 rounded text-white" style="background-color: var(--title-color)">
                             {{__('لا يوجد داعمين')}}
                         </td>
                     </tr>

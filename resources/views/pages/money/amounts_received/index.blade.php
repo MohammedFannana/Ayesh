@@ -81,8 +81,8 @@
                 @forelse ($balances as $balance)
 
                     <tr>
-                        <td scope="row">{{$balance->donor->id}}</td>
-                        <td> {{$balance->donor->name}} </td>
+                        <td scope="row">{{$balance->supporter->id}}</td>
+                        <td> {{$balance->supporter->name}} </td>
                         <td class="title-color"> {{$balance->amount}} </td>
                         <td class="text-center">
                             <a href="{{route('orphan.image' , ['file' => encrypt($balance->payment_image)])}}" type="button" class="text-decoration-none view-file w-100">

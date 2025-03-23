@@ -144,8 +144,23 @@
                         <div class="multi-select-options" id="multi-select-area-options">
                             <div class="select-area-option" data-value="القاهرة"> القاهرة </div>
                             <div class="select-area-option" data-value="الجيزة"> الجيزة </div>
-                            <div class="select-area-option" data-value="الاسماعيلي"> الاسماعيلي </div>
-                            <div class="select-area-option" data-value="area4">المنطقة 4</div>
+                            <div class="select-area-option" data-value="الدقهلية"> الدقهلية </div>
+                            <div class="select-area-option" data-value="الاسكندرية"> الاسكندرية </div>
+                            <div class="select-area-option" data-value="القليوبية"> القليوبية </div>
+                            <div class="select-area-option" data-value="دمياط"> دمياط </div>
+                            <div class="select-area-option" data-value="الفيوم"> الفيوم </div>
+                            <div class="select-area-option" data-value="الغربية"> الغربية </div>
+                            <div class="select-area-option" data-value="المنوفية"> المنوفية </div>
+                            <div class="select-area-option" data-value="الشرقية"> الشرقية </div>
+                            <div class="select-area-option" data-value="أسيوط"> أسيوط </div>
+                            <div class="select-area-option" data-value="أسوان"> أسوان </div>
+                            <div class="select-area-option" data-value="سوهاج"> سوهاج </div>
+                            <div class="select-area-option" data-value="المنيا"> المنيا </div>
+                            <div class="select-area-option" data-value="كفر الشيخ"> كفر الشيخ </div>
+                            <div class="select-area-option" data-value="بورسعيد"> بورسعيد </div>
+                            <div class="select-area-option" data-value="الإسماعيلية"> الإسماعيلية </div>
+
+
                         </div>
                         <input type="hidden" name="area" id="area-input">
                     </div>
@@ -160,8 +175,6 @@
                         <div class="multi-select-options" id="multi-select-language-options">
                             <div class="select-language-option" data-value="العربية"> العربية </div>
                             <div class="select-language-option" data-value="الانجليزية"> الانجليزية </div>
-                            <div class="select-language-option" data-value="التركية"> التركية </div>
-                            <div class="select-language-option" data-value="language4">لغة 4</div>
                         </div>
                         <input type="hidden" name="languages" id="language-input">
                     </div>

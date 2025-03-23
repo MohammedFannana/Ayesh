@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sponsorship extends Model
 {
     protected $fillable = [
-        'orphan_id' , 'donor_id' , 'external_code' , 'sponsorship_date' , 'status'
+        'orphan_id' , 'supporter_id' , 'external_code' , 'sponsorship_date' , 'status'
     ];
 
 
@@ -18,9 +18,9 @@ class Sponsorship extends Model
         return $this->belongsTo(Orphan::class, 'orphan_id');
     }
 
-    public function donor()
+    public function supporter()
     {
-        return $this->belongsTo(Donor::class, 'donor_id');
+        return $this->belongsTo(Supporter::class, 'supporter_id');
     }
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Donor;
+use App\Models\Supporter;
 use App\Models\Orphan;
 use App\Models\Report;
 use App\Models\Sponsorship;
@@ -17,36 +17,36 @@ class ReportController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request , string $donor_id)
+    public function index(Request $request , string $supporter_id)
     {
 
 
-        $reports = Report::where('donor_id' , $donor_id)
+        $reports = Report::where('supporter_id' , $supporter_id)
         ->when($request->search, function ($builder, $value) { //from search input
             $builder->whereHas('orphan', function ($query) use ($value){
                 $query->where('name', 'LIKE', "%{$value}%");
             });
         })->with('orphan')->get();
         $count = $reports->count();
-        $donor = Donor::where('id' , $donor_id)->value('name');
-        return view('pages.reports.' . $donor . '.index' , compact('reports' , 'count' , 'donor_id'));
+        $supporter = Supporter::where('id' , $supporter_id)->value('name');
+        return view('pages.reports.' . $supporter . '.index' , compact('reports' , 'count' , 'supporter_id'));
 
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(String $donor_id)
+    public function create(String $supporter_id)
     {
-        $donor = Donor::where('id' , $donor_id)->value('name');
-        // dd($donor);
+        $supporter = Supporter::where('id' , $supporter_id)->value('name');
+        // dd($supporter);
         $orphans = Sponsorship::
-        where('donor_id' , $donor_id)
+        where('supporter_id' , $supporter_id)
         ->where('status' , 'sponsored')
         ->with('orphan')
         ->with('orphan.image')
         ->with('orphan.profile')
-        ->with('orphan.donorFieldValues')
+        ->with('orphan.supporterFieldValues')
         ->with('orphan.guardian')
         ->with('orphan.family')
         ->get();
@@ -54,7 +54,7 @@ class ReportController extends Controller
         // dd($orphans);
 
 
-        return view('pages.reports.' . $donor . '.create' , compact('orphans' , 'donor_id'));
+        return view('pages.reports.' . $supporter. '.create' , compact('orphans' , 'supporter_id'));
 
 
         // return view('pages.reports.sharjah.create');
@@ -67,7 +67,7 @@ class ReportController extends Controller
     public function AlbarStore(Request $request)
     {
         $validated = $request->validate([
-            'donor_id' => ['required' ,'exists:donors,id'],
+            'supporter_id' => ['required' ,'exists:supporters,id'],
             'orphan_id' => ['required' , 'exists:orphans,id'],
 
             // sponsor
@@ -112,14 +112,14 @@ class ReportController extends Controller
 
 
             Report::create([
-                'donor_id' => $validated['donor_id'],
+                'supporter_id' => $validated['supporter_id'],
                 'orphan_id' => $validated['orphan_id'],
                 'fields' => json_encode($jsonData),
             ]);
 
             DB::commit();
 
-            return redirect()->route('report.index' , $validated['donor_id'])->with('success', __('تمت اضافة التقرير بنجاح'));
+            return redirect()->route('report.index' , $validated['supporter_id'])->with('success', __('تمت اضافة التقرير بنجاح'));
 
 
         }catch(Exception $e){
@@ -134,7 +134,7 @@ class ReportController extends Controller
     {
 
         $validated = $request->validate([
-            'donor_id' => ['required' ,'exists:donors,id'],
+            'supporter_id' => ['required' ,'exists:supporters,id'],
             'orphan_id' => ['required' , 'exists:orphans,id'],
 
             'month_number' => ['required' , 'integer' , 'min:1'],
@@ -168,7 +168,7 @@ class ReportController extends Controller
             'signature' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                         'dimensions:min_width=100,min_height=100','max:1048576',],
 
-            'donor_seal' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
+            'supporter_seal' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                         'dimensions:min_width=100,min_height=100','max:1048576',],
 
             'group_photo' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
@@ -221,7 +221,7 @@ class ReportController extends Controller
             $report =  $orphan->report;
 
             $imageData = Arr::only($validated ,[
-                'signature' , 'donor_seal' , 'group_photo' , 'thanks_letter' ,
+                'signature' , 'supporter_seal' , 'group_photo' , 'thanks_letter' ,
                 'academic_certificate' , 'sponsorship_transfer_receipt'
             ]);
 
@@ -257,11 +257,11 @@ class ReportController extends Controller
 
 
             Report::create([
-                'donor_id' => $validated['donor_id'],
+                'supporter_id' => $validated['supporter_id'],
                 'orphan_id' => $validated['orphan_id'],
                 'fields' => json_encode($jsonData),
                 'signature' =>$imageData['signature'],
-                'donor_seal' =>$imageData['donor_seal'],
+                'supporter_seal' =>$imageData['supporter_seal'],
                 'group_photo' =>$imageData['group_photo'],
                 'thanks_letter' =>$imageData['thanks_letter'],
                 'academic_certificate' =>$imageData['academic_certificate'],
@@ -269,7 +269,7 @@ class ReportController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('report.index' , $validated['donor_id'])->with('success', __('تمت اضافة التقرير بنجاح'));
+            return redirect()->route('report.index' , $validated['supporter_id'])->with('success', __('تمت اضافة التقرير بنجاح'));
 
 
         }catch(Exception $e){
@@ -283,7 +283,7 @@ class ReportController extends Controller
     public function MaryamStore(Request $request)
     {
         $validated = $request->validate([
-            'donor_id' => ['required' ,'exists:donors,id'],
+            'supporter_id' => ['required' ,'exists:supporters,id'],
             'orphan_id' => ['required' , 'exists:orphans,id'],
             'supervising_authority' => ['required' , 'string'],
             'country' => ['required' , 'string'],
@@ -341,14 +341,14 @@ class ReportController extends Controller
 
 
             Report::create([
-                'donor_id' => $validated['donor_id'],
+                'supporter_id' => $validated['supporter_id'],
                 'orphan_id' => $validated['orphan_id'],
                 'fields' => json_encode($jsonData),
                 'academic_certificate' =>$validated['academic_certificate'],
             ]);
 
             DB::commit();
-            return redirect()->route('report.index' ,$validated['donor_id'])->with('success', __('تمت اضافة التقرير بنجاح'));
+            return redirect()->route('report.index' ,$validated['supporter_id'])->with('success', __('تمت اضافة التقرير بنجاح'));
 
 
         }catch(Exception $e){
@@ -361,7 +361,7 @@ class ReportController extends Controller
     public function DubaiStore(Request $request)
     {
         $validated = $request->validate([
-            'donor_id' => ['required' ,'exists:donors,id'],
+            'supporter_id' => ['required' ,'exists:supporters,id'],
             'orphan_id' => ['required' , 'exists:orphans,id'],
 
 
@@ -375,7 +375,7 @@ class ReportController extends Controller
 
             // image
 
-            'donor_seal' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
+            'supporter_seal' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                         'dimensions:min_width=100,min_height=100','max:1048576',],
 
             'group_photo' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
@@ -388,7 +388,7 @@ class ReportController extends Controller
             'academic_certificate' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                         'dimensions:min_width=100,min_height=100','max:1048576',],
 
-            'donor_accreditation' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
+            'supporter_accreditation' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                         'dimensions:min_width=100,min_height=100','max:1048576',],
 
         ]);
@@ -410,8 +410,8 @@ class ReportController extends Controller
             $report =  $orphan->report;
 
             $imageData = Arr::only($validated ,[
-                'donor_seal' , 'group_photo' , 'thanks_letter' ,
-                'academic_certificate' , 'donor_accreditation'
+                'supporter_seal' , 'group_photo' , 'thanks_letter' ,
+                'academic_certificate' , 'supporter_accreditation'
             ]);
 
 
@@ -448,18 +448,18 @@ class ReportController extends Controller
 
 
             Report::create([
-                'donor_id' => $validated['donor_id'],
+                'supporter_id' => $validated['supporter_id'],
                 'orphan_id' => $validated['orphan_id'],
                 'fields' => json_encode($jsonData),
-                'donor_seal' =>$imageData['donor_seal'],
+                'supporter_seal' =>$imageData['supporter_seal'],
                 'group_photo' =>$imageData['group_photo'],
                 'thanks_letter' =>$imageData['thanks_letter'],
                 'academic_certificate' =>$imageData['academic_certificate'],
-                'donor_accreditation' =>$imageData['donor_accreditation'],
+                'supporter_accreditation' =>$imageData['supporter_accreditation'],
             ]);
 
             DB::commit();
-            return redirect()->route('report.index' , $validated['donor_id'])->with('success', __('تمت اضافة التقرير بنجاح'));
+            return redirect()->route('report.index' , $validated['supporter_id'])->with('success', __('تمت اضافة التقرير بنجاح'));
 
 
         }catch(Exception $e){
@@ -488,7 +488,7 @@ class ReportController extends Controller
             ->with(['orphan.profile' => function ($query) {
                     $query->select('orphan_id', 'father_death_date' , 'mother_name' ,'mother_death_date' , 'phone' ,'academic_stage');
             }])
-            ->with('orphan.donorFieldValues')
+            ->with('orphan.supporterFieldValues')
             ->with(['orphan.guardian' => function ($query) {
                 $query->select('orphan_id', 'guardian_name' ,'guardian_relationship');
             }])
@@ -499,23 +499,23 @@ class ReportController extends Controller
 
 
 
-        $donor = Donor::where('id' , $report->donor_id)->value('name');
+        $supporter = Supporter::where('id' , $report->supporter_id)->value('name');
 
         $report->fields = json_decode($report->fields, true); // تحويل JSON إلى مصفوفة
         // dd($report->fields['report_date']);
 
-        return view('pages.reports.' . $donor . '.edit' , compact('report'));
+        return view('pages.reports.' . $supporter . '.edit' , compact('report'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id, string $donor_id)
+    public function update(Request $request, string $id, string $supporter_id)
     {
         $report = Report::findOrFail($id);
-        $donor_name = Donor::where('id', $donor_id)->value('name');
+        $supporter_name = Supporter::where('id', $supporter_id)->value('name');
 
-        switch ($donor_name) {
+        switch ($supporter_name) {
             case 'جمعية دار البر':
                 $fieldsValidated = $request->validate([
                     'supervising_authority' => ['sometimes', 'string'],
@@ -585,8 +585,8 @@ class ReportController extends Controller
 
         // قائمة الصور المتاحة للتحديث
         $imageFields = [
-            'signature', 'donor_seal', 'group_photo', 'thanks_letter',
-            'academic_certificate', 'sponsorship_transfer_receipt', 'donor_accreditation'
+            'signature', 'supporter_seal', 'group_photo', 'thanks_letter',
+            'academic_certificate', 'sponsorship_transfer_receipt', 'supporter_accreditation'
         ];
 
         // جلب الصور القديمة
@@ -620,12 +620,12 @@ class ReportController extends Controller
             $report->update([
                 'fields' => json_encode($fieldsValidated),
                 'signature' => $new_images['signature'] ?? $old_images['signature'],
-                'donor_seal' => $new_images['donor_seal'] ?? $old_images['donor_seal'],
+                'supporter_seal' => $new_images['supporter_seal'] ?? $old_images['supporter_seal'],
                 'group_photo' => $new_images['group_photo'] ?? $old_images['group_photo'],
                 'thanks_letter' => $new_images['thanks_letter'] ?? $old_images['thanks_letter'],
                 'academic_certificate' => $new_images['academic_certificate'] ?? $old_images['academic_certificate'],
                 'sponsorship_transfer_receipt' => $new_images['sponsorship_transfer_receipt'] ?? $old_images['sponsorship_transfer_receipt'],
-                'donor_accreditation' => $new_images['donor_accreditation'] ?? $old_images['donor_accreditation'],
+                'supporter_accreditation' => $new_images['supporter_accreditation'] ?? $old_images['supporter_accreditation'],
             ]);
 
             // بعد تحديث قاعدة البيانات، حذف الصور القديمة
@@ -636,7 +636,7 @@ class ReportController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('report.index', $donor_id)->with('success', __('تم تعديل البيانات بنجاح'));
+            return redirect()->route('report.index', $supporter_id)->with('success', __('تم تعديل البيانات بنجاح'));
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('danger', __('فشل في تعديل البيانات. يرجى المحاولة مرة أخرى.'));
@@ -652,7 +652,7 @@ class ReportController extends Controller
         $report = Report::findOrFail($id);
         $report->delete();
 
-        $images = ['signature', 'donor_seal', 'group_photo', 'thanks_letter', 'academic_certificate', 'sponsorship_transfer_receipt' , 'donor_accreditation'];
+        $images = ['signature', 'supporter_seal', 'group_photo', 'thanks_letter', 'academic_certificate', 'sponsorship_transfer_receipt' , 'supporter_accreditation'];
 
         foreach ($images as $image) {
             if ($report->$image && Storage::disk('public')->exists($report->$image)) {

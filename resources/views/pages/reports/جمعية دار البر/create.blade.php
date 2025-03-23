@@ -14,8 +14,8 @@
                 <div class="row" style="justify-content:between;">
 
 
-                    {{-- donor_id --}}
-                    <input type="hidden" name="donor_id" value="{{$donor_id}}" />
+                    {{-- supporter_id --}}
+                    <input type="hidden" name="supporter_id" value="{{$supporter_id}}" />
 
                     {{-- orphan_id --}}
                     <input type="hidden" name="orphan_id" value=""  id="orphan_id"/>
@@ -206,7 +206,7 @@
 
                 function getFieldValueByDatabaseName(orphan, databaseName) {
                     // قم بالبحث في بيانات الأيتام باستخدام `database_name` (يمكنك تعديلها وفقًا للبيانات المتاحة في الـ orphans)
-                    let fieldValue = orphan.orphan.donor_field_values.find(field => field.field.database_name === databaseName);
+                    let fieldValue = orphan.orphan.supporter_field_values.find(field => field.field.database_name === databaseName);
                     return fieldValue ? fieldValue.value : '';
                 }
 

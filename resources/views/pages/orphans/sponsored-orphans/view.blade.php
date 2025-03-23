@@ -48,7 +48,7 @@
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('تم تقديمه ل ')}}</p>
-                <p class="fw-semibold"> {{$orphan->marketing->donor->name}}</p>
+                <p class="fw-semibold"> {{$orphan->marketing->supporter->name}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
@@ -60,7 +60,7 @@
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('المانح المسؤول')}}</p>
-                <p class="fw-semibold"> {{$orphan->certified_orphan_extras->donor->name}}</p>
+                <p class="fw-semibold"> {{$orphan->certified_orphan_extras->supporter->name}}</p>
             </div>
 
 

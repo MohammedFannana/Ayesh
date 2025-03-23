@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('fax');
             $table->string('association_name');
             $table->string('department_name');
-            $table->string('administrator_name');
+            $table->json('administrator_name');
             $table->string('address');
             $table->string('website');
-            $table->string('email');
+            $table->json('emails');
             $table->timestamps();
         });
     }

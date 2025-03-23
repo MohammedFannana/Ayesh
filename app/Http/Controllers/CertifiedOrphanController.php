@@ -6,6 +6,7 @@ use App\Models\CertifiedOrphanExtra;
 use App\Models\Donor;
 use App\Models\Marketing;
 use App\Models\Orphan;
+use App\Models\Supporter;
 use App\Models\Volunteer;
 use Carbon\Carbon;
 use Exception;
@@ -45,10 +46,10 @@ class CertifiedOrphanController extends Controller
             $count = $orphans->total();
 
             // get the doner
-            $donors = Donor::all('id' , 'name');
+            $supporters = Supporter::all('id' , 'name');
 
 
-            return view('pages.orphans.certified-orphans.index' , compact('orphans' , 'count' ,'donors'));
+            return view('pages.orphans.certified-orphans.index' , compact('orphans' , 'count' ,'supporters'));
     }
 
 
@@ -60,9 +61,9 @@ class CertifiedOrphanController extends Controller
 
         $orphan_id = $request->orphan_id;
 
-        $donors = Donor::pluck('name', 'id')->toArray();
+        $supporter = Supporter::pluck('name', 'id')->toArray();
         $volunteers = Volunteer::pluck('name', 'id')->toArray();
-        return view('pages.orphans.certified-orphans.edit' , compact('donors' , 'volunteers' , 'orphan_id'));
+        return view('pages.orphans.certified-orphans.edit' , compact('supporter' , 'volunteers' , 'orphan_id'));
     }
 
     /**
@@ -78,7 +79,7 @@ class CertifiedOrphanController extends Controller
             'city' => ['required' , 'string'],
             'description_orphan_condition' => ['required' , 'string'],
             'volunteer_id' => ['required' , 'exists:volunteers,id' ],
-            'donor_id' => ['required' , 'exists:donors,id'],
+            'supporter_id' => ['required' , 'exists:supporters,id'],
 
             'father_card' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                                     'dimensions:min_width=100,min_height=100','max:1048576',],
@@ -205,7 +206,7 @@ class CertifiedOrphanController extends Controller
         $validated = $request->validate([
             'orphan_ids' => ['required' , 'array'],
             'orphan_ids.*' => ['integer','exists:orphans,id'],
-            'donor_id' => ['required' , 'exists:donors,id'],
+            'supporter_id' => ['required' , 'exists:supporter,id'],
             'marketing_date' => ['date'],
             'status' => ['required' , 'in:marketing,waiting'],
         ]);
@@ -236,7 +237,7 @@ class CertifiedOrphanController extends Controller
 
                 Marketing::create([
                     'orphan_id' => $orphan->id,
-                    'donor_id' => $validated['donor_id'],
+                    'supporter_id' => $validated['supporter_id'],
                     'marketing_date' => $validated['marketing_date'], // تاريخ بدون وقت
                     'status' => $validated['status'],
                 ]);

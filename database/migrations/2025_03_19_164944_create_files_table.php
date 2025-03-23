@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->enum('type' , ['orphan' , 'project' , 'donor' , 'volunteer']);
+            $table->enum('type' , ['orphan' , 'project' , 'supporter' , 'volunteer']);
             $table->morphs('owner_file');
             $table->string('file');
             $table->timestamps();

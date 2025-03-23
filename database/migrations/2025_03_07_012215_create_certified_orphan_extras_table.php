@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('orphan_id')->constrained()->cascadeOnDelete();
             $table->foreignId('volunteer_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('donor_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('supporter_id')->nullable()->constrained()->nullOnDelete();
 
             $table->string('country');
             $table->string('city');
-            // $table->string('responsible_donor');
+            // $table->string('responsible_supporter');
             $table->longText('description_orphan_condition');
             $table->string('father_card');
             $table->string('school_enrollment');

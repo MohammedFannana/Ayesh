@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CertifiedOrphanExtra extends Model
 {
     protected $fillable = [
-        'orphan_id' , 'country' , 'city' , 'description_orphan_condition' , 'donor_id' , 'volunteer_id'
+        'orphan_id' , 'country' , 'city' , 'description_orphan_condition' , 'supporter_id' , 'volunteer_id'
         , 'father_card' , 'school_enrollment' , 'health_insurance'
     ];
 
@@ -21,9 +21,9 @@ class CertifiedOrphanExtra extends Model
         return $this->belongsTo(Volunteer::class);
     }
 
-    public function donor()
+    public function supporter()
     {
-        return $this->belongsTo(Donor::class);
+        return $this->belongsTo(Supporter::class);
     }
 
 }

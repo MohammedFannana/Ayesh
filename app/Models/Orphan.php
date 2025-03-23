@@ -59,24 +59,24 @@ class Orphan extends Model
     }
 
 
-    // one to many ralation with OrphanDonorFieldValue
-    public function donorFieldValues()
+    // one to many ralation with OrphanSupporterFieldValue
+    public function supporterFieldValues()
     {
-        return $this->hasMany(OrphanDonorFieldValue::class, 'orphan_id')->with('field');
+        return $this->hasMany(OrphanSupporterFieldValue::class, 'orphan_id')->with('field');
     }
 
     // برجع القيم الخاصة في اليتيم مع الحقل الخاصةفيها بناء على الجمعية
-    public function donorFieldValuesForCurrentDonor($donorId)
+    public function supporterFieldValuesForCurrentSupporter($supporterId)
     {
-        return $this->hasMany(OrphanDonorFieldValue::class, 'orphan_id')
-                    ->whereHas('field', function ($query) use ($donorId) {
-                        $query->where('donor_id', $donorId);
+        return $this->hasMany(OrphanSupporterFieldValue::class, 'orphan_id')
+                    ->whereHas('field', function ($query) use ($supporterId) {
+                        $query->where('supporter_id', $supporterId);
                     })->with('field');
     }
 
     public function getFieldValueByDatabaseName($databaseName)
     {
-        return $this->donorFieldValues()
+        return $this->supporterFieldValues()
                     ->whereHas('field', function ($query) use ($databaseName) {
                         $query->where('database_name', $databaseName);
                     })

@@ -93,7 +93,7 @@
                 @empty
 
                     <tr>
-                        <td colspan="6" class="text-center fs-5 rounded text-white" style="background-color: var(--title-color)">
+                        <td colspan="7" class="text-center fs-5 rounded text-white" style="background-color: var(--title-color)">
                             {{__('لا يوجد متبرعين')}}
                         </td>
                     </tr>

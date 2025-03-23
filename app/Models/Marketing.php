@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Marketing extends Model
 {
     protected $fillable = [
-        'orphan_id' , 'donor_id' ,'marketing_date' ,'status'
+        'orphan_id' , 'supporter_id' ,'marketing_date' ,'status'
     ];
 
     // العلاقة مع جدول الأيتام
@@ -17,9 +17,9 @@ class Marketing extends Model
     }
 
      // العلاقة مع جدول الجمعيات
-    public function donor()
+    public function supporter()
     {
-        return $this->belongsTo(Donor::class, 'donor_id');
+        return $this->belongsTo(Supporter::class, 'supporter_id');
     }
 
 }

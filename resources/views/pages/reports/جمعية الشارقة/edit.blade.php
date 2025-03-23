@@ -13,8 +13,8 @@
 
                 <div class="row" >
 
-                    {{-- donor_id --}}
-                    {{-- <input type="hidden" name="donor_id" value="{{$donor_id}}" /> --}}
+                    {{-- supporter_id --}}
+                    {{-- <input type="hidden" name="supporter_id" value="{{$supporter_id}}" /> --}}
 
                     {{-- orphan_id --}}
                     {{-- <input type="hidden" name="orphan_id" value=""  id="orphan_id"/> --}}
@@ -279,10 +279,10 @@
                     {{-- seal_association   --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">  {{__('ختم الجمعية المشرفة')}}</label> <br>
-                        <label for="donor_seal" class="custom-file-upload w-75 text-center mb-1"> {{__('ارفق صورة ختم الجمعية المشرفة ')}}</label>
-                        <input class="hidden-file-style" name="donor_seal" type="file" id="donor_seal" style="display: none;">
-                        <a href="{{route('orphan.image' , ['file' => encrypt($report->donor_seal)])}}" type="button" class="text-decoration-none view-file w-75">
-                            {{ __('ختم الجمعية المشرفة') }}.{{ pathinfo($report->donor_seal, PATHINFO_EXTENSION) }}
+                        <label for="supporter_seal" class="custom-file-upload w-75 text-center mb-1"> {{__('ارفق صورة ختم الجمعية المشرفة ')}}</label>
+                        <input class="hidden-file-style" name="supporter_seal" type="file" id="supporter_seal" style="display: none;">
+                        <a href="{{route('orphan.image' , ['file' => encrypt($report->supporter_seal)])}}" type="button" class="text-decoration-none view-file w-75">
+                            {{ __('ختم الجمعية المشرفة') }}.{{ pathinfo($report->supporter_seal, PATHINFO_EXTENSION) }}
                         </a>
                     </div>
 

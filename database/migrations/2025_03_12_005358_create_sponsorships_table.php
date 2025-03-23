@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sponsorships', function (Blueprint $table) {
             $table->id();
             $table->foreignId('orphan_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('donor_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('supporter_id')->constrained()->cascadeOnDelete();
             $table->string('external_code');
             $table->date('sponsorship_date');
             $table->enum('status' , ['sponsored' , 'finished'])->default('sponsored');

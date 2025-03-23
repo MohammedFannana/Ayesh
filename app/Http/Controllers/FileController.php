@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Donor;
 use App\Models\File;
 use App\Models\Orphan;
+use App\Models\Supporter;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,8 @@ class FileController extends Controller
     public function index(){
         $orphan_count = Orphan::where('status' , 'sponsored')->count();
         $volunteer_count = Volunteer::count();
-        $donor_count = Donor::count();
-        return view('pages.files.index' , compact('orphan_count' , 'volunteer_count' , 'donor_count'));
+        $supporter_count = Supporter::count();
+        return view('pages.files.index' , compact('orphan_count' , 'volunteer_count' , 'supporter_count'));
     }
 
 
@@ -23,14 +24,14 @@ class FileController extends Controller
         // استرجاع البيانات من قاعدة البيانات
         $orphans = Orphan::all(['id' , 'name']); // إذا كنت تستخدم موديل Orphan
         // $projects = Project::all(['id' , 'name']); // إذا كنت تستخدم موديل Project
-        $donors = Donor::all(['id' , 'name']); // إذا كنت تستخدم موديل Donor
+        $supporters = Supporter::all(['id' , 'name']); // إذا كنت تستخدم موديل Donor
         $volunteers = Volunteer::all(['id' , 'name']); // إذا كنت تستخدم موديل Volunteer
 
         // إعادة البيانات إلى الجافا سكربت
         return response()->json([
             'orphan' => $orphans,
             // 'projects' => $projects,
-            'donor' => $donors,
+            'supporter' => $supporters,
             'volunteer' => $volunteers
         ]);
     }
@@ -39,7 +40,7 @@ class FileController extends Controller
 
          // التحقق من صحة البيانات
             $validated = $request->validate([
-                'type' => 'required|in:orphan,project,donor,volunteer',  // تحقق من القيمة المحددة
+                'type' => 'required|in:orphan,project,supporter,volunteer',  // تحقق من القيمة المحددة
                 'owner_file' => 'required|integer',  // يجب أن تكون قيمة owner_file ID صحيحة
                 'file' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                                     'dimensions:min_width=100,min_height=100','max:1048576',],
@@ -70,10 +71,10 @@ class FileController extends Controller
                 // $model = 'App\Models\Project';
 
 
-            }elseif($request->type === 'donor'){
-                $model = 'App\Models\Donor';
+            }elseif($request->type === 'supporter'){
+                $model = 'App\Models\Supporter';
 
-                $donor_name = Donor::where('id',$request->owner_file)->first()->value('name');
+                $supporter_name = Supporter::where('id',$request->owner_file)->first()->value('name');
                 if ($request->hasFile('file')) {
                         $file = $request->file('file');
 
@@ -81,7 +82,7 @@ class FileController extends Controller
                         // $fileName =  . '.' . $file->getClientOriginalExtension();
                         $fileName = $file->getClientOriginalName();
 
-                        $path = $file->storeAs($donor_name , $fileName , 'public');
+                        $path = $file->storeAs($supporter_name , $fileName , 'public');
 
                         // حفظ المسار في المصفوفة مع مفتاح الحقل
                         $validated['file'] = $path;

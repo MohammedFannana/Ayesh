@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('balances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('donor_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('supporter_id')->constrained()->cascadeOnDelete();
             $table->string('amount');
             $table->string('payment_image');
             $table->date('payment_date');

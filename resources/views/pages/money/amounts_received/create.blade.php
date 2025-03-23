@@ -15,16 +15,16 @@
                 <p class="title mb-3"> {{__('المعلومات الأساسية ')}}</p>
 
 
-                <!-- donor_number  -->
+                <!-- supporter_number  -->
                 <div class="col-12 col-md-6 mb-3">
                     <label class="mb-2">{{ __('رقم الداعم') }}</label>
-                    <select id="donor_id" name="donor_id" class="form-control form-select @error('donor_id') is-invalid @enderror">
+                    <select id="supporter_id" name="supporter_id" class="form-control form-select @error('supporter_id') is-invalid @enderror">
                         <option value="">اختر رقم الداعم</option>
-                        @foreach($donors as $donor)
-                            <option value="{{ $donor->id }}">{{ $donor->id }}</option>
+                        @foreach($supporters as $supporter)
+                            <option value="{{ $supporter->id }}">{{ $supporter->id }}</option>
                         @endforeach
                     </select>
-                    @error('donor_id')
+                    @error('supporter_id')
                         <div class="text-danger">
                             {{$message}}
                         </div>
@@ -32,16 +32,16 @@
                 </div>
 
 
-                <!--  donor_name -->
+                <!--  supporter_name -->
                 <div class="col-12 col-md-6 mb-3">
                     <label class="mb-2">{{ __('اسم الداعم') }}</label>
-                    <select id="donor_name" name="donor_id_1" class="form-control form-select @error('donor_id_1') is-invalid @enderror">
+                    <select id="supporter_name" name="supporter_id_1" class="form-control form-select @error('supporter_id_1') is-invalid @enderror">
                         <option value="">اختر اسم الداعم</option>
-                        @foreach($donors as $donor)
-                            <option value="{{ $donor->id }}">{{ $donor->name }}</option>
+                        @foreach($supporters as $supporter)
+                            <option value="{{ $supporter->id }}">{{ $supporter->name }}</option>
                         @endforeach
                     </select>
-                    @error('donor_id_1')
+                    @error('supporter_id_1')
                         <div class="text-danger">
                             {{$message}}
                         </div>
@@ -94,25 +94,25 @@
         {{-- script for two select --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                let donorIdSelect = document.getElementById("donor_id");
-                let donorNameSelect = document.getElementById("donor_name");
+                let supporterIdSelect = document.getElementById("supporter_id");
+                let supporterNameSelect = document.getElementById("supporter_name");
 
                 // تحويل القائمة إلى كائن لتسهيل البحث
-                let donors = {};
-                @foreach($donors as $donor)
-                    donors["{{ $donor->id }}"] = "{{ $donor->name }}";
+                let supporters = {};
+                @foreach($supporters as $supporter)
+                    supporters["{{ $supporter->id }}"] = "{{ $supporter->name }}";
                 @endforeach
 
                 // عند تغيير `رقم الداعم`
-                donorIdSelect.addEventListener("change", function () {
+                supporterIdSelect.addEventListener("change", function () {
                     let selectedId = this.value;
-                    donorNameSelect.value = selectedId; // تحديث القائمة الثانية بنفس القيمة
+                    supporterNameSelect.value = selectedId; // تحديث القائمة الثانية بنفس القيمة
                 });
 
                 // عند تغيير `اسم الداعم`
-                donorNameSelect.addEventListener("change", function () {
+                supporterNameSelect.addEventListener("change", function () {
                     let selectedId = this.value;
-                    donorIdSelect.value = selectedId; // تحديث القائمة الأولى بنفس القيمة
+                    supporterIdSelect.value = selectedId; // تحديث القائمة الأولى بنفس القيمة
                 });
             });
         </script>

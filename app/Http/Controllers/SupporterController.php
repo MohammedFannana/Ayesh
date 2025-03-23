@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orphan;
 use App\Models\Supporter;
 use Illuminate\Http\Request;
 
@@ -34,19 +35,26 @@ class SupporterController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request);
         $validated = $request->validate([
             'name' => ['string' , 'required'],
             'country' => ['string' , 'required'],
-            'phone' => ['string' , 'required' , 'unique:donors,phone'],
+            'phone' => ['string' , 'required' , 'unique:supporters,phone'],
             'fax' => ['string' , 'required'],
             'association_name' => ['string' , 'required'],
             'department_name' => ['string' , 'required'],
-            'administrator_name' => ['string' , 'required'],
+            'administrator_name' => ['array' , 'required'],
             'website' => ['string' , 'required'],
-            'email' => ['string' , 'required' ,'email' , 'unique:donors,email'],
+            // 'email' => ['json' , 'required'],
+            'emails' => ['required', 'array'],
+            'emails.*' => ['email' ],
             'address' => ['string' , 'required'],
 
         ]);
+
+
+        // dd($validated);
 
         Supporter::create($validated);
         return redirect()->back()->with('success', __('تمت اضافة الداعم بنجاح'));
@@ -57,7 +65,18 @@ class SupporterController extends Controller
      */
     public function show(Supporter $supporter)
     {
-        return view('pages.supporters.view' , compact('supporter'));
+        $supporterId = $supporter->id;
+
+        $supporter_balances = $supporter->balances()->take(5)->get();
+
+        $orphans = Orphan::where('status' , 'sponsored')
+        ->whereHas('sponsorship', function ($query) use ($supporterId) {
+            $query->where('supporter_id', $supporterId);
+        })->with(['expenses:id,orphan_id,amount' , 'profile:orphan_id,phone' , 'sponsorship:orphan_id,external_code'])
+        ->take(5)
+        ->get();
+
+        return view('pages.supporters.view' , compact('supporter' , 'supporter_balances' , 'orphans'));
 
     }
 
@@ -85,6 +104,33 @@ class SupporterController extends Controller
     {
         $supporter->delete();
         return redirect()->route('supporter.index')->with('success' , __(' تم حذف الداعم بنجاح '));
+
+    }
+
+
+
+    public function incomingStatements(Supporter $supporter){
+        $supporter_name = $supporter->name;
+        $supporter_balances = $supporter->balances()->paginate(10);
+        return view('pages.supporters.incoming_statements' , compact('supporter_name' , 'supporter_balances'));
+
+    }
+
+    public function ListSponsored(Request $request, String $supporterId){
+
+        $supporter = Supporter::where('id' , $supporterId)->select(['id','name'])->first();
+
+        $orphans = Orphan::where('status' , 'sponsored')
+        ->whereHas('sponsorship', function ($query) use ($supporterId) {
+            $query->where('supporter_id', $supporterId);
+        })
+        ->when($request->search, function ($builder, $value) {
+            $builder->where('name', 'LIKE', "%{$value}%");
+        })
+        ->with(['expenses:id,orphan_id,amount' , 'profile:orphan_id,phone' , 'sponsorship:orphan_id,external_code'])
+        ->paginate(10);
+
+        return view('pages.supporters.sponsored_listed' ,compact('supporter' , 'orphans'));
 
     }
 }

@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Storage;
 class Balance extends Model
 {
     protected $fillable = [
-        'donor_id' , 'payment_date' , 'amount'  , 'payment_image'
+        'supporter_id' , 'payment_date' , 'amount'  , 'payment_image'
     ];
 
-    public function donor()
+    public function supporter()
     {
-        return $this->belongsTo(Donor::class);
+        return $this->belongsTo(Supporter::class);
     }
 
 

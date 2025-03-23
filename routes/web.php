@@ -4,12 +4,14 @@ use App\Http\Controllers\AccreditationOrphanController;
 use App\Http\Controllers\ArchivedOrphanController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\CertifiedOrphanController;
+use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\FirstLineFamilyController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MarketingOrphanController;
-use App\Http\Controllers\OrphanDonorFieldValueController;
+use App\Http\Controllers\OrphanSupporterFieldValueController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisteredOrphanController;
 use App\Http\Controllers\ReportController;
@@ -18,9 +20,14 @@ use App\Http\Controllers\SponsoredOrphanController;
 use App\Http\Controllers\SupporterController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\WaitingOrphanController;
+use App\Http\Middleware\DashboardAccess;
+use App\Models\FirstLineFamily;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('/supporter' , SupporterController::class);
+Route::get('/supporter/incoming/statements/{supporter}' , [SupporterController::class , 'incomingStatements'])->name('supporter.income.statement');
+Route::get('/supporter/list/sponsored/{supporter}' , [SupporterController::class , 'ListSponsored'])->name('supporter.list.sponsored');
+
 Route::resource('/donor' , DonorController::class);
 Route::get('/donor/incoming/statements/{donor}' , [DonorController::class , 'incomingStatements'])->name('donor.income.statement');
 Route::get('/donor/list/sponsored/{donor}' , [DonorController::class , 'ListSponsored'])->name('donor.list.sponsored');
@@ -60,17 +67,17 @@ Route::prefix('orphans')->name('orphan.')->group(function(){
 
     // MarketingOrphanController الحالات المقدمة للتسويق
     Route::resource('/marketing' , MarketingOrphanController::class);
-    Route::get('/marketing/{donorId}/complete/{orphanId}' , [MarketingOrphanController::class , 'create'])->name('marketing.create');
+    Route::get('/marketing/{supporterId}/complete/{orphanId}' , [MarketingOrphanController::class , 'create'])->name('marketing.create');
     Route::get('/generate-pdf', [MarketingOrphanController::class, 'generatePDF'])->name('generate.pdf');
     // Route::get('/marketing' , [MarketingOrphanController::class , 'index'])->name('marketing.index');
     // Route::get('/marketing/{marketing}' , [MarketingOrphanController::class , 'show'])->name('marketing.show');
     // Route::delete('/marketing/{marketing}' , [MarketingOrphanController::class , 'destroy'])->name('marketing.destroy');
 
-    // OrphanDonorFieldValueController  تخزين بيانات اليتيم الخاصة بالجمعية
+    // OrphanSupporterFieldValueController  تخزين بيانات اليتيم الخاصة بالجمعية
     //follow for MarketingOrphanController
-    Route::post('marketing/alBer/store' , [OrphanDonorFieldValueController::class , 'alBerStore'])->name('marketing.alBer.store');
-    Route::post('marketing/sharjah/store' , [OrphanDonorFieldValueController::class , 'sharjahStore'])->name('marketing.sharjah.store');
-    Route::post('marketing/group/store' , [OrphanDonorFieldValueController::class , 'groupStore'])->name('marketing.group.store');
+    Route::post('marketing/alBer/store' , [OrphanSupporterFieldValueController::class , 'alBerStore'])->name('marketing.alBer.store');
+    Route::post('marketing/sharjah/store' , [OrphanSupporterFieldValueController::class , 'sharjahStore'])->name('marketing.sharjah.store');
+    Route::post('marketing/group/store' , [OrphanSupporterFieldValueController::class , 'groupStore'])->name('marketing.group.store');
 
 
     //WaitingOrphanController
@@ -94,6 +101,8 @@ Route::prefix('orphans')->name('orphan.')->group(function(){
 
 });
 
+Route::resource('/family' , FirstLineFamilyController::class);
+
 // BalanceController المبالغ المقبوضة
 Route::get('/balance', [BalanceController::class, 'index'])->name('balance.index');
 Route::get('/balance/create', [BalanceController::class, 'create'])->name('balance.create');
@@ -113,7 +122,7 @@ Route::post('Albar/report', [ReportController::class, 'AlbarStore'])->name('repo
 Route::post('sharjah/report', [ReportController::class, 'SharjahStore'])->name('report.sharjah.store'); //sharjah store route
 Route::post('maryam/report', [ReportController::class, 'MaryamStore'])->name('report.maryam.store'); //maryam store route
 Route::post('dubai/report', [ReportController::class, 'DubaiStore'])->name('report.dubai.store'); //dubai store route
-Route::put('/report/{report}/{donor_id}' , [ReportController::class , 'update'])->name('report.update'); //update route
+Route::put('/report/{report}/{supporter_id}' , [ReportController::class , 'update'])->name('report.update'); //update route
 Route::get('/download-report/{report}', [ReportController::class, 'DownloadReport'])->name('download.report');
 
 
@@ -130,9 +139,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::as('dashboard.')->prefix('dashboard')->group(function () {
+
+    Route::resource('/user' , UserController::class);
+
+
+
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Donor;
-use App\Models\DonorField;
 use App\Models\Orphan;
+use App\Models\Supporter;
+use App\Models\SupporterField;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 // use setasign\Fpdi\Tcpdf\Fpdi;
@@ -34,22 +34,22 @@ class MarketingOrphanController extends Controller
             // إضافة الفلاتر بناءً على الـ checkboxes
             ->when($request->filter, function ($builder, $filters) { //filter input
                 if (in_array('جمعية دار البر', $filters)) {
-                    $builder->whereHas('marketing.donor', function ($query) {
+                    $builder->whereHas('marketing.supporter', function ($query) {
                         $query->where('name', 'جمعية دار البر');
                     });
                 }
                 elseif (in_array('جمعية الشارقة', $filters)) {
-                    $builder->whereHas('marketing.donor', function ($query) {
+                    $builder->whereHas('marketing.supporter', function ($query) {
                         $query->where('name', 'جمعية الشارقة');
                     });
                 }
                 elseif (in_array('جمعية السيدة مريم', $filters)) {
-                    $builder->whereHas('marketing.donor', function ($query) {
+                    $builder->whereHas('marketing.supporter', function ($query) {
                         $query->where('name', 'جمعية السيدة مريم');
                     });
                 }
                 elseif (in_array('جمعية دبي الخيرية', $filters)) {
-                    $builder->whereHas('marketing.donor', function ($query) {
+                    $builder->whereHas('marketing.supporter', function ($query) {
                         $query->where('name', 'جمعية دبي الخيرية');
                     });
                 }
@@ -61,10 +61,10 @@ class MarketingOrphanController extends Controller
         ->with(['family' => function ($query) {  // to get phone from profile table
             $query->select('address', 'orphan_id');
         }])
-        ->with(['marketing' => function ($query) {  // to get only donor data through marketing table
-            $query->select('orphan_id', 'donor_id') // اختر الحقول المطلوبة من جدول marketing
-                  ->with(['donor' => function ($query) {  // to get donor data
-                      $query->select('id', 'name'); // اختر الحقول التي تريدها من جدول donors
+        ->with(['marketing' => function ($query) {  // to get only supporter data through marketing table
+            $query->select('orphan_id', 'supporter_id') // اختر الحقول المطلوبة من جدول marketing
+                  ->with(['supporter' => function ($query) {  // to get supporter data
+                      $query->select('id', 'name'); // اختر الحقول التي تريدها من جدول supporters
             }]);
         }])
         ->paginate(8);
@@ -73,7 +73,7 @@ class MarketingOrphanController extends Controller
         $count = $orphans->total();
 
             // get the doner
-            // $donors = Donor::all('id' , 'name');
+            // $supporters = Supporter::all('id' , 'name');
 
 
             return view('pages.orphans.marketing-orphans.index' , compact('orphans' , 'count'));
@@ -82,10 +82,10 @@ class MarketingOrphanController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(string $donorId , string $orphanId)
+    public function create(string $supporterId , string $orphanId)
     {
-        $donor = Donor::findOrFail($donorId);
-        $name = $donor->name;
+        $supporter = Supporter::findOrFail($supporterId);
+        $name = $supporter->name;
 
         $orphan = Orphan::where('id' , $orphanId)
         ->where('status', 'marketing_provider')
@@ -93,17 +93,17 @@ class MarketingOrphanController extends Controller
         ->firstOrFail();
 
 
-        $fields = DonorField::where('donor_id' , $donorId)->get();
+        $fields = SupporterField::where('supporter_id' , $supporterId)->get();
 
 
         if($name === "جمعية دار البر"){
-            return view('pages.orphans.marketing-orphans.alBer_create' , compact(['orphan' , 'donorId' ,'fields']));
+            return view('pages.orphans.marketing-orphans.alBer_create' , compact(['orphan' , 'supporterId' ,'fields']));
         }elseif($name === "جمعية الشارقة"){
-            return view('pages.orphans.marketing-orphans.sharjah_create' , compact(['orphan' , 'donorId' ,'fields']));
+            return view('pages.orphans.marketing-orphans.sharjah_create' , compact(['orphan' , 'supporterId' ,'fields']));
         }elseif($name === "جمعية السيدة مريم"){
-            return view('pages.orphans.marketing-orphans.group_create' , compact(['orphan' , 'donorId' , 'fields']));
+            return view('pages.orphans.marketing-orphans.group_create' , compact(['orphan' , 'supporterId' , 'fields']));
         }elseif($name === "جمعية دبي الخيرية"){
-            return view('pages.orphans.marketing-orphans.adabi_create' , compact(['orphan' , 'donorId' , 'fields']));
+            return view('pages.orphans.marketing-orphans.adabi_create' , compact(['orphan' , 'supporterId' , 'fields']));
         }
     }
 
@@ -171,7 +171,7 @@ class MarketingOrphanController extends Controller
     //     $orphanIds = explode(',', $request->orphan_ids);
 
     //     // جلب جميع الأيتام مع البيانات اللازمة
-    //     $orphans = Orphan::with(['guardian', 'family', 'marketing.donor', 'donorFieldValues'])
+    //     $orphans = Orphan::with(['guardian', 'family', 'marketing.supporter', 'supporterFieldValues'])
     //                     ->whereIn('id', $orphanIds)
     //                     ->get();
 
@@ -235,9 +235,9 @@ class MarketingOrphanController extends Controller
             },
             'family',
             'marketing' => function ($query) {
-                $query->select('id', 'orphan_id', 'donor_id');
+                $query->select('id', 'orphan_id', 'supporter_id');
             },
-            'donorFieldValues.field'
+            'supporterFieldValues.field'
         ])
         ->whereIn('id', $orphanIds)
         ->get();
@@ -258,16 +258,16 @@ class MarketingOrphanController extends Controller
         // $htmlContent = '';
 
         foreach ($orphans as $orphan) {
-            $donorId = $orphan->marketing->donor_id ?? null;
+            $supporterId = $orphan->marketing->supporter_id ?? null;
 
-            if (!$donorId) {
+            if (!$supporterId) {
                 return redirect()->route('orphan.marketing.index')->with('danger', "اليتيم {$orphan->name} غير مرتبط بأي متبرع");
             }
 
-            $requiredFields = DonorField::where('donor_id', $donorId)->pluck('id')->toArray();
-            $filledFields = $orphan->donorFieldValues
+            $requiredFields = SupporterField::where('supporter_id', $supporterId)->pluck('id')->toArray();
+            $filledFields = $orphan->supporterFieldValues
                                 ->whereNotNull('value')
-                                ->pluck('donor_field_id')
+                                ->pluck('supporter_field_id')
                                 ->toArray();
 
             $missingFields = array_diff($requiredFields, $filledFields);
@@ -280,10 +280,8 @@ class MarketingOrphanController extends Controller
                 return redirect()->route('orphan.marketing.index')->with('danger', "اليتيم {$orphan->name} ليس في حالة المتبرع");
             }
 
-            // $orphan->setRelation('donorFieldValues', $orphan->donorFieldValuesForCurrentDonor($donorId)->get());
 
-            // $orphanHtml = view('pdf.donor_' . $donorId, compact('orphan'))->render();
-            $orphanHtml = View::make('pdf.donor_' . $donorId, compact('orphan'))->__toString();
+            // $orphanHtml = View::make('pdf.donor_' . $donorId, compact('orphan'));
 
 
 // إنشاء ملف PDF جديد
@@ -299,7 +297,7 @@ $pdf->AddPage();
             // $pdf->writeHTML('<style>' . $bootstrapCss . '</style>', true, false, true, false, '');
 
             // إدراج محتوى القالب داخل PDF
-            $pdf->writeHTML($orphanHtml, true, false, true, false, '');
+            // $pdf->writeHTML($orphanHtml, true, false, true, false, '');
 
             dd('x');
   // تنزيل الملف مباشرة للمستخدم
@@ -307,7 +305,6 @@ $pdf->AddPage();
   header('Content-Type: application/pdf');
   header('Content-Disposition: attachment; filename="' . $fileName . '"');
   $pdf->Output($fileName, 'D'); // 'D' تعني تنزيل الملف مباشرة
-            // $orphanHtml = view('pdf.donor_' . $donorId, compact('orphan'))->render();
             // $htmlContent .= $orphanHtml . '<div style="page-break-before: always;"></div>'; // إضافة فاصل صفحات بين الأيتام
             // $mpdf->WriteHTML($orphanHtml);
             // $mpdf->AddPage(); // إضافة صفحة جديدة بعد كل يتيم

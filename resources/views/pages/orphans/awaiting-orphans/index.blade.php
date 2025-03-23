@@ -115,7 +115,7 @@
 
                         <td scope="row"> {{$orphan->internal_code}} </td>
                         <td> {{$orphan->name}} </td>
-                        <td> {{$orphan->marketing->donor->name}} </td>
+                        <td> {{$orphan->marketing->supporter->name}} </td>
                         <td> {{$orphan->profile->phone}}  </td>
                         <td> {{$orphan->family->address}} </td>
 
@@ -150,7 +150,7 @@
                                             <form action="{{route('orphan.waiting.store' , $orphan->id)}}" method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="modal-body">
-                                                    <input type="hidden" name="donor_id" value="{{$orphan->marketing->donor_id}}">
+                                                    <input type="hidden" name="supporter_id" value="{{$orphan->marketing->supporter_id}}">
                                                     <x-form.input name="external_code" class="border" type="text" label=" {{__('الكود الخارجي')}}" autocomplete="" placeholder="أدخل الكود الخارجي"/>
                                                 </div>
                                                 <div class="modal-footer">

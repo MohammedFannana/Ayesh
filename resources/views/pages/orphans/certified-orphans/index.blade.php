@@ -112,10 +112,10 @@
                         <div>
                             <label class="count" style="font-size: 15px">{{ __('اختر اسم الجمعية') }}</label>
 
-                            @foreach ($donors as $donor)
+                            @foreach ($supporters as $supporter)
                                 <div class="d-flex align-items-center gap-2 mb-1">
-                                    <input type="radio" name="donor_id" value="{{ $donor->id }}" id="donor_{{ $donor->id }}">
-                                    <label for="donor_{{ $donor->id }}" style="font-size: 14px"> {{ __($donor->name) }} </label>
+                                    <input type="radio" name="supporter_id" value="{{ $supporter->id }}" id="supporter_{{ $supporter->id }}">
+                                    <label for="supporter_{{ $supporter->id }}" style="font-size: 14px"> {{ __($supporter->name) }} </label>
                                 </div>
                             @endforeach
 

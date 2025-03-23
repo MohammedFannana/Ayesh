@@ -4,7 +4,7 @@
 
     <div class="supporters bg-white rounded shadow-sm p-3">
 
-        <form action="{{route('report.update' , [$report->id , $report->donor_id])}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('report.update' , [$report->id , $report->supporter_id])}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
 
@@ -93,10 +93,10 @@
                     {{-- electronic_supervisory_seal --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2"> {{__('ختم اللجنة المشرفة الالكتروني')}}</label> <br>
-                        <label for="donor_seal" class="custom-file-upload w-75 text-center mb-1"> {{__('ارفق ختم اللجنة المشرفة الالكتروني ')}}</label>
-                        <input class="hidden-file-style" name="donor_seal" type="file" id="donor_seal" style="display: none;">
-                        <a href="{{route('orphan.image' , ['file' => encrypt($report->donor_seal)])}}" type="button" class="text-decoration-none view-file w-75">
-                            {{ __('ختم اللجنة المشرفة الالكتروني') }}.{{ pathinfo($report->donor_seal, PATHINFO_EXTENSION) }}
+                        <label for="supporter_seal" class="custom-file-upload w-75 text-center mb-1"> {{__('ارفق ختم اللجنة المشرفة الالكتروني ')}}</label>
+                        <input class="hidden-file-style" name="supporter_seal" type="file" id="supporter_seal" style="display: none;">
+                        <a href="{{route('orphan.image' , ['file' => encrypt($report->supporter_seal)])}}" type="button" class="text-decoration-none view-file w-75">
+                            {{ __('ختم اللجنة المشرفة الالكتروني') }}.{{ pathinfo($report->supporter_seal, PATHINFO_EXTENSION) }}
                         </a>
                     </div>
 
@@ -104,10 +104,10 @@
                     {{-- dubai_accreditation --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">   {{__('اعتماد جمعية دبي الخيرية')}}</label> <br>
-                        <label for="donor_accreditation" class="custom-file-upload w-75 text-center mb-1"> {{__('ارفق اعتماد جمعية دبي الخيرية ')}} </label>
-                        <input class="hidden-file-style" name="donor_accreditation" type="file" id="donor_accreditation" style="display: none;">
-                        <a href="{{route('orphan.image' , ['file' => encrypt($report->donor_accreditation)])}}" type="button" class="text-decoration-none view-file w-75">
-                            {{ __('اعتماد جمعية دبي الخيرية') }}.{{ pathinfo($report->donor_accreditation, PATHINFO_EXTENSION) }}
+                        <label for="supporter_accreditation" class="custom-file-upload w-75 text-center mb-1"> {{__('ارفق اعتماد جمعية دبي الخيرية ')}} </label>
+                        <input class="hidden-file-style" name="supporter_accreditation" type="file" id="supporter_accreditation" style="display: none;">
+                        <a href="{{route('orphan.image' , ['file' => encrypt($report->supporter_accreditation)])}}" type="button" class="text-decoration-none view-file w-75">
+                            {{ __('اعتماد جمعية دبي الخيرية') }}.{{ pathinfo($report->supporter_accreditation, PATHINFO_EXTENSION) }}
                         </a>
                     </div>
 

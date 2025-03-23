@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('marketings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('orphan_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('donor_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('supporter_id')->nullable()->constrained()->nullOnDelete();
             $table->date('marketing_date');
             $table->enum('status' , ['marketing' , 'waiting'])->default('marketing');
             $table->timestamps();

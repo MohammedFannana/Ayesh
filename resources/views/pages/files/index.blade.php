@@ -73,7 +73,7 @@
 
                 <div>
                     <p class="fs-5 fw-semibold mb-1">{{__('الجمعيات')}}</p>
-                    <p class="title"> {{$donor_count}} {{__('جمعية')}} </p>
+                    <p class="title"> {{$supporter_count}} {{__('جمعية')}} </p>
                 </div>
 
             </div>
@@ -133,7 +133,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item category-option border-bottom " data-category="orphan" style="border: none">الأيتام</li>
                                 <li class="list-group-item category-option border-bottom " data-category="project" style="border: none">المشاريع</li>
-                                <li class="list-group-item category-option border-bottom " data-category="donor" style="border: none">الجمعيات</li>
+                                <li class="list-group-item category-option border-bottom " data-category="supporter" style="border: none">الجمعيات</li>
                                 <li class="list-group-item category-option border-bottom " data-category="volunteer" style="border: none">المتطوعين</li>
                             </ul>
                         </div>

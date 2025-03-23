@@ -18,22 +18,22 @@ class ArchivedOrphanController extends Controller
             // إضافة الفلاتر بناءً على الـ checkboxes
             ->when($request->filter, function ($builder, $filters) { //filter input
                 if (in_array('جمعية دار البر', $filters)) {
-                    $builder->whereHas('marketing.donor', function ($query) {
+                    $builder->whereHas('marketing.supporter', function ($query) {
                         $query->where('name', 'جمعية دار البر');
                     });
                 }
                 elseif (in_array('جمعية الشارقة', $filters)) {
-                    $builder->whereHas('marketing.donor', function ($query) {
+                    $builder->whereHas('marketing.supporter', function ($query) {
                         $query->where('name', 'جمعية الشارقة');
                     });
                 }
                 elseif (in_array('جمعية السيدة مريم', $filters)) {
-                    $builder->whereHas('marketing.donor', function ($query) {
+                    $builder->whereHas('marketing.supporter', function ($query) {
                         $query->where('name', 'جمعية السيدة مريم');
                     });
                 }
                 elseif (in_array('جمعية دبي الخيرية', $filters)) {
-                    $builder->whereHas('marketing.donor', function ($query) {
+                    $builder->whereHas('marketing.supporter', function ($query) {
                         $query->where('name', 'جمعية دبي الخيرية');
                     });
                 }
@@ -48,10 +48,10 @@ class ArchivedOrphanController extends Controller
             ->with(['sponsorship' => function ($query) {  // to get phone from profile table
                 $query->select('external_code', 'orphan_id');
             }])
-            ->with(['marketing' => function ($query) {  // to get only donor data through marketing table
-                $query->select('orphan_id', 'donor_id') // اختر الحقول المطلوبة من جدول marketing
-                    ->with(['donor' => function ($query) {  // to get donor data
-                        $query->select('id', 'name'); // اختر الحقول التي تريدها من جدول donors
+            ->with(['marketing' => function ($query) {  // to get only supporter data through marketing table
+                $query->select('orphan_id', 'supporter_id') // اختر الحقول المطلوبة من جدول marketing
+                    ->with(['supporter' => function ($query) {  // to get supporter data
+                        $query->select('id', 'name'); // اختر الحقول التي تريدها من جدول supporters
                 }]);
             }])
             ->paginate(8);

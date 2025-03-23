@@ -27,11 +27,11 @@
                 <x-form.select name="volunteer_id" :options="$volunteers"/>
             </div>
 
-            {{-- responsible_donor --}}
+            {{-- responsible_supporter --}}
             <div class="col-12 col-md-6 mb-3">
-                {{-- <x-form.input name="responsible_donor" class="border" type="text" label=" المانح المسؤول " autocomplete="" placeholder="أدخل اسم المانح المسؤول"/> --}}
+                {{-- <x-form.input name="responsible_supporter" class="border" type="text" label=" المانح المسؤول " autocomplete="" placeholder="أدخل اسم المانح المسؤول"/> --}}
                 <label class="mb-2"> {{__('المانح المسؤول ')}} </label>
-                <x-form.select name="donor_id"  :options="$donors"/>
+                <x-form.select name="supporter_id"  :options="$supporters"/>
 
             </div>
 

@@ -3,7 +3,7 @@
     {{-- title & search --}}
     <div class="row mb-3" >
 
-        <h2 class="col-3"> مدير الملفات </h2>
+        <h2 class="col-3"> {{__('مدير الملفات ')}}</h2>
 
         {{-- search --}}
         <div class="search mb-3 col-9">

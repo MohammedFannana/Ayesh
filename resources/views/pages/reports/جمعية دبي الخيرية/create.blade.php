@@ -15,8 +15,8 @@
                 <div class="row" style="justify-content:between;">
 
 
-                    {{-- donor_id --}}
-                    <input type="hidden" name="donor_id" value="{{$donor_id}}" />
+                    {{-- supporter_id --}}
+                    <input type="hidden" name="supporter_id" value="{{$supporter_id}}" />
 
                     {{-- orphan_id --}}
                     <input type="hidden" name="orphan_id" value=""  id="orphan_id"/>
@@ -102,16 +102,16 @@
                     {{-- electronic_supervisory_seal --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2"> {{__('ختم اللجنة المشرفة الالكتروني')}}</label> <br>
-                        <label for="donor_seal" class="custom-file-upload w-75 text-center"> {{__('ارفق ختم اللجنة المشرفة الالكتروني ')}}</label>
-                        <input class="hidden-file-style" name="donor_seal" type="file" id="donor_seal" style="display: none;">
+                        <label for="supporter_seal" class="custom-file-upload w-75 text-center"> {{__('ارفق ختم اللجنة المشرفة الالكتروني ')}}</label>
+                        <input class="hidden-file-style" name="supporter_seal" type="file" id="supporter_seal" style="display: none;">
                     </div>
 
 
                     {{-- dubai_accreditation --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">   {{__('اعتماد جمعية دبي الخيرية')}}</label> <br>
-                        <label for="donor_accreditation" class="custom-file-upload w-75 text-center"> {{__('ارفق اعتماد جمعية دبي الخيرية ')}} </label>
-                        <input class="hidden-file-style" name="donor_accreditation" type="file" id="donor_accreditation" style="display: none;">
+                        <label for="supporter_accreditation" class="custom-file-upload w-75 text-center"> {{__('ارفق اعتماد جمعية دبي الخيرية ')}} </label>
+                        <input class="hidden-file-style" name="supporter_accreditation" type="file" id="supporter_accreditation" style="display: none;">
                     </div>
 
 
@@ -256,7 +256,7 @@
 
             function getFieldValueByDatabaseName(orphan, databaseName) {
                 // قم بالبحث في بيانات الأيتام باستخدام `database_name` (يمكنك تعديلها وفقًا للبيانات المتاحة في الـ orphans)
-                let fieldValue = orphan.orphan.donor_field_values.find(field => field.field.database_name === databaseName);
+                let fieldValue = orphan.orphan.supporter_field_values.find(field => field.field.database_name === databaseName);
                 return fieldValue ? fieldValue.value : '';
             }
 

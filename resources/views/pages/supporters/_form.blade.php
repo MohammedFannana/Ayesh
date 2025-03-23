@@ -33,9 +33,9 @@
         </div>
 
         {{-- Administrator Name --}}
-        <div class="mt-4 col-12 col-md-6">
+        {{-- <div class="mt-4 col-12 col-md-6">
             <x-form.input name="administrator_name" class="border" type="text" label=" {{__('اسم المسؤول')}} " autocomplete="" placeholder="أدخل اسم المسؤول"/>
-        </div>
+        </div> --}}
 
         {{-- address --}}
         <div class="mt-4 col-12 col-md-6">
@@ -47,10 +47,26 @@
             <x-form.input name="website" class="border" type="text" label=" {{__('الموقع الالكتروني ')}}" autocomplete="" placeholder="أدخل الموقع الالكتروني"/>
         </div>
 
-        {{-- email --}}
-        <div class="mt-4 col-12 col-md-6">
-            <x-form.input name="email" class="border" type="email" label=" {{__('البريد الالكتروني ')}}" autocomplete="" placeholder="أدخل البريد الالكتروني"/>
+        {{-- email
+        <div class="mt-4 mb-3 col-12 col-md-6">
+            <x-form.input name="emails" class="border" type="email" label=" {{__('البريد الالكتروني ')}}" autocomplete="" placeholder="أدخل البريد الالكتروني"/>
+        </div> --}}
+
+        <div id="email-container">
+            {{-- الحقول الأساسية التي تظهر أولاً --}}
+            <div class="mt-4 col-12 col-md-6">
+                <x-form.input name="administrator_name" class="border" type="text" label=" {{__('اسم المسؤول')}} " autocomplete="" placeholder="أدخل اسم المسؤول"/>
+            </div>
+
+            <div class="mt-4 mb-3 col-12 col-md-6">
+                <x-form.input name="emails[]" class="border" type="email" label=" {{__('البريد الالكتروني ')}}" autocomplete="" placeholder="أدخل البريد الالكتروني"/>
+            </div>
         </div>
+
+        <a type="button" id="add-email-btn" style="margin-right:50%">
+            <img src="{{ asset('image/plus.png') }}" alt="">
+            <span class="title-color"> إضافة بريد الكتروني </span>
+        </a>
 
 
         <div class="d-flex justify-content-center gap-4 mt-4">

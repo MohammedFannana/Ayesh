@@ -97,7 +97,7 @@
                         <td scope="row"> {{$orphan->internal_code}} </td>
                         <td scope="row"> {{$orphan->sponsorship->external_code}} </td>
                         <td> {{$orphan->name}} </td>
-                        <td> {{$orphan->marketing->donor->name}} </td>
+                        <td> {{$orphan->marketing->supporter->name}} </td>
                         <td> {{$orphan->profile->phone}}  </td>
                         <td style="position: relative;">
 

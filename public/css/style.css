@@ -51,15 +51,30 @@ main{
     font-size: 17px;
 }
 
-.sidebar .links .link-active{
+.nav-item{
+    margin-bottom: 5px;
+}
+
+/* .nav-item .active{
+    padding-top: 4px;
+    border-radius: 5px;
     border-radius: 5px;
     background-color: #3B9E2933;
+    color: var(--color);
+    padding-right: 10px !important;
+} */
+
+/* .sidebar .links .link-active{
+    border-radius: 5px;
+    background-color: #3B9E2933;
+    color: var(--color);
+
 }
 
 .sidebar .links .link-active a{
     color: var(--color);
     padding-right: 10px !important;
-}
+} */
 
 /* end style for sidebar */
 

@@ -130,7 +130,7 @@
                         </td>
                         <td scope="row"> {{$orphan->internal_code}} </ف>
                         <td> {{$orphan->name}} </td>
-                        <td> {{$orphan->marketing->donor->name}} </td>
+                        <td> {{$orphan->marketing->supporter->name}} </td>
                         <td> {{$orphan->profile->phone}}  </td>
                         <td> {{$orphan->family->address}} </td>
 
@@ -150,7 +150,7 @@
                                     <span style="color: var(--text-color);"> {{__('مراسلة الجمعية')}} </span>
                                 </a>
 
-                                <a href="{{route('orphan.marketing.create' , [$orphan->marketing->donor->id , $orphan->id] )}}" class="text-decoration-none">
+                                <a href="{{route('orphan.marketing.create' , [$orphan->marketing->supporter->id , $orphan->id] )}}" class="text-decoration-none">
                                     <img src="{{asset('image/data.svg')}}" alt="">
                                     <span style="color: var(--text-color);"> {{__(' أكمل البيانات ')}} </span>
                                 </a>
