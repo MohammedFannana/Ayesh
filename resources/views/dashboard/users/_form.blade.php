@@ -1,45 +1,51 @@
 <div class="row" style="justify-content: flex-end;">
-    <div class="row" style="margin-right: 15px;">
-
+    <div class="col-md-5" style="margin-right: 15px;">
 
 
         <!-- name -->
-        <div class="mt-4 col-md-5 col-12">
-            <x-form.input name="name" :value="$user->name" class="border border-dark" type="text" label="الاسم" />
+        <div class="mt-3">
+            <x-form.input name="name" style="direction: rtl" :value="$user->name" class="border" type="text" label="الاسم" />
         </div>
 
         <!-- email -->
-        <div class="mt-4 col-md-5 col-12">
-            <x-form.input name="email" :value="$user->email" class="border border-dark" type="text" label="البريد الالكتروني" />
+        <div class="mt-3">
+            <x-form.input name="email" style="direction: rtl" :value="$user->email" class="border" type="text" label="البريد الالكتروني" />
         </div>
 
         <!-- Phone -->
 
-        <div class="mt-4 col-md-5 col-12">
-            <x-form.input name="phone" class="border border-dark " type="text" label="رقم الجوال" :value="$user->phone" autocomplete="" />
+        <div class="mt-3">
+            <x-form.input style="direction: rtl" name="phone" class="border" type="text" label="رقم الجوال" :value="$user->phone" autocomplete="" />
         </div>
 
 
-        {{-- type --}}
-        <div class="col-12 col-md-5 mt-4">
-            <label for="" class="mb-2"> {{__(' نوع المستخدم ')}} </label>
-            <x-form.select name="case_type"
-                :options="['' => ' اختر ', 'registered' => ' مسجل ', 'references' => ' مراجع ', 'certified' => ' معتمد ', 'financial_manager' => ' مدير مالي ']"   />
+        @if ($user->type !== "admin")
 
-        </div>
+            <div class="mt-3">
+                <label for="" class="mb-2"> {{__(' نوع المستخدم ')}} </label>
+                <x-form.select style="direction: rtl" name="type" selected="{{$user->type}}"
+                    :options="['' => ' اختر ', 'registered' => ' مسجل ', 'references' => ' مراجع ', 'certified' => ' معتمد ', 'financial_manager' => ' مدير مالي ']"
+                />
+
+            </div>
+
+        @endif
+
+{{-- type --}}
+
 
 
 
         @if($button == " حفظ ")
 
         <!-- Password -->
-        <div class="mt-4 col-md-5 col-12">
-            <x-form.input name="password" class="border border-dark" type="password" label="كلمة المرور" autocomplete="new-password" />
+        <div class="mt-3">
+            <x-form.input name="password" style="direction: rtl" class="border" type="password" label="كلمة المرور" autocomplete="new-password" />
         </div>
 
         <!-- Confirm Password -->
-        <div class="mt-4 col-md-5 col-12">
-            <x-form.input name="password_confirmation" class="border border-dark" type="password" label=" تأكيد كلمة المرور  " autocomplete="new-password" />
+        <div class="mt-3">
+            <x-form.input name="password_confirmation" style="direction: rtl" class="border" type="password" label=" تأكيد كلمة المرور  " autocomplete="new-password" />
         </div>
 
         @endif

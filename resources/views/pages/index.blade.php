@@ -1,6 +1,6 @@
 <x-main-layout>
 
-    <h2 class="mb-4">لوحة التحكم</h2>
+    <h2 class="mb-4"> {{__(' لوحة التحكم ')}} </h2>
 
     <div class="row justify-content-between">
 
@@ -11,8 +11,8 @@
                 <img src="{{asset('image/dashboard-icon/orphan.png')}}" alt="" width="58px" height="58px">
 
                 <div>
-                    <p class="mb-1 fs-5 fw-semibold title-color">عدد الأيتام الكلي</p>
-                    <p class="fw-semibold">1000 يتيم</p>
+                    <p class="mb-1 fs-5 fw-semibold title-color">{{__('عدد الأيتام الكلي ')}}</p>
+                    <p class="fw-semibold">{{$orphan_count}} {{__('يتيم')}}</p>
 
                 </div>
 
@@ -20,38 +20,38 @@
             <hr>
 
             <div class="d-flex ps-4">
-                <p class="w-75 ">عدد الأيتام الجدد</p>
-                300
+                <p class="w-75 ">{{__('عدد الأيتام الجدد')}}</p>
+                {{$orphan_registered_count}}
             </div>
 
             <div class="d-flex ps-4">
-                <p class="w-75 "> عدد الأيتام قيد المراجعة </p>
-                300
+                <p class="w-75 "> {{__('عدد الأيتام قيد المراجعة ')}}</p>
+                {{$orphan_under_review_count}}
             </div>
 
             <div class="d-flex ps-4">
-                <p class="w-75 "> عدد الأيتام قيد الاعتماد </p>
-                300
+                <p class="w-75 "> {{__('عدد الأيتام قيد الاعتماد ')}}</p>
+                {{$orphan_approved_count}}
             </div>
 
             <div class="d-flex ps-4">
-                <p class="w-75 "> عدد الأيتام المقدمة للتسويق </p>
-                300
+                <p class="w-75 "> {{__('عدد الأيتام المقدمة للتسويق ')}}</p>
+                {{$orphan_marketing_count}}
             </div>
 
             <div class="d-flex ps-4">
-                <p class="w-75 "> عدد الأيتام بانتظار الرد </p>
-                300
+                <p class="w-75 "> {{__('عدد الأيتام بانتظار الرد ')}}</p>
+                {{$orphan_waiting_count}}
             </div>
 
             <div class="d-flex ps-4">
-                <p class="w-75 "> عدد الأيتام المكفولة </p>
-                300
+                <p class="w-75 "> {{__('عدد الأيتام المكفولة ')}}</p>
+                {{$orphan_sponsored_count}}
             </div>
 
             <div class="d-flex ps-4">
-                <p class="w-75 ">  عدد الأيتام المؤرشفة  </p>
-                300
+                <p class="w-75 ">  {{__('عدد الأيتام المؤرشفة ')}} </p>
+                {{$orphan_archived_count}}
             </div>
 
         </div>
@@ -65,8 +65,8 @@
                     <img src="{{asset('image/dashboard-icon/supporter.png')}}" alt="" width="58px" height="58px">
 
                     <div>
-                        <p class="fw-semibold fs-5 mb-1">2000</p>
-                        <p>عدد الداعمين</p>
+                        <p class="fw-semibold fs-5 mb-1">{{$supporter_count}}</p>
+                        <p> {{__('عدد الداعمين ')}}</p>
                     </div>
 
                 </div>
@@ -76,8 +76,8 @@
                     <img src="{{asset('image/dashboard-icon/doner.png')}}" alt="" width="58px" height="58px">
 
                     <div>
-                        <p class="fw-semibold fs-5 mb-1">2000</p>
-                        <p>عدد المتبرعين</p>
+                        <p class="fw-semibold fs-5 mb-1">{{$donor_count}}</p>
+                        <p> {{__('عدد المتبرعين')}}</p>
                     </div>
 
                 </div>
@@ -87,8 +87,8 @@
                     <img src="{{asset('image/dashboard-icon/families.png')}}" alt="" width="58px" height="58px">
 
                     <div>
-                        <p class="fw-semibold fs-5 mb-1">2000</p>
-                        <p> عدد الأسر الأولى بالرعاية </p>
+                        <p class="fw-semibold fs-5 mb-1">{{$first_line_family_count}}</p>
+                        <p> {{__('عدد الأسر الأولى بالرعاية ')}}</p>
                     </div>
 
                 </div>
@@ -98,8 +98,8 @@
                     <img src="{{asset('image/dashboard-icon/volunteer.png')}}" alt="" width="58px" height="58px">
 
                     <div>
-                        <p class="fw-semibold fs-5 mb-1">250</p>
-                        <p> عدد المتطوعين </p>
+                        <p class="fw-semibold fs-5 mb-1">{{$volunteer_count}}</p>
+                        <p> {{__('عدد المتطوعين ')}}</p>
                     </div>
 
                 </div>
@@ -109,8 +109,8 @@
                     <img src="{{asset('image/dashboard-icon/file.png')}}" alt="" width="58px" height="58px">
 
                     <div>
-                        <p class="fw-semibold fs-5 mb-1">2000</p>
-                        <p>عدد الملفات </p>
+                        <p class="fw-semibold fs-5 mb-1">{{$file_count}}</p>
+                        <p>{{__('عدد الملفات')}}</p>
                     </div>
 
                 </div>
@@ -120,8 +120,8 @@
                     <img src="{{asset('image/dashboard-icon/report.png')}}" alt="" width="58px" height="58px">
 
                     <div>
-                        <p class="fw-semibold fs-5 mb-1">2000</p>
-                        <p> عدد التقارير</p>
+                        <p class="fw-semibold fs-5 mb-1">{{$report_count}}</p>
+                        <p> {{__('عدد التقارير')}}</p>
                     </div>
 
                 </div>
@@ -131,8 +131,8 @@
                     <img src="{{asset('image/dashboard-icon/money.png')}}" alt="" width="58px" height="58px">
 
                     <div>
-                        <p class="fw-semibold fs-5 mb-1">2000</p>
-                        <p> الرصيد </p>
+                        <p class="fw-semibold fs-5 mb-1">{{$balance_amount}}</p>
+                        <p> {{__('الرصيد')}} </p>
                     </div>
 
                 </div>
@@ -142,8 +142,8 @@
                     <img src="{{asset('image/dashboard-icon/Frame.png')}}" alt="" width="58px" height="58px">
 
                     <div>
-                        <p class="fw-semibold fs-5 mb-1">250</p>
-                        <p> المصاريف</p>
+                        <p class="fw-semibold fs-5 mb-1">{{$expense_amount}}</p>
+                        <p> {{__('المصاريف')}}</p>
                     </div>
 
                 </div>

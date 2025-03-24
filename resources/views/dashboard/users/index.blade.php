@@ -63,17 +63,22 @@
                         </a>
                     </td>
 
-                    <td>
+                    @if ($user->type !== "admin")
 
-                        <form action="{{route('dashboard.user.destroy',$user->id)}}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" style="border: none; background-color: transparent;">
-                                <i class="fas fa-trash-alt fs-4 text-danger"></i>
-                            </button>
-                        </form>
+                        <td>
 
-                    </td>
+                            <form action="{{route('dashboard.user.destroy',$user->id)}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" style="border: none; background-color: transparent;">
+                                    <i class="fas fa-trash-alt fs-4 text-danger"></i>
+                                </button>
+                            </form>
+
+                        </td>
+
+                    @endif
+
 
                 </tr>
                 @empty

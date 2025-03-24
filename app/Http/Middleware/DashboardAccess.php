@@ -13,7 +13,7 @@ class DashboardAccess
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
 
          // to prevent user enter dashboard
@@ -26,11 +26,11 @@ class DashboardAccess
         }
 
         // if user error not progress
-        if ($user->role == 'user') {
+        if ($user->type != 'admin') {
             abort(403);
         }
 
-        if($user->role == 'admin' || $user->role == 'super_admin'){
+        if($user->type == 'admin'){
             return $next($request);
         }
     }

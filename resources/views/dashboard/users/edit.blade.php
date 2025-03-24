@@ -1,11 +1,11 @@
-<x-dashboard-layout title="لوحة التحكم">
+<x-dashboard-layout title=" {{__(' لوحة التحكم ')}} ">
 
 
 
     @section('breadcrumb') <!-- Override into parent page dashboard page not display section parent page to show parent section use @parent   -->
     @parent
-    <li class="breadcrumb-item active"> المستخدمين </li>
-    <li class="breadcrumb-item active"> تعديل بيانات المستخدم </li>
+    <li class="breadcrumb-item active"> {{__('المستخدمين')}} </li>
+    <li class="breadcrumb-item active"> {{__('تعديل بيانات المستخدم ')}}</li>
     @endsection
 
 

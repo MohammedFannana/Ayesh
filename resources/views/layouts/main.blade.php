@@ -148,7 +148,7 @@
                         <ul>
 
                             <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('supporter.index')}}" class="nav-link active"  dir="rtl" style="text-align: start;">
+                                <a  style="height: 40px" href="{{ route('home')}}" class="nav-link active"  dir="rtl" style="text-align: start;">
                                     {{__('لوحة التحكم ')}}
                                 </a>
                             </li>
@@ -272,7 +272,7 @@
 
                     {{-- @auth --}}
 
-                        <form action="" method="post">
+                        <form action="{{route('logout')}}" method="post">
                             @csrf
                             <button type="submit" class="text-danger bg-transparent border-0" style="margin-right:2rem ">تسجيل الخروج</button>
                         </form>
