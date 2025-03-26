@@ -21,6 +21,17 @@
         <script src="{{asset('js/script.js')}}"></script>
 
         <style>
+
+            .active{
+                background-color:#3B9E2933;
+                color: var(--color) !important;
+                border-radius: 5px
+            }
+
+            .active-text{
+                color: var(--color) !important;
+            }
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -102,7 +113,14 @@
         .bd-mode-toggle .dropdown-menu .active .bi {
             display: block !important;
         }
+
+        .nav-link{
+            padding: 0.5rem 0.3rem 0.5rem 0
+        }
+
+
         </style>
+
 
         @stack('styles')
 
@@ -140,144 +158,369 @@
                     </div>
 
 
-                    <div class="links">
+                    @guest
+                        <div class="links">
 
-                        {{-- <x-nav/> --}}
+                            {{-- <x-nav/> --}}
+                            <ul>
 
-
-                        <ul>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('home')}}" class="nav-link active"  dir="rtl" style="text-align: start;">
-                                    {{__('لوحة التحكم ')}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('supporter.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
-                                    {{__('الداعمين')}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('donor.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
-                                    {{__('المتبرعين')}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('volunteer.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
-                                    {{__('المتطوعين')}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('balance.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
-                                    {{__('المبالغ المقبوضة ')}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('expenses.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
-                                    {{__('المبالغ المدفوعة ')}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('file.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
-                                    {{__('الملفات')}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('file.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
-                                    {{__('الرسائل')}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('file.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
-                                    {{__('الاشعارات')}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item p-2 me-5" style="height: 40px">
-                                <a  style="height: 40px" href="{{ route('file.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
-                                    {{__('الشكاوي')}}
-                                </a>
-                            </li>
-
-                        </ul>
-
-
-                        {{-- <ul>
-                            <li class="p-2 me-5 link link-active" > <a href=""> {{__('لوحة التحكم ')}} </a> </li>
-
-                            <li class="p-2 me-5 link"> <a href="{{route('supporter.index')}}"> {{__('الداعمين')}} </a> </li>
-                            <li class="p-2 me-5 link"> <a href="{{route('donor.index')}}"> {{__('المتبرعين')}} </a></li>
-
-
-                            <li class="p-2 me-5 nav-link d-flex justify-content-between link" id="toggleMainMenu">
-                                {{__('الحالات')}} <span class="arrow">▼</span>
-                            </li>
-
-                            <div id="mainMenu" class="submenu">
-
-                                <p class="nav-link1 d-flex justify-content-between me-5 mb-0 p-2 link" id="toggleOrphans">{{__('الأيتام المقدمين')}}<span class="arrow">▼</span></p>
-
-                                <div id="orphansMenu" class="submenu">
-                                    <a href="{{route('orphan.registered.index')}}" class="nav-link p-1 me-5">{{__('يتيم جديد')}}</a>
-                                    <a href="{{route('orphan.review.index')}}" class="nav-link p-1 me-5">{{__('مراجعة')}}</a>
-                                    <a href="{{route('orphan.accreditation.index')}}" class="nav-link p-1 me-5">{{__('الاعتماد')}}</a>
-                                    <a href="{{route('orphan.certified.index')}}" class="nav-link p-1 me-5">{{__('الحالات المعتمدة')}}</a>
-                                    <a href="{{route('orphan.marketing.index')}}" class="nav-link p-1 me-5">{{__('الحالات المقدمة للتسويق')}}</a>
-                                    <a href="{{route('orphan.waiting.index')}}" class="nav-link p-1 me-5">{{__('الحالات انتظار الرد')}}</a>
-                                    <a href="{{route('orphan.sponsored.index')}}" class="nav-link p-1 me-5">{{__('الحالات المكفولة')}}</a>
-                                    <a href="{{route('orphan.archived.index')}}" class="nav-link p-1 me-5">{{__('الحالات المؤرشفة')}}</a>
-                                </div>
-
-                                <li class="p-2 me-5 nav-link d-flex justify-content-between link">
-                                    <a href="{{route('family.index')}}" class="nav-link p-1 me-5">{{__('الأسر الأولى بالرعاية')}}</a>
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a  href="{{ route('home')}}" class="nav-link "  dir="rtl" style="text-align: start;">
+                                        {{__('لوحة التحكم ')}}
+                                    </a>
                                 </li>
 
-                            </div>
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a  href="{{ route('supporter.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('الداعمين')}}
+                                    </a>
+                                </li>
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a  href="{{ route('donor.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('المتبرعين')}}
+                                    </a>
+                                </li>
+
+                                <li class="nav-item dropdown  p-2 me-5 " style="height: 40px" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                    <a type="button" class="nav-link one dropdown-toggle d-flex justify-content-between align-items-center status"  dir="rtl" style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{__('الحالات')}}
+                                    </a>
+
+                                    <li class="nav-item dropdown  p-2 ps-3 me-5  status-item d-none" style="height: 40px;" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                        <a type="button" class="two four dropdown-toggle d-flex justify-content-between align-items-center orphan"  dir="rtl" style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{__(' الايتام المقدمين ')}}
+                                        </a>
 
 
-                            <li class="p-2 me-5 link"> <a href="{{route('volunteer.index')}}"> المتطوعين </a></li>
-                            <li class="p-2 me-5 link"> <a href="{{route('balance.index')}}"> المبالغ المقبوضة </a></li>
-                            <li class="p-2 me-5 link"> <a href="{{route('expenses.index')}}"> المبالغ المدفوعة </a></li>
-                            <li class="p-2 me-5 link"> <a href="{{route('file.index')}}"> الملفات </a> </li>
+
+                                        {{-- <ul class="orphan-menu d-none"> --}}
+                                        <li class="nav-item p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                            <a  href="{{route('orphan.registered.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                {{__('يتيم جديد')}}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                            <a  href="{{route('orphan.review.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                {{__('مراجعة')}}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                            <a  href="{{route('orphan.accreditation.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                {{__('الاعتماد')}}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                            <a  href="{{route('orphan.certified.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                {{__('الحالات المعتمدة')}}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item p-2  ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                            <a  href="{{route('orphan.marketing.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                {{__('الحالات المقدمة للتسويق')}}
+                                            </a>
+                                        </li>
 
 
-                            <li class="p-2 me-5 nav-link d-flex justify-content-between link" id="toggleMainMenu">
-                                {{__('التقارير')}} <span class="arrow">▼</span>
-                            </li>
-
-                            <div id="mainMenu" class="submenu">
-                                <a href="{{route('report.index' , '2')}}" class="nav-link p-1 me-5">{{__(' تقرير الشارقة الخيرية ')}}</a>
-                                <a href="{{route('report.index' , '1')}}" class="nav-link p-1 me-5">{{__('تقرير دار البر')}}</a>
-                                <a href="{{route('report.index' , '4')}}" class="nav-link p-1 me-5">{{__('تقرير جمعية دبي الخيرية')}}</a>
-                                <a href="{{route('report.index' , '3')}}" class="nav-link p-1 me-5">{{__(' تقرير السيدة مريم ')}}</a>
+                                        <li class="nav-item  p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                            <a  href="{{route('orphan.waiting.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                {{__('الحالات انتظار الرد')}}
+                                            </a>
+                                        </li>
 
 
-                            </div>
+                                        <li class="nav-item  p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                            <a  href="{{route('orphan.sponsored.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                {{__('الحالات المكفولة')}}
+                                            </a>
+                                        </li>
 
-                            <li class="p-2 me-5 link"> <a href=""> الرسائل </a></li>
-                            <li class="p-2 me-5 link"> <a href=""> الاشعارات </a></li>
-                            <li class="p-2 me-5 link"> <a href=""> الشكاوي </a></li>
+                                        <li class="nav-item  p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                            <a  href="{{route('orphan.archived.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                {{__('الحالات المؤرشفة')}}
+                                            </a>
+                                        </li>
 
-                        </ul> --}}
+                                        {{-- </ul> --}}
 
-                    </div>
+                                    </li>
 
-                    {{-- @auth --}}
+                                    <li class="nav-item two p-2 ps-3 me-5 status-item d-none" style="height: 40px">
+                                        <a  href="{{ route('family.index')}}" class="dropdown-item"  dir="rtl" style="text-align: start;">
+                                            {{__(' الأسر الأولى بالرعاية ')}}
+                                        </a>
+                                    </li>
+
+                                </li>
+
+
+
+
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a href="{{ route('volunteer.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('المتطوعين')}}
+                                    </a>
+                                </li>
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a href="{{ route('balance.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('المبالغ المقبوضة ')}}
+                                    </a>
+                                </li>
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a href="{{ route('expenses.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('المبالغ المدفوعة ')}}
+                                    </a>
+                                </li>
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a href="{{ route('file.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('الملفات')}}
+                                    </a>
+                                </li>
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a href="{{ route('file.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('الرسائل')}}
+                                    </a>
+                                </li>
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a href="{{ route('file.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('الاشعارات')}}
+                                    </a>
+                                </li>
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a  href="{{route('complaint.create')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('الشكاوي')}}
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    @endguest
+
+                    @auth
+
+                        <div class="links">
+
+                            {{-- <x-nav/> --}}
+                            <ul>
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a  href="{{ route('home')}}" class="nav-link "  dir="rtl" style="text-align: start;">
+                                        {{__('لوحة التحكم ')}}
+                                    </a>
+                                </li>
+
+                                @can('access-admin')
+
+                                    <li class="nav-item p-2 me-5" style="height: 40px">
+                                        <a  href="{{ route('supporter.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                            {{__('الداعمين')}}
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item p-2 me-5" style="height: 40px">
+                                        <a  href="{{ route('donor.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                            {{__('المتبرعين')}}
+                                        </a>
+                                    </li>
+
+                                @endcan
+
+
+                                <li class="nav-item dropdown  p-2 me-5 " style="height: 40px" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                    <a type="button" class="nav-link one dropdown-toggle d-flex justify-content-between align-items-center status"  dir="rtl" style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{__('الحالات')}}
+                                    </a>
+
+                                    <li class="nav-item dropdown  p-2 ps-3 me-5  status-item d-none" style="height: 40px;" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                        <a type="button" class="two four dropdown-toggle d-flex justify-content-between align-items-center orphan"  dir="rtl" style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{__(' الايتام المقدمين ')}}
+                                        </a>
+
+
+
+                                        {{-- <ul class="orphan-menu d-none"> --}}
+
+                                        @can('access-registrations')
+
+                                            <li class="nav-item p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                                <a  href="{{route('orphan.registered.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                    {{__('يتيم جديد')}}
+                                                </a>
+                                            </li>
+
+                                        @endcan
+
+
+                                        @can('access-review')
+
+                                            <li class="nav-item p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                                <a  href="{{route('orphan.review.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                    {{__('مراجعة')}}
+                                                </a>
+                                            </li>
+
+                                        @endcan
+
+
+                                        @can('access-certified')
+
+                                            <li class="nav-item p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                                <a  href="{{route('orphan.accreditation.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                    {{__('الاعتماد')}}
+                                                </a>
+                                            </li>
+
+                                        @endcan
+
+
+                                        @can('access-admin')
+
+                                            <li class="nav-item p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                                <a  href="{{route('orphan.certified.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                    {{__('الحالات المعتمدة')}}
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item p-2  ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                                <a  href="{{route('orphan.marketing.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                    {{__('الحالات المقدمة للتسويق')}}
+                                                </a>
+                                            </li>
+
+
+                                            <li class="nav-item  p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                                <a  href="{{route('orphan.waiting.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                    {{__('الحالات انتظار الرد')}}
+                                                </a>
+                                            </li>
+
+
+                                            <li class="nav-item  p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                                <a  href="{{route('orphan.sponsored.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                    {{__('الحالات المكفولة')}}
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item  p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
+                                                <a  href="{{route('orphan.archived.index')}}" class="three dropdown-item"  dir="rtl" style="text-align: start;">
+                                                    {{__('الحالات المؤرشفة')}}
+                                                </a>
+                                            </li>
+
+                                        @endcan
+
+
+
+                                    </li>
+
+                                    @can('access-admin')
+
+                                        <li class="nav-item two p-2 ps-3 me-5 status-item d-none" style="height: 40px">
+                                            <a  href="{{ route('family.index')}}" class="dropdown-item"  dir="rtl" style="text-align: start;">
+                                                {{__(' الأسر الأولى بالرعاية ')}}
+                                            </a>
+                                        </li>
+
+                                    @endcan
+
+
+                                </li>
+
+
+                                @can('access-admin')
+
+                                    <li class="nav-item p-2 me-5" style="height: 40px">
+                                        <a href="{{ route('volunteer.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                            {{__('المتطوعين')}}
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item p-2 me-5" style="height: 40px">
+                                        <a href="{{ route('balance.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                            {{__('المبالغ المقبوضة ')}}
+                                        </a>
+                                    </li>
+
+                                @endcan
+
+                                @can('access-financial')
+
+                                    <li class="nav-item p-2 me-5" style="height: 40px">
+                                        <a href="{{ route('expenses.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                            {{__('المبالغ المدفوعة ')}}
+                                        </a>
+                                    </li>
+
+                                @endcan
+
+                                @can('access-admin')
+
+                                    <li class="nav-item p-2 me-5" style="height: 40px">
+                                        <a href="{{ route('file.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                            {{__('الملفات')}}
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item p-2 me-5" style="height: 40px">
+                                        <a href="{{ route('file.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                            {{__('الرسائل')}}
+                                        </a>
+                                    </li>
+
+                                @endcan
+
+                                <li class="nav-item p-2 me-5 " style="height: 40px">
+                                    <a href="{{ route('notification.index')}}" class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('الاشعارات')}}
+                                        @if(auth()->user()->unreadNotifications->count() > 0)
+                                            <span class="badge title-color" style="background-color: #3B9E2933">
+                                                {{ auth()->user()->unreadNotifications->count() }}
+                                            </span>
+                                        @endif
+                                    </a>
+                                </li>
+
+                                <li class="nav-item p-2 me-5" style="height: 40px">
+                                    <a @guest href="{{route('complaint.create')}}" @endguest @auth  href="{{route('complaint.index')}}" @endauth  class="nav-link"  dir="rtl" style="text-align: start;">
+                                        {{__('الشكاوي')}}
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    @endauth
+
+
+                    @auth
 
                         <form action="{{route('logout')}}" method="post">
                             @csrf
                             <button type="submit" class="text-danger bg-transparent border-0" style="margin-right:2rem ">تسجيل الخروج</button>
                         </form>
 
-                    {{-- @endauth --}}
+                    @endauth
+
+                    @guest
+                        <a type="submit" href="{{route('login')}}" class="text-success bg-transparent border-0" style="margin-right:3rem ">تسجيل الدخول</a>
+                    @endguest
 
                 </div>
 
@@ -293,6 +536,105 @@
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let status = document.querySelector(".status");
+                let orphan = document.querySelector(".orphan");
+                let statusItems = document.querySelectorAll(".status-item");
+                let orphanMenu = document.querySelectorAll(".orphan-menu");
+
+
+
+                // عند الضغط على الحالات
+                status.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    statusItems.forEach(item => item.classList.toggle("d-none"));
+                    orphanMenu.forEach(item => item.classList.add("d-none"));
+
+                    // orphanMenu.classList.add("d-none"); // إخفاء القائمة الفرعية للأيتام عند فتح الحالات
+                });
+
+                // عند الضغط على الأيتام المقدمين
+                orphan.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    // orphanMenu.classList.toggle("d-none");
+                    orphanMenu.forEach(item => item.classList.toggle("d-none"));
+
+                });
+            });
+        </script>
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                let allNavLinks = document.querySelectorAll(".nav-link");
+
+                // استعادة العنصر المحدد من localStorage عند تحميل الصفحة
+                let activeLink = localStorage.getItem("activeNavLink");
+
+                if (activeLink) {
+                    allNavLinks.forEach(link => link.classList.remove("active")); // إزالة `active` من الكل أولاً
+
+                    let savedLink = document.querySelector(`.nav-link[href="${activeLink}"]`);
+                    if (savedLink) {
+                        savedLink.classList.add("active");
+                    }
+                }
+
+                allNavLinks.forEach(link => {
+                    link.addEventListener("click", function (e) {
+                        // إزالة `active` من جميع العناصر
+                        allNavLinks.forEach(item => item.classList.remove("active"));
+
+                        // إضافة `active` للعنصر المضغوط
+                        this.classList.add("active");
+
+                        // حفظ الرابط المحدد في localStorage
+                        localStorage.setItem("activeNavLink", this.getAttribute("href"));
+                    });
+                });
+            });
+
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // تحديد جميع العناصر التي تحتوي على الكلاس one, two, three, four
+                const oneLink = document.querySelector(".one");
+                const twoLink = document.querySelector(".two");
+                const threeLink = document.querySelector(".three");
+                const fourLink = document.querySelector(".four");
+
+                // التأكد من أن العناصر موجودة قبل إضافة الـ eventListeners
+                if (twoLink && threeLink && oneLink && fourLink) {
+
+                    // عند الضغط على الرابط الذي يحتوي على الكلاس "two"
+                    twoLink.addEventListener("click", function () {
+                        // إضافة الكلاس "active-text" لـ two و "active" لـ one
+                        twoLink.classList.add("active-text");
+                        oneLink.classList.add("active");
+
+                        // إزالة الكلاسات "active-text" من الثلاثي والخماسي
+                        threeLink.classList.remove("active-text");
+                        fourLink.classList.remove("active-text");
+                    });
+
+                    // عند الضغط على الرابط الذي يحتوي على الكلاس "three"
+                    threeLink.addEventListener("click", function () {
+                        // إضافة الكلاس "active-text" لـ three و "active-text" لـ four و "active" لـ one
+                        threeLink.classList.add("active-text");
+                        fourLink.classList.add("active-text");
+                        oneLink.classList.add("active");
+
+                        // إزالة الكلاس "active-text" من two
+                        twoLink.classList.remove("active-text");
+                    });
+                }
+            });
+        </script>
+
 
         {{-- <script>
             function toggleMenu(menuId, element) {

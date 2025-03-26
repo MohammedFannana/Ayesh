@@ -4,6 +4,7 @@ use App\Http\Controllers\AccreditationOrphanController;
 use App\Http\Controllers\ArchivedOrphanController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\CertifiedOrphanController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\ExpenseController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\FirstLineFamilyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MarketingOrphanController;
+use App\Http\Controllers\notificationController;
 use App\Http\Controllers\OrphanSupporterFieldValueController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisteredOrphanController;
@@ -30,11 +32,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/' , [HomeController::class , 'index'])->name('home');
+Route::get('/complaint/create' , [ComplaintController::class , 'create'])->name('complaint.create');
+Route::post('/complaint' , [ComplaintController::class , 'store'])->name('complaint.store');
 
 // 'verified'
 Route::middleware('auth')->group(function(){
-
-
 
     Route::middleware('can:access-admin')->group(function(){
 
@@ -171,6 +173,18 @@ Route::middleware('auth')->group(function(){
         Route::post('/expenses', [ExpenseController::class, 'store'])->name('expenses.store');
         Route::delete('/expenses/{expenses}', [ExpenseController::class, 'destroy'])->name('expenses.destroy');
     });
+
+    Route::get('/complaint' , [ComplaintController::class , 'index'])->name('complaint.index');
+
+    Route::get('/notification' , [notificationController::class , 'index'])->name('notification.index');
+
+    Route::get('/mark-as-read/{id}', function ($id) {
+        $notification = auth()->user()->notifications()->find($id);
+        if ($notification) {
+            $notification->markAsRead();
+        }
+        return back();
+    })->name('markAsRead');
 
 });
 

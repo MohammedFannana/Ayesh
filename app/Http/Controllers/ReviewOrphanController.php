@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrphanReviewed;
 use App\Models\Orphan;
 use App\Models\Review;
 use Exception;
@@ -58,8 +59,11 @@ class ReviewOrphanController extends Controller
 
         try {
 
-            $orphan->reviews()->create($validated);
-            
+            $review = $orphan->reviews()->create($validated);
+
+            event(new OrphanReviewed($review));
+
+
             if ($request->status == 'approved') {
                 $orphan->update(['status' => 'under_review']);
             } else {

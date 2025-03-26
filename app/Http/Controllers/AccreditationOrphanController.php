@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OrphanReviewed;
 use App\Models\Orphan;
 use Exception;
 use Illuminate\Http\Request;
@@ -60,7 +61,10 @@ class AccreditationOrphanController extends Controller
 
         try {
 
-            $orphan->reviews()->create($validated);
+            $review = $orphan->reviews()->create($validated);
+
+            event(new OrphanReviewed($review));
+
 
             if ($request->status == 'approved') {
                 $orphan->update(['status' => 'approved']);
