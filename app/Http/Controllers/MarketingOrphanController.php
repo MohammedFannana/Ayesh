@@ -7,17 +7,17 @@ use App\Models\Supporter;
 use App\Models\SupporterField;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-// use setasign\Fpdi\Tcpdf\Fpdi;
-// use setasign\Fpdi\Tcpdf\Fpdi;
-// use Barryvdh\DomPDF\Facade\Pdf;
-// use Mpdf\Mpdf;
-// use setasign\Fpdi\PdfParser\StreamReader;
-// use Barryvdh\DomPDF\Facade as PDF;
+// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
+// use LaravelMpdf\Facades\LaravelMpdf;
+// use Meneses\LaravelMpdf\Facades\LaravelMpdf;
+// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
 
-use TCPDF;
+// use Meneses\LaravelMpdf\Facades\LaravelMpdf;
+// use Meneses
 
 
-// use Mpdf\Mpdf;
+
 
 class MarketingOrphanController extends Controller
 {
@@ -166,60 +166,6 @@ class MarketingOrphanController extends Controller
         return redirect()->route('orphan.marketing.index')->with('success' , __(' تم حذف اليتيم بنجاح '));
     }
 
-    // public function generatePDF(Request $request){
-    //     // جلب معرفات الأيتام من الطلب
-    //     $orphanIds = explode(',', $request->orphan_ids);
-
-    //     // جلب جميع الأيتام مع البيانات اللازمة
-    //     $orphans = Orphan::with(['guardian', 'family', 'marketing.supporter', 'supporterFieldValues'])
-    //                     ->whereIn('id', $orphanIds)
-    //                     ->get();
-
-    //     if ($orphans->isEmpty()) {
-    //         return response()->json(['error' => 'لم يتم العثور على الأيتام المحددين'], 404);
-    //     }
-
-    //     $pdf = new Fpdi();
-    //     // التحقق من اكتمال البيانات لكل يتيم
-    //     foreach ($orphans as $orphan) {
-    //         // جلب الـ donor_id من علاقة marketing
-    //         $donor = $orphan->marketing->donor_id;
-
-    //         if (!$donor) {
-    //             return response()->json([
-    //                 'error' => "اليتيم {$orphan->name} غير مرتبط بأي متبرع"
-    //             ], 400);
-    //         }
-
-    //         // جلب الحقول المطلوبة لهذا المتبرع
-    //         $requiredFields = DonorField::where('donor_id', $donor)->pluck('id')->toArray();
-
-    //         // الحصول على الحقول التي يملكها هذا اليتيم فقط
-    //         $filledFields = $orphan->donorFieldValues
-    //                             ->whereNotNull('value') // التأكد أن القيم غير فارغة
-    //                             ->pluck('donor_field_id')
-    //                             ->toArray();
-
-    //         // استخراج الحقول الناقصة
-    //         $missingFields = array_diff($requiredFields, $filledFields);
-
-    //         if (!empty($missingFields)) {
-
-    //             return redirect()->route('orphan.marketing.index')->with('danger', "اليتيم {$orphan->name}  لا يحتوي على جميع بيانات المتبرع المطلوبة");
-    //             // return response()->json([
-    //             //     'error' => "اليتيم {$orphan->name} لا يحتوي على جميع بيانات المتبرع المطلوبة"
-    //             // ], 400);
-    //         }
-    //     }
-
-    //     // تحميل ملف PDF
-    //     // $pdf = Pdf::loadView('pdf.orphan_image_template', compact('orphans'));
-
-    //     // return response()->streamDownload(
-    //     //     fn() => print($pdf->output()),
-    //     //     'orphans_list.pdf'
-    //     // );
-    // }
 
 
     public function generatePDF(Request $request)
@@ -246,16 +192,6 @@ class MarketingOrphanController extends Controller
             return back()->with('danger', 'لا يوجد أيتام متاحين');
         }
 
-        // $mpdf = new Mpdf([
-        //     'mode' => 'utf-8',
-        //     'format' => 'A4',
-        //     'margin_left' => 10,
-        //     'margin_right' => 10,
-        //     'margin_top' => 10,
-        //     'margin_bottom' => 10,
-        // ]);
-
-        // $htmlContent = '';
 
         foreach ($orphans as $orphan) {
             $supporterId = $orphan->marketing->supporter_id ?? null;
@@ -280,39 +216,13 @@ class MarketingOrphanController extends Controller
                 return redirect()->route('orphan.marketing.index')->with('danger', "اليتيم {$orphan->name} ليس في حالة المتبرع");
             }
 
+            // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
+            $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
 
-            // $orphanHtml = View::make('pdf.donor_' . $donorId, compact('orphan'));
+            return $pdf->stream('donor_4.pdf');
 
 
-// إنشاء ملف PDF جديد
-$pdf = new TCPDF();
-$pdf->SetCreator('Laravel TCPDF');
-$pdf->SetAuthor('اسم مؤسستك');
-$pdf->SetTitle("ملف اليتيم - {$orphan->name}");
-$pdf->SetMargins(10, 10, 10);
-$pdf->SetAutoPageBreak(TRUE, 10);
-$pdf->AddPage();
-            // تنزيل الـ PDF مباشرة
-            // $bootstrapCss = file_get_contents(public_path('css/bootstrap.min.css'));
-            // $pdf->writeHTML('<style>' . $bootstrapCss . '</style>', true, false, true, false, '');
-
-            // إدراج محتوى القالب داخل PDF
-            // $pdf->writeHTML($orphanHtml, true, false, true, false, '');
-
-            dd('x');
-  // تنزيل الملف مباشرة للمستخدم
-  $fileName = 'orphan_' . $orphan->id . '.pdf';
-  header('Content-Type: application/pdf');
-  header('Content-Disposition: attachment; filename="' . $fileName . '"');
-  $pdf->Output($fileName, 'D'); // 'D' تعني تنزيل الملف مباشرة
-            // $htmlContent .= $orphanHtml . '<div style="page-break-before: always;"></div>'; // إضافة فاصل صفحات بين الأيتام
-            // $mpdf->WriteHTML($orphanHtml);
-            // $mpdf->AddPage(); // إضافة صفحة جديدة بعد كل يتيم
         }
-
-
-        // $pdf = PDF::loadHTML($htmlContent);
-        // return $pdf->stream('orphans_report.pdf');
 
 
     }

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -22,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        // $user = Auth::user();
+        // App::setlocale($user->locale);
+
+
+
         Paginator::useBootstrapFive();
 
         // Gate للتحقق من صلاحية الوصول للوحة التحكم (Admin)

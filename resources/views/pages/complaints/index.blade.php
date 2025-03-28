@@ -20,7 +20,7 @@
                 height: 100%;
                 background-color: #C1C1C1;
                 top: 0px;
-                left: 15%;
+                {{ App::isLocale('ar') ? 'left: 15%;' : 'right: 15%;' }};
             }
 
         </style>

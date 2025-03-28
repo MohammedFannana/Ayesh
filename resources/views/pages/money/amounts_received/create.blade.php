@@ -1,7 +1,7 @@
 <x-main-layout>
 
     <h2 class="mb-4"> {{__('المقبوضات')}} </h2>
-    <h4 class="mb-4 title-color"> {{__('إضافة مبلغ ')}}</h4>
+    <h4 class="mb-4 title-color"> {{__('إضافة مبلغ')}}</h4>
 
 
     <form action="{{route('balance.store')}}" method="post" enctype="multipart/form-data">
@@ -12,14 +12,14 @@
         <div class="bg-white p-3 mb-4 rounded shadow-sm">
             <div class="row">
 
-                <p class="title mb-3"> {{__('المعلومات الأساسية ')}}</p>
+                <p class="title mb-3"> {{__('المعلومات الأساسية')}}</p>
 
 
                 <!-- supporter_number  -->
                 <div class="col-12 col-md-6 mb-3">
                     <label class="mb-2">{{ __('رقم الداعم') }}</label>
                     <select id="supporter_id" name="supporter_id" class="form-control form-select @error('supporter_id') is-invalid @enderror">
-                        <option value="">اختر رقم الداعم</option>
+                        <option value="">{{__('اختر رقم الداعم')}}</option>
                         @foreach($supporters as $supporter)
                             <option value="{{ $supporter->id }}">{{ $supporter->id }}</option>
                         @endforeach
@@ -36,7 +36,7 @@
                 <div class="col-12 col-md-6 mb-3">
                     <label class="mb-2">{{ __('اسم الداعم') }}</label>
                     <select id="supporter_name" name="supporter_id_1" class="form-control form-select @error('supporter_id_1') is-invalid @enderror">
-                        <option value="">اختر اسم الداعم</option>
+                        <option value="">{{__('اختر اسم الداعم')}}</option>
                         @foreach($supporters as $supporter)
                             <option value="{{ $supporter->id }}">{{ $supporter->name }}</option>
                         @endforeach
@@ -50,7 +50,7 @@
 
                 <!--  amount -->
                 <div class="col-12 col-md-6 mb-3">
-                    <x-form.input name="amount"  class="border" type="text" label=" {{__('المبلغ')}} "  placeholder="أدخل المبلغ "/>
+                    <x-form.input name="amount"  class="border" type="text" label=" {{__('المبلغ')}} "  placeholder="{{__('أدخل المبلغ')}}"/>
                 </div>
 
             </div>
@@ -58,18 +58,18 @@
 
         <div class="bg-white row p-3 mb-4 rounded shadow-sm">
 
-            <p class="title mb-4">  {{__('الصور  و الملفات المطلوبة ')}}</p>
+            <p class="title mb-4">  {{__('الصور و الملفات المطلوبة')}}</p>
 
 
             {{-- add_file --}}
             <div class="col-12 col-md-6 mb-3">
-                <label for="payment_image" class="custom-file-upload w-75 text-center"> {{__('اضافة ملف ')}}</label>
+                <label for="payment_image" class="custom-file-upload w-75 text-center"> {{__('اضافة ملف')}}</label>
                 <x-form.input name="payment_image" class="border hidden-file-style" type="file" id="payment_image" style="display: none;"  autocomplete="" />
             </div>
 
             <div class="col-12 row gap-1 mb-4">
                 <div class="col-5">
-                    <x-form.input name=""  class="border file_name" type="text" placeholder=" اسم الملف" disabled/>
+                    <x-form.input name=""  class="border file_name" type="text" placeholder="{{__('اسم الملف')}}" disabled/>
                 </div>
 
                 <div class="col-1">

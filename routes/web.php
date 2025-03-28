@@ -23,6 +23,7 @@ use App\Http\Controllers\SponsoredOrphanController;
 use App\Http\Controllers\SupporterController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\WaitingOrphanController;
+use App\Http\Middleware\ApplyUserLanguage;
 use App\Http\Middleware\DashboardAccess;
 use App\Models\FirstLineFamily;
 use Illuminate\Support\Facades\Route;
@@ -31,12 +32,17 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/' , [HomeController::class , 'index'])->name('home');
-Route::get('/complaint/create' , [ComplaintController::class , 'create'])->name('complaint.create');
-Route::post('/complaint' , [ComplaintController::class , 'store'])->name('complaint.store');
+Route::middleware(ApplyUserLanguage::class)->group(function(){
+
+    Route::get('/' , [HomeController::class , 'index'])->name('home');
+    Route::get('/complaint/create' , [ComplaintController::class , 'create'])->name('complaint.create');
+    Route::post('/complaint' , [ComplaintController::class , 'store'])->name('complaint.store');
+
+});
+
 
 // 'verified'
-Route::middleware('auth')->group(function(){
+Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
 
     Route::middleware('can:access-admin')->group(function(){
 

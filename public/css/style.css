@@ -2,7 +2,7 @@
     --color: green;
     --text-color:#737373;
     --title-color:#3B9E29;
-    
+
 }
 
 /* font */
@@ -188,19 +188,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 
 /*  */
-
-input[type="email"],
-input[type="date"] {
-    text-align: right; /* محاذاة النص إلى اليمين */
-    direction: rtl; /* جعل الاتجاه من اليمين لليسار */
-}
-
-
-input[type="email"]::placeholder,
-input[type="date"]::placeholder {
-    text-align: right; /* محاذاة الـ placeholder فقط إلى اليمين */
-    direction: rtl;
-}
 
 
 

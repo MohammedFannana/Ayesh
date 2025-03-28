@@ -2,38 +2,38 @@
 
     <!-- name -->
     <div class="col-12 col-md-6">
-        <x-form.input name="name"  class="border" type="text" label=" {{__('الاسم')}} " placeholder="أدخل الاسم"/>
+        <x-form.input name="name"  class="border" type="text" label=" {{__('الاسم')}} " placeholder="{{__('أدخل الاسم')}}"/>
     </div>
 
     <!-- country -->
     {{-- :value="$admin->email" --}}
     <div class="col-12 col-md-6">
-        <x-form.input name="country"  class="border" type="text" label="{{__('الدولة')}}" placeholder="أدخل الدولة"/>
+        <x-form.input name="country"  class="border" type="text" label="{{__('الدولة')}}" placeholder="{{__('أدخل الدولة')}}"/>
     </div>
 
     {{-- phone --}}
     <div class="mt-4 col-12 col-md-6">
-        <x-form.input name="phone" class="border" type="text" label="{{__('رقم الجوال')}} " autocomplete="" placeholder="أدخل رقم الجوال"/>
+        <x-form.input name="phone" class="border" type="text" label="{{__('رقم الجوال')}} " autocomplete="" placeholder="{{__('أدخل رقم الجوال')}}"/>
     </div>
 
     {{-- Fax --}}
     <div class="mt-4 col-12 col-md-6">
-        <x-form.input name="fax" class="border" type="text" label=" {{__('الفاكس')}} " autocomplete="" placeholder="أدخل الفاكس"/>
+        <x-form.input name="fax" class="border" type="text" label=" {{__('الفاكس')}} " autocomplete="" placeholder="{{__('أدخل الفاكس')}}"/>
     </div>
 
     {{-- website --}}
     <div class="mt-4 col-12 col-md-6">
-        <x-form.input name="website" class="border" type="text" label=" {{__('  الموقع الالكتروني ')}}   " autocomplete="" placeholder="أدخل الموقع الالكتروني"/>
+        <x-form.input name="website" class="border" type="text" label=" {{__('الموقع الالكتروني')}}   " autocomplete="" placeholder="{{__('أدخل الموقع الالكتروني')}}"/>
     </div>
 
     {{-- email --}}
     <div class="mt-4 col-12 col-md-6">
-        <x-form.input name="email" class="border" type="email" label=" {{__('  البريد الالكتروني ')}}   " autocomplete="" placeholder="أدخل البريد الالكتروني"/>
+        <x-form.input name="email" class="border" type="email" label=" {{__('البريد الالكتروني')}}   " autocomplete="" placeholder="{{__('أدخل البريد الالكتروني')}}"/>
     </div>
 
     {{-- address --}}
     <div class="mt-4 col-12 col-md-6">
-        <x-form.input name="address" class="border" type="text" label=" {{__(' العنوان ')}}  " autocomplete="" placeholder="أدخل العنوان"/>
+        <x-form.input name="address" class="border" type="text" label=" {{__('العنوان')}}  " autocomplete="" placeholder="{{__('أدخل العنوان')}}"/>
     </div>
 
 

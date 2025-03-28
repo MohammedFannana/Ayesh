@@ -12,7 +12,7 @@
         <div class="supporters-view row">
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('الموقع الالكتروني ')}}  </p>
+                <p class="title"> {{__('الموقع الالكتروني')}}  </p>
                 <p class="fw-semibold">{{$donor->website}}</p>
             </div>
 
@@ -35,12 +35,12 @@
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('البريد الالكتروني ')}} </p>
+                <p class="title"> {{__('البريد الالكتروني')}} </p>
                 <p class="fw-semibold">{{$donor->email}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__(' العنوان ')}} </p>
+                <p class="title"> {{__('العنوان')}} </p>
                 <p class="fw-semibold"> {{$donor->address}} </p>
             </div>
 
@@ -52,7 +52,7 @@
     <div class="payment-details bg-white rounded shadow-sm p-3 mb-4">
 
         <div class="d-flex justify-content-between align-items-center">
-            <p class="mb-3 fs-5 fw-semibold title-color"> {{__(' الكشوفات الواردة ')}} </p>
+            <p class="mb-3 fs-5 fw-semibold title-color"> {{__('الكشوفات الواردة')}} </p>
             <div class="mb-2">
                 <a href="{{route('donor.income.statement' ,$donor->id)}}" class="btn add-button"> {{__('عرض الكل ')}}</a>
             </div>
@@ -73,7 +73,7 @@
 
             <tbody>
 
-                @forelse ($donor_balances as $balance)
+                {{-- @forelse ($donor_balances as $balance)
 
                     <tr>
                         <th scope="row" class="title-color"> {{$balance->amount}} </th>
@@ -91,7 +91,7 @@
                         <th colspan="3" class="text-danger text-center"> لا يوجد كشوفات واردة </th>
                     </tr>
 
-                @endforelse
+                @endforelse --}}
 
 
             </tbody>
@@ -144,7 +144,7 @@
 
             <tbody>
 
-                @forelse ($orphans as $orphan)
+                {{-- @forelse ($orphans as $orphan)
 
                     @foreach ($orphan->expenses->take(1) as $expense)
 
@@ -197,7 +197,7 @@
                         </th>
                     </tr>
 
-                @endforelse
+                @endforelse --}}
 
 
             </tbody>

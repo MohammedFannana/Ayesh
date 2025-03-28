@@ -3,7 +3,7 @@
     {{-- title & search --}}
     <div class="row mb-3" >
 
-        <h2 class="col-3"> {{__('مدير الملفات ')}}</h2>
+        <h2 class="col-3"> {{__('مدير الملفات')}}</h2>
 
         <x-alert name="success" />
         <x-alert name="danger" />
@@ -114,7 +114,7 @@
             <label class="mb-3 title-color fs-5"> {{ __('رفع الملف') }} </label> <br>
             <label for="upload_file_modal" class="custom-file-upload w-100 text-center p-3" data-bs-toggle="modal" data-bs-target="#categoryModal">
                 <img src="{{ asset('image/upload.png') }}" alt=""> <br>
-                اضغط هنا لتحميل ملف
+                {{__('اضغط هنا لتحميل ملف')}}
             </label>
         </div>
 
@@ -126,15 +126,15 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title title-color"> {{__(' اختر علاقة الملف ')}} </h5>
+                            <h5 class="modal-title title-color"> {{__('اختر علاقة الملف')}} </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
                         </div>
                         <div class="modal-body pt-0">
                             <ul class="list-group">
-                                <li class="list-group-item category-option border-bottom " data-category="orphan" style="border: none">الأيتام</li>
-                                <li class="list-group-item category-option border-bottom " data-category="project" style="border: none">المشاريع</li>
-                                <li class="list-group-item category-option border-bottom " data-category="supporter" style="border: none">الجمعيات</li>
-                                <li class="list-group-item category-option border-bottom " data-category="volunteer" style="border: none">المتطوعين</li>
+                                <li class="list-group-item category-option border-bottom " data-category="orphan" style="border: none">{{__('الأيتام')}}</li>
+                                <li class="list-group-item category-option border-bottom " data-category="project" style="border: none">{{__('المشاريع')}}</li>
+                                <li class="list-group-item category-option border-bottom " data-category="supporter" style="border: none">{{__('الجمعيات')}}</li>
+                                <li class="list-group-item category-option border-bottom " data-category="volunteer" style="border: none">{{__('المتطوعين')}}</li>
                             </ul>
                         </div>
                     </div>
@@ -146,11 +146,11 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title title-color">اختر الاسم</h5>
+                            <h5 class="modal-title title-color">{{__('اختر الاسم')}}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
                         </div>
                         <div class="modal-body">
-                            <input type="text" id="searchInput" class="form-control mb-2" placeholder="ابحث عن اسم">
+                            <input type="text" id="searchInput" class="form-control mb-2" placeholder="{{__('ابحث عن اسم')}}">
                             <ul class="list-group" id="nameList">
                                 <!-- سيتم تحميل الأسماء ديناميكيًا هنا -->
                             </ul>

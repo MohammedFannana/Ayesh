@@ -57,16 +57,21 @@ class DonorController extends Controller
     {
         $donorId = $donor->id;
 
-        $donor_balances = $donor->balances()->take(5)->get();
+        // $donor_balances = $donor->balances()->take(5)->get();
 
-        $orphans = Orphan::where('status' , 'sponsored')
-        ->whereHas('sponsorship', function ($query) use ($donorId) {
-            $query->where('donor_id', $donorId);
-        })->with(['expenses:id,orphan_id,amount' , 'profile:orphan_id,phone' , 'sponsorship:orphan_id,external_code'])
-        ->take(5)
-        ->get();
+        // $orphans = Orphan::where('status' , 'sponsored')
+        // ->whereHas('sponsorship', function ($query) use ($donorId) {
+        //     $query->where('donor_id', $donorId);
+        // })->with(['expenses:id,orphan_id,amount' , 'profile:orphan_id,phone' , 'sponsorship:orphan_id,external_code'])
+        // ->take(5)
+        // ->get();
         // $orphans->take(5);
-        return view('pages.donors.view' , compact('donor' , 'donor_balances' ,'orphans'));
+        // 'donor_balances'
+        // return view('pages.donors.view' , compact('donor' ,'orphans'));
+                return view('pages.donors.view' , compact('donor'));
+
+
+
     }
 
     /**

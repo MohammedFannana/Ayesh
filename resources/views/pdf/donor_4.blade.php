@@ -2,6 +2,7 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
+
     <title>قالب تسجيل يتيم</title>
 
     <style>
@@ -99,6 +100,7 @@
             margin-top: 10mm;
         }
     </style>
+
 </head>
 <body>
     <div class="container1">
@@ -121,14 +123,13 @@
                     <span class="span-value"> {{$orphan->name}} </span>
                 </div>
 
-
-
-                {{-- <div class="cell">
+                <div class="cell">
                     <span class="title" style=" border-right: 1px solid #737373;">  الجنسية : </span>
                     <span class="span-value"> {{ $orphan->getFieldValueByDatabaseName('nationality')}} </span>
-                </div> --}}
+                </div>
+
             </div>
-{{--
+
             <div class="name">
                 <div class="cell">
                     <span class="title"> تاريخ الميلاد : </span>
@@ -308,11 +309,12 @@
                     <span class="title"> الصف : </span>
                     <span class="span-value"> {{$orphan->profile->class}} </span>
                 </div>
-            </div> --}}
+            </div>
 
         </div>
 
         <div style="margin-top: 1.25rem">
+
             <p class="textarea-title" style="width:fit-content"> الحالة الاجتماعية لأسرة اليتيم (رأي المشرف الاجتماعي) </p>
             <p style="font-size: 18px">
                 {{ $orphan->getFieldValueByDatabaseName('social_status_orphan')}}
@@ -320,7 +322,7 @@
 
         </div>
 
-        {{-- <div  style="display: flex; justify-content-between">
+        <div  style="display: flex; justify-content-between">
             <div  style="width:50%">
                 <p class="fw-bold fs-5"> توقيع و ختم قسم الأيتام </p>
             </div>
@@ -328,7 +330,7 @@
             <div style="width:50%">
                 <p class="fw-bold fs-5"> اعتماد الجهة المشرفة </p>
             </div>
-        </div> --}}
+        </div>
 
 
 

@@ -1,0 +1,12 @@
+/* rtl.css */
+input[type="email"],
+input[type="date"] {
+    text-align: right; /* محاذاة النص إلى اليمين */
+    direction: rtl; /* جعل الاتجاه من اليمين لليسار */
+}
+
+input[type="email"]::placeholder,
+input[type="date"]::placeholder {
+    text-align: right; /* محاذاة الـ placeholder فقط إلى اليمين */
+    direction: rtl;
+}

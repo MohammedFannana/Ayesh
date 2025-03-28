@@ -9,22 +9,22 @@
 
         <div class="row">
 
-            <p class="title mb-4"> {{__('المعلومات الأساسية ')}}</p>
+            <p class="title mb-4"> {{__('المعلومات الأساسية')}}</p>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('رقم الأسرة ')}} </p>
+                <p class="title"> {{__('رقم الأسرة')}} </p>
                 <p class="fw-semibold"> {{$family->families_number}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('رقم الهيئة ')}}</p>
+                <p class="title"> {{__('رقم الهيئة')}}</p>
                 <p class="fw-semibold"> {{$family->authority_number}} </p>
             </div>
 
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('اسم الهيئة ')}} </p>
+                <p class="title"> {{__('اسم الهيئة')}} </p>
                 <p class="fw-semibold"> {{$family->authority_name}} </p>
             </div>
 
@@ -42,7 +42,7 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('حالة (الأب, الأم)')}}  </p>
+                <p class="title"> {{__('حالة (الأب , الأم)')}}  </p>
                 <p class="fw-semibold"> {{$family->parents_status}} </p>
             </div>
 
@@ -57,7 +57,7 @@
 
         <div class="row">
 
-            <p class="title mb-4">  {{__('بيانات صاحب العلاقة ')}}</p>
+            <p class="title mb-4">  {{__('بيانات صاحب العلاقة')}}</p>
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('الجنسية')}} </p>
@@ -65,42 +65,42 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('تاريخ الميلاد ')}}</p>
+                <p class="title"> {{__('تاريخ الميلاد')}}</p>
                 <p class="fw-semibold"> {{$family->birth_date}} </p>
             </div>
 
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('الحالة الاجتماعية ')}} </p>
-                <p class="fw-semibold">   {{$family->marital_status}}  </p>
+                <p class="title"> {{__('الحالة الاجتماعية')}} </p>
+                <p class="fw-semibold">   {{($family->marital_status)}}  </p>
             </div>
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('عدد أفراد العائلة ')}} </p>
+                <p class="title"> {{__('عدد أفراد العائلة')}} </p>
                 <p class="fw-semibold"> {{$family->family_number}} </p>
             </div>
 
             <hr>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('عدد الابناء ')}}  </p>
+                <p class="title"> {{__('عدد الابناء')}}  </p>
                 <p class="fw-semibold"> {{$family->family_male_number}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('عدد البنات ')}}  </p>
+                <p class="title"> {{__('عدد البنات')}}  </p>
                 <p class="fw-semibold"> {{$family->family_female_number}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('الدخل الشهري ')}}  </p>
+                <p class="title"> {{__('الدخل الشهري')}}  </p>
                 <p class="fw-semibold"> {{$family->income}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('مصدر الدخل ')}}</p>
+                <p class="title"> {{__('مصدر الدخل')}}</p>
                 <p class="fw-semibold"> {{$family->income_source}} </p>
             </div>
 
@@ -112,7 +112,7 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('حالة الأسرة المادية ')}}  </p>
+                <p class="title"> {{__('حالة الأسرة المادية')}}  </p>
                 <p class="fw-semibold"> {{$family->financial_status}} </p>
             </div>
 
@@ -126,7 +126,7 @@
 
         <div class="row">
 
-            <p class="title mb-4">  {{__('مكان اقامة الأسرة ')}} </p>
+            <p class="title mb-4">  {{__('مكان اقامة الأسرة')}} </p>
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('الولادة')}} </p>
@@ -159,12 +159,12 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('أقرب معلم ')}} </p>
+                <p class="title"> {{__('أقرب معلم')}} </p>
                 <p class="fw-semibold"> {{$family->first_line_familie_profile->landmark}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('وضع السكن ')}}</p>
+                <p class="title"> {{__('وضع السكن')}}</p>
                 <p class="fw-semibold"> {{$family->first_line_familie_profile->housing_status}} </p>
             </div>
 
@@ -177,10 +177,10 @@
 
         <div class="row">
 
-            <p class="title mb-4">  {{__('بحث الحالة ')}}</p>
+            <p class="title mb-4">  {{__('بحث الحالة')}}</p>
 
             <div class="flex flex-column col-12 mb-3">
-                <p class="title"> {{__('بحث حالة الأسرة ')}}</p>
+                <p class="title"> {{__('بحث حالة الأسرة')}}</p>
                 <p class="fw-semibold">
                     {{$family->first_line_familie_profile->search_status}}
                 </p>
@@ -189,28 +189,28 @@
             <hr>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('اسم الباحث ')}}</p>
+                <p class="title"> {{__('اسم الباحث')}}</p>
                 <p class="fw-semibold"> {{$family->first_line_familie_profile->researcher_name}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">   {{__('  التوقيع ')}}</p>
+                <p class="title">   {{__('التوقيع')}}</p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($family->first_line_familie_profile->signature)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __(' صورة التوقيع ' ) }}.{{ pathinfo($family->first_line_familie_profile->signature, PATHINFO_EXTENSION) }}
+                    {{ __('صورة التوقيع' ) }}.{{ pathinfo($family->first_line_familie_profile->signature, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">  {{__('رقم الهاتف ')}}  </p>
+                <p class="title">  {{__('رقم الهاتف')}}  </p>
                 <p class="fw-semibold">   {{$family->first_line_familie_profile->phone}}  </p>
             </div>
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">   {{__('  المستندات الثبوتية  ')}}</p>
+                <p class="title">   {{__('المستندات الثبوتية')}}</p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($family->first_line_familie_profile->supporting_documents)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __(' صورة المستندات ' ) }}.{{ pathinfo($family->first_line_familie_profile->supporting_documents, PATHINFO_EXTENSION) }}
+                    {{ __('صورة المستندات' ) }}.{{ pathinfo($family->first_line_familie_profile->supporting_documents, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
@@ -218,20 +218,20 @@
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('اسم مسؤول الهيئة ')}}  </p>
+                <p class="title"> {{__('اسم مسؤول الهيئة')}}  </p>
                 <p class="fw-semibold"> {{$family->first_line_familie_profile->authority_official}} </p>
             </div>
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">   {{__('  التوقيع ')}}</p>
+                <p class="title">   {{__('التوقيع')}}</p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($family->first_line_familie_profile->authority_official_signature)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __(' صورة التوقيع ' ) }}.{{ pathinfo($family->first_line_familie_profile->authority_official_signature, PATHINFO_EXTENSION) }}
+                    {{ __('صورة التوقيع' ) }}.{{ pathinfo($family->first_line_familie_profile->authority_official_signature, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">   {{__('  شهادة الميلاد اصل كمبيوتر  ')}}</p>
+                <p class="title">   {{__('شهادة الميلاد اصل كمبيوتر')}}</p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($family->first_line_familie_profile->birth_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
                     {{ __(' صورة شهادة الميلاد  ' ) }}.{{ pathinfo($family->first_line_familie_profile->birth_certificate, PATHINFO_EXTENSION) }}
                 </a>
@@ -239,9 +239,9 @@
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">   {{__('  شهادة الوفاة اصل كمبيوتر  ')}}</p>
+                <p class="title">   {{__('شهادة الوفاة اصل كمبيوتر')}}</p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($family->first_line_familie_profile->death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __(' صورة شهادة الوفاة  ' ) }}.{{ pathinfo($family->first_line_familie_profile->death_certificate, PATHINFO_EXTENSION) }}
+                    {{ __('صورة شهادة الوفاة' ) }}.{{ pathinfo($family->first_line_familie_profile->death_certificate, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
@@ -254,7 +254,7 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('رقم الكافل ')}}  </p>
+                <p class="title"> {{__('رقم الكافل')}}  </p>
                 <p class="fw-semibold"> {{$family->first_line_familie_profile->sponsor_number}} </p>
             </div>
 

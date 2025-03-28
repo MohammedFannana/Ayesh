@@ -1,6 +1,6 @@
 <x-main-layout>
 
-    <h2 class="mb-4"> {{__('الأيتام المقدمين')}}</h2>
+    <h2 class="mb-4"> {{__('الايتام المقدمين')}}</h2>
 
     <x-alert name="success" />
     <x-alert name="danger" />
@@ -11,7 +11,7 @@
 
             {{-- title and count --}}
             <div>
-                <p class="title-color fs-5 fw-semibold mb-1">  {{__('الأسر الأولى بالرعاية ')}}</p>
+                <p class="title-color fs-5 fw-semibold mb-1">  {{__('الأسر الأولى بالرعاية')}}</p>
                 <p class="count">{{$count}} {{__('أسرة')}}</p>
             </div>
 
@@ -23,7 +23,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 512 512"><path fill="#ACACAC" d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg>
 
                     </button>
-                    <input type="text" name="search" class="form-control" placeholder="البحث عن الأسرة"  aria-describedby="addon-wrapping">
+                    <input type="text" name="search" class="form-control" placeholder="{{__('البحث عن الأسرة')}}"  aria-describedby="addon-wrapping">
                 </div>
 
             </form>
@@ -77,7 +77,7 @@
 
             {{-- button --}}
             <div class="add-support">
-                <a href="{{route('family.create')}}" class="btn add-button ps-4 pe-4">  {{__('اضافة أسرة ')}} </a>
+                <a href="{{route('family.create')}}" class="btn add-button ps-4 pe-4">  {{__('اضافة أسرة')}} </a>
             </div>
 
         </div>
@@ -89,12 +89,12 @@
             <thead>
 
                 <tr>
-                    <th scope="col"> {{__('رقم الأسرة ')}}</th>
-                    <th scope="col"> {{__('رقم الهيئة ')}}</th>
+                    <th scope="col"> {{__('رقم الأسرة')}}</th>
+                    <th scope="col"> {{__('رقم الهيئة')}}</th>
                     <th scope="col"> {{__('الاسم')}} </th>
                     <th scope="col">  {{__('حالة (الأب , الأم)')}} </th>
                     <th scope="col"> {{__('الهاتف')}} </th>
-                    <th scope="col"> {{__('الاجراء')}} </th>
+                    <th scope="col"> {{__('الاجراءات')}} </th>
 
                 </tr>
 
@@ -123,7 +123,7 @@
                                 <br>
                                 <a href="" class="text-decoration-none">
                                     <img src="{{asset('image/Message.svg')}}" alt="">
-                                    <span style="color: var(--text-color);">مراسلة الجمعية</span>
+                                    <span style="color: var(--text-color);">{{__('مراسلة الجمعية')}}</span>
                                 </a>
 
                                 <form action="{{route('family.destroy' , $family->id)}}" method="post" style="margin-right: -5px">
@@ -144,7 +144,7 @@
 
                     <tr>
                         <td colspan="6" class="text-danger text-center fs-4">
-                            لا يوجد أسر أولى بالرعاية
+                            {{__('لا يوجد أسر أولى بالرعاية')}}
                         </td>
                     </tr>
 

@@ -27,7 +27,7 @@
 
     @endpush
 
-    <h2 class="mb-4"> {{__(' الاشعارات ')}} </h2>
+    <h2 class="mb-4"> {{__('الاشعارات')}} </h2>
 
 
     @forelse ($notifications as $notification)
@@ -37,7 +37,7 @@
             <div class="col-3 basic-information">
 
                 <p class="mb-1 title"> {{ \Carbon\Carbon::parse($notification->data['time'])->diffForHumans() }} </p>
-                <a href="{{ route('markAsRead', $notification->id) }}">تحديد كمقروء</a>
+                <a href="{{ route('markAsRead', $notification->id) }}">{{__('تحديد كمقروء')}}</a>
 
             </div>
 
@@ -51,7 +51,7 @@
 
     @empty
 
-        <p class="text-success fs-4 fw-semibold text-center rounded p-3" style="background-color: #3B9E2933"> لا يوجد اشعارات </p>
+        <p class="text-success fs-4 fw-semibold text-center rounded p-3" style="background-color: #3B9E2933"> {{__('لا يوجد اشعارات')}}</p>
 
     @endforelse
 
