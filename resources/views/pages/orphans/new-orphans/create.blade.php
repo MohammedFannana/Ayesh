@@ -1,7 +1,7 @@
 <x-main-layout>
 
-    <h2 class="mb-4">  يتيم جديد </h2>
-    <h4 class="mb-4" style="color:var(--title-color);"> استمارة التسجيل </h4>
+    <h2 class="mb-4">  {{__('يتيم جديد')}}</h2>
+    <h4 class="mb-4" style="color:var(--title-color);"> {{__('استمارة التسجيل')}}</h4>
 
     <x-alert name="success" />
     <x-alert name="danger" />
@@ -14,7 +14,7 @@
             @csrf
 
             @include('pages.orphans.new-orphans._form' , [
-                    'button' => ' حفظ '])
+                    'button' => __('حفظ') ])
 
         </form>
 

@@ -54,11 +54,11 @@
                 </div>
 
                 {{-- action --}}
-                <div class="d-flex flex-end mt-2" style="position: relative; ">
+                <div class="d-flex flex-end mt-2" style="position: relative;">
 
                     <img class="show-action" src="{{asset('image/point.svg')}}" alt="" width="20px" height="18px">
 
-                    <div class="action" style="top:18px">
+                    <div class="action" style="top:18px; width: 170px;">
                         <a href="{{route('download.report' , $report->id)}}" class="text-decoration-none">
                             <img src="{{asset('image/Downlaod.png')}}" alt="">
                             <span style="color: var(--text-color);"> {{__('تحميل التقرير')}}</span>
@@ -73,7 +73,7 @@
                         <form action="{{route('report.destroy' , $report->id)}}" method="post" style="margin-right: -5px">
                             @csrf
                             @method('delete')
-                            <button class="submit border-0 bg-transparent">
+                            <button class="submit border-0 p-0 bg-transparent">
                                 <img src="{{asset('image/Delete.svg')}}" alt="">
                                 <span style="color: var(--text-color);">{{__('حذف')}}</span>
                             </button>

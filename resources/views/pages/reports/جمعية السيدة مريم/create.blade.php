@@ -239,14 +239,14 @@
             orphanCodeInput.addEventListener("input", function () {
                 let code = orphanCodeInput.value.trim();
                 let orphan = orphans.find(o => o.orphan.internal_code === code);
-                console.log("Orphan found by code:", orphan);
+                // console.log("Orphan found by code:", orphan);
                 fillOrphanData(orphan);
             });
 
             orphanNameInput.addEventListener("input", function () {
                 let name = orphanNameInput.value.trim();
                 let orphan = orphans.find(o => o.orphan.name === name);
-                console.log("Orphan found by name:", orphan);
+                // console.log("Orphan found by name:", orphan);
                 fillOrphanData(orphan);
             });
 

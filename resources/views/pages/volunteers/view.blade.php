@@ -18,7 +18,7 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('رقم الجوال ')}}</p>
+                <p class="title"> {{__('رقم الجوال')}}</p>
                 <p class="fw-semibold"> {{$volunteer->phone}} </p>
             </div>
 
@@ -28,15 +28,17 @@
                 <p class="fw-semibold">{{$volunteer->email}}</p>
             </div>
 
+
+
+            <hr>
+
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('العنوان')}} </p>
                 <p class="fw-semibold"> {{$volunteer->address}} </p>
             </div>
 
-            <hr>
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('المناطق التي ستقوم بتفطيتها ')}}</p>
+            <div class="flex flex-column col-4 mb-3">
+                <p class="title"> {{__('المناطق التي ستقوم بتغطيتها')}}</p>
                 <p class="fw-semibold">
                     @foreach ($volunteer->area as $area )
                         {{$area}} ,
@@ -62,12 +64,12 @@
     </div>
 
     <div class="images-files bg-white rounded shadow-sm p-3 ">
-        <p class="mb-3"> {{__('الصور والملفات المطلوبة ')}}</p>
+        <p class="mb-3"> {{__('الصور والملفات المطلوبة')}}</p>
 
         <div class="mb-3">
-            <p class="title"> {{__(' صورة تحقيق الشخصية ')}}</p>
+            <p class="title"> {{__('صورة تحقق شخصية')}}</p>
             <a  href="{{route('orphan.image' , ['file' => encrypt($volunteer->selfie_image)])}}" type="button" class="text-decoration-none view-file w-25">
-                {{ __('صورة للتوقيع') }}.{{ pathinfo($volunteer->selfie_image, PATHINFO_EXTENSION) }}
+                {{ __('صورة تحقق شخصية') }}.{{ pathinfo($volunteer->selfie_image, PATHINFO_EXTENSION) }}
             </a>
         </div>
 

@@ -61,9 +61,9 @@ class CertifiedOrphanController extends Controller
 
         $orphan_id = $request->orphan_id;
 
-        $supporter = Supporter::pluck('name', 'id')->toArray();
+        $supporters = Supporter::pluck('name', 'id')->toArray();
         $volunteers = Volunteer::pluck('name', 'id')->toArray();
-        return view('pages.orphans.certified-orphans.edit' , compact('supporter' , 'volunteers' , 'orphan_id'));
+        return view('pages.orphans.certified-orphans.edit' , compact('supporters' , 'volunteers' , 'orphan_id'));
     }
 
     /**
@@ -128,7 +128,7 @@ class CertifiedOrphanController extends Controller
         // تخزين البيانات في الجدول
         CertifiedOrphanExtra::create($validated);
 
-        return redirect()->route('orphan.certified.details')->with('success' , 'تم اكمال ادخال البيانات بنجاح');
+        return redirect()->route('orphan.certified.details' , $request->orphan_id)->with('success' , 'تم اكمال ادخال البيانات بنجاح');
 
     }
 

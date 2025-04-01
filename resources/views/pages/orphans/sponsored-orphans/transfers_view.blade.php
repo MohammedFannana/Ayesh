@@ -11,14 +11,14 @@
 
         <hr>
 
-        <p class="text-center p-3  fw-semibold " style="background-color: #ECECEC; font-size:18px"> {{__('الرصيد الكلي ')}}<span class="title-color fs-5 fw-bold">{{ $expenseAmount }}</span> </p>
+        <p class="text-center p-3  fw-semibold " style="background-color: #ECECEC; font-size:18px"> {{__('الرصيد الكلي')}} :<span class="title-color fs-5 fw-bold">{{ $expenseAmount }}</span> </p>
 
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col"> {{__('المبلغ')}} </th>
-                    <th scope="col" class="text-center"> {{__('صورة الايصال ')}}</th>
-                    <th scope="col" class="text-end"> {{__('تاريخ التحويل ')}}</th>
+                    <th scope="col" class="text-center"> {{__('صورة الايصال')}}</th>
+                    <th scope="col" class="text-end"> {{__('تاريخ التحويل')}}</th>
 
                 </tr>
             </thead>

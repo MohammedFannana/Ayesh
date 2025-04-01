@@ -17,7 +17,7 @@
 
             {{-- title and count --}}
             <div>
-                <p class="title-color fs-5 fw-semibold mb-1"> {{__('الحالات المعتمدة ')}}</p>
+                <p class="title-color fs-5 fw-semibold mb-1"> {{__('الحالات المعتمدة')}}</p>
                 <p class="count">{{$count}} {{__('حالة')}}</p>
             </div>
 
@@ -31,7 +31,7 @@
                         <button type="submit" class="input-group-text" id="addon-wrapping">
                             <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 512 512"><path fill="#ACACAC" d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg>
                         </button>
-                        <input type="text" name="search" class="form-control" placeholder="البحث عن اليتيم"  aria-describedby="addon-wrapping">
+                        <input type="text" name="search" class="form-control" placeholder="{{__('البحث عن اليتيم')}}" aria-describedby="addon-wrapping">
                     </div>
 
                 </form>
@@ -83,7 +83,7 @@
 
             {{-- button --}}
             <div class="add-support">
-                <button class="btn add-button ps-4 pe-4"> {{__('الحالات الخاصة ')}} </button>
+                <button class="btn add-button ps-4 pe-4"> {{__('الحالات الخاصة')}} </button>
             </div>
 
         </div>
@@ -102,7 +102,7 @@
 
                 <div>
 
-                    <button  type="button" id="export_button" class="btn add-button ps-4 pe-4 mb-2 position-relative"> {{__(' تصدير ')}} </button>
+                    <button  type="button" id="export_button" class="btn add-button ps-4 pe-4 mb-2 position-relative"> {{__('تصدير')}} </button>
 
 
                     <!-- النموذج الأول (اختيار الجمعية) -->
@@ -126,7 +126,7 @@
 
                 </div>
 
-                <button id="reset_button" class="btn btn-danger ps-4 pe-4"> {{__(' الغاء ')}} </button>
+                <button id="reset_button" class="btn btn-danger ps-4 pe-4"> {{__('الغاء')}} </button>
             </div>
 
         </div>
@@ -143,8 +143,8 @@
                     <th scope="col">{{__('كود اليتيم الداخلي')}}</th>
                     <th scope="col"> {{__('الاسم')}} </th>
                     <th scope="col"> {{__('السن')}} </th>
-                    <th scope="col"> {{__('حالة اليتيم ')}}</th>
-                    <th scope="col"> {{__('الاجراء')}} </th>
+                    <th scope="col"> {{__('حالة اليتيم')}}</th>
+                    <th scope="col"> {{__('الاجراءات')}} </th>
 
                 </tr>
 
@@ -169,7 +169,7 @@
                             {{$orphan->internal_code}}
                         </th>
                         <td> {{$orphan->name}} </td>
-                        <td>{{$orphan->age}} عام</td>
+                        <td>{{$orphan->age}} {{('عام')}}</td>
                         <td> {{$orphan->case_type}}</td>
                         <td style="position: relative;">
 
@@ -190,7 +190,7 @@
                                 <form action="{{route('orphan.certified.destroy' , $orphan->id )}}" method="post" style="margin-right: -5px">
                                     @csrf
                                     @method('delete')
-                                    <button class="submit border-0 bg-transparent">
+                                    <button class="submit border-0 p-0 bg-transparent">
                                         <img src="{{asset('image/Delete.svg')}}" alt="">
                                         <span style="color: var(--text-color);">{{__('حذف')}}</span>
                                     </button>

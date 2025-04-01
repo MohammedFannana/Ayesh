@@ -11,7 +11,15 @@ use Illuminate\Support\Facades\View;
 // use LaravelMpdf\Facades\LaravelMpdf;
 // use Meneses\LaravelMpdf\Facades\LaravelMpdf;
 // use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
-use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
+// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
+// use Barryvdh\DomPDF\Facade as PDF;
+// use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
+
+// use CarlosMeneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
+// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
+// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
+
 
 // use Meneses\LaravelMpdf\Facades\LaravelMpdf;
 // use Meneses
@@ -94,7 +102,6 @@ class MarketingOrphanController extends Controller
 
 
         $fields = SupporterField::where('supporter_id' , $supporterId)->get();
-
 
         if($name === "جمعية دار البر"){
             return view('pages.orphans.marketing-orphans.alBer_create' , compact(['orphan' , 'supporterId' ,'fields']));
@@ -188,6 +195,8 @@ class MarketingOrphanController extends Controller
         ->whereIn('id', $orphanIds)
         ->get();
 
+        // return view('pdf.donor_3' ,compact('orphans'));
+
         if ($orphans->isEmpty()) {
             return back()->with('danger', 'لا يوجد أيتام متاحين');
         }
@@ -216,10 +225,29 @@ class MarketingOrphanController extends Controller
                 return redirect()->route('orphan.marketing.index')->with('danger', "اليتيم {$orphan->name} ليس في حالة المتبرع");
             }
 
-            // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
-            $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
 
-            return $pdf->stream('donor_4.pdf');
+
+            // return view('pdf.donor_4' ,compact('orphan'));
+            // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
+            // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
+
+            // return $pdf->stream('donor_4.pdf');
+
+            // $pdf = PDF::loadView('pdf.donor_4', ['orphan' => $orphan]);
+            $pdf = PDF::loadView('pdf.donor_3', ['orphan' => $orphan]);
+
+
+            // Stream the PDF to the browser
+            return $pdf->stream('donor_3.pdf');
+
+        // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
+
+        // دعم الكتابة من اليمين لليسار (للكتابة باللغة العربية)
+        // $pdf->setDirectionality('rtl'); // تعيين الاتجاه إلى اليمين لليسار
+
+        // إخراج PDF إلى المتصفح
+        // return $pdf->stream('donor_4.pdf');
+
 
 
         }

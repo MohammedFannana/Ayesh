@@ -1,6 +1,6 @@
 <x-main-layout>
 
-    <h2 class="mb-5"> {{__('تعديل التقرير ')}}</h2>
+    <h2 class="mb-5"> {{__('تعديل التقرير')}}</h2>
 
     <div class="supporters bg-white rounded shadow-sm p-3">
 
@@ -14,7 +14,7 @@
 
                     <!-- supervising_authority -->
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="supervising_authority" :value="$report->fields['supervising_authority']"  class="border" type="text" label="  {{__('اسم الجهة المشرفة ')}}"  placeholder="أدخل اسم الجهة المشرفة"/>
+                        <x-form.input name="supervising_authority" :value="$report->fields['supervising_authority']"  class="border" type="text" label="  {{__('الجهة المشرفة')}}"  placeholder="أدخل اسم الجهة المشرفة"/>
                     </div>
 
 
@@ -25,32 +25,32 @@
 
                     <!-- sponsor_name -->
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="sponsor_name"  :value="$report->fields['sponsor_name']" class="border" type="text" label=" {{__('اسم الكافل ')}}"  placeholder="أدخل اسم الكافل "/>
+                        <x-form.input name="sponsor_name"  :value="$report->fields['sponsor_name']" class="border" type="text" label=" {{__('اسم الكافل')}}"  placeholder="أدخل اسم الكافل "/>
                     </div>
 
                     {{-- sponsor_number --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="sponsor_number" :value="$report->fields['sponsor_number']" class="border" type="text" label=" {{__('رقم ملف الكافل ')}}" autocomplete="" placeholder="أدخل رقم ملف الكافل"/>
+                        <x-form.input name="sponsor_number" :value="$report->fields['sponsor_number']" class="border" type="text" label=" {{__('رقم ملف الكافل')}}" autocomplete="" placeholder="أدخل رقم ملف الكافل"/>
                     </div>
 
                     {{-- orphan_name --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="name" :value="$report->orphan->name" id="orphan_name" class="border" type="text" label=" {{__('اسم اليتيم ')}}" autocomplete="" placeholder=" أدخل اسم اليتيم" disabled/>
+                        <x-form.input name="name" :value="$report->orphan->name" id="orphan_name" class="border" type="text" label=" {{__('اسم اليتيم')}}" autocomplete="" placeholder=" أدخل اسم اليتيم" disabled/>
                     </div>
 
                     {{-- orphan_number --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="internal_code" id="orphan_code" :value="$report->orphan->internal_code" class="border" type="text" label="  {{__('رقم ملف اليتيم ')}}" autocomplete="" placeholder=" أدخل رقم ملف اليتيم " disabled/>
+                        <x-form.input name="internal_code" id="orphan_code" :value="$report->orphan->internal_code" class="border" type="text" label="  {{__('رقم ملف اليتيم')}}" autocomplete="" placeholder=" أدخل رقم ملف اليتيم " disabled/>
                     </div>
 
                     {{-- orphan_nationality --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="nationality" :value="$report->orphan->getFieldValueByDatabaseName('nationality')" id="nationality" class="border" type="text" label="  {{__('جنسية اليتيم ')}}" autocomplete="" placeholder=" أدخل جنسية اليتيم  " disabled/>
+                        <x-form.input name="nationality" :value="$report->orphan->getFieldValueByDatabaseName('nationality')" id="nationality" class="border" type="text" label="  {{__('جنسية اليتيم')}}" autocomplete="" placeholder=" أدخل جنسية اليتيم  " disabled/>
                     </div>
 
                     {{-- orphan_age --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="age" :value="$report->orphan->age" id="age"  class="border" type="text" label="  {{__('عمر اليتيم ')}}" autocomplete="" placeholder=" أدخل عمر اليتيم  " disabled/>
+                        <x-form.input name="age" :value="$report->orphan->age" id="age"  class="border" type="text" label="  {{__('عمر اليتيم')}}" autocomplete="" placeholder=" أدخل عمر اليتيم  " disabled/>
                     </div>
 
 
@@ -61,7 +61,7 @@
 
                     {{-- academic_stage --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="academic_stage" id="academic_stage" :value="$report->orphan->profile->academic_stage" class="border" type="text" label=" {{__('المرحلة الدراسية ')}}" autocomplete="" placeholder="أدخل المرحلة الدراسية" disabled/>
+                        <x-form.input name="academic_stage" id="academic_stage" :value="$report->orphan->profile->academic_stage" class="border" type="text" label=" {{__('المرحلة الدراسية')}}" autocomplete="" placeholder="أدخل المرحلة الدراسية" disabled/>
                     </div>
 
                     {{-- class --}}
@@ -79,12 +79,12 @@
 
                     {{-- orphan_obligations_islam --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="orphan_obligations_islam" :value="$report->fields['orphan_obligations_islam']" class="border" type="text" label=" {{__('التزامات اليتيم بتعاليم الاسلام ')}}" autocomplete="" placeholder="أدخل التزامات اليتيم بتعاليم الاسلام"/>
+                        <x-form.input name="orphan_obligations_islam" :value="$report->fields['orphan_obligations_islam']" class="border" type="text" label=" {{__('التزامات اليتيم بتعاليم الاسلام')}}" autocomplete="" placeholder="أدخل التزامات اليتيم بتعاليم الاسلام"/>
                     </div>
 
                     {{-- save_orphan_quran --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="save_orphan_quran" :value="$report->fields['save_orphan_quran']" class="border" type="text" label=" {{__('حفظ اليتيم من القران الكريم ')}}" autocomplete="" placeholder="أدخل حفظ اليتيم من القران الكريم"/>
+                        <x-form.input name="save_orphan_quran" :value="$report->fields['save_orphan_quran']" class="border" type="text" label=" {{__('حفظ اليتيم من القران الكريم')}}" autocomplete="" placeholder="أدخل حفظ اليتيم من القران الكريم"/>
                     </div>
 
                     {{-- person_responsible--}}
@@ -100,19 +100,19 @@
 
                     {{-- changes_orphan_year --}}
                     <div class="col-12  mb-3">
-                        <x-form.textarea name="changes_orphan_year" :value="$report->fields['changes_orphan_year']" label=" {{__('أبرز التغيرات التي طرأت على اليتيم هذه السنة ')}}" />
+                        <x-form.textarea name="changes_orphan_year" :value="$report->fields['changes_orphan_year']" label=" {{__('أبرز التغيرات التي طرأت على اليتيم هذه السنة')}}" />
                     </div>
 
 
                     {{--  authority_comment_guarantee --}}
                     <div class="col-12  mb-3">
-                        <x-form.textarea name="authority_comment_guarantee" :value="$report->fields['authority_comment_guarantee']" label=" {{__('تعليق الهيئة على أثر الكفالة ')}}"  placeholder="أدخل تعليق الهيئة على أثر الكفالة"/>
+                        <x-form.textarea name="authority_comment_guarantee" :value="$report->fields['authority_comment_guarantee']" label=" {{__('تعليق الهيئة على أثر الكفالة')}}"  placeholder="أدخل تعليق الهيئة على أثر الكفالة"/>
                     </div>
 
 
                     {{-- orphan_message--}}
                     <div class="col-12  mb-3">
-                        <x-form.textarea name="orphan_message"  :value="$report->fields['orphan_message']" label=" {{__('رسالة اليتيم للكافل ')}}"  />
+                        <x-form.textarea name="orphan_message"  :value="$report->fields['orphan_message']" label=" {{__('رسالة اليتيم للكافل')}}"  />
                     </div>
 
 
@@ -122,7 +122,7 @@
 
 
             <div class="d-flex justify-content-center gap-4 mt-4">
-                <button class="btn add-button mb-4"  type="submit"> {{__(' تعديل ')}} </button>
+                <button class="btn add-button mb-4"  type="submit"> {{__('تعديل')}} </button>
             </div>
 
 

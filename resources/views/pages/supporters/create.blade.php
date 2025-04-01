@@ -4,7 +4,7 @@
 
     <div class="supporters bg-white rounded shadow-sm p-3">
 
-        <h4 class="mb-4 title-color" > {{__('إضافة داعمين ')}}</h4>
+        <h4 class="mb-4 title-color" > {{__('إضافة داعمين')}}</h4>
         <x-alert name="success" />
 
 
@@ -16,43 +16,43 @@
 
                 <!-- name -->
                 <div class="col-12 col-md-6">
-                    <x-form.input name="name"  class="border" type="text" label="{{__('الاسم')}}" placeholder="أدخل الاسم"/>
+                    <x-form.input name="name"  class="border" type="text" label="{{__('الاسم')}}" placeholder="{{__('أدخل الاسم')}}"/>
                 </div>
 
                 <!-- country -->
                 <div class="col-12 col-md-6">
-                    <x-form.input name="country"  class="border" type="text" label="{{__('الدولة')}}" placeholder="أدخل الدولة"/>
+                    <x-form.input name="country"  class="border" type="text" label="{{__('الدولة')}}" placeholder="{{__('أدخل الدولة')}}"/>
                 </div>
 
                 {{-- phone --}}
                 <div class="mt-4 col-12 col-md-6">
-                    <x-form.input name="phone" class="border" type="text" label="{{__(' رقم الجوال ')}}" autocomplete="" placeholder="أدخل رقم الجوال"/>
+                    <x-form.input name="phone" class="border" type="text" label="{{__('رقم الجوال')}}" autocomplete="" placeholder="{{__('أدخل رقم الجوال')}}"/>
                 </div>
 
                 {{-- Fax --}}
                 <div class="mt-4 col-12 col-md-6">
-                    <x-form.input name="fax" class="border" type="text" label="{{__('الفاكس')}}" autocomplete="" placeholder="أدخل الفاكس"/>
+                    <x-form.input name="fax" class="border" type="text" label="{{__('الفاكس')}}" autocomplete="" placeholder="{{__('أدخل الفاكس')}}"/>
                 </div>
 
                 {{-- Association name --}}
                 <div class="mt-4 col-12 col-md-6">
-                    <x-form.input name="association_name" class="border" type="text" label=" {{__(' اسم الجمعية ')}} " autocomplete="" placeholder="أدخل اسم الجمعية"/>
+                    <x-form.input name="association_name" class="border" type="text" label=" {{__('اسم الجمعية')}} " autocomplete="" placeholder="{{__('أدخل اسم الجمعية')}}"/>
                 </div>
 
                 {{-- Department Name --}}
                 <div class="mt-4 col-12 col-md-6">
-                    <x-form.input name="department_name" class="border" type="text" label=" {{__('اسم القسم')}} " autocomplete="" placeholder="أدخل اسم القسم"/>
+                    <x-form.input name="department_name" class="border" type="text" label=" {{__('اسم القسم')}} " autocomplete="" placeholder="{{__('أدخل اسم القسم')}}"/>
                 </div>
 
 
                 {{-- address --}}
                 <div class="mt-4 col-12 col-md-6">
-                    <x-form.input name="address" class="border" type="text" label=" {{__(('العنوان'))}} " autocomplete="" placeholder="أدخل العنوان"/>
+                    <x-form.input name="address" class="border" type="text" label=" {{__(('العنوان'))}} " autocomplete="" placeholder="{{__('أدخل العنوان')}}"/>
                 </div>
 
                 {{-- website --}}
                 <div class="mt-4 col-12 col-md-6">
-                    <x-form.input name="website" class="border" type="text" label=" {{__('الموقع الالكتروني ')}}" autocomplete="" placeholder="أدخل الموقع الالكتروني"/>
+                    <x-form.input name="website" class="border" type="text" label=" {{__('الموقع الالكتروني')}}" autocomplete="" placeholder="{{__('أدخل الموقع الالكتروني')}}"/>
                 </div>
 
                 {{-- email
@@ -63,18 +63,18 @@
                 <div id="email-container" class="row">
                     {{-- الحقول الأساسية التي تظهر أولاً --}}
                     <div class="mt-4 col-12 col-md-6">
-                        <x-form.input name="administrator_name[]" class="border" type="text" label=" {{__('اسم المسؤول')}} " autocomplete="" placeholder="أدخل اسم المسؤول"/>
+                        <x-form.input name="administrator_name[]" class="border" type="text" label=" {{__('اسم المسؤول')}} " autocomplete="" placeholder="{{__('أدخل اسم المسؤول')}}"/>
                     </div>
 
                     <div class="mt-4 mb-3 col-12 col-md-6">
-                        <x-form.input name="emails[]" class="border" type="email" label=" {{__('البريد الالكتروني ')}}" autocomplete="" placeholder="أدخل البريد الالكتروني"/>
+                        <x-form.input name="emails[]" class="border" type="email" label=" {{__('البريد الالكتروني')}}" autocomplete="" placeholder="{{__('أدخل البريد الالكتروني')}}"/>
                     </div>
                 </div>
 
                 <div>
                     <a type="button" id="add-email-btn" style="margin-right:50%">
                         <img src="{{ asset('image/plus.png') }}" alt="">
-                        <span class="title-color"> إضافة بريد الكتروني </span>
+                        <span class="title-color"> {{__('إضافة بريد الكتروني')}}</span>
                     </a>
                 </div>
 

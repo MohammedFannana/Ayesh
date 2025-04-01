@@ -6,42 +6,42 @@
 
         <div class="row">
 
-            <p class="title mb-4"> {{__('المعلومات الأساسية ')}}</p>
+            <p class="title mb-4"> {{__('المعلومات الأساسية')}}</p>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('كود اليتيم الداخلي ')}}</p>
+                <p class="title"> {{__('كود اليتيم الداخلي')}}</p>
                 <p class="fw-semibold"> {{$orphan->internal_code}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('استمارة تقديم الايتام ')}} </p>
+                <p class="title"> {{__('استمارة تقديم الايتام')}} </p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->application_form)])}}" type="button" class="text-decoration-none view-file w-100">
                     {{ basename($orphan->application_form) }}
                 </a>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('اسم اليتيم ')}}</p>
+                <p class="title"> {{__('اسم اليتيم')}}</p>
                 <p class="fw-semibold">  {{$orphan->name}}</p>
             </div>
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">  {{__('الرقم القومى لليتيم ')}}</p>
+                <p class="title">  {{__('الرقم القومي لليتيم')}}</p>
                 <p class="fw-semibold">{{$orphan->national_id}}</p>
             </div>
 
             <hr>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('تاريخ الميلاد ')}}</p>
+                <p class="title"> {{__('تاريخ الميلاد')}}</p>
                 <p class="fw-semibold">{{$orphan->birth_date}}</p>
             </div>
 
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('جهة الميلاد ')}}</p>
+                <p class="title"> {{__('جهة الميلاد')}}</p>
                 <p class="fw-semibold">{{$orphan->birth_place}}</p>
             </div>
 
@@ -52,13 +52,13 @@
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('السن')}} </p>
-                <p class="fw-semibold"> {{$orphan->age}} سنوات </p>
+                <p class="fw-semibold"> {{$orphan->age}} {{__('سنوات')}} </p>
             </div>
 
             <hr>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('نوع الحالة ')}}</p>
+                <p class="title"> {{__('نوع الحالة')}}</p>
                 <p class="fw-semibold"> {{$orphan->case_type}} </p>
             </div>
 
@@ -73,7 +73,7 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('يتيم الأبوين؟')}}</p>
+                <p class="title"> {{__('يتيم الأبوين')}}</p>
                 <p class="fw-semibold">  {{$orphan->profile->parents_orphan}}  </p>
             </div>
 
@@ -90,7 +90,7 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('تعمل الأم؟')}}</p>
+                <p class="title"> {{__('هل تعمل الأم')}}</p>
                 <p class="fw-semibold"> {{$orphan->profile->mother_work}} </p>
             </div>
 
@@ -130,12 +130,12 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('ذكور')}}</p>
+                <p class="title"> {{__('عدد الذكور')}}</p>
                 <p class="fw-semibold">  {{$orphan->family->male_number}}  </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('اناث')}}</p>
+                <p class="title"> {{__('عدد الاناث')}}</p>
                 <p class="fw-semibold">  {{$orphan->family->female_number}} </p>
             </div>
 
@@ -174,7 +174,7 @@
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('حالة السكن ')}}</p>
+                <p class="title"> {{__('حالة السكن')}}</p>
                 <p class="fw-semibold"> {{$orphan->family->housing_case}}</p>
             </div>
 
@@ -194,7 +194,7 @@
             @foreach ($orphan->phones as $phone)
 
                 <div class="flex flex-column col-3 mb-3">
-                    <p class="title"> {{__('رقم تيلفون ')}} {{ $loop->index + 1 }}</p>
+                    <p class="title"> {{__('رقم التيلفون')}} {{ $loop->index + 1 }}</p>
                     <p class="fw-semibold"> {{$phone->phone_number}} </p>
                 </div>
 
@@ -206,7 +206,7 @@
 
             <div class="flex flex-column  mb-3">
 
-                <p class="title mb-1">{{__('ملاحظات البحث الميداني الداخلي')}}</p>
+                <p class="title mb-1">{{__('البحث الميداني الداخلي')}}</p>
                 <p class="title">{{$orphan->guardian->research_date}}</p>
                 <p class="fw-semibold">  {{$orphan->guardian->internal_research}} </p>
 
@@ -226,7 +226,7 @@
 
             <div class="flex flex-column  mb-3">
 
-                <p class="title mb-1">{{__('اليه معرفتكم بجمعية عايش ')}}</p>
+                <p class="title mb-1">{{__('اليه معرفتكم بجمعية عايش')}}</p>
                 <p class="fw-semibold"> {{$orphan->profile->knowledge}} </p>
 
             </div>
@@ -234,7 +234,7 @@
             <hr>
 
             <div class="d-flex justify-content-end">
-                <a href="{{route('orphan.registered.show' , $orphan->id)}}" class="add-button pt-2 pb-2 text-decoration-none "> عرض أقل للتفاصيل </a>
+                <a href="{{route('orphan.registered.show' , $orphan->id)}}" class="add-button pt-2 pb-2 text-decoration-none ">{{__('عرض أقل للتفاصيل')}}</a>
             </div>
 
         </div>
@@ -248,33 +248,33 @@
 
         <div class="row">
 
-            <p class="title mb-4">{{__(' الصور و الملفات ')}}</p>
+            <p class="title mb-4">{{__('الصور و الملفات')}}</p>
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('شهادة الميلاد ')}}</p>
+                <p class="title"> {{__('شهادة الميلاد')}}</p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->birth_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
                     {{ __('شهادة الميلاد') }}.{{ pathinfo($orphan->image->birth_certificate, PATHINFO_EXTENSION) }}                </a>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('شهادة وفاة الأب ')}} </p>
+                <p class="title"> {{__('شهادة وفاة الأب')}} </p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->father_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
                     {{ __('شهادة وفاة الأب') }}.{{ pathinfo($orphan->image->father_death_certificate, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('شهادة وفاة الأم اصل كمبيوتر ')}} </p>
+                <p class="title"> {{__('شهادة وفاة الأم اصل كمبيوتر')}} </p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
                     {{ __('شهادة وفاة الأم') }}.{{ pathinfo($orphan->image->mother_death_certificate, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">   {{__('صور من بطاقة الام او الوصى ')}}</p>
+                <p class="title">   {{__('صورة من بطاقة الأم أو الوصي')}}</p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_card)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __(' بطاقة الأم' ) }}.{{ pathinfo($orphan->image->mother_card, PATHINFO_EXTENSION) }}
+                    {{ __('بطاقة الأم') }}.{{ pathinfo($orphan->image->mother_card, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
@@ -282,83 +282,83 @@
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">  {{__('شهادة صور اليتيم 4*6 جديدة ')}} </p>
+                <p class="title">  {{__('صورة اليتيم 4*6 جديدة')}} </p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->orphan_image_4_6)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __( 'صورة اليتيم (4×6)' ) }}.{{ pathinfo($orphan->image->orphan_image_4_6, PATHINFO_EXTENSION) }}
+                    {{ __('صورة اليتيم (4×6)') }}.{{ pathinfo($orphan->image->orphan_image_4_6, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('صورة اليتيم كاملة 9* 12 ')}} </p>
+                <p class="title"> {{__('صورة اليتيم كاملة 9*12')}} </p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->orphan_image_9_12)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('صورة اليتيم (9*12)') }}.{{ pathinfo($orphan->image->orphan_image_9_12, PATHINFO_EXTENSION) }}
+                    {{ __('صورة اليتيم (9×12)') }}.{{ pathinfo($orphan->image->orphan_image_9_12, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('الافادة المدرسية ')}}   </p>
+                <p class="title"> {{__('الافادة المدرسية')}}   </p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->school_benefit)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __(' إفادة مدرسية') }}.{{ pathinfo($orphan->image->school_benefit, PATHINFO_EXTENSION) }}
+                    {{ __('إفادة مدرسية') }}.{{ pathinfo($orphan->image->school_benefit, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">{{__(' التقرير الطبى ')}}</p>
+                <p class="title">{{__('التقرير الطبي')}}</p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->medical_report)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __(' تقرير طبي' ) }}.{{ pathinfo($orphan->image->medical_report, PATHINFO_EXTENSION) }}
+                    {{ __('التقرير الطبي') }}.{{ pathinfo($orphan->image->medical_report, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
             <hr>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('البحث الاجتماعى ')}}</p>
+                <p class="title"> {{__('البحث الاجتماعى')}}</p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->social_research)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('بحث اجتماعي') }}.{{ pathinfo($orphan->image->social_research, PATHINFO_EXTENSION) }}
+                    {{ __('البحث الاجتماعى') }}.{{ pathinfo($orphan->image->social_research, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('قرار وصاية ')}} </p>
+                <p class="title"> {{__('قرار وصاية')}} </p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->guardianship_decision)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('قرار وصاية ') }}.{{ pathinfo($orphan->image->guardianship_decision, PATHINFO_EXTENSION) }}
+                    {{ __('قرار وصاية') }}.{{ pathinfo($orphan->image->guardianship_decision, PATHINFO_EXTENSION) }}
                 </a>
             </div>
 
             <hr>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{('رقم تيلفون ')}}</p>
+                <p class="title"> {{__('رقم التليفون')}}</p>
                 <p class="fw-semibold"> {{$orphan->profile->phone}} </p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('العنوان بالكامل ')}} </p>
+                <p class="title"> {{__('العنوان بالكامل')}} </p>
                 <p class="fw-semibold">  {{$orphan->profile->full_address}}</p>
             </div>
 
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('اسم المستلم ')}}</p>
+                <p class="title"> {{__('اسم المستلم')}}</p>
                 <p class="fw-semibold">  {{$orphan->profile->recipient_name}}</p>
             </div>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">  {{__('اسم المسجل ')}}</p>
+                <p class="title">  {{__('اسم المسجل')}}</p>
                 <p class="fw-semibold">  {{$orphan->profile->registrar_name}}</p>
             </div>
 
             <hr>
 
             <div class="flex flex-column col-3 mb-3">
-                <p class="title">  {{__('تاريخ التسجيل ')}}</p>
+                <p class="title">  {{__('تاريخ التسجيل')}}</p>
                 <p class="fw-semibold"> {{$orphan->profile->registrar_date}}</p>
             </div>
 
             <hr>
 
             <div class="d-flex justify-content-end">
-                <a href="{{route('orphan.registered.show' , $orphan->id)}}" class="add-button pt-2 pb-2 text-decoration-none "> عرض أقل للتفاصيل </a>
+                <a href="{{route('orphan.registered.show' , $orphan->id)}}" class="add-button pt-2 pb-2 text-decoration-none "> {{__('عرض أقل للتفاصيل')}}</a>
             </div>
 
 

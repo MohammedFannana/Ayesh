@@ -29,8 +29,9 @@ use App\Models\FirstLineFamily;
 use Illuminate\Support\Facades\Route;
 
 
-
-
+Route::get('ex', function () {
+    return view('pdf.donor_3');
+});
 
 Route::middleware(ApplyUserLanguage::class)->group(function(){
 
@@ -179,6 +180,7 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
         Route::post('/expenses', [ExpenseController::class, 'store'])->name('expenses.store');
         Route::delete('/expenses/{expenses}', [ExpenseController::class, 'destroy'])->name('expenses.destroy');
     });
+    
 
     Route::get('/complaint' , [ComplaintController::class , 'index'])->name('complaint.index');
 

@@ -114,7 +114,7 @@
 
                             <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">
 
-                            <div class="action" style="left: -50px">
+                            <div class="action" style="left: -50px; width:186px">
                                 <a href="{{route('family.show' , $family->id)}}" class="text-decoration-none">
                                     <img src="{{asset('image/Show.svg')}}" alt="">
                                     <span style="color: var(--text-color);"> {{__('مشاهدة التفاصيل')}}</span>

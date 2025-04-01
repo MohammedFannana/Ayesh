@@ -1,6 +1,6 @@
 <x-main-layout>
 
-    <h2 class="mb-4"> {{$supporter_name}}</h2>
+    <h2 class="mb-4"> {{translate_text($supporter_name)}}</h2>
 
     <div class="payment-details bg-white rounded shadow-sm p-3 mb-4">
 
@@ -12,9 +12,9 @@
             <thead>
 
                 <tr>
-                    <th scope="col"> {{__('رقم أمر الصرف ')}}</th>
+                    <th scope="col"> {{__('رقم أمر الصرف')}}</th>
                     <th scope="col"> {{__('التاريخ')}} </th>
-                    <th scope="col" class="w-25"> {{__('صورة الاستلام ')}}  </th>
+                    <th scope="col" class="w-25"> {{__('صورة الاستلام')}}  </th>
                 </tr>
 
             </thead>
@@ -29,7 +29,7 @@
                         <td> {{$balance->payment_date}} </td>
                         <td>
                             <a href="{{route('orphan.image' , ['file' => encrypt($balance->payment_image)])}}" type="button" class="text-decoration-none text-dark w-100">
-                                {{ __('  صورة استلام المبلغ ') }}.{{ pathinfo($balance->payment_image, PATHINFO_EXTENSION) }}
+                                {{ __('صورة استلام المبلغ') }}.{{ pathinfo($balance->payment_image, PATHINFO_EXTENSION) }}
                             </a>
                         </td>
                     </tr>

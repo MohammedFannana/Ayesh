@@ -5,6 +5,7 @@
 
     <title>قالب تسجيل يتيم</title>
 
+
     <style>
 
         body {
@@ -79,17 +80,17 @@
         }
 
         .cell{
-            width: 50%;
+            width: 48%;
             padding: 0px;
             display: flex;
             align-items: center
 
         }
 
-        border-bottom border-dark fs-5
+        /* border-bottom border-dark fs-5 */
         .textarea-title{
             border-bottom:1px solid black;
-            font-size: 1.25px
+            font-size:18px
 
         }
 
@@ -106,9 +107,9 @@
     <div class="container1">
         <!-- العنوان والشعارات -->
         <div class="header" >
-            <img src="{{asset('image/logo.png')}}" alt="شعار" class="logo" width="132px" height="87px">
-            <img src="{{asset('image/donor/donor_4.png')}} " width="213px" height="43px"/>
-            <img src="{{asset('storage/' . $orphan->image->orphan_image_4_6)}}" alt="صورة شخصية" class="profile-pic" width="103px" height="116px">
+            {{-- <img src="{{asset('image/logo.png')}}" alt="شعار" class="logo" width="132px" height="87px"> --}}
+            {{-- <img src="{{asset('image/donor/donor_4.png')}} " width="213px" height="43px"/> --}}
+            {{-- <img src="{{asset('storage/' . $orphan->image->orphan_image_4_6)}}" alt="صورة شخصية" class="profile-pic" width="103px" height="116px"> --}}
 
         </div>
 

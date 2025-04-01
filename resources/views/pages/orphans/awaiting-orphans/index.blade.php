@@ -21,23 +21,23 @@
 
     <div class="orphons bg-white rounded shadow-sm p-3">
 
-        <div class="intro d-flex  align-items-center" style="gap: 85px">
+        <div class="intro d-flex  align-items-center" style="gap: 74px">
 
             {{-- title and count --}}
             <div>
-                <p class="title-color fs-5 fw-semibold mb-1"> {{__('الحالات بانتظار الرد ')}}</p>
+                <p class="title-color fs-5 fw-semibold mb-1"> {{__('الحالات بانتظار الرد')}}</p>
                 <p class="check-count" style="display:none"> {{$count}} {{__('حالة')}}  </p>
             </div>
 
             {{-- search --}}
-            <div class="search mb-1 " style="width: 55%">
+            <div class="search mb-1 " style="width: 50%">
 
                 <form action="{{route('orphan.waiting.index')}}" method="get" class="input-group flex-nowrap">
                     @csrf
                     <button type="submit" class="input-group-text" id="addon-wrapping">
                         <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 512 512"><path fill="#ACACAC" d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg>
                     </button>
-                    <input type="text" name="search" class="form-control" placeholder="البحث عن اليتيم"  aria-describedby="addon-wrapping">
+                    <input type="text" name="search" class="form-control" placeholder="{{__('البحث عن اليتيم')}}"  aria-describedby="addon-wrapping">
                 </form>
 
             </div>
@@ -50,31 +50,31 @@
                     <span class="title-color">{{__('فلتر')}}</span>
                 </div>
 
-                <div class="action" style="width:170px">
+                <div class="action" style="width:231px;left:-105px">
                     <form action="{{route('orphan.waiting.index')}}" method="GET" id="filterForm" >
                         @csrf
                         <div class="d-flex align-items-center gap-2 mb-1">
                             <input type="checkbox" class="checkbox_filter" name="filter[]" value="جمعية دار البر" id="alBer"
                                 @if(in_array('جمعية دار البر', request()->get('filter', []))) checked @endif>
-                            <label for="alBer" class="count">{{ __(' جمعية دار البر ') }}</label>
+                            <label for="alBer" class="count">{{ __('جمعية دار البر') }}</label>
                         </div>
 
                         <div class="d-flex align-items-center gap-2 mb-1">
                             <input type="checkbox" class="checkbox_filter" name="filter[]" value="جمعية الشارقة" id="sharjah"
                                 @if(in_array('جمعية الشارقة', request()->get('filter', []))) checked @endif>
-                            <label for="sharjah" class="count">{{ __(' جمعية الشارقة ') }}</label>
+                            <label for="sharjah" class="count">{{ __('جمعية الشارقة') }}</label>
                         </div>
 
                         <div class="d-flex align-items-center gap-2 mb-1">
                             <input type="checkbox" class="checkbox_filter" name="filter[]" value="جمعية السيدة مريم" id="special_case"
                                 @if(in_array('جمعية السيدة مريم', request()->get('filter', []))) checked @endif>
-                            <label for="special_case" class="count">{{ __(' جمعية السيدة مريم ') }}</label>
+                            <label for="special_case" class="count">{{ __('جمعية السيدة مريم') }}</label>
                         </div>
 
                         <div class="d-flex align-items-center gap-2 mb-1">
                             <input type="checkbox" class="checkbox_filter" name="filter[]" value="جمعية دبي الخيرية" id="adabi"
                                 @if(in_array('جمعية دبي الخيرية', request()->get('filter', []))) checked @endif>
-                            <label for="adabi" class="count">{{ __(' جمعية دبي الخيرية ') }}</label>
+                            <label for="adabi" class="count">{{ __('جمعية دبي الخيرية') }}</label>
                         </div>
                     </form>
                 </div>
@@ -92,12 +92,12 @@
 
                 <tr>
 
-                    <th scope="col">{{__(' الرقم ')}}</th>
+                    <th scope="col">{{__('الرقم')}}</th>
                     <th scope="col"> {{__('الاسم')}} </th>
                     <th scope="col"> {{__('مقدم ل')}}</th>
                     <th scope="col"> {{__('الهاتف')}} </th>
                     <th scope="col"> {{__('العنوان')}} </th>
-                    <th scope="col"> {{__('الاجراء')}} </th>
+                    <th scope="col"> {{__('الاجراءات')}} </th>
 
                 </tr>
 
@@ -115,7 +115,7 @@
 
                         <td scope="row"> {{$orphan->internal_code}} </td>
                         <td> {{$orphan->name}} </td>
-                        <td> {{$orphan->marketing->supporter->name}} </td>
+                        <td> {{translate_text($orphan->marketing->supporter->name)}} </td>
                         <td> {{$orphan->profile->phone}}  </td>
                         <td> {{$orphan->family->address}} </td>
 
@@ -123,7 +123,7 @@
 
                             <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">
 
-                            <div class="action" style="left: -50px">
+                            <div class="action" style="left: -50px; width:186px">
                                 <a href="{{route('orphan.waiting.show' , $orphan->id)}}" class="text-decoration-none">
                                     <img src="{{asset('image/Show.svg')}}" alt="">
                                     <span style="color: var(--text-color);">{{__('مشاهدة التفاصيل')}}</span>
@@ -139,7 +139,7 @@
                                 <!-- Button trigger modal -->
                                 <a type="button"  data-bs-toggle="modal" data-bs-target="#{{$modalId}}">
                                     <img src="{{asset('image/archived.png')}}" alt="">
-                                    <span style="color: var(--text-color);"> {{__(' تمت كفالته ')}} </span>
+                                    <span style="color: var(--text-color);"> {{__('تمت كفالته')}} </span>
                                 </a>
 
 
@@ -151,11 +151,11 @@
                                                 @csrf
                                                 <div class="modal-body">
                                                     <input type="hidden" name="supporter_id" value="{{$orphan->marketing->supporter_id}}">
-                                                    <x-form.input name="external_code" class="border" type="text" label=" {{__('الكود الخارجي')}}" autocomplete="" placeholder="أدخل الكود الخارجي"/>
+                                                    <x-form.input name="external_code" class="border" type="text" label=" {{__('الكود الخارجي')}}" autocomplete="" placeholder="{{__('أدخل الكود الخارجي')}}"/>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
-                                                    <button type="submit" class="btn btn-primary"> ارسال </button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('اغلاق')}}</button>
+                                                    <button type="submit" class="btn btn-primary"> {{__('ارسال')}} </button>
                                                 </div>
                                             </form>
                                         </div>
@@ -167,9 +167,9 @@
                                 <form action="{{route('orphan.waiting.destroy' , $orphan->id)}}" method="post" style="margin-right: -5px">
                                     @csrf
                                     @method('delete')
-                                    <button class="submit border-0 bg-transparent">
+                                    <button class="submit p-0 border-0 bg-transparent">
                                         <img src="{{asset('image/Delete.svg')}}" alt="">
-                                        <span style="color: var(--text-color);">{{__(' حذف ')}}</span>
+                                        <span style="color: var(--text-color);">{{__('حذف')}}</span>
                                     </button>
                                 </form>
                             </div>

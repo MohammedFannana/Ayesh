@@ -278,6 +278,38 @@
                                     </a>
                                 </li>
 
+                                <li class="nav-item dropdown  p-2 me-5 " style="height: 40px" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                    <a type="button" class="nav-link one dropdown-toggle d-flex justify-content-between align-items-center status direction"  style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{__('التقارير')}}
+                                    </a>
+
+                                    <li class="nav-item dropdown  p-2 ps-3 me-5  status-item d-none" style="height: 40px;" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a type="button" class="two  dropdown-toggle d-flex justify-content-between align-items-center orphan direction"  style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{__('تقرير الشارقة الخيرية')}}
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item two p-2 ps-3 me-5 status-item d-none" style="height: 40px">
+                                        <a  href="{{ route('family.index')}}" class="dropdown-item direction"  style="text-align: start;">
+                                            {{__('تقرير دار البر')}}
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item two p-2 ps-3 me-5 status-item d-none" style="height: 40px">
+                                        <a  href="{{ route('family.index')}}" class="dropdown-item direction"  style="text-align: start;">
+                                            {{__('تقرير دبي الخيرية')}}
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item two p-2 ps-3 me-5 status-item d-none" style="height: 40px">
+                                        <a  href="{{ route('family.index')}}" class="dropdown-item direction"  style="text-align: start;">
+                                            {{__('تقرير السيدة مريم')}}
+                                        </a>
+                                    </li>
+
+                                </li>
+
                                 <li class="nav-item p-2 me-5" style="height: 40px">
                                     <a href="{{ route('file.index')}}" class="nav-link direction"  style="text-align: start;">
                                         {{__('الرسائل')}}
@@ -468,6 +500,42 @@
                                         </a>
                                     </li>
 
+                                    <li class="nav-item dropdown  p-2 me-5" style="height: 40px;" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                        <a type="button" class="nav-link one report dropdown-toggle d-flex justify-content-between align-items-center orphan direction"  style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{__('التقارير')}}
+                                        </a>
+
+
+                                        <li class="nav-item p-2 ps-4 me-5 report-list  d-none" style="height: 40px">
+                                            <a  href="{{route('report.index' , 2)}}" class="two dropdown-item direction"  style="text-align: start;">
+                                                {{__('تقرير الشارقة الخيرية')}}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
+                                            <a  href="{{route('report.index' , 1)}}" class="two dropdown-item direction"  style="text-align: start;">
+                                                {{__('تقرير دار البر')}}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
+                                            <a  href="{{route('report.index' , 4)}}" class="two dropdown-item direction"  style="text-align: start;">
+                                                {{__('تقرير دبي الخيرية')}}
+                                            </a>
+                                        </li>
+
+
+                                        <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
+                                            <a  href="{{route('report.index' , 3)}}" class="two dropdown-item direction"  style="text-align: start;">
+                                                {{__('تقرير السيدة مريم')}}
+                                            </a>
+                                        </li>
+
+                                    </li>
+
+
+
                                     <li class="nav-item p-2 me-5" style="height: 40px">
                                         <a href="{{ route('file.index')}}" class="nav-link direction"  style="text-align: start;">
                                             {{__('الرسائل')}}
@@ -533,28 +601,31 @@
             document.addEventListener("DOMContentLoaded", function () {
                 let status = document.querySelector(".status");
                 let orphan = document.querySelector(".orphan");
+                let report = document.querySelector(".report");
+                let reportList = document.querySelectorAll(".report-list");
                 let statusItems = document.querySelectorAll(".status-item");
                 let orphanMenu = document.querySelectorAll(".orphan-menu");
 
-
-
                 // عند الضغط على الحالات
                 status.addEventListener("click", function (e) {
-                    e.preventDefault();
+                    e.preventDefault();  // إلغاء السلوك الافتراضي
                     statusItems.forEach(item => item.classList.toggle("d-none"));
-                    orphanMenu.forEach(item => item.classList.add("d-none"));
-
-                    // orphanMenu.classList.add("d-none"); // إخفاء القائمة الفرعية للأيتام عند فتح الحالات
+                    orphanMenu.forEach(item => item.classList.add("d-none")); // إخفاء قائمة الأيتام عند فتح الحالات
                 });
 
                 // عند الضغط على الأيتام المقدمين
                 orphan.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    // orphanMenu.classList.toggle("d-none");
-                    orphanMenu.forEach(item => item.classList.toggle("d-none"));
+                    e.preventDefault();  // إلغاء السلوك الافتراضي
+                    orphanMenu.forEach(item => item.classList.toggle("d-none")); // إظهار أو إخفاء القائمة الفرعية
+                });
 
+                // عند الضغط على التقارير
+                report.addEventListener("click", function (e) {
+                    e.preventDefault();  // إلغاء السلوك الافتراضي
+                    reportList.forEach(item => item.classList.toggle("d-none")); // إظهار أو إخفاء القائمة
                 });
             });
+
         </script>
 
         <script>

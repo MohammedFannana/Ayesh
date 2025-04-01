@@ -1,7 +1,7 @@
 <x-main-layout>
 
-    <h2 class="mb-4"> {{__('الأيتام المقدمين ')}}</h2>
-    <h4 class="mb-5 title-color">  {{__('الحالات المدخلة - جمعية دار البر ')}}</h4>
+    <h2 class="mb-4"> {{__('الأيتام المقدمين')}}</h2>
+    <h4 class="mb-5 title-color">  {{__('الحالات المدخلة - جمعية دار البر')}}</h4>
 
     <x-alert name="success" />
     <x-alert name="danger" />
@@ -14,7 +14,7 @@
 
             <!-- orphan_id -->
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="internal_code" value="{{$orphan->internal_code}}" class="border" type="text" label=" {{__('رقم اليتيم ')}}"  placeholder=" أدخل رقم اليتيم " disabled/>
+                <x-form.input name="internal_code" value="{{$orphan->internal_code}}" class="border" type="text" label=" {{__('رقم اليتيم')}}"  placeholder=" أدخل رقم اليتيم " disabled/>
             </div>
 
             <!-- organization_name -->
@@ -40,7 +40,7 @@
             <!-- name -->
             {{-- :value="$admin->email" --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="name" :value="$orphan->name"  class="border" type="text" label="اسم اليتيم" placeholder="أدخل اسم اليتيم" disabled/>
+                <x-form.input name="name" :value="$orphan->name"  class="border" type="text" label="{{__('اسم اليتيم')}}" placeholder="{{__('أدخل اسم اليتيم')}}" disabled/>
             </div>
 
             <!-- father_name -->
@@ -82,7 +82,7 @@
 
             {{-- orphan --}}
             <div class="col-12 col-md-6 mb-3 ">
-                <label for="orphan" class="mb-2"> {{__('يتيم الأبوين ')}}</label>
+                <label for="orphan" class="mb-2"> {{__('يتيم الأبوين')}}</label>
                 <div class="d-flex" style="gap: 180px">
                     <div>
                         <input type="radio" name="parents_orphan" id="yes" value="نعم" @checked($orphan->profile->parents_orphan === 'نعم') disabled>
@@ -98,17 +98,17 @@
 
             {{-- birth_date --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="birth_date" class="border" :value="$orphan->birth_date" type="date" label=" {{__('تاريخ ميلاد اليتيم ')}}" autocomplete="" disabled/>
+                <x-form.input name="birth_date" class="border" :value="$orphan->birth_date" type="date" label=" {{__('تاريخ ميلاد اليتيم')}}" autocomplete="" disabled/>
             </div>
 
             {{-- birth_place--}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="birth_place" :value="$orphan->birth_place" class="border" type="text" label=" {{__('مكان الميلاد ')}}" autocomplete="" placeholder="ادخل مكان الميلاد" disabled/>
+                <x-form.input name="birth_place" :value="$orphan->birth_place" class="border" type="text" label=" {{__('مكان الميلاد')}}" autocomplete="" placeholder="ادخل مكان الميلاد" disabled/>
             </div>
 
             {{-- father_death --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="father_death_date" :value="$orphan->profile->father_death_date" class="border" type="date" label=" {{__('تاريخ وفاة الأب ')}}" autocomplete="" disabled/>
+                <x-form.input name="father_death_date" :value="$orphan->profile->father_death_date" class="border" type="date" label=" {{__('تاريخ وفاة الأب')}}" autocomplete="" disabled/>
             </div>
 
             {{-- father_religion--}}
@@ -128,7 +128,7 @@
 
             {{-- mother_name --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="mother_name" :value="$orphan->profile->mother_name" class="border" type="text" label=" {{__('اسم الأم ')}}" autocomplete="" placeholder="ادخل اسم الأم" disabled/>
+                <x-form.input name="mother_name" :value="$orphan->profile->mother_name" class="border" type="text" label=" {{__('اسم الأم')}}" autocomplete="" placeholder="ادخل اسم الأم" disabled/>
             </div>
 
             {{-- mother_salary--}}
@@ -138,7 +138,7 @@
 
             {{-- mother_marital_status --}}
             <div class="col-12 col-md-6 mb-3 ">
-                <label for="orphan" class="mb-2"> {{__('الحالة الاجتماعية للأم ')}}</label>
+                <label for="orphan" class="mb-2"> {{__('الحالة الاجتماعية للأم')}}</label>
                 <div class="d-flex" style="gap: 180px">
                     <div>
                         <input type="radio" name="mother_marital_status" id="married" value="متزوجة" @checked($orphan->profile->mother_status === 'متزوجة') disabled>
@@ -159,7 +159,7 @@
 
             {{-- family_number --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="family_number" :value="$orphan->family->family_number" class="border" type="number" label=" {{__('عدد أفراد الأسرة ')}}" autocomplete="" min="1" placeholder="أدخل عدد أفراد الأسرة" disabled/>
+                <x-form.input name="family_number" :value="$orphan->family->family_number" class="border" type="number" label=" {{__('عدد أفراد الأسرة')}}" autocomplete="" min="1" placeholder="أدخل عدد أفراد الأسرة" disabled/>
             </div>
 
             {{-- male_number --}}
@@ -169,7 +169,7 @@
 
             {{-- female_number --}}
             <div class="col-6 col-md-3 mb-3">
-                <x-form.input name="female_number" :value="$orphan->family->female_number"  class="border" type="number" label="{{__(' عدد الاناث ')}}" autocomplete="" min="1" placeholder="أدخل عدد الاناث " disabled/>
+                <x-form.input name="female_number" :value="$orphan->family->female_number"  class="border" type="number" label="{{__('عدد الاناث')}}" autocomplete="" min="1" placeholder="أدخل عدد الاناث " disabled/>
             </div>
 
             {{-- sponsored_number --}}
@@ -179,13 +179,13 @@
 
             {{-- Health status --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="health_status" :value="$orphan->health_status" class="border" type="text" label=" {{__('حاله اليتيم الصحيه ')}}" autocomplete="" placeholder="أدخل حاله اليتيم الصحيه " disabled/>
+                <x-form.input name="health_status" :value="$orphan->health_status" class="border" type="text" label=" {{__('حالة اليتيم الصحية')}}" autocomplete="" placeholder="أدخل حاله اليتيم الصحيه " disabled/>
             </div>
 
 
             {{-- academic_stage --}}
             <div class="col-12 col-md-6 mb-3 ">
-                <x-form.input name="academic_stage" :value="$orphan->profile->academic_stage" class="border" type="text" label=" {{__('المرحلة الدراسية ')}} " autocomplete="" placeholder="أدخل المرحلة الدراسية  " disabled/>
+                <x-form.input name="academic_stage" :value="$orphan->profile->academic_stage" class="border" type="text" label=" {{__('المرحلة الدراسية')}} " autocomplete="" placeholder="أدخل المرحلة الدراسية  " disabled/>
             </div>
 
             {{-- class --}}
@@ -196,18 +196,18 @@
 
             {{-- responsible --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="guardian_name" :value="$orphan->guardian->guardian_name" class="border" type="text" label=" {{__('المسئول المباشر عن اليتيم ')}}" autocomplete="" placeholder="أدخل  المسئول المباشر عن اليتيم" disabled/>
+                <x-form.input name="guardian_name" :value="$orphan->guardian->guardian_name" class="border" type="text" label=" {{__('المسؤول المباشر عن اليتيم')}}" autocomplete="" placeholder="أدخل  المسئول المباشر عن اليتيم" disabled/>
             </div>
 
 
             {{--  orphan_relationship --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="guardian_relationship" :value="$orphan->guardian->guardian_relationship" class="border" type="text" label=" {{__('صلته باليتيم ')}}" autocomplete="" placeholder="أدخل صلته باليتيم" disabled/>
+                <x-form.input name="guardian_relationship" :value="$orphan->guardian->guardian_relationship" class="border" type="text" label=" {{__('صلته باليتيم')}}" autocomplete="" placeholder="أدخل صلته باليتيم" disabled/>
             </div>
 
             {{--  address --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="full_address" :value="$orphan->profile->full_address" class="border" type="text" label=" {{__('عنوان اليتيم بالكامل ')}}" autocomplete="" placeholder="أدخل عنوان اليتيم بالكامل " disabled/>
+                <x-form.input name="full_address" :value="$orphan->profile->full_address" class="border" type="text" label=" {{__('عنوان اليتيم بالكامل')}}" autocomplete="" placeholder="أدخل عنوان اليتيم بالكامل " disabled/>
             </div>
 
             {{--  phone --}}
@@ -237,11 +237,11 @@
 
             @foreach ($fields as $field)
                 <div class="col-12 col-md-6 mb-3">
-                    <label class="mb-2">{{ __($field->field_name) }}</label>
+                    <label class="mb-2">{{ translate_text($field->field_name) }}</label>
                     @if ($field->field_type === 'file')
                         <br>
-                        <label for="field_{{ $field->id }}" class="custom-file-upload w-50 text-center">
-                            {{ __('ارفق صورة ' . $field->field_name) }}
+                        <label for="field_{{ $field->id }}" class="custom-file-upload w-75 text-center">
+                            {{ translate_text('ارفق صورة ' . $field->field_name) }}
                         </label>
                         <input
                             name="fields[{{ $field->id }}][file]"
@@ -249,7 +249,7 @@
                             type="file"
                             id="field_{{ $field->id }}"
                             style="display: none;"
-                            
+
                         />
                         @error('fields.' . $field->id . '.file')
                             <div class="text-danger">
@@ -260,7 +260,7 @@
                         <input
                             type="{{ $field->field_type }}"
                             name="fields[{{ $field->id }}][value]"
-                            placeholder="{{ $field->placeholder ?? '' }}"
+                            placeholder="{{ translate_text($field->placeholder) ?? '' }}"
                             value="{{ old('fields.' . $field->id . '.value') }}"
                             class="form-control @error('fields.' . $field->id . '.value') is-invalid @enderror"
                         >

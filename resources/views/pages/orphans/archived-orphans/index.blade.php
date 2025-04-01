@@ -24,7 +24,7 @@
                     <button type="submit" class="input-group-text" id="addon-wrapping">
                         <svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 512 512"><path fill="#ACACAC" d="M384 208A176 176 0 1 0 32 208a176 176 0 1 0 352 0zM343.3 366C307 397.2 259.7 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 51.7-18.8 99-50 135.3L507.3 484.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L343.3 366z"/></svg>
                     </button>
-                    <input type="text" name="search" class="form-control" placeholder="البحث عن اليتيم"  aria-describedby="addon-wrapping">
+                    <input type="text" name="search" class="form-control" placeholder="{{__('البحث عن اليتيم')}}"  aria-describedby="addon-wrapping">
                 </form>
 
             </div>
@@ -37,31 +37,31 @@
                     <span class="title-color">{{__('فلتر')}}</span>
                 </div>
 
-                <div class="action" style="width:170px">
+                <div class="action" style="width:261px; left:0px">
                     <form action="{{route('orphan.archived.index')}}" method="GET" id="filterForm" >
                         @csrf
                         <div class="d-flex align-items-center gap-2 mb-1">
                             <input type="checkbox" class="checkbox_filter" name="filter[]" value="جمعية دار البر" id="alBer"
                                 @if(in_array('جمعية دار البر', request()->get('filter', []))) checked @endif>
-                            <label for="alBer" class="count">{{ __(' جمعية دار البر ') }}</label>
+                            <label for="alBer" class="count">{{ __('جمعية دار البر') }}</label>
                         </div>
 
                         <div class="d-flex align-items-center gap-2 mb-1">
                             <input type="checkbox" class="checkbox_filter" name="filter[]" value="جمعية الشارقة" id="sharjah"
                                 @if(in_array('جمعية الشارقة', request()->get('filter', []))) checked @endif>
-                            <label for="sharjah" class="count">{{ __(' جمعية الشارقة ') }}</label>
+                            <label for="sharjah" class="count">{{ __('جمعية الشارقة') }}</label>
                         </div>
 
                         <div class="d-flex align-items-center gap-2 mb-1">
                             <input type="checkbox" class="checkbox_filter" name="filter[]" value="جمعية السيدة مريم" id="special_case"
                                 @if(in_array('جمعية السيدة مريم', request()->get('filter', []))) checked @endif>
-                            <label for="special_case" class="count">{{ __(' جمعية السيدة مريم ') }}</label>
+                            <label for="special_case" class="count">{{ __('جمعية السيدة مريم') }}</label>
                         </div>
 
                         <div class="d-flex align-items-center gap-2 mb-1">
                             <input type="checkbox" class="checkbox_filter" name="filter[]" value="جمعية دبي الخيرية" id="adabi"
                                 @if(in_array('جمعية دبي الخيرية', request()->get('filter', []))) checked @endif>
-                            <label for="adabi" class="count">{{ __(' جمعية دبي الخيرية ') }}</label>
+                            <label for="adabi" class="count">{{ __('جمعية دبي الخيرية') }}</label>
                         </div>
                     </form>
                 </div>
@@ -78,12 +78,12 @@
 
                 <tr>
 
-                    <th scope="col">{{__(' الكود الداخلي  ')}}</th>
-                    <th scope="col"> {{__('الكود الخارجي ')}} </th>
+                    <th scope="col">{{__('الكود الداخلي')}}</th>
+                    <th scope="col"> {{__('الكود الخارجي')}} </th>
                     <th scope="col"> {{__('الاسم')}} </th>
                     <th scope="col"> {{__('مقدم ل')}}</th>
                     <th scope="col"> {{__('الهاتف')}} </th>
-                    <th scope="col"> {{__('الاجراء')}} </th>
+                    <th scope="col"> {{__('الاجراءات')}} </th>
 
                 </tr>
 
@@ -97,7 +97,7 @@
                         <td scope="row"> {{$orphan->internal_code}} </td>
                         <td scope="row"> {{$orphan->sponsorship->external_code}} </td>
                         <td> {{$orphan->name}} </td>
-                        <td> {{$orphan->marketing->supporter->name}} </td>
+                        <td> {{translate_text($orphan->marketing->supporter->name)}} </td>
                         <td> {{$orphan->profile->phone}}  </td>
                         <td style="position: relative;">
 
@@ -106,7 +106,7 @@
                             <div class="action" style="left: -50px">
                                 <a href="{{route('orphan.archived.show' , $orphan->id)}}" class="text-decoration-none">
                                     <img src="{{asset('image/Show.svg')}}" alt="">
-                                    <span style="color: var(--text-color);"> {{__(' مشاهدة التفاصيل ')}} </span>
+                                    <span style="color: var(--text-color);"> {{__('مشاهدة التفاصيل')}} </span>
                                 </a>
 
                                 <br>
@@ -115,7 +115,7 @@
                                 <form action="{{route('orphan.archived.destroy' , $orphan->id)}}" method="post" style="margin-right: -5px">
                                     @csrf
                                     @method('delete')
-                                    <button class="submit border-0 bg-transparent">
+                                    <button class="submit p-0 border-0 bg-transparent">
                                         <img src="{{asset('image/Delete.svg')}}" alt="">
                                         <span style="color: var(--text-color);">{{__('حذف')}}</span>
                                     </button>

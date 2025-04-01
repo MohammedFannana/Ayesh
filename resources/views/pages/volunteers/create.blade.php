@@ -54,11 +54,12 @@
                 content: '▼';
                 position: absolute;
                 top: 50%;
-                left: 10px;
                 transform: translateY(-50%);
                 font-size: 12px;
                 color: #666;
                 pointer-events: none;
+                {{ App::isLocale('ar') ? 'left: 10px;' : 'right: 10px;' }};
+
             }
 
             .multi-select-options {
@@ -94,7 +95,7 @@
     @endpush
 
     <h2 class="mb-4"> {{__('المتطوعين')}} </h2>
-    <h4 class="mb-4 title-color"> {{__('إضافة متطوع ')}}</h4>
+    <h4 class="mb-4 title-color"> {{__('إضافة متطوع')}}</h4>
 
     <x-alert name="success" />
     <x-alert name="danger" />
@@ -111,27 +112,27 @@
 
                     <!-- name -->
                     <div class="col-12 col-md-6">
-                        <x-form.input name="name" class="border" type="text" label="{{__('الاسم')}}" placeholder="أدخل الاسم"/>
+                        <x-form.input name="name" class="border" type="text" label="{{__('الاسم')}}" placeholder="{{__('أدخل الاسم')}}"/>
                     </div>
 
                     <!-- country -->
                     <div class="col-12 col-md-6">
-                        <x-form.input name="country" class="border" type="text" label="{{__('الدولة')}}" placeholder="أدخل الدولة"/>
+                        <x-form.input name="country" class="border" type="text" label="{{__('الدولة')}}" placeholder="{{__('أدخل الدولة')}}"/>
                     </div>
 
                     <!-- phone -->
                     <div class="mt-4 col-12 col-md-6">
-                        <x-form.input name="phone" class="border" type="text" label="{{__('رقم الجوال')}}" autocomplete="" placeholder="أدخل رقم الجوال"/>
+                        <x-form.input name="phone" class="border" type="text" label="{{__('رقم الجوال')}}" autocomplete="" placeholder="{{__('أدخل رقم الجوال')}}"/>
                     </div>
 
                     <!-- email -->
                     <div class="mt-4 col-12 col-md-6">
-                        <x-form.input name="email" class="border" type="email" label="{{__('البريد الالكتروني')}} " autocomplete="" placeholder="أدخل البريد الالكتروني"/>
+                        <x-form.input name="email" class="border" type="email" label="{{__('البريد الالكتروني')}} " autocomplete="" placeholder="{{__('أدخل البريد الالكتروني')}}"/>
                     </div>
 
                     <!-- address -->
                     <div class="mt-4 col-12">
-                        <x-form.input name="address" class="border" type="text" label="{{__('العنوان')}} " autocomplete="" placeholder="أدخل العنوان"/>
+                        <x-form.input name="address" class="border" type="text" label="{{__('العنوان')}} " autocomplete="" placeholder="{{__('أدخل العنوان')}}"/>
                     </div>
 
                     <!-- area (regions) -->
@@ -139,26 +140,26 @@
                         <label class="multi-select-label mb-2">{{__('المناطق التي ستقوم بتغطيتها')}}</label>
                         <div class="selected-options" id="selected-area-options"></div>
                         <div class="multi-select" id="multi-area-select">
-                            <span class="selected-text count">اختر</span>
+                            <span class="selected-text count">{{__('اختر')}}</span>
                         </div>
                         <div class="multi-select-options" id="multi-select-area-options">
-                            <div class="select-area-option" data-value="القاهرة"> القاهرة </div>
-                            <div class="select-area-option" data-value="الجيزة"> الجيزة </div>
-                            <div class="select-area-option" data-value="الدقهلية"> الدقهلية </div>
-                            <div class="select-area-option" data-value="الاسكندرية"> الاسكندرية </div>
-                            <div class="select-area-option" data-value="القليوبية"> القليوبية </div>
-                            <div class="select-area-option" data-value="دمياط"> دمياط </div>
-                            <div class="select-area-option" data-value="الفيوم"> الفيوم </div>
-                            <div class="select-area-option" data-value="الغربية"> الغربية </div>
-                            <div class="select-area-option" data-value="المنوفية"> المنوفية </div>
-                            <div class="select-area-option" data-value="الشرقية"> الشرقية </div>
-                            <div class="select-area-option" data-value="أسيوط"> أسيوط </div>
-                            <div class="select-area-option" data-value="أسوان"> أسوان </div>
-                            <div class="select-area-option" data-value="سوهاج"> سوهاج </div>
-                            <div class="select-area-option" data-value="المنيا"> المنيا </div>
-                            <div class="select-area-option" data-value="كفر الشيخ"> كفر الشيخ </div>
-                            <div class="select-area-option" data-value="بورسعيد"> بورسعيد </div>
-                            <div class="select-area-option" data-value="الإسماعيلية"> الإسماعيلية </div>
+                            <div class="select-area-option" data-value="القاهرة"> {{__('القاهرة')}} </div>
+                            <div class="select-area-option" data-value="الجيزة"> {{__('الجيزة')}}</div>
+                            <div class="select-area-option" data-value="الدقهلية"> {{__('الدقهلية')}}</div>
+                            <div class="select-area-option" data-value="الاسكندرية"> {{__('الاسكندرية')}}</div>
+                            <div class="select-area-option" data-value="القليوبية"> {{__('القليوبية')}}</div>
+                            <div class="select-area-option" data-value="دمياط"> {{__('دمياط')}}</div>
+                            <div class="select-area-option" data-value="الفيوم"> {{__('الفيوم')}}</div>
+                            <div class="select-area-option" data-value="الغربية">{{__('الغربية')}}</div>
+                            <div class="select-area-option" data-value="المنوفية"> {{__('المنوفية')}}</div>
+                            <div class="select-area-option" data-value="الشرقية"> {{__(' ')}}</div>
+                            <div class="select-area-option" data-value="أسيوط"> {{__('أسيوط')}}</div>
+                            <div class="select-area-option" data-value="أسوان"> {{__('أسوان')}}</div>
+                            <div class="select-area-option" data-value="سوهاج"> {{__('سوهاج')}}</div>
+                            <div class="select-area-option" data-value="المنيا"> {{__('المنيا')}}</div>
+                            <div class="select-area-option" data-value="كفر الشيخ"> {{__('كفر الشيخ')}}</div>
+                            <div class="select-area-option" data-value="بورسعيد"> {{__('بورسعيد')}}</div>
+                            <div class="select-area-option" data-value="الإسماعيلية"> {{__('الإسماعيلية')}}</div>
 
 
                         </div>
@@ -170,7 +171,7 @@
                         <label class="multi-select-label mb-2">{{__('اللغة')}}</label>
                         <div class="selected-options" id="selected-language-options"></div>
                         <div class="multi-select" id="multi-language-select">
-                            <span class="selected-text count">اختر</span>
+                            <span class="selected-text count">{{__('اختر')}}</span>
                         </div>
                         <div class="multi-select-options" id="multi-select-language-options">
                             <div class="select-language-option" data-value="العربية"> العربية </div>
