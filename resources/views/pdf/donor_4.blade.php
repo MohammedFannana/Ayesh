@@ -19,9 +19,11 @@
             box-sizing: border-box !important;
         }
 
-        .container1 {
+        .container{
             width: 100%;
             height: 100%;
+            margin-top: 25px;
+
         }
 
         .border,
@@ -31,28 +33,7 @@
         }
 
         /* d-inline-block bg-white border-start border-end fs-5 pe-2 */
-        .title{
-            display: inline-block;
-            background-color: white;
-            border-left: 1px solid #737373;
-            border-right: 1px solid #737373;
 
-            min-width:31%;
-            height:35px;
-            font-size:1.25rem;
-            padding-right: 0.5rem
-
-        }
-
-        /* d-inline-block   fs-5 pe-2 */
-        .span-value{
-            display: inline-block;
-            font-size: 1.25rem;
-            padding-right: 0.5rem;
-            width:272px;
-            height:35px;
-            background-color:#FBFDFB
-        }
 
         /* العنوان والشعارات */
 
@@ -65,25 +46,26 @@
             /* margin-bottom: 10mm; */
         }
 
-        .header{
+        /* .header{
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
-        }
+        } */
 
         .name{
-            display: flex;
+            /* display: flex; */
             border:1px solid #737373;
             width:100%;
             margin-bottom: 0.25rem;
         }
 
         .cell{
-            width: 48%;
+            width: 49%;
             padding: 0px;
-            display: flex;
-            align-items: center
+            padding-right: 5px
+            /* display: flex; */
+            /* align-items: center */
 
         }
 
@@ -100,18 +82,52 @@
             font-size: 12pt;
             margin-top: 10mm;
         }
+
+        .title{
+            display: inline-block;
+            background-color: white;
+            border-left: 1px solid #737373;
+            border-right: 1px solid #737373;
+            width:30%;
+            height:35px;
+            font-size:1.25rem;
+            padding-right: 0.5rem
+
+        }
+
+        /* d-inline-block   fs-5 pe-2 */
+        .span-value{
+            display: inline-block;
+            font-size: 1.25rem;
+            padding-right: 0.5rem;
+            width:70%;
+            height:35px;
+            background-color:#FBFDFB
+        }
     </style>
 
 </head>
 <body>
-    <div class="container1">
+    <div class="container">
         <!-- العنوان والشعارات -->
-        <div class="header" >
-            {{-- <img src="{{asset('image/logo.png')}}" alt="شعار" class="logo" width="132px" height="87px"> --}}
-            {{-- <img src="{{asset('image/donor/donor_4.png')}} " width="213px" height="43px"/> --}}
-            {{-- <img src="{{asset('storage/' . $orphan->image->orphan_image_4_6)}}" alt="صورة شخصية" class="profile-pic" width="103px" height="116px"> --}}
 
-        </div>
+        <table style="width: 100%; margin-bottom: 10px;">
+            <tr>
+                <td style="width:132px;">
+                    <img src="{{ public_path('image/logo.png') }}" alt="شعار" width="132px" height="87px">
+                </td>
+
+                <td style="width: 213px; text-align: center;">
+
+                    <img src="{{public_path('image/donor/donor_4.png')}}"  height="43px"/>
+                </td>
+
+                <td style="width: 103px; text-align: left;">
+                    <img src="{{public_path('storage/' . $orphan->image->orphan_image_4_6)}}" alt="صورة شخصية"  height="116px" >
+                </td>
+
+            </tr>
+        </table>
 
         <!-- الجدول -->
 
@@ -119,28 +135,31 @@
 
             <div class="name">
 
-                <div class="cell">
+                <div class="cell" style="float: right">
                     <span class="title"> اسم اليتيم : </span>
                     <span class="span-value"> {{$orphan->name}} </span>
                 </div>
 
-                <div class="cell">
+                <div class="cell" style="float: left">
                     <span class="title" style=" border-right: 1px solid #737373;">  الجنسية : </span>
                     <span class="span-value"> {{ $orphan->getFieldValueByDatabaseName('nationality')}} </span>
                 </div>
 
             </div>
 
+
+
             <div class="name">
-                <div class="cell">
-                    <span class="title"> تاريخ الميلاد : </span>
-                    <span class="span-value"> {{$orphan->birth_date}} </span>
+
+                <div class="cell" style="float: right;">
+                    <span class="title" style="float: right;"> تاريخ الميلاد : </span>
+                    <span class="span-value" style="float: left;"> {{$orphan->birth_date}} </span>
                 </div>
 
-                <div class="cell">
+                <div class="cell" style="float: left;width:49%">
                     <span class="title" style=" border-right: 1px solid #737373;">  الجنس: </span>
                     <span class="span-value">
-                        <span style="margin-left: 55px">
+                        <span style="">
                             <input type="radio" name="gender" @checked($orphan->gender === 'ذكر')>
                             <span> ذكر </span>
                         </span>
@@ -151,101 +170,108 @@
                         </span>
                     </span>
                 </div>
+
             </div>
 
             <div class="name">
-                <div class="cell">
-                    <span class="title">  اسم الأم : </span>
+                <div class="cell" style="float: right">
+                    <span class="title" >  اسم الأم : </span>
                     <span class="span-value"> {{$orphan->profile->mother_name}} </span>
                 </div>
 
-                <div class="cell">
-                    <span class="title" style="width:50%; height:35px; border-left:none;" >
+                <div class="cell" style="float: left; width:49%">
+                    <div  style="float:right;font-size:1.25rem;width:49% ;border-left:none;border-right: 1px solid #737373;" >
                         <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'متزوجة')>
                         <span> متزوجة </span>
-                    </span>
+                    </div>
 
-                    <span class="title" style="width:50%; height:35px;" >
+                    <div  style="float:left; width:49%;font-size:1.25rem;border-right: 1px solid #737373;" >
                         <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'أرملة')>
                         <span> أرملة </span>
-                    </span>
+                    </div>
 
 
                 </div>
             </div>
 
             <div class="name">
-                <div class="cell">
+                <div class="cell" style="float: right">
                     <span class="title ">  تاريخ وفاة الاب : </span>
                     <span class="span-value" > {{$orphan->profile->father_death_date}} </span>
                 </div>
 
-                <div class="cell">
+                <div class="cell" style="float: left">
                     <span class="title">  سبب الوفاة : </span>
                     <span class="span-value"> {{ $orphan->getFieldValueByDatabaseName('father_death_reason')}} </span>
                 </div>
             </div>
 
             <div class="name">
-                <div class="cell">
+                <div class="cell" style="float: right">
                     <span class="title" style="width:320px ">  ولي أمر اليتيم أو المسؤول عنه:  </span>
                     <span class="span-value"> {{$orphan->guardian->guardian_name}} </span>
                 </div>
 
-                <div class="cell">
+                <div class="cell" style="float: left">
                     <span class="title">  صلة القرابة : </span>
                     <span class="span-value"> {{$orphan->guardian->guardian_relationship}} </span>
                 </div>
             </div>
 
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 66%; vertical-align: top; border: none;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="width: 30%; text-align: right;">
+                                    <span class="title"> عدد اخوان اليتيم : </span>
+                                    <span class="span-value"> {{$orphan->family->family_number}} </span>
+                                </td>
+                                <td style="width: 18%; text-align: right;">
+                                    <span class="title"> ذكور : </span>
+                                    <span class="span-value"> {{$orphan->family->male_number}} </span>
+                                </td>
+                                <td style="width: 18%; text-align: left;">
+                                    <span class="title"> اناث : </span>
+                                    <span class="span-value"> {{$orphan->family->female_number}} </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width: 33%; text-align: left; vertical-align: top; border: none;">
+                        <span class="title"> تاريخ الميلاد : </span>
+                        <span class="span-value"> {{$orphan->birth_date}} </span>
+                    </td>
+                </tr>
+            </table>
+
+
             <div class="name">
-                <div class="cell" style="width:25%">
-                    <span class="title" style="width:240%!important"> عدد اخوان اليتيم : </span>
-                    <span class="span-value"> {{$orphan->family->family_number}} </span>
-                </div>
-
-                <div class="cell" style="width: 20%">
-                    <span class="title" style="width:100%!important"> ذكور : </span>
-                    <span class="span-value"> {{$orphan->family->male_number}} </span>
-                </div>
-
-                <div class="cell" style="width: 20%">
-                    <span class="title"  style="width:100%!important"> اناث : </span>
-                    <span class="span-value"> {{$orphan->family->female_number}} </span>
-                </div>
-
-                <div class="cell" style="width: 35%">
-                    <span class="title"  style="width:60%!important">  تاريخ الميلاد : </span>
-                    <span class="span-value" > {{$orphan->birth_date}} </span>
-                </div>
-            </div>
-
-            <div class="name">
-                <div class="cell">
+                <div class="cell" style="float: right">
                     <span class="title"> دخل الأسرة : </span>
                     <span class="span-value" > {{$orphan->family->income}} </span>
                 </div>
 
-                <div class="cell">
+                <div class="cell" style="float: left">
                     <span class="title"> نوع الدخل : </span>
                     <span class="span-value"> {{$orphan->family->income_source}} </span>
                 </div>
             </div>
 
             <div class="name">
-                <div class="cell">
+                <div class="cell" style="float: right">
                     <span class="title">  العنوان : </span>
                     <span class="span-value" > {{$orphan->profile->full_address}} </span>
                 </div>
 
-                <div class="cell">
+                <div class="cell" style="float: left">
                     <span class="title"> الهاتف : </span>
                     <span class="span-value"> {{$orphan->profile->phone}} </span>
                 </div>
             </div>
 
             <div class="name">
-                <div class="cell">
+                <div class="cell" style="float: right">
                     <span class="title"> نوع السكن: </span>
                     <span class="span-value " >
 
@@ -266,7 +292,7 @@
                     </span>
                 </div>
 
-                <div class="cell">
+                {{-- <div class="cell" style="float: left">
                     <span class="title"> حالة السكن: </span>
                     <span class="span-value" style="display:flex; justify-content: space-between">
                         <span>
@@ -284,29 +310,71 @@
                             <span> سيء </span>
                         </span>
                     </span>
+                </div> --}}
+
+                <div class="cell" style="float: left">
+                    <p class="title" style="float: right;"> حالة السكن: </p>
+
+                    <div style="float:left">
+
+                        <div style="float: right;">
+                            <!-- إذا كانت حالة السكن 'جيد'، أضف دائرة وعلامة صح -->
+                            <span style="border: 2px solid #000; border-radius: 50%; padding: 10px; display: inline-block; text-align: center; width: 20px; height: 20px; line-height: 20px;">
+                                @if($orphan->family->housing_case === 'جيد')
+                                    ✔
+                                @endif
+
+                            </span>
+                            <label for="جيد">جيد</label>
+                        </div>
+
+                        <div style="float: right;">
+                            <!-- إذا كانت حالة السكن 'متوسط'، أضف دائرة وعلامة صح -->
+                            <span style="border: 2px solid #000; border-radius: 50%; padding: 10px; display: inline-block; text-align: center; width: 20px; height: 20px; line-height: 20px;">
+                                @if($orphan->family->housing_case === 'متوسط')
+                                    ✔
+                                @endif
+
+                            </span>
+
+                            <label for="متوسط">متوسط</label>
+                        </div>
+
+                        <div style=" float: left;" >
+                            <!-- إذا كانت حالة السكن 'سيء'، أضف دائرة وعلامة صح -->
+                            <span style="border: 2px solid #000; border-radius: 50%; padding: 10px; display: inline-block; text-align: center; width: 20px; height: 20px; line-height: 20px;">
+                                @if($orphan->family->housing_case === 'سيء')
+                                    ✔
+                                @endif
+
+                            </span>
+                            <label for="سيء">سيء</label>
+                        </div>
+
+                    </div>
+
                 </div>
+
+
+
 
             </div>
 
             <div class="name">
-                <div class="cell">
+                {{-- <div class="cell" style="float: right"> --}}
                     <span class="title" style="width: 40%"> الحالة الصحية لليتيم: </span>
                     <span class="span-value" > {{$orphan->health_status}} </span>
-                </div>
-
-                <div class="cell">
-                    <span class="title">  </span>
-                </div>
+                {{-- </div> --}}
             </div>
 
 
             <div class="name">
-                <div class="cell">
+                <div class="cell" style="float: right">
                     <span class="title" style="width: 35%">المرحلة الدراسية : </span>
                     <span class="span-value" > {{$orphan->profile->academic_stage}} </span>
                 </div>
 
-                <div class="cell">
+                <div class="cell" style="float: left">
                     <span class="title"> الصف : </span>
                     <span class="span-value"> {{$orphan->profile->class}} </span>
                 </div>
@@ -316,19 +384,19 @@
 
         <div style="margin-top: 1.25rem">
 
-            <p class="textarea-title" style="width:fit-content"> الحالة الاجتماعية لأسرة اليتيم (رأي المشرف الاجتماعي) </p>
+            <p class="textarea-title" style="width:420px"> الحالة الاجتماعية لأسرة اليتيم (رأي المشرف الاجتماعي) </p>
             <p style="font-size: 18px">
                 {{ $orphan->getFieldValueByDatabaseName('social_status_orphan')}}
             </p>
 
         </div>
 
-        <div  style="display: flex; justify-content-between">
-            <div  style="width:50%">
+        <div  style="width:100%">
+            <div  style="float: right; width:49%">
                 <p class="fw-bold fs-5"> توقيع و ختم قسم الأيتام </p>
             </div>
 
-            <div style="width:50%">
+            <div style="float: left; width:49%">
                 <p class="fw-bold fs-5"> اعتماد الجهة المشرفة </p>
             </div>
         </div>

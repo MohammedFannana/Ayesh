@@ -234,19 +234,19 @@ class MarketingOrphanController extends Controller
             // return $pdf->stream('donor_4.pdf');
 
             // $pdf = PDF::loadView('pdf.donor_4', ['orphan' => $orphan]);
-            $pdf = PDF::loadView('pdf.donor_3', ['orphan' => $orphan]);
+            $pdf = PDF::loadView('pdf.donor_1', ['orphan' => $orphan]);
 
 
             // Stream the PDF to the browser
-            return $pdf->stream('donor_3.pdf');
+            return $pdf->stream('donor_1.pdf');
 
-        // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
+            // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
 
-        // دعم الكتابة من اليمين لليسار (للكتابة باللغة العربية)
-        // $pdf->setDirectionality('rtl'); // تعيين الاتجاه إلى اليمين لليسار
+            // دعم الكتابة من اليمين لليسار (للكتابة باللغة العربية)
+            // $pdf->setDirectionality('rtl'); // تعيين الاتجاه إلى اليمين لليسار
 
-        // إخراج PDF إلى المتصفح
-        // return $pdf->stream('donor_4.pdf');
+            // إخراج PDF إلى المتصفح
+            // return $pdf->stream('donor_4.pdf');
 
 
 

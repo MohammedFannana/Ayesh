@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
+
 
 class ReportController extends Controller
 {
@@ -670,6 +672,36 @@ class ReportController extends Controller
     }
 
     public function DownloadReport(string $report_id){
+
+        $report = Report::where('id', $report_id)
+        ->with('orphan')
+        ->with('orphan.image')
+        ->with(['orphan.profile' => function ($query) {
+                $query->select('orphan_id', 'father_death_date' , 'mother_name' ,'mother_death_date' , 'phone' ,'academic_stage' , 'class' , 'full_address');
+        }])
+        ->with('orphan.supporterFieldValues')
+        ->with(['orphan.guardian' => function ($query) {
+            $query->select('orphan_id', 'guardian_name' ,'guardian_relationship');
+        }])
+        ->with(['orphan.family' => function ($query) {
+            $query->select('orphan_id', 'family_number','housing_type');
+        }])
+        ->with('supporter')
+        ->firstOrFail();
+
+        $report->fields = json_decode($report->fields, true); // تحويل JSON إلى Array
+
+        $viewName = 'pdf.reports.supporter_' . $report->supporter->id;
+
+        if(view()->exists($viewName)){
+            $pdf = PDF::loadView($viewName, ['report' => $report]);
+            return $pdf->stream('supporter_' . $report->supporter->id . '.pdf');
+        }
+
+        abort(404, 'لا يوجد قالب PDF مخصص لهذه الجمعية');
+
+
+
 
     }
 }

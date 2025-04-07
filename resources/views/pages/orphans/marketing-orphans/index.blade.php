@@ -138,7 +138,7 @@
 
                             <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">
 
-                            <div class="action" style="left: -50px;width:186px">
+                            <div class="action" style="left: -50px;width:175px">
                                 <a href="{{route('orphan.marketing.show' , $orphan->id)}}" class="text-decoration-none">
                                     <img src="{{asset('image/Show.svg')}}" alt="">
                                     <span style="color: var(--text-color);">{{__('مشاهدة التفاصيل')}}</span>
@@ -158,7 +158,7 @@
                                 <form action="{{route('orphan.marketing.destroy' , $orphan->id)}}" method="post" style="margin-right: -5px">
                                     @csrf
                                     @method('delete')
-                                    <button class="submit p-0 border-0 bg-transparent">
+                                    <button class="submit border-0 bg-transparent">
                                         <img src="{{asset('image/Delete.svg')}}" alt="">
                                         <span style="color: var(--text-color);">{{__('حذف')}}</span>
                                     </button>
