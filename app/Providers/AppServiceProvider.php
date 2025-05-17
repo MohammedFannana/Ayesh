@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Orphan;
+use App\Models\SupporterField;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +58,26 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('access-financial', function ($user) {
             return $user->type === 'financial_manager' || $user->can('access-admin');
         });
+
+
+        // صلاحية لمنع اليتيم الانتقال من حالة الاعتماد الا بعد اكمال البيانات
+
+        Gate::define('has-certified-extra', function ($user, Orphan $orphan) {
+            return $orphan->certified_orphan_extras()->exists();
+        });
+
+
+        // لمنع اليتيم من اكمال بيانات التقديم للجكعية اكثر من مرة
+        Gate::define('has-filled-fields', function ($user, $orphan) {
+            // احصل على الحقول المطلوبة لهذا المتبرع
+            $requiredFields = SupporterField::where('supporter_id', $orphan->marketing->supporter_id)->pluck('id')->toArray();
+
+            // احصل على الحقول التي تم ملؤها لهذا اليتيم
+            $filledFields = $orphan->supporterFieldValues()->whereNotNull('value')->pluck('supporter_field_id')->toArray();
+
+            // قارن بين الحقول المطلوبة والحقول المملوءة
+            return empty(array_diff($requiredFields, $filledFields));
+        });
+
     }
 }

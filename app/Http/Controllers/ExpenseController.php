@@ -62,8 +62,8 @@ class ExpenseController extends Controller
 
         if ($request->hasFile('payment_image')) {    //to check if image file is exit
             $file = $request->file('payment_image');
-            $fileName = Str::uuid(). $request->input('orphan_id') . '_وصل_استلام_مبلغ' . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs($orphan_name , $fileName, 'public');
+            $fileName = uniqid(). $request->input('orphan_id') . '_وصل_استلام_مبلغ' . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('orphans/' . $orphan_name , $fileName, 'public');
             $validated['payment_image'] = $path;
         }
 

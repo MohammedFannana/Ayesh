@@ -157,6 +157,37 @@
                 </div>
 
                 <div class="cell" style="float: left;width:49%">
+
+                    <p class="title" style="float: right; padding:0px; margin:0px; width:20%">  الجنس: </p>
+
+                    <div style="float:left; margin-right:8px; margin-top:5px">
+
+                        <div style="float: right; width:50%">
+
+                            <span style="border: 2px solid #000;">
+                                @if($orphan->gender === 'ذكر')
+                                    ✔
+                                @endif
+
+                            </span>
+                            <label for="ذكر">ذكر</label>
+                        </div>
+
+                        <div style="float: right; width:50%">
+                            <span style="border: 2px solid #000;">
+                                @if($orphan->gender == 'أنثى')
+                                    ✔
+                                @endif
+
+                            </span>
+
+                            <label for="أنثى">أنثى</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{-- <div class="cell" style="float: left;width:49%">
                     <span class="title" style=" border-right: 1px solid #737373;">  الجنس: </span>
                     <span class="span-value">
                         <span style="">
@@ -169,7 +200,7 @@
                             <span> أنثى </span>
                         </span>
                     </span>
-                </div>
+                </div> --}}
 
             </div>
 
@@ -180,14 +211,40 @@
                 </div>
 
                 <div class="cell" style="float: left; width:49%">
-                    <div  style="float:right;font-size:1.25rem;width:49% ;border-left:none;border-right: 1px solid #737373;" >
+                    {{-- <div  style="float:right;font-size:1.25rem;width:49% ;border-left:none;border-right: 1px solid #737373;" >
                         <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'متزوجة')>
                         <span> متزوجة </span>
+                    </div> --}}
+
+                    <div style="float: right; width:50%;font-size:1.25rem;border-right: 1px solid #737373;">
+
+                            @if($orphan->profile->mother_status === 'متزوجة')
+                                <span style="border: 1px solid #000; width:5px; height:5px">
+                                    ✔
+                                </span>
+                            @else
+                                <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'متزوجة')>
+                            @endif
+
+                        <label for="متزوجة">متزوجة</label>
                     </div>
 
-                    <div  style="float:left; width:49%;font-size:1.25rem;border-right: 1px solid #737373;" >
+                    {{-- <div  style="float:left; width:49%;font-size:1.25rem;border-right: 1px solid #737373;" >
                         <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'أرملة')>
                         <span> أرملة </span>
+                    </div> --}}
+
+                    <div style="float:left; width:49%;font-size:1.25rem;border-right: 1px solid #737373; height:5px">
+
+                            @if($orphan->profile->mother_status === 'أرملة')
+                                <span style="border: 2px solid #000;">
+                                    ✔
+                                </span>
+                            @else
+                                <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'أرملة')>
+                            @endif
+
+                        <label for="أرملة">أرملة</label>
                     </div>
 
 
@@ -270,54 +327,54 @@
                 </div>
             </div>
 
-            <div class="name">
+            <div class="name" style="height: 50px">
                 <div class="cell" style="float: right">
-                    <span class="title"> نوع السكن: </span>
-                    <span class="span-value " >
-
-                        <span>
-                            <input type="radio" id="ملك" value="ملك" name="housing_type" @checked($orphan->family->housing_type === 'ملك') disabled/>
-                            <span> ملك </span>
-                        </span>
-
-                        <span>
-                            <input type="radio" name="housing_type" id="ايجار" value="ايجار" @checked($orphan->family->housing_type === 'ايجار') disabled/>
-                            <span> ايجار </span>
-                        </span>
-
-                        <span>
-                            <input type="radio" name="housing_type" value="مشترك" id="مشترك" @checked($orphan->family->housing_type === 'مشترك') disabled/>
-                            <span> مشترك </span>
-                        </span>
-                    </span>
-                </div>
-
-                {{-- <div class="cell" style="float: left">
-                    <span class="title"> حالة السكن: </span>
-                    <span class="span-value" style="display:flex; justify-content: space-between">
-                        <span>
-                            <input type="radio" name="housing_case" value="جيد" id="جيد" @checked($orphan->family->housing_case === 'جيد') disabled>
-                            <span> جيد </span>
-                        </span>
-
-                        <span>
-                            <input type="radio" name="housing_case" value="متوسط" id="متوسط" @checked($orphan->family->housing_case === 'متوسط') disabled>
-                            <span> متوسط </span>
-                        </span>
-
-                        <span>
-                            <input type="radio" name="housing_case" value="سيء" id="سيء" @checked($orphan->family->housing_case === 'سيء') disabled>
-                            <span> سيء </span>
-                        </span>
-                    </span>
-                </div> --}}
-
-                <div class="cell" style="float: left">
-                    <p class="title" style="float: right;"> حالة السكن: </p>
+                    <span class="title" style="float: right;margin-bottom:10px"> نوع السكن: </span>
 
                     <div style="float:left">
 
-                        <div style="float: right;">
+                        <div style="float: right; width:33%">
+                            <span style="border: 2px solid #000; border-radius: 50%; padding: 10px; display: inline-block; text-align: center; width: 20px; height: 20px; line-height: 20px;">
+                                @if($orphan->family->housing_type === 'ملك')
+                                    ✔
+                                @endif
+
+                            </span>
+                            <label for="ملك">ملك</label>
+                        </div>
+
+                        <div style="float: right; width:33%">
+                            <span style="border: 2px solid #000; border-radius: 50%; padding: 10px; display: inline-block; text-align: center; width: 20px; height: 20px; line-height: 20px;">
+                                @if($orphan->family->housing_type === 'ايجار')
+                                    ✔
+                                @endif
+
+                            </span>
+
+                            <label for="ايجار">ايجار</label>
+                        </div>
+
+                        <div style=" float: left; width:33%" >
+                            <span style="border: 2px solid #000; border-radius: 50%; padding: 10px; display: inline-block; text-align: center; width: 20px; height: 20px; line-height: 20px;">
+                                @if($orphan->family->housing_type === 'مشترك')
+                                    ✔
+                                @endif
+
+                            </span>
+                            <label for="مشترك">مشترك</label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="cell" style="float: left">
+                    {{-- <p class="title" style="float: right;"> حالة السكن: </p> --}}
+                    <span class="title" style="float: right;margin-bottom:10px"> حالة السكن: </span>
+
+
+                    <div style="float:left">
+
+                        <div style="float: right; width:33%">
                             <!-- إذا كانت حالة السكن 'جيد'، أضف دائرة وعلامة صح -->
                             <span style="border: 2px solid #000; border-radius: 50%; padding: 10px; display: inline-block; text-align: center; width: 20px; height: 20px; line-height: 20px;">
                                 @if($orphan->family->housing_case === 'جيد')
@@ -328,7 +385,7 @@
                             <label for="جيد">جيد</label>
                         </div>
 
-                        <div style="float: right;">
+                        <div style="float: right; width:33%">
                             <!-- إذا كانت حالة السكن 'متوسط'، أضف دائرة وعلامة صح -->
                             <span style="border: 2px solid #000; border-radius: 50%; padding: 10px; display: inline-block; text-align: center; width: 20px; height: 20px; line-height: 20px;">
                                 @if($orphan->family->housing_case === 'متوسط')
@@ -340,7 +397,7 @@
                             <label for="متوسط">متوسط</label>
                         </div>
 
-                        <div style=" float: left;" >
+                        <div style=" float: left; width:33%" >
                             <!-- إذا كانت حالة السكن 'سيء'، أضف دائرة وعلامة صح -->
                             <span style="border: 2px solid #000; border-radius: 50%; padding: 10px; display: inline-block; text-align: center; width: 20px; height: 20px; line-height: 20px;">
                                 @if($orphan->family->housing_case === 'سيء')
@@ -354,15 +411,11 @@
                     </div>
 
                 </div>
-
-
-
-
             </div>
 
             <div class="name">
                 {{-- <div class="cell" style="float: right"> --}}
-                    <span class="title" style="width: 40%"> الحالة الصحية لليتيم: </span>
+                    <span class="title" style="width: 42%;margin-right:8px"> الحالة الصحية لليتيم: </span>
                     <span class="span-value" > {{$orphan->health_status}} </span>
                 {{-- </div> --}}
             </div>
@@ -370,7 +423,7 @@
 
             <div class="name">
                 <div class="cell" style="float: right">
-                    <span class="title" style="width: 35%">المرحلة الدراسية : </span>
+                    <span class="title" style="width: 37%; ;margin-right:8px">المرحلة الدراسية : </span>
                     <span class="span-value" > {{$orphan->profile->academic_stage}} </span>
                 </div>
 
@@ -391,14 +444,22 @@
 
         </div>
 
-        <div  style="width:100%">
-            <div  style="float: right; width:49%">
-                <p class="fw-bold fs-5"> توقيع و ختم قسم الأيتام </p>
+        <div>
+
+            <div style="width: 49%;float:right">
+                <span style="font-size:19px;"> توقيع و ختم قسم الأيتام: </span>
+                <span>
+                    <img src="{{public_path('storage/' . $orphan->certified_orphan_extras->signature)}}" alt="صورة شخصية" width="250px" height="50px">
+                </span>
             </div>
 
-            <div style="float: left; width:49%">
-                <p class="fw-bold fs-5"> اعتماد الجهة المشرفة </p>
+            <div style="width: 49%;float: left;">
+                <span style="font-size:19px;">  اعتماد الجهة المشرفة:  </span>
+                <span>
+                    <img src="{{public_path('storage/' . $orphan->certified_orphan_extras->supervisory_accreditation)}}" alt="صورة شخصية" width="250px" height="50px">
+                </span>
             </div>
+
         </div>
 
 

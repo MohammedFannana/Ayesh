@@ -142,7 +142,7 @@
 
         <div class="container-fluid">
             <div class="row" style="height: 100vh">
-                <div class="sidebar col-3  p-0 shadow-sm">
+                <div class="sidebar col-3  p-0 shadow-sm" style="position: sticky; left: 0px; top: 0px;">
 
                     <div class="d-flex justify-content-center">
                         <img src="{{asset('image/logo.png')}}" alt="">
@@ -159,6 +159,7 @@
                                     <a  href="{{ route('home')}}" class="nav-link direction"  style="text-align: start;">
                                         {{__('لوحة التحكم')}}
                                     </a>
+
                                 </li>
 
                                 <li class="nav-item p-2 me-5" style="height: 40px">
@@ -340,10 +341,24 @@
                             {{-- <x-nav/> --}}
                             <ul>
 
-                                <li class="nav-item p-2 me-5" style="height: 40px">
-                                    <a  href="{{ route('home')}}" class="nav-link direction"  style="text-align: start;">
+                                <li class="nav-item p-2 me-5 d-flex justify-content-between align-items-center" style="height: 40px">
+                                    <a  href="{{ route('home')}}" class="nav-link direction w-100"  style="text-align: start;">
                                         {{__('لوحة التحكم')}}
                                     </a>
+
+                                    <div style="text-align:end;">
+                                        @if (App::isLocale('ar'))
+                                            <form id="lang-en" action="{{route('locale.change' , 'en')}}" method="POST" style="display: inline;">
+                                                @csrf
+                                                <button type="submit" class="add-button text-white p-2 position-relative" style="left: -40px;">en</button>
+                                            </form>
+                                        @else
+                                            <form id="lang-en" action="{{route('locale.change' , 'ar')}}" method="POST" style="display: inline;">
+                                                @csrf
+                                                <button type="submit" class="add-button text-white p-2 position-relative" style="left: 40px;">ar</button>
+                                            </form>
+                                        @endif
+                                    </div>
                                 </li>
 
                                 @can('access-admin')

@@ -23,7 +23,7 @@
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('الدولة')}} </p>
-                <p class="fw-semibold"> {{$orphan->certified_orphan_extras->country}}  </p>
+                <p class="fw-semibold"> {{$orphan->certified_orphan_extras->country}} </p>
 
             </div>
 

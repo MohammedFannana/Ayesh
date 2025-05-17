@@ -63,7 +63,20 @@
                 <label class="mb-2">{{__('كارت تأمين صحي مدرسي')}}</label> <br>
                 <label for="health_insurance" class="custom-file-upload w-75 text-center"> {{__('أرفق كارت تأمين صحي مدرسي')}}</label>
                 <x-form.input name="health_insurance" class="border hidden-file-style" type="file" id="health_insurance" style="display: none;"  autocomplete="" />
+            </div>
 
+            <p class="text-danger fs-5 fw-semibold"> {{__('تنويه: تم تخصيص الحقلين الإضافيين أدناه لتلبية متطلبات خاصة بـ جمعية دبي الخيرية، ولا يُشترط تعبئتهما من قِبل الجمعيات الأخرى.')}} </p>
+            {{--  --}}
+            <div class="col-12 col-md-6 mb-3">
+                <label class="mb-2">{{__('توقيع و ختم قسم الأيتام')}}</label> <br>
+                <label for="signature" class="custom-file-upload w-75 text-center"> {{__('أرفق توقيع و ختم قسم الأيتام')}}</label>
+                <x-form.input name="signature" class="border hidden-file-style" type="file" id="signature" style="display: none;"  autocomplete="" />
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+                <label class="mb-2">{{__('اعتماد الجهة المشرفة')}}</label> <br>
+                <label for="supervisory_accreditation" class="custom-file-upload w-75 text-center"> {{__('أرفق اعتماد الجهة المشرفة')}}</label>
+                <x-form.input name="supervisory_accreditation" class="border hidden-file-style" type="file" id="supervisory_accreditation" style="display: none;"  autocomplete="" />
             </div>
 
 

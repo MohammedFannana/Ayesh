@@ -9,8 +9,8 @@
         </div>
 
         <div class="d-flex flex-column gap-2">
-            <img src="{{asset('image/Frame.png')}}" alt="" width="118px" height="118px">
-            <a href="" class="add-button  text-decoration-none p-1 text-center" style="width:118px">{{__('تحميل الباركود')}}</a>
+            {!! QrCode::size(150)->generate(route('orphan.registered.details' , $orphan->id)) !!}
+            <a href="{{route('orphan.registered.details' , $orphan->id)}}" class="add-button  text-decoration-none p-1 text-center" style="width:150px">{{__('تحميل الباركود')}}</a>
         </div>
 
     </div>
@@ -123,12 +123,17 @@
             </div>
 
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('شهادة وفاة الأم')}} </p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('شهادة وفاة الأم') }}.{{ pathinfo($orphan->image->mother_death_certificate, PATHINFO_EXTENSION) }}
-                </a>
-            </div>
+            @if ($orphan->image->mother_death_certificate)
+
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('شهادة وفاة الأم')}} </p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('شهادة وفاة الأم') }}.{{ pathinfo($orphan->image->mother_death_certificate, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+
+            @endif
+
 
 
 
@@ -155,10 +160,7 @@
                 </a>
             </div>
 
-
-
-
-
+     
         </div>
 
     </div>

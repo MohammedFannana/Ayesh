@@ -69,7 +69,7 @@
                                     <span style="color: var(--text-color);">{{__('ارسال رسالة')}}</span>
                                 </a>
 
-                                <form action="{{route('orphan.accreditation.destroy' , $orphan->id )}}" method="post" style="margin-right: -5px">
+                                <form action="{{route('orphan.accreditation.destroy' , $orphan->id )}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="submit border-0 p-0 bg-transparent">

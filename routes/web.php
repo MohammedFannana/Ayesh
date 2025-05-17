@@ -12,6 +12,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\FirstLineFamilyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MarketingOrphanController;
 use App\Http\Controllers\notificationController;
 use App\Http\Controllers\OrphanSupporterFieldValueController;
@@ -23,15 +24,15 @@ use App\Http\Controllers\SponsoredOrphanController;
 use App\Http\Controllers\SupporterController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\WaitingOrphanController;
+use App\Http\Controllers\EmailController;
+
 use App\Http\Middleware\ApplyUserLanguage;
 use App\Http\Middleware\DashboardAccess;
 use App\Models\FirstLineFamily;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('ex', function () {
-    return view('pdf.donor_3');
-});
+
 
 Route::middleware(ApplyUserLanguage::class)->group(function(){
 
@@ -180,7 +181,8 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
         Route::post('/expenses', [ExpenseController::class, 'store'])->name('expenses.store');
         Route::delete('/expenses/{expenses}', [ExpenseController::class, 'destroy'])->name('expenses.destroy');
     });
-    
+
+    Route::post('locale/{locale}' , [LocaleController::class, 'changeLocale'])->name('locale.change');
 
     Route::get('/complaint' , [ComplaintController::class , 'index'])->name('complaint.index');
 
@@ -194,12 +196,11 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
         return back();
     })->name('markAsRead');
 
+
+    Route::post('/send-email', [EmailController::class, 'send'])->name('send.email');
+
+
 });
-
-
-
-
-
 
 
 

@@ -31,7 +31,23 @@ class ReportController extends Controller
         })->with('orphan')->get();
         $count = $reports->count();
         $supporter = Supporter::where('id' , $supporter_id)->value('name');
-        return view('pages.reports.' . $supporter . '.index' , compact('reports' , 'count' , 'supporter_id'));
+
+
+        // return view('pages.reports.' . $supporter . '.index' , compact('reports' , 'count' , 'supporter_id'));
+
+
+        if($supporter == 'جمعية دار البر'){
+            return view('pages.reports.ber-association.index' , compact('reports' , 'count' , 'supporter_id'));
+
+        }elseif($supporter == 'جمعية الشارقة'){
+            return view('pages.reports.sharjah-association.index' , compact('reports' , 'count' , 'supporter_id'));
+
+        }elseif($supporter == 'جمعية السيدة مريم'){
+            return view('pages.reports.mary-association.index' , compact('reports' , 'count' , 'supporter_id'));
+
+        }elseif($supporter == 'جمعية دبي الخيرية'){
+            return view('pages.reports.dubai-association.index' , compact('reports' , 'count' , 'supporter_id'));
+        }
 
     }
 
@@ -56,8 +72,19 @@ class ReportController extends Controller
         // dd($orphans);
 
 
-        return view('pages.reports.' . $supporter. '.create' , compact('orphans' , 'supporter_id'));
 
+        if($supporter == 'جمعية دار البر'){
+            return view('pages.reports.ber-association.create' , compact('orphans'  , 'supporter_id'));
+
+        }elseif($supporter == 'جمعية الشارقة'){
+            return view('pages.reports.sharjah-association.create' , compact('orphans' , 'supporter_id'));
+
+        }elseif($supporter == 'جمعية السيدة مريم'){
+            return view('pages.reports.mary-association.create' , compact('orphans' , 'supporter_id'));
+
+        }elseif($supporter == 'جمعية دبي الخيرية'){
+            return view('pages.reports.dubai-association.create' , compact('orphans' , 'supporter_id'));
+        }
 
         // return view('pages.reports.sharjah.create');
     }
@@ -506,8 +533,22 @@ class ReportController extends Controller
         $report->fields = json_decode($report->fields, true); // تحويل JSON إلى مصفوفة
         // dd($report->fields['report_date']);
 
-        return view('pages.reports.' . $supporter . '.edit' , compact('report'));
-    }
+
+
+
+        if($supporter == 'جمعية دار البر'){
+            return view('pages.reports.ber-association.edit' , compact('report'));
+
+        }elseif($supporter == 'جمعية الشارقة'){
+            return view('pages.reports.sharjah-association.edit' , compact('report'));
+
+        }elseif($supporter == 'جمعية السيدة مريم'){
+            return view('pages.reports.mary-association.edit' , compact('report'));
+
+        }elseif($supporter == 'جمعية دبي الخيرية'){
+            return view('pages.reports.dubai-association.edit' , compact('report'));
+        }
+        }
 
     /**
      * Update the specified resource in storage.
@@ -518,6 +559,7 @@ class ReportController extends Controller
         $supporter_name = Supporter::where('id', $supporter_id)->value('name');
 
         switch ($supporter_name) {
+
             case 'جمعية دار البر':
                 $fieldsValidated = $request->validate([
                     'supervising_authority' => ['sometimes', 'string'],
@@ -559,6 +601,8 @@ class ReportController extends Controller
                     'orphan_supervisor' => ['sometimes', 'string'],
                     'date' => ['sometimes', 'string'],
                 ]);
+
+
                 break;
 
             case 'جمعية السيدة مريم':

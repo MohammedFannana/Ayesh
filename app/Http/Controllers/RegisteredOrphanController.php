@@ -95,7 +95,7 @@ class RegisteredOrphanController extends Controller
             'mother_name' => ['required' , 'string'],
             'mother_national_id' => ['required','string'],
             'mother_work' => ['required','string','in:نعم,لا'],
-            'mother_status' => ['required','string','in:متزوجة,أرملة'],
+            'mother_status' => ['nullable','string','in:متزوجة,أرملة'],
             'academic_stage' => ['required','string','in:الابتدائية,الاعدادية'],
             'class' => ['required','string'],
             'phone' => ['required','string'],
@@ -115,7 +115,7 @@ class RegisteredOrphanController extends Controller
             'father_death_certificate' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                                     'dimensions:min_width=100,min_height=100','max:1048576',],
 
-            'mother_death_certificate' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
+            'mother_death_certificate' =>['nullable','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                                     'dimensions:min_width=100,min_height=100','max:1048576',],
 
             'mother_card' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
@@ -152,8 +152,8 @@ class RegisteredOrphanController extends Controller
 
             if ($request->hasFile('application_form')) {    //to check if image file is exit
                 $file = $request->file('application_form');
-                $fileName = $request->input('name') . 'استمارة' . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs($request->input('name'), $fileName, 'public');
+                $fileName = $request->input('name') . '_استمارة' . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('orphans/' . $request->input('name'), $fileName, 'public');
                 $validatedData['application_form'] = $path;
             }
 
@@ -210,7 +210,7 @@ class RegisteredOrphanController extends Controller
                     // تحديد اسم الصورة
                     $fileName = $counter . '.' . $file->getClientOriginalExtension();
                     // تخزين الصورة في المجلد المحدد
-                    $path = $file->storeAs($request->input('name'), $fileName, 'public');
+                    $path = $file->storeAs('orphans/' . $request->input('name'), $fileName, 'public');
                     // إضافة المسار إلى البيانات المعتمدة
                     $imageData[$key] = $path;
 
@@ -238,7 +238,8 @@ class RegisteredOrphanController extends Controller
      */
     public function show(string $id)
     {
-        $orphan = Orphan::findOrFail($id)->with('image')->first();
+        $orphan = Orphan::with('image')->findOrFail($id);
+        // dd($orphan);
         return view('pages.orphans.new-orphans.view' ,compact('orphan'));
     }
 

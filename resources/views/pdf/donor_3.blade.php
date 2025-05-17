@@ -36,11 +36,8 @@
         <table style="width: 100%; margin-bottom: 10px;">
             <tr>
                 <td style="font-size: 17px; font-weight: 600; width:130px;">
-                    قال رسول الله صلى الله عليه و سلم:
-                    <div>
-                        “أنا و كافل اليتيم في الجنة كهاتين,<br>
-                        وأشار بأصبعيه السبابة و الوسطى ”
-                    </div>
+                    <img src="{{ public_path('image/report/mary.png') }}" alt="شعار" width="218px" height="60px"> 
+
                 </td>
                 <td style="width: 216px; text-align: center;">
                     {{-- <img src="{{ asset('image/logo.png') }}" alt="شعار" width="132px" height="87px"> <br> --}}

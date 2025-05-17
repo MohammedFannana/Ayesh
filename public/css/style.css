@@ -32,6 +32,10 @@
     /* width: 321px !important; */
 }
 
+.modal-backdrop{
+    --bs-backdrop-zindex: 0;
+}
+
 main{
     /* width: calc(100% - 321px) !important; */
     background-color: #fbfdfb;

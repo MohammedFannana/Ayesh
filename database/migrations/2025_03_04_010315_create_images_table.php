@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('orphan_id')->constrained()->cascadeOnDelete();
             $table->string('birth_certificate');
             $table->string('father_death_certificate');
-            $table->string('mother_death_certificate');
+            $table->string('mother_death_certificate')->nullable();
             $table->string('mother_card');
             $table->string('orphan_image_4_6');
             $table->string('orphan_image_9_12');

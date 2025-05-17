@@ -84,11 +84,11 @@
                 <label class="mb-2"> {{__('يتيم الأبوين')}}</label>
                 <div class="d-flex gap-5">
                     <div>
-                        <input type="radio" name="parents_orphan" id="yes" value="نعم">
+                        <input type="radio" name="parents_orphan" id="both_yes" value="نعم">
                         <label for="yes">{{__('نعم')}}</label>
                     </div>
                     <div>
-                        <input type="radio" name="parents_orphan" id="no" value="لا">
+                        <input type="radio" name="parents_orphan" id="both_no" value="لا">
                         <label for="no">{{__('لا')}}</label>
                     </div>
                 </div>
@@ -96,8 +96,8 @@
             </div>
 
             {{-- mother_death_date --}}
-            <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="mother_death_date" class="border" type="date" label=" {{__('تاريخ وفاة الأم')}}" autocomplete="" />
+            <div class="col-12 col-md-6 mb-3" id="mother-death" style="display: none">
+                <x-form.input name="mother_death_date" class="border" type="date" label=" {{__('تاريخ وفاة الأم')}}" />
             </div>
 
             {{-- mother_name --}}
@@ -127,7 +127,7 @@
             </div>
 
             {{-- mother_condition --}}
-            <div class="col-12 col-md-6 mb-3">
+            <div class="col-12 col-md-6 mb-3" id="mother-status">
                 <label for="" class="mb-2"> {{__('حالة الأم')}} </label>
                 <x-form.select name="mother_status"
                     :options="['' => __('اختر'), 'متزوجة' => __('متزوجة'), 'أرملة' => __('أرملة')]" />
@@ -318,7 +318,7 @@
             </div>
 
             {{-- mother_death_certificate --}}
-            <div class="col-12 col-md-6 mb-3">
+            <div class="col-12 col-md-6 mb-3" id="div_mother_death_certificate" style="display: none">
                 <label class="mb-2"> {{__('شهادة وفاة الأم اصل كمبيوتر')}}</label> <br>
                 <label for="mother_death_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة وفاة الأم')}}</label>
                 <x-form.input name="mother_death_certificate" class="border hidden-file-style" type="file" id="mother_death_certificate" style="display: none;"  autocomplete="" />
@@ -381,6 +381,10 @@
                 <label for="guardianship_decision" class="custom-file-upload w-75 text-center">  {{__('أرفق قرار وصاية')}} </label>
                 <x-form.input name="guardianship_decision" class="border hidden-file-style" type="file" id="guardianship_decision" style="display: none;"  autocomplete="" />
 
+            </div>
+
+            {{-- يظهر عند اختيار "لا" --}}
+            <div id="not-orphan-field" class="col-md-6">
             </div>
 
             {{-- phone --}}

@@ -73,7 +73,7 @@ class BalanceController extends Controller
 
         if ($request->hasFile('payment_image')) {    //to check if image file is exit
             $file = $request->file('payment_image');
-            $fileName = Str::uuid() . '_وصل_استلام_مبلغ' . '.' . $file->getClientOriginalExtension();
+            $fileName = uniqid() . '_وصل_استلام_مبلغ' . '.' . $file->getClientOriginalExtension();
             $path = $file->storeAs('balance/' . $supporter_name , $fileName, 'public');
             $validated['payment_image'] = $path;
         }

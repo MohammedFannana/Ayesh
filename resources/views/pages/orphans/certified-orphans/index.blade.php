@@ -1,15 +1,11 @@
 <x-main-layout>
 
-    @push('styles')
+    <div>
+        <h2 class="mb-4"> {{__('الأيتام المقدمين')}}</h2>
+        <x-alert name="success" />
+        <x-alert name="danger" />
+    </div>
 
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
-
-    @endpush
-
-    <h2 class="mb-4"> {{__('الأيتام المقدمين')}}</h2>
-
-    <x-alert name="success" />
-    <x-alert name="danger" />
 
     <div class="orphons bg-white rounded shadow-sm p-3">
 
@@ -82,9 +78,9 @@
             </div>
 
             {{-- button --}}
-            <div class="add-support">
+            {{-- <div class="add-support">
                 <button class="btn add-button ps-4 pe-4"> {{__('الحالات الخاصة')}} </button>
-            </div>
+            </div> --}}
 
         </div>
 
@@ -187,7 +183,7 @@
                                     <span style="color: var(--text-color);">{{__('ارسال رسالة')}}</span>
                                 </a>
 
-                                <form action="{{route('orphan.certified.destroy' , $orphan->id )}}" method="post" style="margin-right: -5px">
+                                <form action="{{route('orphan.certified.destroy' , $orphan->id )}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="submit border-0 p-0 bg-transparent">

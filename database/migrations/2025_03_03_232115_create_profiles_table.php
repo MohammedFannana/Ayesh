@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('mother_name');
             $table->string('mother_national_id');
             $table->enum('mother_work', ['نعم', 'لا']);
-            $table->enum('mother_status', ['أرملة' , 'متزوجة']);
+            $table->enum('mother_status', ['أرملة' , 'متزوجة'])->nullable();
 
 
             // بيانات الدراسة

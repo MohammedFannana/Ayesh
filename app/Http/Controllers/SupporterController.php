@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Orphan;
 use App\Models\Supporter;
+use Illuminate\Validation\Rule;
+
 use Illuminate\Http\Request;
 
 class SupporterController extends Controller
@@ -85,7 +87,7 @@ class SupporterController extends Controller
      */
     public function edit(Supporter $supporter)
     {
-        return view('pages.supporters.edit');
+        return view('pages.supporters.edit' , compact('supporter'));
 
     }
 
@@ -94,7 +96,27 @@ class SupporterController extends Controller
      */
     public function update(Request $request, Supporter $supporter)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['string' , 'sometimes'],
+            'country' => ['string' , 'sometimes'],
+            'phone' => ['string' , 'sometimes' ,Rule::unique('supporters', 'phone')->ignore($supporter->id),],
+
+            'fax' => ['string' , 'sometimes'],
+            'association_name' => ['string' , 'sometimes'],
+            'department_name' => ['string' , 'sometimes'],
+            'administrator_name' => ['array' , 'sometimes'],
+            'website' => ['string' , 'sometimes'],
+            'emails' => ['sometimes', 'array'],
+            'emails.*' => ['email' ],
+            'address' => ['string' , 'sometimes'],
+
+        ]);
+
+
+        // dd($validated);
+
+        $supporter->update($validated);
+        return redirect()->route('supporter.show' , $supporter->id)->with('success', __('تمت تعديل بيانات الداعم بنجاح'));
     }
 
     /**

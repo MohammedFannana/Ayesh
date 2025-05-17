@@ -8,7 +8,7 @@ class CertifiedOrphanExtra extends Model
 {
     protected $fillable = [
         'orphan_id' , 'country' , 'city' , 'description_orphan_condition' , 'supporter_id' , 'volunteer_id'
-        , 'father_card' , 'school_enrollment' , 'health_insurance'
+        , 'father_card' , 'school_enrollment' , 'health_insurance','signature' , 'supervisory_accreditation'
     ];
 
     public function orphan() {

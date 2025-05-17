@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('father_card');
             $table->string('school_enrollment');
             $table->string('health_insurance');
+            $table->string('signature')->nullable();
+            $table->string('supervisory_accreditation')->nullable();
             $table->timestamps();
         });
     }

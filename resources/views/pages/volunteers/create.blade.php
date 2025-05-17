@@ -68,11 +68,13 @@
                 top: 100%;
                 right: 3%;
                 width: 94%;
+                max-height: 205px;
                 border: 1px solid #ccc;
                 border-radius: 5px;
                 background-color: #fff;
                 z-index: 1000;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                overflow-y: auto;
             }
 
             .multi-select-options.show {

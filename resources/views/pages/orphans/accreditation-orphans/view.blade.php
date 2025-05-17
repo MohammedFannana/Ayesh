@@ -8,8 +8,8 @@
         </div>
 
         <div class="d-flex flex-column gap-2">
-            <img src="{{asset('image/Frame.png')}}" alt="" width="118px" height="118px">
-            <a href="" class="add-button  text-decoration-none p-1 text-center" style="width:118px">{{__('تحميل الباركود')}}</a>
+            {!! QrCode::size(150)->generate(route('orphan.registered.details' , $orphan->id)) !!}
+            <a href="{{route('orphan.registered.details' , $orphan->id)}}" class="add-button  text-decoration-none p-1 text-center" style="width:150px">{{__('تحميل الباركود')}}</a>
         </div>
 
     </div>

@@ -6,12 +6,19 @@ use App\Models\SupporterField;
 use App\Models\Orphan;
 use App\Models\OrphanSupporterFieldValue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class OrphanSupporterFieldValueController extends Controller
 {
 
     public function alBerStore(Request $request){
 
+        $orphan = Orphan::findOrFail($request->orphan_id);
+
+        // التحقق إذا كانت جميع الحقول قد تم ملؤها
+        if (Gate::allows('has-filled-fields', $orphan)) {
+            return redirect()->route('orphan.marketing.index')->with('danger', __('البيانات قد تم ملؤها مسبقاً. لا يمكن تعبئتها مرة أخرى.'));
+        }
 
         $fields = SupporterField::whereIn('id', array_keys($request->all()['fields'] ?? []))->get()->pluck('field_type', 'id');
         $rules = [
@@ -36,7 +43,6 @@ class OrphanSupporterFieldValueController extends Controller
             }
         }
 
-        $orphan = Orphan::findOrFail($request->orphan_id);
         $orphan_name = $orphan->name;
 
         foreach ($validatedData['fields'] as $field_id => $data) {
@@ -44,7 +50,7 @@ class OrphanSupporterFieldValueController extends Controller
             if ($request->hasFile("fields.$field_id.file")) {
                 $file = $request->file("fields.$field_id.file");
                 $fileName = 'التوقيع' . '.' . $file->getClientOriginalExtension();
-                $data['value'] = $file->storeAs($orphan_name, $fileName, 'public');
+                $data['value'] = $file->storeAs('orphans/' . $orphan_name, $fileName, 'public');
             }
 
 
@@ -55,10 +61,16 @@ class OrphanSupporterFieldValueController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', __('تم حفظ البيانات بنجاح!'));
+        return redirect()->route('orphan.marketing.index')->with('success', __('تم حفظ البيانات بنجاح!'));
     }
 
     public function sharjahStore(Request $request){
+
+        $orphan = Orphan::findOrFail($request->orphan_id);
+        // التحقق إذا كانت جميع الحقول قد تم ملؤها
+        if (Gate::allows('has-filled-fields', $orphan)) {
+            return redirect()->route('orphan.marketing.index')->with('danger', __('البيانات قد تم ملؤها مسبقاً. لا يمكن تعبئتها مرة أخرى.'));
+        }
 
         $fields = SupporterField::whereIn('id', array_keys($request->all()['fields'] ?? []))->get()->pluck('field_type', 'id');
         $rules = [
@@ -82,7 +94,7 @@ class OrphanSupporterFieldValueController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', __('تم حفظ البيانات بنجاح!'));
+        return redirect()->route('orphan.marketing.index')->with('success', __('تم حفظ البيانات بنجاح!'));
     }
 
 

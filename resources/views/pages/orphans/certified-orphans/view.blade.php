@@ -9,15 +9,20 @@
             <div class="d-flex justify-content-between mb-3">
                 <div>
                     <p class="title mb-2"> {{__('المعلومات الأساسية')}}</p>
-                    <p class="text-danger"> {{__('يوجد معلومات غير مكتملة, قم باكمال المعلومات')}}</p>
+                    @cannot('has-certified-extra', $orphan)
+                        <p class="text-danger"> {{__('يوجد معلومات غير مكتملة, قم باكمال المعلومات')}}</p>
+                    @endcannot
                 </div>
 
-                <div>
-                    <form action="{{route('orphan.certified.create')}}" method="get">
-                        <input type="hidden" name="orphan_id" value={{$orphan->id}}>
-                        <button type="submit" class="add-button text-decoration-none pt-2 pb-2"> {{__('اكمال المعلومات')}}</button>
-                    </form>
-                </div>
+                @cannot('has-certified-extra', $orphan)
+                    <div>
+                        <form action="{{route('orphan.certified.create')}}" method="get">
+                            <input type="hidden" name="orphan_id" value={{$orphan->id}}>
+                            <button type="submit" class="add-button text-decoration-none pt-2 pb-2"> {{__('اكمال المعلومات')}}</button>
+                        </form>
+                    </div>
+                @endcannot
+
             </div>
 
             <div class="flex flex-column col-3 mb-3">
@@ -82,12 +87,16 @@
                 </a>
             </div> --}}
 
-            <div class="flex flex-column col-4 mb-3">
-                <p class="title"> {{__('شهادة وفاة الأم')}} </p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('شهادة وفاة الأم') }}.{{ pathinfo($orphan->image->mother_death_certificate, PATHINFO_EXTENSION) }}
-                </a>
-            </div>
+            @if ($orphan->image->mother_death_certificate)
+
+                <div class="flex flex-column col-4 mb-3">
+                    <p class="title"> {{__('شهادة وفاة الأم')}} </p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('شهادة وفاة الأم') }}.{{ pathinfo($orphan->image->mother_death_certificate, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+
+            @endif
 
             <hr>
 

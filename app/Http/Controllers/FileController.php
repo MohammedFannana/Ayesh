@@ -58,7 +58,7 @@ class FileController extends Controller
 
                         $fileName = $file->getClientOriginalName();
 
-                        $path = $file->storeAs($orphan_name , $fileName , 'public');
+                        $path = $file->storeAs('orphans/' . $orphan_name , $fileName , 'public');
                         // $path = $file->store($orphan_name , 'public');
 
 

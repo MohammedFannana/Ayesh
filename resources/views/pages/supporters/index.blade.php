@@ -43,7 +43,7 @@
                     <th scope="col"> {{__('الفاكس')}} </th>
                     {{-- <th scope="col"> {{('البريد الالكتروني ')}}</th> --}}
                     <th scope="col"> {{__('الموقع الالكتروني')}}</th>
-                    <th scope="col"> {{__('الاجراء')}} </th>
+                    <th scope="col"> {{__('الاجراءات')}} </th>
 
                 </tr>
 
@@ -72,12 +72,43 @@
                                 </a>
 
                                 <br>
-                                <a href="" class="text-decoration-none">
+
+                                <a  class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#emailModal">
                                     <img src="{{asset('image/Message.svg')}}" alt="">
                                     <span style="color: var(--text-color);">{{__('ارسال رسالة')}}</span>
                                 </a>
 
-                                <form action="{{route('supporter.destroy' , $supporter->id)}}" method="post" style="margin-right: -5px">
+                                <!-- Modal -->
+                                <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{{ route('send.email') }}">
+                                            @csrf
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="emailModalLabel">إرسال رسالة بريدية</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="email" class="form-label">البريد الإلكتروني</label>
+                                                        <input type="email" class="form-control" id="email" name="email" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="message" class="form-label">الرسالة</label>
+                                                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                                                    <button type="submit" class="btn add-button">إرسال</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                                <form action="{{route('supporter.destroy' , $supporter->id)}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="submit border-0 p-0 bg-transparent">

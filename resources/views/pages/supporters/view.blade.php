@@ -2,10 +2,13 @@
 
     <div class="d-flex justify-content-between align-items-center">
         <h2 class="mb-5"> {{translate_text($supporter->name)}}</h2>
-        {{-- <div class="mb-4">
-            <a href="" class="btn add-button"> تعديل </a>
-        </div> --}}
+        <div class="mb-4">
+            <a href="{{route('supporter.edit' , $supporter->id)}}" class="btn add-button"> تعديل </a>
+        </div>
     </div>
+
+    <x-alert name="success" />
+    <x-alert name="danger" />
 
     <div class="supporters bg-white rounded shadow-sm p-3 mb-4">
 

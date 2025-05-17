@@ -6,23 +6,10 @@ use App\Models\Orphan;
 use App\Models\Supporter;
 use App\Models\SupporterField;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
-// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
-// use LaravelMpdf\Facades\LaravelMpdf;
-// use Meneses\LaravelMpdf\Facades\LaravelMpdf;
-// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
-// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
-// use Barryvdh\DomPDF\Facade as PDF;
-// use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
-// use CarlosMeneses\LaravelMpdf\Facades\LaravelMpdf as PDF;
-// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
-// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
-
-
-// use Meneses\LaravelMpdf\Facades\LaravelMpdf;
-// use Meneses
 
 
 
@@ -93,7 +80,7 @@ class MarketingOrphanController extends Controller
     public function create(string $supporterId , string $orphanId)
     {
         $supporter = Supporter::findOrFail($supporterId);
-        $name = $supporter->name;
+        // $name = $supporter->name;
 
         $orphan = Orphan::where('id' , $orphanId)
         ->where('status', 'marketing_provider')
@@ -103,15 +90,8 @@ class MarketingOrphanController extends Controller
 
         $fields = SupporterField::where('supporter_id' , $supporterId)->get();
 
-        if($name === "جمعية دار البر"){
-            return view('pages.orphans.marketing-orphans.alBer_create' , compact(['orphan' , 'supporterId' ,'fields']));
-        }elseif($name === "جمعية الشارقة"){
-            return view('pages.orphans.marketing-orphans.sharjah_create' , compact(['orphan' , 'supporterId' ,'fields']));
-        }elseif($name === "جمعية السيدة مريم"){
-            return view('pages.orphans.marketing-orphans.group_create' , compact(['orphan' , 'supporterId' , 'fields']));
-        }elseif($name === "جمعية دبي الخيرية"){
-            return view('pages.orphans.marketing-orphans.adabi_create' , compact(['orphan' , 'supporterId' , 'fields']));
-        }
+        return view('pages.orphans.marketing-orphans.supporter_' .  $supporterId , compact(['orphan' , 'supporterId' ,'fields']));
+
     }
 
     /**
@@ -127,6 +107,8 @@ class MarketingOrphanController extends Controller
      */
     public function show(string $id)
     {
+
+
         $orphan = Orphan::where('id', $id)
         ->where('status', 'marketing_provider') // إضافة شرط status بعد id
         ->select('id', 'internal_code', 'name', 'application_form')
@@ -139,6 +121,11 @@ class MarketingOrphanController extends Controller
         }])
         ->with(['certified_orphan_extras'])
         ->firstOrFail(); //
+
+        // التحقق إذا كانت جميع الحقول قد تم ملؤها
+        if (!Gate::allows('has-filled-fields', $orphan)) {
+            return redirect()->route('orphan.marketing.index')->with('danger', __('لمشاهدة تفاصيل البيانات كاملة يجب اكمال البيانات. .'));
+        }
 
         return view('pages.orphans.marketing-orphans.view' , compact('orphan'));
 
@@ -195,14 +182,19 @@ class MarketingOrphanController extends Controller
         ->whereIn('id', $orphanIds)
         ->get();
 
-        // return view('pdf.donor_3' ,compact('orphans'));
 
         if ($orphans->isEmpty()) {
             return back()->with('danger', 'لا يوجد أيتام متاحين');
         }
 
 
+        $pdfFiles = [];
+        $orphansToUpdate = [];
+
+
+
         foreach ($orphans as $orphan) {
+
             $supporterId = $orphan->marketing->supporter_id ?? null;
 
             if (!$supporterId) {
@@ -225,33 +217,65 @@ class MarketingOrphanController extends Controller
                 return redirect()->route('orphan.marketing.index')->with('danger', "اليتيم {$orphan->name} ليس في حالة المتبرع");
             }
 
+            $pdfContent = PDF::loadView('pdf.donor_' . $supporterId, ['orphan' => $orphan]);
 
 
-            // return view('pdf.donor_4' ,compact('orphan'));
-            // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
-            // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
+            $tempFile = storage_path('app/public/temp_orphan_' . $orphan->id . '.pdf');
+            $pdfContent->save($tempFile);
+            $pdfFiles[] = $tempFile;
 
-            // return $pdf->stream('donor_4.pdf');
-
-            // $pdf = PDF::loadView('pdf.donor_4', ['orphan' => $orphan]);
-            $pdf = PDF::loadView('pdf.donor_1', ['orphan' => $orphan]);
+            $orphansToUpdate[] = $orphan->id; // اجمع الـ IDs للتحديث لاحقاً
 
 
-            // Stream the PDF to the browser
-            return $pdf->stream('donor_1.pdf');
+            // try {
+                // $orphan->update(['status' => 'waiting']);
+            // } catch (\Exception $e) {
+            //     ("تحديث الحالة فشل: " . $e->getMessage());
+            // }
 
-            // $pdf = LaravelMpdf::loadView('pdf.donor_4', ['orphan' => $orphan]);
 
-            // دعم الكتابة من اليمين لليسار (للكتابة باللغة العربية)
-            // $pdf->setDirectionality('rtl'); // تعيين الاتجاه إلى اليمين لليسار
-
-            // إخراج PDF إلى المتصفح
-            // return $pdf->stream('donor_4.pdf');
 
 
 
         }
 
+        $pdf = new \Mpdf\Mpdf();
+
+        foreach ($pdfFiles as $file) {
+            // استيراد الصفحة من الملف المؤقت
+            $pageCount = $pdf->setSourceFile($file); // عدد الصفحات في الملف
+
+            for ($i = 1; $i <= $pageCount; $i++) {
+                // استيراد الصفحة الحالية
+                $templateId = $pdf->importPage($i);
+
+                // إضافة الصفحة إلى المستند الجديد
+                $pdf->AddPage();
+                $pdf->useTemplate($templateId);
+            }
+        }
+
+        // حذف الملفات المؤقتة بعد دمجها
+        foreach ($pdfFiles as $file) {
+            unlink($file);
+        }
+
+
+
+        Orphan::whereIn('id', $orphansToUpdate)->update(['status' => 'waiting']);
+
+
+        // عرض الملف المدمج
+        // return $pdf->Output('donors.pdf', 'I');
+        $orphanNames = $orphans->pluck('name')->implode('_'); // جمع أسماء الأيتام مع Underscore
+        $filename = $orphanNames . '_' . now()->format('Ymd') . '.pdf';
+        // return $pdf->Output($filename, 'I');
+        return response($pdf->Output('', 'S'), 200)
+        ->header('Content-Type', 'application/pdf')
+        ->header('Content-Disposition', 'attachment; filename="' . $filename . '"') // تغيير هنا
+        ->header('Content-Transfer-Encoding', 'binary')
+        ->header('Accept-Ranges', 'bytes')
+        ->header('Cache-Control', 'public, must-revalidate, max-age=0');
 
     }
 

@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class CertifiedOrphanController extends Controller
 {
@@ -89,18 +90,23 @@ class CertifiedOrphanController extends Controller
 
             'health_insurance' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                                     'dimensions:min_width=100,min_height=100','max:1048576',],
+
+            'signature' =>['nullable','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
+                                    'dimensions:min_width=100,min_height=100','max:1048576',],
+
+            'supervisory_accreditation' =>['nullable','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
+                                    'dimensions:min_width=100,min_height=100','max:1048576',],
         ]);
 
         // get the name of orphan to store image in special folder
         $orphan_name = Orphan::where('id' , $validated['orphan_id'])->value('name');
 
 
-        $imageFields = ['father_card', 'school_enrollment', 'health_insurance']; // حدد الحقول التي تحتوي على صور
+        $imageFields = ['father_card', 'school_enrollment', 'health_insurance' , 'signature' ,'supervisory_accreditation']; // حدد الحقول التي تحتوي على صور
         $imageData = []; // مصفوفة لتخزين المسارات
 
-
-        // تعريف counter ليبدأ من 9
-        $counter = 9;
+        // تعريف counter ليبدأ من 11
+        $counter = 11;
 
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
@@ -111,13 +117,13 @@ class CertifiedOrphanController extends Controller
 
                 // تخزين الصورة في المجلد العام
                 // $path = $file->storeAs('public/images', $fileName);
-                $path = $file->storeAs($orphan_name, $fileName, 'public');
+                $path = $file->storeAs('orphans/' . $orphan_name, $fileName, 'public');
 
 
                 // حفظ المسار في المصفوفة مع مفتاح الحقل
                 $imageData[$field] = $path;
 
-                // زيادة counter ليبدأ من 9 ثم يزيد إلى 10، 11، وهكذا
+                // زيادة counter ليبدأ من 11 ثم يزيد إلى 13 11، وهكذا
                 $counter++;
             }
         }
@@ -206,10 +212,11 @@ class CertifiedOrphanController extends Controller
         $validated = $request->validate([
             'orphan_ids' => ['required' , 'array'],
             'orphan_ids.*' => ['integer','exists:orphans,id'],
-            'supporter_id' => ['required' , 'exists:supporter,id'],
+            'supporter_id' => ['required' , 'exists:supporters,id'],
             'marketing_date' => ['date'],
             'status' => ['required' , 'in:marketing,waiting'],
         ]);
+
 
 
 
@@ -230,6 +237,11 @@ class CertifiedOrphanController extends Controller
             }
 
             foreach ($orphans as $orphan) {
+
+                if (! Gate::allows('has-certified-extra', $orphan)) {
+                    // dd('x');
+                    return redirect()->route('orphan.certified.index')->with('danger', 'لا يمكن تسويق يتيم بدون بيانات اضافية معتمدة.');
+                }
 
                 $orphan->update([
                     'status' => 'marketing_provider',
