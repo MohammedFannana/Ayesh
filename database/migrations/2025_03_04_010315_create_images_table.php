@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('medical_report');
             $table->string('social_research');
             $table->string('guardianship_decision');
-
-
+            $table->string('data_validation')->nullable();
+            $table->string('agricultural_holding')->nullable();
             $table->timestamps();
         });
     }

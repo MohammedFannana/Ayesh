@@ -105,8 +105,8 @@ class CertifiedOrphanController extends Controller
         $imageFields = ['father_card', 'school_enrollment', 'health_insurance' , 'signature' ,'supervisory_accreditation']; // حدد الحقول التي تحتوي على صور
         $imageData = []; // مصفوفة لتخزين المسارات
 
-        // تعريف counter ليبدأ من 11
-        $counter = 11;
+        // تعريف counter ليبدأ من 13
+        $counter = 13;
 
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {

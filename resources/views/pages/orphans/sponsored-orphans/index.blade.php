@@ -98,7 +98,7 @@
                         <td scope="row"> {{$orphan->sponsorship->external_code}} </td>
                         <td> {{$orphan->name}} </td>
                         <td> {{translate_text($orphan->marketing->supporter->name)}} </td>
-                        <td> {{$orphan->profile->phone}}  </td>
+                        <td> {{$orphan->phones[0]->phone_number}}  </td>
                         <td style="position: relative;">
 
                             <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">
@@ -172,4 +172,5 @@
 
     @endpush
 
+    {{$orphans->withQueryString()->links()}}
 </x-main-layout>

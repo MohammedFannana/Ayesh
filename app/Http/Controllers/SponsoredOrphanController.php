@@ -54,12 +54,11 @@ class SponsoredOrphanController extends Controller
                         $query->select('id', 'name'); // اختر الحقول التي تريدها من جدول supporters
                 }]);
             }])
-            ->paginate(8);
+            ->with('phones')
+            ->paginate(10);
 
 
             $count = $orphans->total();
-
-
 
 
             return view('pages.orphans.sponsored-orphans.index' , compact('orphans' , 'count'));
@@ -72,9 +71,9 @@ class SponsoredOrphanController extends Controller
 
         $orphan = Orphan::where('id', $id)
             ->where('status', 'sponsored') // إضافة شرط status بعد id
-            ->select('id', 'internal_code', 'name', 'application_form')
+            ->select('id', 'internal_code', 'name', 'application_form','birth_date')
             ->with(['profile' => function ($query) {  // to get phone from profile table
-                $query->select('phone', 'orphan_id');
+                $query->select('phone', 'orphan_id' , 'mother_name');
             }])
             ->with(['sponsorship' => function ($query) {  // to get phone from profile table
                 $query->select('external_code', 'orphan_id');
@@ -84,6 +83,7 @@ class SponsoredOrphanController extends Controller
                 'father_death_certificate' , 'mother_death_certificate');
             }])
             ->with(['certified_orphan_extras'])
+            ->with(['phones'])
         ->firstOrFail(); //
 
         $expenses = $orphan->expenses()->take(5)->get();

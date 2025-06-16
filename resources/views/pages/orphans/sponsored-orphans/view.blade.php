@@ -25,62 +25,82 @@
             </div>
 
 
-
             <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('الدولة')}} </p>
-                <p class="fw-semibold"> {{$orphan->certified_orphan_extras->country}}  </p>
+                <p class="title"> {{__('اسم اليتيم')}} </p>
+                <p class="fw-semibold"> {{$orphan->name}}  </p>
             </div>
 
+            {{-- @dd($orphan) --}}
+            @if ($orphan->birth_date)
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('المدينة')}}  </p>
-                <p class="fw-semibold"> {{$orphan->certified_orphan_extras->city}} </p>
-            </div>
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('تاريخ الميلاد')}} </p>
+                    <p class="fw-semibold"> {{$orphan->birth_date}}  </p>
+
+                </div>
+
+
+            @endif
+
 
             <hr>
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('استمارة التسجيل')}} </p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->application_form)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ basename($orphan->application_form) }}
-                </a>
-            </div>
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('تم تقديمه ل')}}</p>
                 <p class="fw-semibold"> {{translate_text($orphan->marketing->supporter->name)}}</p>
             </div>
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('المتطوع المسؤول')}}</p>
-                <p class="fw-semibold"> {{$orphan->certified_orphan_extras->volunteer->name}}</p>
-            </div>
+            @if ($orphan->profile->mother_name)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__(' اسم الأم ')}}</p>
+                    <p class="fw-semibold"> {{translate_text($orphan->profile->mother_name)}}</p>
+                </div>
+            @endif
 
+            @if ($orphan->family && $orphan->family->family_number)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__(' عدد الأفراد ')}}</p>
+                    <p class="fw-semibold"> {{$orphan->family->family_number}}</p>
+                </div>
+            @endif
 
-
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('المانح المسؤول')}}</p>
-                <p class="fw-semibold"> {{$orphan->certified_orphan_extras->supporter->name}}</p>
-            </div>
-
+            @if ($orphan->guardian->guardian_name)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__(' اسم الوصي ')}}</p>
+                    <p class="fw-semibold"> {{translate_text($orphan->guardian->guardian_name)}}</p>
+                </div>
+            @endif
 
             <hr>
 
-            {{-- <div class="flex flex-column col-3 mb-3">
-                <p class="title"> المبلغ المقبوض</p>
-                <p class="fw-semibold"> 300$ </p>
+
+            @if ($orphan->guardian->guardian_national_id)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('الرقم القومي للوصي')}}</p>
+                    <p class="fw-semibold"> {{translate_text($orphan->guardian->guardian_national_id)}}</p>
+                </div>
+            @endif
+
+            @if ($orphan->Profile->governorate)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('المحافظة')}}</p>
+                    <p class="fw-semibold"> {{translate_text($orphan->Profile->governorate)}}</p>
+                </div>
+            @endif
+
+
+            @if ($orphan->phones[0]->phone_number)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('رقم التليفون')}}</p>
+                    <p class="fw-semibold"> {{translate_text($orphan->phones[0]->phone_number)}}</p>
+                </div>
+            @endif
+
+            <hr>
+            <div class="d-flex justify-content-end">
+                <a href="{{route('orphan.registered.details' , $orphan->id)}}" class="add-button pt-2 pb-2 text-decoration-none "> {{__('عرض كل التفاصيل')}}</a>
             </div>
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> المبلغ المصروف</p>
-                <p class="fw-semibold"> 300$ </p>
-            </div> --}}
-
-
-            <div class="flex flex-column col-4 mb-3">
-                <p class="title"> {{__('وصف حالة اليتيم')}}</p>
-                <p class="fw-semibold"> {{$orphan->certified_orphan_extras->description_orphan_condition}}  </p>
-            </div>
 
 
         </div>
@@ -99,59 +119,95 @@
             <p class="title mb-4"> {{__('الصور و الملفات')}}</p>
 
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('شهادة الميلاد')}}</p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->birth_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('شهادة الميلاد') }}.{{ pathinfo($orphan->image->birth_certificate, PATHINFO_EXTENSION) }}                </a>
-            </div>
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title">   {{__('بطاقة الام')}}</p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_card)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('بطاقة الأم' ) }}.{{ pathinfo($orphan->image->mother_card, PATHINFO_EXTENSION) }}
-                </a>
-            </div>
+            @if ($orphan->image->birth_certificate)
+
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('شهادة الميلاد')}}</p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->birth_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('شهادة الميلاد') }}.{{ pathinfo($orphan->image->birth_certificate, PATHINFO_EXTENSION) }}                </a>
+                </div>
+
+            @endif
 
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title">   {{__('بطاقة الأب')}}</p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->certified_orphan_extras->father_card)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('بطاقة الأب' ) }}.{{ pathinfo($orphan->certified_orphan_extras->father_card, PATHINFO_EXTENSION) }}
-                </a>
-            </div>
+            @if ($orphan->image->mother_card)
+
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title">   {{__('بطاقة الام')}}</p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_card)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('بطاقة الأم' ) }}.{{ pathinfo($orphan->image->mother_card, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+
+            @endif
+
+            @if ($orphan->certified_orphan_extras?->father_card)
+
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title">   {{__('بطاقة الأب')}}</p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->certified_orphan_extras->father_card)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('بطاقة الأب' ) }}.{{ pathinfo($orphan->certified_orphan_extras->father_card, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+            @endif
 
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('شهادة وفاة الأم')}} </p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('شهادة وفاة الأم') }}.{{ pathinfo($orphan->image->mother_death_certificate, PATHINFO_EXTENSION) }}
-                </a>
-            </div>
+            @if ($orphan->image->father_death_certificate)
+
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('شهادة وفاة الأب')}} </p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->father_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('شهادة وفاة الأب') }}.{{ pathinfo($orphan->image->father_death_certificate, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+
+            @endif
 
 
 
             <hr>
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title"> {{__('شهادة وفاة الأب')}} </p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->father_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('شهادة وفاة الأب') }}.{{ pathinfo($orphan->image->father_death_certificate, PATHINFO_EXTENSION) }}
-                </a>
+
+
+            @if ($orphan->certified_orphan_extras?->school_enrollment)
+
+                <div class="flex flex-column col-4 mb-3">
+                    <p class="title">{{__('شهادة التحاق بالمدرسة')}}</p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->certified_orphan_extras->school_enrollment)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('شهادة التحاق بالمدرسة'  ) }}.{{ pathinfo($orphan->certified_orphan_extras->school_enrollment, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+            @endif
+
+
+
+            @if ($orphan->image->data_validation)
+
+                <div class="flex flex-column col-4 mb-3">
+                    <p class="title">{{__('إقرار بصحة البيانات')}}</p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->data_validation)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('إقرار بصحة البيانات' ) }}.{{ pathinfo($orphan->image->data_validation, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+            @endif
+
+
+            @if ($orphan->image->agricultural_holding)
+
+                <div class="flex flex-column col-4 mb-3">
+                    <p class="title">{{__('حيازة زراعية')}}</p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->agricultural_holding)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('حيازة زراعية' ) }}.{{ pathinfo($orphan->image->agricultural_holding, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+            @endif
+
+            <hr>
+            <div class="d-flex justify-content-end">
+                <a href="{{route('orphan.registered.details' , $orphan->id)}}" class="add-button pt-2 pb-2 text-decoration-none "> {{__('عرض كل التفاصيل')}}</a>
             </div>
 
-            <div class="flex flex-column col-4 mb-3">
-                <p class="title">{{__('شهادة التحاق بالمدرسة')}}</p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->certified_orphan_extras->school_enrollment)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('شهادة التحاق بالمدرسة'  ) }}.{{ pathinfo($orphan->certified_orphan_extras->school_enrollment, PATHINFO_EXTENSION) }}
-                </a>
-            </div>
-
-            <div class="flex flex-column col-4 mb-3">
-                <p class="title">{{__('كارت تأمين صحي مدرسي')}}</p>
-                <a href="{{route('orphan.image' , ['file' => encrypt($orphan->certified_orphan_extras->health_insurance)])}}" type="button" class="text-decoration-none view-file w-100">
-                    {{ __('كارت تأمين صحي مدرسي' ) }}.{{ pathinfo($orphan->certified_orphan_extras->health_insurance, PATHINFO_EXTENSION) }}
-                </a>
-            </div>
 
 
         </div>

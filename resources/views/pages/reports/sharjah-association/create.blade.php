@@ -306,10 +306,9 @@
                     {{-- medical_report  --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">  {{__('التقرير الطبي')}}</label> <br>
-                        <label for="medical_report" id="medical_report_label"  class="custom-file-upload w-75 text-center" disabled> {{__('ارفق صورة التقرير الطبي')}} </label>
-                        <input class="hidden-file-style"  name="medical_report" type="file" style="display: none;" disabled>
-                        <input id="medical_report"   class="text-decoration-none view-file w-75" readonly />
-
+                        <label for="medical_report" id="medical_report_label"  class="custom-file-upload w-75 text-center" disabled> {{__('ارفق صورة التقرير الطبي')}}</label>
+                        <input class="hidden-file-style" id="medical_report"  name="medical_report" type="file" style="">
+                        <input id="medical_report_read" class="text-decoration-none view-file w-75" readonly />
                     </div>
 
                     {{-- Receipt of transferring the sponsorship amount to the orphan’s account  --}}
@@ -366,7 +365,7 @@
 
 
             // for image  Medical Report
-            var orphanMedicalReportImage = document.getElementById("medical_report");
+            var orphanMedicalReportImage = document.getElementById("medical_report_read");
             var MedicalReportImageLabel = document.getElementById("medical_report_label");
             orphanMedicalReportImage.style.display = "none";
             MedicalReportImageLabel.style.display = "block";

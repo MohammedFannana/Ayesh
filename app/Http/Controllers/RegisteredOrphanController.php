@@ -64,6 +64,10 @@ class RegisteredOrphanController extends Controller
             'age' => ['required','integer','min:1'],
             'case_type' => ['required','string','in:يتيم الأبوين,مريض مزمن,حالات خاصة,قريب السن'],
             'health_status' => ['required','string'],
+            'bank_name' => ['required','string'],
+            'visa_number' => ['required','numeric'],
+
+
 
             // guardians tabel
             'guardian_name' => ['required','string'],
@@ -138,6 +142,12 @@ class RegisteredOrphanController extends Controller
 
             'guardianship_decision' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
                                     'dimensions:min_width=100,min_height=100','max:1048576',],
+
+            'data_validation' =>['nullable','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
+                                    'dimensions:min_width=100,min_height=100','max:1048576',],
+
+            'agricultural_holding' =>['nullable','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
+                'dimensions:min_width=100,min_height=100','max:1048576',],
         ]);
 
 
@@ -148,6 +158,7 @@ class RegisteredOrphanController extends Controller
             // start store in orphans table
             $validatedData = Arr::only($validated , ['status' , 'internal_code' , 'application_form' , 'name' , 'national_id',
                                                         'birth_date' , 'birth_place' , 'gender' ,'age' , 'case_type' ,'health_status'
+                                                        ,'bank_name' ,'visa_number'
                                                     ]);
 
             if ($request->hasFile('application_form')) {    //to check if image file is exit
@@ -196,10 +207,17 @@ class RegisteredOrphanController extends Controller
             }
 
             // store in images table
+            // $imageData = Arr::only($validated ,[
+            //     'birth_certificate' , 'father_death_certificate' , 'mother_death_certificate' , 'mother_card' , 'data_validation','agricultural_holding',
+            //     'orphan_image_4_6' , 'orphan_image_9_12' , 'school_benefit' , 'medical_report' , 'social_research' , 'guardianship_decision'
+            // ]);
+
             $imageData = Arr::only($validated ,[
-                'birth_certificate' , 'father_death_certificate' , 'mother_death_certificate' , 'mother_card' ,
-                'orphan_image_4_6' , 'orphan_image_9_12' , 'school_benefit' , 'medical_report' , 'social_research' , 'guardianship_decision'
+                'orphan_image_4_6' , 'birth_certificate' , 'father_death_certificate' , 'mother_card' ,
+                'school_benefit' , 'social_research' , 'medical_report' , 'mother_death_certificate' ,
+                'data_validation' , 'orphan_image_9_12','guardianship_decision' ,'agricultural_holding'
             ]);
+
 
             // to rename image as 1.png , 2.jpg
             $counter = 1;
@@ -244,10 +262,11 @@ class RegisteredOrphanController extends Controller
     }
 
     public function details(string $id){
-        $orphan = Orphan::findOrFail($id)
-                    ->with(['profile' , 'guardian' , 'family' ,'image' , 'phones'])->first();
-        return view('pages.orphans.new-orphans.orphan_details' ,compact('orphan'));
+        $orphan = Orphan::with(['profile', 'guardian', 'family', 'image', 'phones'])
+                    ->findOrFail($id);
+        return view('pages.orphans.new-orphans.orphan_details', compact('orphan'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

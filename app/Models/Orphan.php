@@ -8,7 +8,8 @@ class Orphan extends Model
 {
     protected $fillable = [
         'name' ,'status' , 'internal_code' , 'application_form'  , 'national_id',
-        'birth_date' , 'birth_place' , 'gender' ,'age' , 'case_type' ,'health_status'
+        'birth_date' , 'birth_place' , 'gender' ,'age' , 'case_type' ,'health_status',
+        'bank_name' , 'visa_number',
     ];
 
 

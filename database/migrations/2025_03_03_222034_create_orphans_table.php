@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('birth_place');
             $table->enum('gender' , ['ذكر' , 'أنثى']);
             $table->integer('age');
+            $table->integer('visa_number');
+            $table->string('bank_name');
             $table->enum('case_type' , ['يتيم الأبوين' , 'مريض مزمن' ,'حالات خاصة' , 'قريب السن']);
             $table->string('health_status')->nullable();
             $table->timestamps();

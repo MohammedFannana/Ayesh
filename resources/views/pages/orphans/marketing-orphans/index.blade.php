@@ -150,7 +150,7 @@
                                     <span style="color: var(--text-color);"> {{__('مراسلة الجمعية')}} </span>
                                 </a>
 
-                            
+
                                 <!-- Modal -->
                                 <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">

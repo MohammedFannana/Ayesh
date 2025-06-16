@@ -8,36 +8,38 @@
 
             <!-- code -->
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="internal_code"  class="border" type="text" label=" {{__('كود اليتيم الداخلي')}}"  placeholder="{{__('أدخل كود اليتيم')}}"/>
+                <x-form.input name="internal_code"  class="border" type="text" label=" {{__('كود اليتيم الداخلي')}}"  placeholder="{{__('أدخل كود اليتيم')}}" required/>
             </div>
 
             <!-- Orphan Application Form-->
             <div class="col-12 col-md-6 mb-3">
                 <label class="mb-2">{{__('استمارة تقديم الأيتام')}}</label> <br>
-                <label for="application_form" class="custom-file-upload w-75 text-center"> {{__('أرفق الاستمارة')}}</label>
-                <x-form.input name="application_form" class="border hidden-file-style" type="file" id="application_form" style="display: none;"  autocomplete="" />
+                <label for="application_form" class="custom-file-upload w-75 text-center">{{__('أرفق الاستمارة')}}
+                    <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="application_form" class="border hidden-file-style" type="file" id="application_form" style="display: none;"  autocomplete="" required/>
 
             </div>
 
             <!-- name -->
             {{-- :value="$admin->email" --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="name"  class="border" type="text" label=" {{__('اسم اليتيم')}} " placeholder="{{__('أدخل اسم اليتيم')}}"/>
+                <x-form.input name="name"  class="border" type="text" label=" {{__('اسم اليتيم')}} " placeholder="{{__('أدخل اسم اليتيم')}}" required/>
             </div>
 
             {{-- national_id --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="national_id" class="border" type="text" label=" {{__('الرقم القومي لليتيم')}}" autocomplete="" placeholder="{{__('أدخل الرقم القومي لليتيم')}}"/>
+                <x-form.input name="national_id" class="border" type="text" label=" {{__('الرقم القومي لليتيم')}}" autocomplete="" placeholder="{{__('أدخل الرقم القومي لليتيم')}}" required/>
             </div>
 
             {{-- birth_date --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="birth_date" class="border" type="date" label=" {{__('تاريخ الميلاد')}}" autocomplete="" />
+                <x-form.input name="birth_date" class="border" type="date" label=" {{__('تاريخ الميلاد')}}" autocomplete="" required/>
             </div>
 
             {{-- birth_place--}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="birth_place" class="border" type="text" label=" {{__('جهة الميلاد')}}" autocomplete="" placeholder="{{__('ادخل جهة الميلاد')}}"/>
+                <x-form.input name="birth_place" class="border" type="text" label=" {{__('جهة الميلاد')}}" autocomplete="" placeholder="{{__('ادخل جهة الميلاد')}}" required/>
             </div>
 
             {{-- gender --}}
@@ -45,7 +47,7 @@
                 <label for="type" class="mb-2"> {{__('النوع')}} </label>
                 <div class="d-flex gap-5">
                     <div>
-                        <input type="radio" name="gender" id="male" value="ذكر">
+                        <input type="radio" name="gender" id="male" value="ذكر" required>
                         <label for="male">{{__('ذكر')}}</label>
                     </div>
                     <div>
@@ -58,7 +60,7 @@
 
             {{-- age --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="age" class="border" type="number" label=" {{__('السن')}} " placeholder="{{__('ادخل السن')}}" min="1" autocomplete="" />
+                <x-form.input name="age" class="border" type="number" label=" {{__('السن')}} " placeholder="{{__('ادخل السن')}}" min="1" autocomplete="" required />
             </div>
 
             {{-- case_type --}}
@@ -71,7 +73,7 @@
 
             {{-- Health status --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="health_status" class="border" type="text" label=" {{__('الحالة الصحية لليتيم')}}" autocomplete="" placeholder="{{__('أدخل الحالة الصحية لليتيم')}}"/>
+                <x-form.input name="health_status" class="border" type="text" label=" {{__('الحالة الصحية لليتيم')}}" autocomplete="" placeholder="{{__('أدخل الحالة الصحية لليتيم')}}" required/>
             </div>
 
             {{-- father_death_date --}}
@@ -84,7 +86,7 @@
                 <label class="mb-2"> {{__('يتيم الأبوين')}}</label>
                 <div class="d-flex gap-5">
                     <div>
-                        <input type="radio" name="parents_orphan" id="both_yes" value="نعم">
+                        <input type="radio" name="parents_orphan" id="both_yes" value="نعم" required>
                         <label for="yes">{{__('نعم')}}</label>
                     </div>
                     <div>
@@ -107,7 +109,7 @@
 
             {{-- mother_national_id --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="mother_national_id" class="border" type="text" label=" {{__('الرقم القومي للأم')}} " autocomplete="" placeholder="{{__('أدخل الرقم القومي للأم')}}"/>
+                <x-form.input name="mother_national_id" class="border" type="text" label=" {{__('الرقم القومي للأم')}} " autocomplete="" placeholder="{{__('أدخل الرقم القومي للأم')}}" required/>
             </div>
 
             {{-- mother_work --}}
@@ -115,7 +117,7 @@
                 <label  class="mb-2"> {{__('هل تعمل الأم')}}</label>
                 <div class="d-flex gap-5">
                     <div>
-                        <input type="radio" name="mother_work" id="mother_work" value="نعم">
+                        <input type="radio" name="mother_work" id="mother_work" value="نعم" required>
                         <label for="mother_work">{{__('نعم')}}</label>
                     </div>
                     <div>
@@ -136,17 +138,17 @@
 
             {{-- guardian_name --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="guardian_name" class="border" type="text" label=" {{__('اسم الوصي')}}" autocomplete="" placeholder="{{__('أدخل اسم الوصي')}}"/>
+                <x-form.input name="guardian_name" class="border" type="text" label=" {{__('اسم الوصي')}}" autocomplete="" placeholder="{{__('أدخل اسم الوصي')}}" required/>
             </div>
 
             {{-- guardian_national_id --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="guardian_national_id" class="border" type="text" label=" {{__('الرقم القومي للوصي')}}" autocomplete="" placeholder="{{__('أدخل الرقم القومي للوصي')}}"/>
+                <x-form.input name="guardian_national_id" class="border" type="text" label=" {{__('الرقم القومي للوصي')}}" autocomplete="" placeholder="{{__('أدخل الرقم القومي للوصي')}}" required/>
             </div>
 
             {{-- guardian_relationship --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="guardian_relationship" class="border" type="text" label=" {{__('صلة القرابة')}}" autocomplete="" placeholder="{{__('أدخل صلة القرابة')}}"/>
+                <x-form.input name="guardian_relationship" class="border" type="text" label=" {{__('صلة القرابة')}}" autocomplete="" placeholder="{{__('أدخل صلة القرابة')}}" required/>
             </div>
 
             {{-- guardianship_reason --}}
@@ -155,35 +157,44 @@
                 <x-form.input name="guardianship_reason" class="border" type="text" label=" {{__('سبب الوصاية')}}" autocomplete="" placeholder="{{__('أدخل سبب الوصاية')}}"/>
             </div>
 
+            <div class="col-12 col-md-6 mb-3" style="position: relative">
+                <x-form.input name="bank_name" class="border" type="text" label=" {{__('نوع الحساب')}}" autocomplete="" placeholder="{{__('أدخل نوع الحساب')}}"/>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3" style="position: relative">
+                <x-form.input name="visa_number" class="border" type="text" label=" {{__('رقم الفيزا')}}" autocomplete="" placeholder="{{__('أدخل رقم الفيزا')}}"/>
+            </div>
+
+
             {{-- family_number --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="family_number" class="border" type="number" label=" {{__('عدد أفراد الأسرة')}} " autocomplete="" min="0" placeholder="{{__('أدخل عدد أفراد الأسرة')}}"/>
+                <x-form.input name="family_number" class="border" type="number" label=" {{__('عدد أفراد الأسرة')}} " autocomplete="" min="0" placeholder="{{__('أدخل عدد أفراد الأسرة')}}" required/>
             </div>
 
             {{-- family_number --}}
             <div class="col-6 col-md-3 mb-3">
-                <x-form.input name="male_number" class="border" type="number" label=" {{__('عدد الذكور')}}" autocomplete="" min="0" placeholder="{{__('أدخل عدد الذكور')}}"/>
+                <x-form.input name="male_number" class="border" type="number" label=" {{__('عدد الذكور')}}" autocomplete="" min="0" placeholder="{{__('أدخل عدد الذكور')}}" required/>
             </div>
 
             {{-- family_number --}}
             <div class="col-6 col-md-3 mb-3">
-                <x-form.input name="female_number" class="border" type="number" label=" {{__('عدد الاناث')}}" autocomplete="" min="0" placeholder="{{__('أدخل عدد الاناث')}}"/>
+                <x-form.input name="female_number" class="border" type="number" label=" {{__('عدد الاناث')}}" autocomplete="" min="0" placeholder="{{__('أدخل عدد الاناث')}}" required/>
             </div>
 
 
             {{-- income --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="income" class="border" type="text" label=" {{__('دخل الأسرة')}} "  autocomplete="" placeholder="{{__('أدخل الدخل')}}"/>
+                <x-form.input name="income" class="border" type="text" label=" {{__('دخل الأسرة')}} "  autocomplete="" placeholder="{{__('أدخل الدخل')}}" required/>
             </div>
 
             {{-- income_source --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="income_source" class="border" type="text" label=" {{__('مصدر الدخل')}} " autocomplete="" placeholder="{{__('أدخل مصدر الدخل')}}"/>
+                <x-form.input name="income_source" class="border" type="text" label=" {{__('مصدر الدخل')}} " autocomplete="" placeholder="{{__('أدخل مصدر الدخل')}}" required/>
             </div>
 
             {{-- address --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="address" class="border" type="text" label=" {{__('العنوان')}}" autocomplete="" placeholder="{{__('أدخل العنوان')}}"/>
+                <x-form.input name="address" class="border" type="text" label=" {{__('العنوان')}}" autocomplete="" placeholder="{{__('أدخل العنوان')}}" required/>
             </div>
 
             {{-- housing_type --}}
@@ -191,7 +202,7 @@
                 <label for="housing_type" class="mb-2"> {{__('نوع السكن')}}</label>
                 <div class="d-flex justify-content-between gap-5">
                     <div>
-                        <input type="radio" name="housing_type" id="owns" value="ملك">
+                        <input type="radio" name="housing_type" id="owns" value="ملك" required>
                         <label for="owns">{{__('ملك')}}</label>
                     </div>
                     <div>
@@ -213,7 +224,7 @@
                 <label for="housing_status" class="mb-2"> {{__('حالة السكن')}}</label>
                 <div class="d-flex justify-content-between gap-5">
                     <div>
-                        <input type="radio" name="housing_case" id="good" value="جيد">
+                        <input type="radio" name="housing_case" id="good" value="جيد" required>
                         <label for="good">{{__('جيد')}}</label>
                     </div>
                     <div>
@@ -234,7 +245,7 @@
                 <label  class="mb-2"> {{__('المرحلة الدراسية')}}</label>
                 <div class="d-flex justify-content-between gap-5">
                     <div>
-                        <input type="radio" name="academic_stage" id="elementary" value="الابتدائية">
+                        <input type="radio" name="academic_stage" id="elementary" value="الابتدائية" required>
                         <label for="elementary">{{__('الابتدائية')}}</label>
                     </div>
                     <div>
@@ -247,45 +258,45 @@
 
             {{-- class --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="class" class="border" type="text" label=" {{__('الصف')}}" autocomplete="" placeholder="{{__('أدخل الصف')}}"/>
+                <x-form.input name="class" class="border" type="text" label=" {{__('الصف')}}" autocomplete="" placeholder="{{__('أدخل الصف')}}" required/>
             </div>
 
             {{-- phone_1 --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="phone_number[]" class="border" type="text" label=" {{__('رقم التليفون')}} 1" autocomplete="" placeholder="{{__('أدخل رقم التليفون')}} 1"/>
+                <x-form.input name="phone_number[]" class="border" type="text" label=" {{__('رقم التليفون')}} 1" autocomplete="" placeholder="{{__('أدخل رقم التليفون')}} 1"  required/>
             </div>
 
             {{-- phone_2 --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="phone_number[]" class="border" type="text" label="{{__('رقم التليفون')}} 2" autocomplete="" placeholder="{{__('أدخل رقم التليفون')}} 2"/>
+                <x-form.input name="phone_number[]" class="border" type="text" label="{{__('رقم التليفون')}} 2" autocomplete="" placeholder="{{__('أدخل رقم التليفون')}} 2" required/>
             </div>
 
             {{-- phone_3 --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="phone_number[]" class="border" type="text" label="{{__('رقم التليفون')}} 3" autocomplete="" placeholder="{{__('أدخل رقم التليفون')}} 3"/>
+                <x-form.input name="phone_number[]" class="border" type="text" label="{{__('رقم التليفون')}} 3" autocomplete="" placeholder="{{__('أدخل رقم التليفون')}} 3" required/>
             </div>
 
             {{-- phone_4 --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="phone_number[]" class="border" type="text" label=" {{__('رقم التليفون')}} 4 "  autocomplete="" placeholder="{{__('أدخل رقم التليفون')}} 4"/>
+                <x-form.input name="phone_number[]" class="border" type="text" label=" {{__('رقم التليفون')}} 4 "  autocomplete="" placeholder="{{__('أدخل رقم التليفون')}} 4" required/>
             </div>
 
             {{-- Internal field research --}}
             <div class="col-12 mb-3">
 
-                <x-form.textarea name="internal_research" label="{{__('البحث الميداني الداخلي')}}" placeholder="{{__('اكتب رأي المشرف الاجتماعي')}}"/>
+                <x-form.textarea name="internal_research" label="{{__('البحث الميداني الداخلي')}}" placeholder="{{__('اكتب رأي المشرف الاجتماعي')}}" required/>
 
             </div>
 
             {{-- internal_field_research_date --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="research_date" class="border" type="date" label=" {{__('تاريخ البحث الميداني الداخلي')}}" autocomplete="" />
+                <x-form.input name="research_date" class="border" type="date" label=" {{__('تاريخ البحث الميداني الداخلي')}}" autocomplete="" required />
             </div>
 
             {{-- description --}}
             <div class="col-12">
 
-                <x-form.textarea name="notes" label="{{__('ملاحظات')}}" placeholder="{{__('اكتب ملاحظات')}}"/>
+                <x-form.textarea name="notes" label="{{__('ملاحظات')}}" placeholder="{{__('اكتب ملاحظات')}}" required/>
 
             </div>
 
@@ -298,90 +309,131 @@
 
         <div class="row" style="justify-content:between;">
 
-            {{-- birth_certificate --}}
+
+            {{--1-  orphan_image_4_6--}}
+            <div class="col-12 col-md-6 mb-3">
+                <label class="mb-2">{{__('صورة اليتيم 4*6 جديدة')}}</label> <br>
+                <label for="orphan_image_4_6" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة اليتيم')}}
+                    <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="orphan_image_4_6" class="border hidden-file-style" type="file" id="orphan_image_4_6" style="display: none;"  autocomplete="" required/>
+            </div>
+
+            {{--2- birth_certificate --}}
             <div class="col-12 col-md-6 mb-3">
 
                 <label class="mb-2"> {{__('شهادة الميلاد اصل كمبيوتر')}}</label> <br>
-                <label for="birth_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة الميلاد')}} </label>
+                <label for="birth_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة الميلاد')}}
+                                        <img src="" width="100" alt="">
+                </label>
                 {{-- <input class="hidden-file-style" name="birth_certificate" type="file" id="birth_certificate" style="display: none;"> --}}
-                <x-form.input name="birth_certificate" class="border hidden-file-style" type="file" id="birth_certificate" style="display: none;"  autocomplete="" />
+                <x-form.input name="birth_certificate" class="border hidden-file-style" type="file" id="birth_certificate" style="display: none;"  autocomplete="" required/>
 
 
             </div>
 
-            {{-- father_death_certificate --}}
+            {{--3- father_death_certificate --}}
             <div class="col-12 col-md-6 mb-3">
                 <label class="mb-2"> {{__('شهادة وفاة الأب اصل كمبيوتر')}}</label> <br>
-                <label for="father_death_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة وفاة الأب')}}</label>
-                <x-form.input name="father_death_certificate" class="border hidden-file-style" type="file" id="father_death_certificate" style="display: none;"  autocomplete="" />
+                <label for="father_death_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة وفاة الأب')}}
+                    <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="father_death_certificate" class="border hidden-file-style" type="file" id="father_death_certificate" style="display: none;"  autocomplete="" required/>
 
             </div>
 
-            {{-- mother_death_certificate --}}
+            {{--4- mother_card --}}
+            <div class="col-12 col-md-6 mb-3">
+                <label class="mb-2">{{__('صورة من بطاقة الأم أو الوصي')}}</label> <br>
+                <label for="mother_card" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة بطاقة الأم أو الوصي')}}
+                    <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="mother_card" class="border hidden-file-style" type="file" id="mother_card" style="display: none;"  autocomplete="" required/>
+
+            </div>
+
+            {{--5- school_benefit --}}
+            <div class="col-12 col-md-6 mb-3">
+                <label class="mb-2">   {{__('الافادة المدرسية')}} </label> <br>
+                <label for="school_benefit" class="custom-file-upload w-75 text-center">  {{__('أرفق صورة الافادة المدرسية')}}
+                    <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="school_benefit" class="border hidden-file-style" type="file" id="school_benefit" style="display: none;"  autocomplete="" required/>
+
+            </div>
+
+            {{--6 social_research --}}
+            <div class="col-12 col-md-6  mb-3">
+                <label class="mb-2">   {{__('البحث الاجتماعى')}} </label> <br>
+                <label for="social_research" class="custom-file-upload w-75 text-center">  {{__('أرفق البحث الاجتماعى')}}
+                    <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="social_research" class="border hidden-file-style" type="file" id="social_research" style="display: none;"  autocomplete="" required/>
+
+            </div>
+
+            {{--7 medical_report --}}
+            <div class="col-12 col-md-6  mb-3">
+                <label class="mb-2">  {{__('التقرير الطبي')}} </label> <br>
+                <label for="medical_report" class="custom-file-upload w-75 text-center">  {{__('ارفق صورة التقرير الطبي')}}
+                    <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="medical_report" class="border hidden-file-style" type="file" id="medical_report" style="display: none;"  autocomplete="" required/>
+
+            </div>
+
+
+            {{--8 mother_death_certificate --}}
             <div class="col-12 col-md-6 mb-3" id="div_mother_death_certificate" style="display: none">
                 <label class="mb-2"> {{__('شهادة وفاة الأم اصل كمبيوتر')}}</label> <br>
-                <label for="mother_death_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة وفاة الأم')}}</label>
+                <label for="mother_death_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة وفاة الأم')}}
+                    <img src="" width="100" alt="">
+                </label>
                 <x-form.input name="mother_death_certificate" class="border hidden-file-style" type="file" id="mother_death_certificate" style="display: none;"  autocomplete="" />
 
             </div>
 
-            {{-- mother_card --}}
+             {{--9 data_validation --}}
             <div class="col-12 col-md-6 mb-3">
-                <label class="mb-2">{{__('صورة من بطاقة الأم أو الوصي')}}</label> <br>
-                <label for="mother_card" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة بطاقة الأم أو الوصي')}}</label>
-                <x-form.input name="mother_card" class="border hidden-file-style" type="file" id="mother_card" style="display: none;"  autocomplete="" />
+                <label class="mb-2">   {{__('إقرار بصحة البيانات')}} </label> <br>
+                <label for="data_validation" class="custom-file-upload w-75 text-center">  {{__('أرفق إقرار بصحة البيانات')}}
+                    <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="data_validation" class="border hidden-file-style" type="file" id="data_validation" style="display: none;"  autocomplete="" required/>
 
             </div>
 
-            {{--  orphan_image_4_6--}}
-            <div class="col-12 col-md-6 mb-3">
-                <label class="mb-2">{{__('صورة اليتيم 4*6 جديدة')}}</label> <br>
-                <label for="orphan_image_4_6" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة اليتيم')}}</label>
-                <x-form.input name="orphan_image_4_6" class="border hidden-file-style" type="file" id="orphan_image_4_6" style="display: none;"  autocomplete="" />
-            </div>
 
-            {{--  orphan_image_9_12--}}
+            {{-- 10 orphan_image_9_12--}}
             <div class="col-12 col-md-6 mb-3">
                 <label class="mb-2"> {{__('صورة اليتيم كاملة 9*12')}} </label> <br>
-                <label for="orphan_image_9_12" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة اليتيم')}}</label>
-                <x-form.input name="orphan_image_9_12" class="border hidden-file-style" type="file" id="orphan_image_9_12" style="display: none;"  autocomplete="" />
+                <label for="orphan_image_9_12" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة اليتيم')}}
+                    <img src="" width="100" height="100" alt="">
+                </label>
+                <x-form.input name="orphan_image_9_12" class="border hidden-file-style" type="file" id="orphan_image_9_12" style="display: none;"  autocomplete="" required/>
             </div>
 
-
-
-
-            {{-- school_benefit --}}
-            <div class="col-12 col-md-6 mb-3">
-                <label class="mb-2">   {{__('الافادة المدرسية')}} </label> <br>
-                <label for="school_benefit" class="custom-file-upload w-75 text-center">  {{__('أرفق صورة الافادة المدرسية')}} </label>
-                <x-form.input name="school_benefit" class="border hidden-file-style" type="file" id="school_benefit" style="display: none;"  autocomplete="" />
-
-            </div>
-
-
-            {{-- medical_report --}}
-            <div class="col-12 col-md-6  mb-3">
-                <label class="mb-2">  {{__('التقرير الطبي')}} </label> <br>
-                <label for="medical_report" class="custom-file-upload w-75 text-center">  {{__('ارفق صورة التقرير الطبي')}} </label>
-                <x-form.input name="medical_report" class="border hidden-file-style" type="file" id="medical_report" style="display: none;"  autocomplete="" />
-
-            </div>
-
-            {{-- social_research --}}
-            <div class="col-12 col-md-6  mb-3">
-                <label class="mb-2">   {{__('البحث الاجتماعى')}} </label> <br>
-                <label for="social_research" class="custom-file-upload w-75 text-center">  {{__('أرفق البحث الاجتماعى')}} </label>
-                <x-form.input name="social_research" class="border hidden-file-style" type="file" id="social_research" style="display: none;"  autocomplete="" />
-
-            </div>
-
-            {{-- guardianship_decision --}}
+            {{--11 guardianship_decision --}}
             <div class="col-12 col-md-6  mb-3">
                 <label class="mb-2">   {{__('قرار وصاية')}} </label> <br>
-                <label for="guardianship_decision" class="custom-file-upload w-75 text-center">  {{__('أرفق قرار وصاية')}} </label>
-                <x-form.input name="guardianship_decision" class="border hidden-file-style" type="file" id="guardianship_decision" style="display: none;"  autocomplete="" />
+                <label for="guardianship_decision" class="custom-file-upload w-75 text-center">  {{__('أرفق قرار وصاية')}}
+                        <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="guardianship_decision" class="border hidden-file-style" type="file" id="guardianship_decision" style="display: none;"  autocomplete="" required/>
 
             </div>
+
+
+            {{-- agricultural_holding --}}
+            <div class="col-12 col-md-6 mb-3">
+                <label class="mb-2">   {{__(' حيازة زراعية ')}} </label> <br>
+                <label for="agricultural_holding" class="custom-file-upload w-75 text-center">  {{__('أرفق صورة حيازة زراعية')}}
+                    <img src="" width="100" alt="">
+                </label>
+                <x-form.input name="agricultural_holding" class="border hidden-file-style" type="file" id="agricultural_holding" style="display: none;"  autocomplete="" />
+            </div>
+
+
 
             {{-- يظهر عند اختيار "لا" --}}
             <div id="not-orphan-field" class="col-md-6">

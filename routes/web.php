@@ -25,7 +25,7 @@ use App\Http\Controllers\SupporterController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\WaitingOrphanController;
 use App\Http\Controllers\EmailController;
-
+use App\Http\Controllers\UploadExcel\UploadExcelController;
 use App\Http\Middleware\ApplyUserLanguage;
 use App\Http\Middleware\DashboardAccess;
 use App\Models\FirstLineFamily;
@@ -201,6 +201,8 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
 
 
 });
+
+Route::get('/import-orphans', [UploadExcelController::class, 'import']);
 
 
 
