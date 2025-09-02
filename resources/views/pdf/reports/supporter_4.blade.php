@@ -5,48 +5,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
+    <title>جمعية دبي الخيرية </title>
 
     <style>
         body {
-            font-family: 'Tajawal';
             direction: rtl;
-            margin: auto !important;
+            margin: 0 !important;
             margin-top: 2px !important;
             padding: 0 !important;
-            width: 210mm !important; /* عرض A4 */
-            height: 297mm !important; /* ارتفاع A4 */
-            box-sizing: border-box !important;
+            /*box-sizing: border-box !important;*/
         }
 
-        .container{
-            width: 100%;
-            height: 100%;
-            margin-top: 25px;
+        @page {
+            margin: 0px;
         }
 
-        .value{
-            float:left;
-            border:1px solid #ddd;
-            font-size:17px;
-            padding-right: 2px;
-            height: 40px;
-        }
+
 
         .cell{
             text-align: center;
             margin: 0;
-            /* padding: 5px; */
-            padding:5px 0 5px 5px;
+            color:#333;
+            padding:4px 0px 4px 5px;
+            font-size:18px;
+        }
+
+        .cell1{
+            text-align: right;
+            margin: 0;
+            color:#7f879c;
+            padding:4px 2x 4px 5px;
+
+        }
+
+
+        .border1{
+            border:2px solid #555;
+            background-color: #dee6fe;
         }
 
         .border{
-            border:1px solid #ddd;
+            border:2px solid black;
         }
 
         .image{
-            width:50%; height:300px; margin:auto; text-align:center; padding:5px
+            width:50%;
+            height:300px;
+            margin:auto;
+            text-align:center;
+            padding:5px;
         }
+
+
 
 
     </style>
@@ -56,166 +66,47 @@
 <body>
 
 
-    <div class="container">
 
 
-        <div style="height: 297mm;background-color:#c9ede4;padding-top:80px">
+     <div>
 
-            <div style="margin:auto;  text-align: center; font-size:18px; margin-bottom:200px">
-                <img src="{{public_path('image/report/dubai.png')}}" alt="" width="360px" height="240px">
-
-                <p style="background-color: #6DB6B44D ;margin:auto; width:360px; text-align:center"> الفاضل\ {{$report->orphan->name}} </p>
+            <div>
+                <img src="{{public_path('image/report/cover.png')}}" alt="" width="100%">
+                <h3 style="margin:auto; padding-top:-50px; text-align:center"> {{$report->orphan->name}} </h3>
             </div>
 
-            {{-- header --}}
-            <div style="text-align: center; font-size:22px ;margin:auto; width:270px">
 
-                إدارة الأيتام <br>
-                تقرير حالة يتيم خارج الدولة <br>
-                <span style="background-color: #6DB6B44D "> لعام {{ date('Y') }} </span> <br>
-                يدوم الخيـــــر
-
+            <div>
+                <img src="{{public_path('image/report/cover1.png')}}" alt="" width="100%">
+                <p style="padding-top:-280px ; padding-right:45%;font-weight:bold">  {{ date('Y') }} </p>
             </div>
 
-            <hr style="color:#2BB5CF; margin-top:130px">
-
-            {{-- footer --}}
-            <p style="text-align: center">
-                دبي, الإمارات العربية المتحدة Dubai, United Arab Emirates
-                <img src="{{public_path('image/report/Location.png')}}" alt="">
-            </p>
 
 
-            {{-- footer --}}
-            <table style="width: 85%; margin-bottom: 15px;">
-                <tr>
-
-                    <td style="text-align: center;float:left;width:50%">
-                        <table>
-                            <tr>
-                                <td style="text-align: right'; font-size:25px">
-                                    446088
-                                </td>
-                                <td style="width: 30px; text-align: left;">
-                                    <img src="{{ public_path('image/report/mail.png') }}" alt="" width="30px" height="30px">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-
-                    <td style="text-align: center; width:50%">
-                        <table>
-                            <tr>
-                                <td style="text-align: right; font-size:25px">
-                                    {{ $report->supporter->fax }}
-                                </td>
-                                <td style="width: 30px; text-align: left;">
-                                    <img src="{{ public_path('image/report/Vector (3).png') }}" alt="" width="30px" height="30px">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-
-                    <td style="text-align: center; width:50%">
-                        <table>
-                            <tr>
-                                <td style="text-align: right; font-size:25px">
-                                    {{ $report->supporter->phone }}
-                                </td>
-                                <td style="width: 30px; text-align: left;">
-                                    <img src="{{ public_path('image/report/Call.png') }}" alt="" width="30px" height="30px">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-
-                    <td style="text-align: center; float:right; width:50%">
-                        <table>
-                            <tr>
-                                <td style="text-align: right;font-size:25px">
-                                    {{ $report->supporter->phone }}
-                                </td>
-                                <td style="width: 80px; text-align: left;">
-                                    <img src="{{ public_path('image/report/Call.png') }}" alt="" width="30px">
-                                    <img src="{{ public_path('image/report/whatapp.png') }}" alt="" width="35px">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-
-
-                </tr>
-            </table>
-
-
-            {{-- footer --}}
-            <table style="width: 85%; margin-bottom: 15px;">
-                <tr>
-
-
-                    <td style="text-align: center; float:right; width:50%">
-                        <table>
-                            <tr>
-                                <td style="text-align: right;font-size:20px">
-                                    {{ $report->supporter->phone }}
-                                </td>
-                                <td style="width: 150; text-align: left;">
-                                    <img src="{{ public_path('image/report/group.png') }}" alt="" width="120px">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-
-                    <td style="text-align: center;float:left;width:50%">
-                        <table>
-                            <tr>
-                                <td style="text-align: right'; font-size:20px">
-                                    www.dubaicharity.org
-                                </td>
-                                <td style="width: 30px; text-align: left;">
-                                    <img src="{{ public_path('image/report/Vector (4).png') }}" alt="" width="30px" height="30px">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-
-                    <td style="text-align: center; width:50%">
-                        <table>
-                            <tr>
-                                <td style="text-align: right; font-size:20px">
-                                    info@dubaicharity.ae
-                                </td>
-                                <td style="width: 30px; text-align: left;">
-                                    <img src="{{ public_path('image/report/Message.png') }}" alt="" width="30px" height="30px">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-
-
-                </tr>
-            </table>
 
 
 
         </div>
 
 
-        <div style="page-break-after: always;"></div>
+
+
+    <div style="page-break-after: always;"></div>
+
+    <div style="margin:40px; padding-top:40px">
 
         {{-- header --}}
         <div style="font-size:18px; margin-bottom:15px">
             <div  style="float: right ;width:290px">
-                <img src="{{public_path('image/report/dubai-logo.png')}}" alt="" width="100%"  height="85px">
+                <img src="{{public_path('image/report/logo1.png')}}" alt="" width="100%"  height="85px">
             </div>
 
             <div style="float: left ;text-align:center; width:25%">
-                <span style="font-size: 22px"> إدارة الأيتام </span> <br>
-                التقرير عن حالة اليتيم <br>
 
-                <span style="background-color: #6DB6B44D ; ">
+                <img src="{{public_path('image/report/logo2.png')}}" alt="" width="100%"  height="55px">
+                <p style="background-color: #9DCDCB ; margin:0px ">
                     لعام {{ date('Y') }}
-                </span>
+                </p>
 
             </div>
 
@@ -226,129 +117,135 @@
 
             <div style="width: 100%;margin-top:15px">
                 <div style="width:49%; float: right; overflow: hidden;">
-                    <p style="float: right; width:29%;" class="cell"> رقم اليتيم </p>
-                    <p style="float: left; width:67%;" class="cell border"> {{$report->orphan->internal_code}} </p>
+                    <p style="float: right; width:29%;" class="cell"> رقم اليتيم: </p>
+                    <p style="float: left; width:66%;" class="cell1 border1"> {{$report->orphan->internal_code}} </p>
                 </div>
 
                 <div style="width: 49%;  float: left; text-align:center;">
-                    <p style="float: right; width:29%;" class="cell"> تاريخ التقرير </p>
-                    <p style="float: left; width:67%;" class="cell border"> {{$report->fields['report_date']}} </p>
+                    <p style="float: right; width:29%;" class="cell"> تاريخ التقرير: </p>
+                    <p style="float: left; width:66%;" class="cell1 border1"> {{$report->fields['report_date']}} </p>
                 </div>
 
             </div>
 
             <div style="width: 100%;margin-top:15px">
-                <div style="width:49%; float: right; overflow: hidden;">
-                    <p style="float: right; width:29%;" class="cell"> اسم اليتيم </p>
-                    <p style="float: left; width:67%;" class="cell border"> {{$report->orphan->name}} </p>
+                <div style="width:60%; float: right; overflow: hidden;">
+                    <p style="float: right; width:24%;" class="cell"> اسم اليتيم: </p>
+                    <p style="float: left; width:72%;" class="cell1 border1"> {{$report->orphan->name}} </p>
                 </div>
 
-                <div style="width: 49%;  float: left; text-align:center;">
-                    <p style="float: right; width:29%;" class="cell"> الجنسية </p>
-                    <p style="float: left; width:67%;" class="cell border"> {{$report->orphan->getFieldValueByDatabaseName('nationality')}} </p>
+                <div style="width: 38%;  float: left; text-align:center;">
+                    <p style="float: right; width:29%;" class="cell"> الجنسية: </p>
+                    <p style="float: left; width:65%;" class="cell1 border1"> مصري/ة </p>
                 </div>
 
             </div>
 
             <div style="width: 100%;margin-top:15px">
                 <div style="width:33%; float: right; overflow: hidden;">
-                    <p style="float: right; width:44%;" class="cell"> تاريخ الميلاد </p>
-                    <p style="float: left; width:50%;" class="cell border"> {{$report->orphan->birth_date}} </p>
+                    <p style="float: right; width:43%;" class="cell"> تاريخ الميلاد: </p>
+                    <p style="float: left; width:50%;" class="cell1 border1">  {{$report->orphan->birth_date ?? $report->fields['birth_date']}}  </p>
                 </div>
 
 
-                <div style="width: 33%;  text-align:center; float: right;">
-                    <p style="float: right; width:44%;" class="cell"> مكان الميلاد </p>
-                    <p style="float: left; width:50%;" class="cell border"> {{$report->orphan->birth_place}} </p>
+                <div style="width: 41%;  text-align:center; float: right;">
+                    <p style="float: right; width:35%;" class="cell"> مكان الميلاد: </p>
+                    <p style="float: left; width:58%;" class="cell1 border1">  {{$report->orphan->birth_place ?? $report->fields['birth_place']}}   </p>
                 </div>
 
-                <div style="width: 33%;  float: left; text-align:center;">
-                    <p style="float: right; width:28%;" class="cell"> الجنس </p>
-                    <p style="float: left; width:65%;" class="cell border"> {{$report->orphan->gender}} </p>
+                <div style="width: 25%;  float: left; text-align:center;">
+                    <p style="float: right; width:28%;" class="cell"> الجنس: </p>
+                    <p style="float: left; width:58%;" class="cell1 border1"> {{$report->orphan->gender ?? $report->fields['gender']}} </p>
+                </div>
+
+            </div>
+
+            <div style="width: 74%;margin-top:15px">
+
+                <p style="float: right; width:40%;" class="cell"> اسم المسؤول عن اليتيم: </p>
+                <p style="float: left; width:55%;" class="cell1 border1"> {{$report->orphan->guardian->guardian_name}} </p>
+
+            </div>
+
+            <div style="width:45%;margin-top:15px">
+
+                <p style="float: right; width:37%;" class="cell"> صلة القرابة: </p>
+                <p style="float: left; width:57%;" class="cell1 border1"> {{$report->orphan->guardian->guardian_relationship}} </p>
+
+            </div>
+
+
+            <div style="width: 100%;margin-top:15px">
+                <div style="width:55%; float: right; overflow: hidden;">
+                    <p style="float: right; width:25%;" class="cell"> اسم  الأم: </p>
+                    <p style="float: left; width:67%;" class="cell1 border1"> {{$report->orphan->profile->mother_name ?? $report->fields['mother_name']}}  </p>
+                </div>
+
+                <div style="width: 43%;  float: left; text-align:center;">
+                    <p style="float: right; width:40%;" class="cell"> تاريخ وفاة الأب: </p>
+                    <p style="float: left; width:54%;" class="cell1 border1"> {{$report->orphan->profile->father_death_date ?? $report->fields['father_death_date']}}  </p>
                 </div>
 
             </div>
 
             <div style="width: 100%;margin-top:15px">
 
-                <p style="float: right; width:27%;" class="cell"> اسم المسؤول عن اليتيم </p>
-                <p style="float: left; width:69%;" class="cell border"> {{$report->orphan->guardian->guardian_name}} </p>
-
-            </div>
-
-
-            <div style="width: 100%;margin-top:15px">
-                <div style="width:49%; float: right; overflow: hidden;">
-                    <p style="float: right; width:29%;" class="cell"> اسم  الأم</p>
-                    <p style="float: left; width:67%;" class="cell border"> {{$report->orphan->profile->mother_name}} </p>
-                </div>
-
-                <div style="width: 49%;  float: left; text-align:center;">
-                    <p style="float: right; width:34%;" class="cell"> تاريخ وفاة الأب </p>
-                    <p style="float: left; width:60%;" class="cell border"> {{$report->orphan->profile->father_death_date}} </p>
-                </div>
+                <p style="float: right; width:15%;font-weight:bold;" class="cell"> الحالة الصحية: </p>
+                <p style="float: left; width:80%;" class="cell1 border1"> {{$report->orphan->health_status ?? $report->fields['health_status']}} </p>
 
             </div>
 
             <div style="width: 100%;margin-top:15px">
 
-                <p style="float: right; width:25%;" class="cell"> الحالة الصحية</p>
-                <p style="float: left; width:71%;" class="cell border"> {{$report->orphan->health_status}} </p>
+                <p style="float: right; width:33%;" class="cell"> ملاحظة على الحالة الصحية: </p>
+                <p style="float: left; width:62%;" class="cell1 border1"> {{$report->fields['health_notes']}} </p>
 
             </div>
 
-            <div style="width: 100%;margin-top:15px">
+            <div style="width: 100%;margin-top:15px; margin-bottom:22px">
 
-                <p style="float: right; width:27%;" class="cell"> ملاحظة على الحالة الصحية</p>
-                <p style="float: left; width:69%;" class="cell border"> {{$report->fields['health_notes']}} </p>
-
-            </div>
-
-            <div style="width: 100%;margin-top:15px">
-
-                <p style="float: right; width:25%;" class="cell"> المرحلة الدراسية </p>
-                <p style="float: left; width:71%;" class="cell border"> {{$report->orphan->profile->academic_stage}} </p>
+                <p style="float: right; width:17%;" class="cell"> المرحلة الدراسية: </p>
+                <p style="float: left; width:78%;" class="cell1 border1"> {{$report->orphan->profile->academic_stage ?? $report->fields['academic_stage']}} </p>
 
             </div>
 
         </div>
 
-        {{-- ملاحظة ادارة الأيتام  --}}
-        <div class="border" style="padding: 10px">
 
-            <p style="margin-bottom: 5px; font-size:18px"> ملاحظة ادارة الأيتام </p>
+        <div>
+            <p style="margin-bottom: 15px; font-size:20px; margin:8px 30px 8px 2px;color:#333; font-size:18px"> ملاحظة إدارة الأيتام </p>
 
-            <p style="width: 100%;margin-top:15px; height:30px"  class="border">
-
+            <p style="width: 100%;margin-top:15px; margin-bottom:10px; margin:0px;height:120px"  class="cell1 border1">
                 {{$report->fields['orphan_management_notes']}}
+            </p>
+        </div>
+
+
+        <div>
+            <p style="margin-bottom: 15px; font-size:20px; margin:8px 30px 8px 2px;color:#333; font-size:18px"> عنوان الجهة المشرفة </p>
+
+            <p style="width: 100%;margin-top:15px; margin-bottom:10px; margin:0px;height:30px"  class="cell1 border1">
+
+                {{$report->fields['address_supervising_authority']}}
 
             </p>
-
         </div>
-
-        <p style="margin-bottom: 15px; font-size:20px"> عنوان الجهة المشرفة </p>
-
-        <p style="width: 100%;margin-top:15px; margin-bottom:10px"  class="cell border">
-
-            {{$report->fields['address_supervising_authority']}}
-
-        </p>
 
         {{-- ختم اللجنة المشرفة الالكتروني  and اعتماد جمعية دبي الخيرية  --}}
         <div  style="width: 100%;">
 
-            <div style="width: 49%;float: right">
+            <div style="width: 40%;float: right">
                 <p style="" class="cell"> ختم اللجنة المشرفة الالكتروني </p>
-                <p style="" class="cell">
-                    <img src="{{ public_path('storage/' . $report->supporter_seal) }}" alt="صورة"  width="340px" height="200px">
+                <p style="border:2px solid #555;width="250px"" class="cell">
+                    <img src="{{ public_path('storage/' . $report->supporter_seal) }}" alt="صورة"  width="250px" height="150px">
                 </p>
             </div>
 
-            <div style="width: 49%;float:left">
+            <div style="width: 40%;float:left">
                 <p style="" class="cell"> اعتماد جمعية دبي الخيرية  </p>
 
-                <p style="" class="cell">
-                    <img src="{{ public_path('storage/' . $report->supporter_accreditation) }}" alt="صورة" width="340px" height="200px">
+                <p style="border:2px solid #555; width="250px"" class="cell">
+                    <img src="{{ public_path('storage/' . $report->supporter_accreditation) }}" alt="صورة" width="250px" height="150px">
                 </p>
             </div>
 
@@ -376,12 +273,12 @@
         </div>
 
         {{-- صورة اليتيم --}}
-        <div class="border" style="margin-bottom: 5px">
-            <p>صورة اليتيم </p>
+        <div class="border" style="margin-bottom:30px">
+            <p style="border:1px solid #6DB6B44D ; padding:5px 35px 5px 5px; margin:5px; width:120px; background-color:#3e2d7b;color:white;"> صور اليتيم </p>
 
-            <div class="image">
+            <div class="image" style="border:1px solid #777 ; padding:20px 140px 30px; margin-bottom:20px;  border-radius: 5px ;height:285px">
 
-                <img src="{{ public_path('storage/' . $report->orphan->image->orphan_image_4_6) }}" alt="صورة"  height="100%" width="100%" >
+                <img src="{{ public_path('storage/' . $report->orphan->image->orphan_image_4_6) }}" alt="صورة"  height="285px"  width="320px" >
 
             </div>
 
@@ -389,11 +286,11 @@
 
         {{-- صورة جماعية --}}
         <div class="border">
-            <p> صورة جماعية  </p>
+            <p style="border:1px solid #6DB6B44D ; padding:5px 35px 5px 5px; margin:5px; width:120px; background-color:#3e2d7b;color:white;"> صورة جماعية  </p>
 
-            <div class="image">
+             <div class="image" style="border:1px solid #777 ; padding:20px 140px; margin-bottom:20px;  border-radius: 5px ;height:285px">
 
-                <img src="{{ public_path('storage/' .$report->group_photo) }}" alt="صورة"  height="100%" width="100%" >
+                <img src="{{ public_path('storage/' .$report->group_photo) }}" alt="صورة"   width="320px" height="285px" >
             </div>
         </div>
 
@@ -418,12 +315,12 @@
         </div>
 
         {{-- رسالة اليتيم الى الكافل --}}
-        <div class="border" style="margin-bottom: 5px">
-            <p>رسالة اليتيم الى الكافل  </p>
+        <div class="border" style="margin-bottom: 5px" >
+            <p style="border:1px solid #6DB6B44D ; padding:5px 35px 5px 5px; margin:5px; width:150px; background-color:#3e2d7b;color:white;"> رسالة اليتيم الى الكافل  </p>
 
-            <div class="image">
+            <div class="image" style="border:1px solid #777 ; padding:20px 140px 30px; margin-bottom:10px;  border-radius: 5px ;height:280px">
 
-                <img src="{{ public_path('storage/' . $report->thanks_letter) }}" alt="صورة"   height="80%" width="100%">
+                <img src="{{ public_path('storage/' . $report->thanks_letter) }}" alt="صورة" height="280px" width:"320px">
 
             </div>
         </div>
@@ -431,151 +328,25 @@
 
         {{-- شهادة اليتيم الدراسية --}}
         <div class="border">
-            <p> شهادة اليتيم الدراسية </p>
+             <p style="border:1px solid #6DB6B44D ; padding:5px 35px 5px 5px; margin:5px; width:150px; background-color:#3e2d7b;color:white;"> شهادة اليتيم الدراسية </p>
 
-            <div class="image">
+            <div class="image" style="border:1px solid #777 ; padding:20px 140px 30px; margin-bottom:10px;  border-radius: 5px ;height:280px">
 
-                <img src="{{ public_path('storage/' .$report->academic_certificate) }}" alt="صورة"   height="80%" width="100%">
-
-            </div>
-        </div>
-
-        {{-- footer --}}
-        <div style="background-color: #221D50 ;margin-top:10px">
-
-            <p style="text-align: center; color:white">
-                دبي, الإمارات العربية المتحدة Dubai, United Arab Emirates
-                <img src="{{public_path('image/report/Location.png')}}" alt="">
-            </p>
-
-
-            <div style="width: 100%;">
-
-                {{-- data --}}
-                <div style="float: left; width:80%; overflow:hidden">
-
-                    <table style="width: 85%; margin-bottom: 10px;">
-                        <tr>
-
-                            <td style="text-align: center;float:left;width:50%">
-                                <table>
-                                    <tr>
-                                        <td style="text-align: right'; font-size:25px;color:white">
-                                            446088
-                                        </td>
-                                        <td style="width: 30px; text-align: left;">
-                                            <img src="{{ public_path('image/report/mail.png') }}" alt="" width="30px" height="30px">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-
-                            <td style="text-align: center; width:50%">
-                                <table>
-                                    <tr>
-                                        <td style="text-align: right; font-size:25px;color:white">
-                                            {{ $report->supporter->fax }}
-                                        </td>
-                                        <td style="width: 30px; text-align: left;">
-                                            <img src="{{ public_path('image/report/Vector (3).png') }}" alt="" width="30px" height="30px">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-
-                            <td style="text-align: center; width:50%">
-                                <table>
-                                    <tr>
-                                        <td style="text-align: right; font-size:25px;color:white">
-                                            {{ $report->supporter->phone }}
-                                        </td>
-                                        <td style="width: 30px; text-align: left;">
-                                            <img src="{{ public_path('image/report/Call.png') }}" alt="" width="30px" height="30px">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-
-                            <td style="text-align: center; float:right; width:50%">
-                                <table>
-                                    <tr>
-                                        <td style="text-align: right;font-size:25px;color:white">
-                                            {{ $report->supporter->phone }}
-                                        </td>
-                                        <td style="width: 80px; text-align: left;">
-                                            <img src="{{ public_path('image/report/Call.png') }}" alt="" width="30px">
-                                            <img src="{{ public_path('image/report/whatapp.png') }}" alt="" width="35px">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-
-
-                        </tr>
-                    </table>
-
-
-                    <table style="width: 85%; margin-bottom: 10px;">
-                        <tr>
-
-
-                            <td style="text-align: center; float:right; width:50%">
-                                <table>
-                                    <tr>
-                                        <td style="text-align: right;font-size:20px;color:white">
-                                            {{ $report->supporter->phone }}
-                                        </td>
-                                        <td style="width: 150; text-align: left;">
-                                            <img src="{{ public_path('image/report/group.png') }}" alt="" width="120px">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-
-                            <td style="text-align: center;float:left;width:50%">
-                                <table>
-                                    <tr>
-                                        <td style="text-align: right'; font-size:20px;color:white">
-                                            www.dubaicharity.org
-                                        </td>
-                                        <td style="width: 30px; text-align: left;">
-                                            <img src="{{ public_path('image/report/Vector (4).png') }}" alt="" width="30px" height="30px">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-
-                            <td style="text-align: center; width:50%">
-                                <table>
-                                    <tr>
-                                        <td style="text-align: right; font-size:20px;color:white">
-                                            info@dubaicharity.ae
-                                        </td>
-                                        <td style="width: 30px; text-align: left;">
-                                            <img src="{{ public_path('image/report/Message.png') }}" alt="" width="30px" height="30px">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-
-
-                        </tr>
-                    </table>
-
-                </div>
-
-                {{-- logo --}}
-                <div style="float: right;width:14%; height:80px; text-align:center;">
-                    <img src="{{public_path('image/report/footer-logo.png')}}" alt="" style="float: right" width="90%" height="50%">
-
-                </div>
+                <img src="{{ public_path('storage/' .$report->academic_certificate) }}" alt="صورة" width:"320px" height="280px">
 
             </div>
-
-
         </div>
 
     </div>
+
+    {{-- footer --}}
+    <div style="margin-top:20px">
+
+        <img src="{{ public_path('image/report/footer.png') }}" width="100%" height="150px">
+
+    </div>
+
+
 
 </body>
 

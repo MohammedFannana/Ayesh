@@ -44,7 +44,7 @@
                         <th scope="col">{{__('كود اليتيم')}}</th>
                         <th scope="col"> {{__('الاسم')}} </th>
                         <th scope="col"> {{__('الهاتف')}} </th>
-                        <th scope="col"> {{__('نوع الحالة')}}</th>
+                        {{--<th scope="col"> {{__('نوع الحالة')}}</th>--}}
                         <th scope="col"> {{__('الاجراءات')}} </th>
 
                     </tr>
@@ -58,8 +58,8 @@
                         <tr>
                             <th scope="row">{{$orphan->internal_code}}</th>
                             <td> {{$orphan->name}} </td>
-                            <td>{{$orphan->profile->phone}}</td>
-                            <td> {{$orphan->case_type}}</td>
+                            <td>{{$orphan->phones[0]->phone_number}}</td>
+                            {{--<td> {{$orphan->case_type}}</td>--}}
                             <td style="position: relative;">
 
                                 <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">
@@ -69,6 +69,11 @@
                                         <img src="{{asset('image/Show.svg')}}" alt="">
                                         <span style="color: var(--text-color);">{{__('مشاهدة التفاصيل')}}</span>
                                     </a>
+                                    
+                                    <a href="{{route('orphan.registered.edit' , $orphan->id)}}" class="text-decoration-none">
+                                        <img src="{{asset('image/Edit Square.svg')}}" alt="">
+                                        <span style="color: var(--text-color);">{{__('تعديل البيانات')}}</span>
+                                    </a>
 
                                     <br>
                                     <a href="" class="text-decoration-none">
@@ -76,7 +81,7 @@
                                         <span style="color: var(--text-color);">{{__('ارسال رسالة')}}</span>
                                     </a>
 
-                                    <form action="{{route('orphan.registered.destroy' , $orphan->id )}}" method="post" style="margin-right: -5px">
+                                    <form action="{{route('orphan.registered.destroy' , $orphan->id )}}" method="post" >
                                         @csrf
                                         @method('delete')
                                         <button class="submit border-0 p-0 bg-transparent">

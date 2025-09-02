@@ -1,5 +1,11 @@
 <x-main-layout>
 
+    @push('styles')
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    @endpush
+
     <h2 class="mb-4"> {{__('انشاء تقرير')}}</h2>
     <h4 class="mb-4" style="color:var(--title-color);"> {{__('جمعية دبي الخيرية')}}</h4>
 
@@ -28,7 +34,7 @@
 
                     {{-- report_date --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="report_date" class="border" type="date" label="  {{__('تاريخ التقرير')}}" autocomplete=""/>
+                        <x-form.input name="report_date" id="report_date" class="border flatpickr-input" type="text"  value="{{  \Carbon\Carbon::today()->toDateString() }}"  label="  {{__('تاريخ التقرير')}}" autocomplete=""/>
                     </div>
 
                     {{-- orphan_name --}}
@@ -38,12 +44,12 @@
 
                     {{-- nationality --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="nationality" id="nationality" class="border" type="text" label=" {{__('الجنسية')}} " autocomplete="" placeholder=" {{__('أدخل الجنسية')}} "/>
+                        <x-form.input name="nationality" value="مصري/ة"  disabled id="nationality" class="border" type="text" label=" {{__('الجنسية')}} " autocomplete="" placeholder=" {{__('أدخل الجنسية')}} "/>
                     </div>
 
                     {{-- birth_date --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="birth_date" id="birth_date" class="border" type="date" label="  {{__('تاريخ الميلاد')}}" autocomplete=""/>
+                        <x-form.input name="birth_date" id="birth_date" class="border flatpickr-input" type="text" label="  {{__('تاريخ الميلاد')}}" />
                     </div>
 
                     {{-- birth_place --}}
@@ -68,7 +74,7 @@
 
                     {{-- father_death --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="father_death_date" id="father_death_date" class="border" type="date" label=" {{__('تاريخ وفاة الأب')}}" autocomplete=""/>
+                        <x-form.input name="father_death_date" id="father_death_date" class="border flatpickr-input" type="text" label=" {{__('تاريخ وفاة الأب')}}" autocomplete=""/>
                     </div>
 
 
@@ -102,7 +108,10 @@
                     {{-- electronic_supervisory_seal --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2"> {{__('ختم اللجنة المشرفة الالكتروني')}}</label> <br>
-                        <label for="supporter_seal" class="custom-file-upload w-75 text-center"> {{__('ارفق ختم اللجنة المشرفة الالكتروني')}}</label>
+                        <label for="supporter_seal" class="custom-file-upload w-75 text-center"> {{__('ارفق ختم اللجنة المشرفة الالكتروني')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="supporter_seal" type="file" id="supporter_seal" style="display: none;">
                     </div>
 
@@ -110,7 +119,10 @@
                     {{-- dubai_accreditation --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">   {{__('اعتماد جمعية دبي الخيرية')}}</label> <br>
-                        <label for="supporter_accreditation" class="custom-file-upload w-75 text-center"> {{__('ارفق اعتماد جمعية دبي الخيرية')}} </label>
+                        <label for="supporter_accreditation" class="custom-file-upload w-75 text-center"> {{__('ارفق اعتماد جمعية دبي الخيرية')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="supporter_accreditation" type="file" id="supporter_accreditation" style="display: none;">
                     </div>
 
@@ -118,7 +130,10 @@
                     {{-- image --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2"> {{__('صورة اليتيم')}}</label> <br>
-                        <label for="orphan_image" id="orphan_image_label" class="custom-file-upload w-75 text-center"> {{__('ارفق  صورة اليتيم')}} </label>
+                        <label for="orphan_image" id="orphan_image_label" class="custom-file-upload w-75 text-center"> {{__('ارفق  صورة اليتيم')}}
+                         <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="orphan_image" type="file" id="orphan_image" style="display: none;">
                         <input id="orphan_report"   class="text-decoration-none view-file w-75" readonly />
 
@@ -128,7 +143,10 @@
                     {{-- group_photo --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2"> {{__('صورة جماعية')}}</label> <br>
-                        <label for="group_photo" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة جماعية')}}</label>
+                        <label for="group_photo" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة جماعية')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="group_photo" type="file" id="group_photo" style="display: none;">
                     </div>
 
@@ -136,7 +154,10 @@
                     {{-- orphan_message--}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2"> {{__('رسالة اليتيم للكافل')}}</label> <br>
-                        <label for="thanks_letter" class="custom-file-upload w-75 text-center"> {{__('ارفق رسالة اليتيم للكافل')}}</label>
+                        <label for="thanks_letter" class="custom-file-upload w-75 text-center"> {{__('ارفق رسالة اليتيم للكافل')}}
+                        <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="thanks_letter" type="file" id="thanks_letter" style="display: none;">
                     </div>
 
@@ -144,7 +165,10 @@
                     {{-- orphan_educational  --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2"> {{__('شهادة اليتيم الدارسية')}}</label> <br>
-                        <label for="academic_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق شهادة اليتيم الدارسية')}}</label>
+                        <label for="academic_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق شهادة اليتيم الدارسية')}}
+                        <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="academic_certificate" type="file" id="academic_certificate" style="display: none;">
                     </div>
 
@@ -163,6 +187,27 @@
 
     @push('scripts')
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        const dateFields = [
+            "#father_death_date",
+            "#birth_date",
+            "#report_date"
+        ];
+
+        dateFields.forEach(id => {
+            flatpickr(id, {
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "d-m-Y",
+                allowInput: true
+            });
+        });
+
+    </script>
+
     <script>
         let orphans = @json($orphans);
     </script>
@@ -174,7 +219,6 @@
             var orphanCodeInput = document.getElementById("orphan_code");
             var orphanNameInput = document.getElementById("orphan_name");
             var orphanBirthPlaceInput = document.getElementById("birth_place");
-            var orphanNationalityInput = document.getElementById("nationality");
             var orphanGenderInput = document.getElementById("gender");
             var orphanBirthDateInput = document.getElementById("birth_date");
             var orphanFatherDeathInput = document.getElementById("father_death_date");
@@ -192,21 +236,43 @@
 
 
 
-
-
-
-            console.log("Script loaded, orphans:", orphans); // تأكد أن البيانات محملة
-
             function fillOrphanData(orphan) {
                 if (orphan) {
                     orphanIdInput.value = orphan.orphan.id || '';
                     orphanCodeInput.value = orphan.orphan.internal_code || '';
                     orphanNameInput.value = orphan.orphan.name || '';
+
+
+
                     orphanBirthPlaceInput.value = orphan.orphan.birth_place || '';
-                    orphanNationalityInput.value = getFieldValueByDatabaseName(orphan, 'nationality') || '';
                     orphanGenderInput.value = orphan.orphan.gender || '';
-                    orphanBirthDateInput.value = orphan.orphan.birth_date || '';
-                    orphanFatherDeathInput.value = orphan.orphan.profile.father_death_date || '';
+
+                    if (orphan.orphan.profile.father_death_date) {
+                        if (orphanFatherDeathInput._flatpickr) {
+                            orphanFatherDeathInput._flatpickr.setDate(orphan.orphan.profile.father_death_date, true, "d-m-Y");
+                        } else {
+                            orphanFatherDeathInput.value = orphan.orphan.profile.father_death_date;
+                        }
+                        orphanFatherDeathInput.disabled = true;
+                    } else {
+                        orphanFatherDeathInput.value = '';
+                        orphanFatherDeathInput.disabled = false;
+                    }
+
+                    if (orphan.orphan.birth_date) {
+                        let formattedDate = orphan.orphan.birth_date; // لأنه عندك الصيغة d-m-Y من السيرفر
+                        // إذا flatpickr مفعّل على الحقل:
+                        if (orphanBirthDateInput._flatpickr) {
+                            orphanBirthDateInput._flatpickr.setDate(formattedDate, true, "d-m-Y");
+                        } else {
+                            orphanBirthDateInput.value = formattedDate;
+                        }
+                        orphanBirthDateInput.disabled = true; // قفل الحقل لأنه فيه قيمة
+                    } else {
+                        orphanBirthDateInput.value = '';
+                        orphanBirthDateInput.disabled = false; // افتح الحقل لأنه فاضي
+                    }
+
                     orphanMotherNameInput.value = orphan.orphan.profile.mother_name || '';
                     orphanGuardianNameInput.value = orphan.orphan.guardian.guardian_name || '';
                     orphanHealthStatusInput.value = orphan.orphan.health_status || '';
@@ -229,7 +295,6 @@
                     orphanCodeInput.disabled = orphanCodeInput.value !== '';
                     orphanNameInput.disabled = orphanNameInput.value !== '';
                     orphanBirthPlaceInput.disabled = orphanBirthPlaceInput.value !== '';
-                    orphanNationalityInput.disabled = orphanNationalityInput.value !== '';
                     orphanGenderInput.disabled = orphanGenderInput.value !== '';
                     orphanBirthDateInput.disabled = orphanBirthDateInput.value !== '';
                     orphanFatherDeathInput.disabled = orphanFatherDeathInput.value !== '';
@@ -262,6 +327,9 @@
 
         });
     </script>
+
+
+
 
 
     @endpush

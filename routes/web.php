@@ -1,37 +1,41 @@
 <?php
 
-use App\Http\Controllers\AccreditationOrphanController;
-use App\Http\Controllers\ArchivedOrphanController;
-use App\Http\Controllers\BalanceController;
-use App\Http\Controllers\CertifiedOrphanController;
-use App\Http\Controllers\ComplaintController;
-use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\DonorController;
-use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\FirstLineFamilyController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\LocaleController;
-use App\Http\Controllers\MarketingOrphanController;
-use App\Http\Controllers\notificationController;
-use App\Http\Controllers\OrphanSupporterFieldValueController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RegisteredOrphanController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\ReviewOrphanController;
-use App\Http\Controllers\SponsoredOrphanController;
-use App\Http\Controllers\SupporterController;
-use App\Http\Controllers\VolunteerController;
-use App\Http\Controllers\WaitingOrphanController;
-use App\Http\Controllers\EmailController;
-use App\Http\Controllers\UploadExcel\UploadExcelController;
-use App\Http\Middleware\ApplyUserLanguage;
-use App\Http\Middleware\DashboardAccess;
 use App\Models\FirstLineFamily;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Middleware\DashboardAccess;
+use App\Http\Controllers\DonorController;
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\ReportController;
+use App\Http\Middleware\ApplyUserLanguage;
+use App\Http\Controllers\BalanceController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\SupporterController;
+use App\Http\Controllers\VolunteerController;
+use App\Http\Controllers\notificationController;
+use App\Http\Controllers\ReviewOrphanController;
+use App\Http\Controllers\WaitingOrphanController;
+use App\Http\Controllers\ArchivedOrphanController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\CertifiedOrphanController;
+use App\Http\Controllers\FirstLineFamilyController;
+use App\Http\Controllers\MarketingOrphanController;
 
 
+use App\Http\Controllers\SponsoredOrphanController;
+use App\Http\Controllers\OrphanAttachmentController;
+use App\Http\Controllers\RegisteredOrphanController;
+use App\Http\Controllers\AlbarFollowReportController;
+
+
+use App\Http\Controllers\AccreditationOrphanController;
+use App\Http\Controllers\OrphanSupporterFieldValueController;
 
 
 Route::middleware(ApplyUserLanguage::class)->group(function(){
@@ -126,6 +130,14 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
         Route::get('/download-report/{report}', [ReportController::class, 'DownloadReport'])->name('download.report');
 
 
+        Route::get('alber/follow/report' , [AlbarFollowReportController::class , 'index'])->name('report.follow.albar.index');
+        Route::get('download/alber/follow/report/{id}' , [AlbarFollowReportController::class , 'createReport'])->name('report.follow.albar.download');
+        Route::get('alber/follow/report/create' , [AlbarFollowReportController::class , 'create'])->name('report.follow.albar.create');
+        Route::post('alber/follow/report' , [AlbarFollowReportController::class , 'store'])->name('report.follow.albar.store');
+        Route::delete('alber/follow/report/{id}' , [AlbarFollowReportController::class , 'destroy'])->name('report.follow.albar.delete');
+        // Route::get('uplode/sponsor/file' , [AlbarFollowReportController::class , 'uploadeFile'])->name('uplode.sponsor.file');
+
+
 
         Route::get('files' , [FileController::class , 'index'])->name('file.index');
         Route::get('/files/categories', [FileController::class, 'getCategories']);
@@ -144,6 +156,8 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
         //image Controller
         Route::get('/image/show' , [ImageController::class , 'index'])->name('image');
         Route::get('/download-image/{file}', [ImageController::class, 'download'])->name('image.download');
+        // Route::get('/download/visa/{file}', [ImageController::class, 'visaDownload'])->name('visa.download');
+
     });
 
     // registered صلاحيات
@@ -161,8 +175,26 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
         Route::delete('/review/{review}', [ReviewOrphanController::class, 'destroy'])->name('review.destroy');
     });
 
+    // Marketer صلاحيات
+    Route::prefix('orphans')->name('orphan.')->middleware(['can:access-marketer'])->group(function(){
+        // Review Controller
+            Route::resource('/marketing' , MarketingOrphanController::class);
+            Route::get('/marketing/{supporterId}/complete/{orphanId}' , [MarketingOrphanController::class , 'create'])->name('marketing.create');
+            Route::get('/generate-pdf', [MarketingOrphanController::class, 'generatePDF'])->name('generate.pdf');
+            // Route::get('/marketing' , [MarketingOrphanController::class , 'index'])->name('marketing.index');
+            // Route::get('/marketing/{marketing}' , [MarketingOrphanController::class , 'show'])->name('marketing.show');
+            // Route::delete('/marketing/{marketing}' , [MarketingOrphanController::class , 'destroy'])->name('marketing.destroy');
 
-    // registered صلاحيات
+            // OrphanSupporterFieldValueController  تخزين بيانات اليتيم الخاصة بالجمعية
+            //follow for MarketingOrphanController
+            Route::post('marketing/alBer/store' , [OrphanSupporterFieldValueController::class , 'alBerStore'])->name('marketing.alBer.store');
+            Route::post('marketing/sharjah/store' , [OrphanSupporterFieldValueController::class , 'sharjahStore'])->name('marketing.sharjah.store');
+            Route::post('marketing/group/store' , [OrphanSupporterFieldValueController::class , 'groupStore'])->name('marketing.group.store');
+
+    });
+
+
+    // certified صلاحيات
     Route::prefix('orphans')->name('orphan.')->middleware(['can:access-certified'])->group(function(){
         //  Accreditation Controller قيد الاعتماد
         Route::get('/accreditation', [AccreditationOrphanController::class, 'index'])->name('accreditation.index');
@@ -184,6 +216,12 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
 
     Route::post('locale/{locale}' , [LocaleController::class, 'changeLocale'])->name('locale.change');
 
+    Route::get('/orphans/{orphan}/attachments/download-all', [OrphanAttachmentController::class, 'downloadAll'])
+    ->name('attachments.download.all');
+
+    // Route::get('/orphans/{orphan}/attachments/list', [OrphanAttachmentController::class, 'listAttachments'])->name('attachments.download.list');
+
+
     Route::get('/complaint' , [ComplaintController::class , 'index'])->name('complaint.index');
 
     Route::get('/notification' , [notificationController::class , 'index'])->name('notification.index');
@@ -202,8 +240,6 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
 
 });
 
-Route::get('/import-orphans', [UploadExcelController::class, 'import']);
-
 
 
 Route::middleware('auth')->group(function () {
@@ -211,5 +247,55 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::get('/clear-all', function () {
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('optimize:clear');
+
+    return 'All caches cleared!';
+});
+
+Route::get('/cache-all', function () {
+    Artisan::call('config:cache');
+    Artisan::call('cache:cache');
+    Artisan::call('route:cache');
+    Artisan::call('view:cache');
+
+
+    return 'All caches cached!';
+});
+
+
+Route::get('/create/link', function () {
+
+    symlink(base_path('storage/app/public'), base_path('public/storage'));
+});
+
+
+Route::get('/unzip-orphan', function () {
+    $zipPath = storage_path('app/public/orphans/جمعية دبى الخيرية 1.zip');
+    $extractTo = storage_path('app/public/orphans');
+
+    if (!file_exists($zipPath)) {
+        return "الملف غير موجود.";
+    }
+
+    $zip = new ZipArchive;
+
+    if ($zip->open($zipPath) === TRUE) {
+        $zip->extractTo($extractTo);
+        $zip->close();
+        return "تم فك الضغط بنجاح.";
+    } else {
+        return "فشل في فتح الملف.";
+    }
+});
+
+
+
 
 require __DIR__.'/auth.php';

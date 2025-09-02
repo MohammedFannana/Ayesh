@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class Balance extends Model
 {
     protected $fillable = [
-        'supporter_id' , 'payment_date' , 'amount'  , 'payment_image'
+        'supporter_id' , 'payment_date' , 'amount'  , 'payment_image', 'orphan_name','start_sponsored'
     ];
 
     public function supporter()

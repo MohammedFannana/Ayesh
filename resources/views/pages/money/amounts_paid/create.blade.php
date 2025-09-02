@@ -3,6 +3,8 @@
     <h2 class="mb-4"> {{__('المدفوعات')}} </h2>
     <h4 class="mb-4 title-color"> {{__('إضافة مصروف منتفع')}}</h4>
 
+    <x-alert name="success" />
+    <x-alert name="danger" />
 
     <form action="{{route('expenses.store')}}" method="post" enctype="multipart/form-data">
         @csrf
@@ -14,8 +16,12 @@
 
                 <p class="title mb-3"> {{__('المعلومات الأساسية')}}</p>
 
-                <!-- orphan_internal_code  -->
                 <div class="col-12 col-md-6 mb-3">
+                    <x-form.input name="start_sponsored"  class="border" type="date" label=" {{__('تاريخ بدأ الكفالة')}} "  placeholder="{{__('أدخل تاريخ بدأ الكفالة')}}"/>
+                </div>
+
+                <!-- orphan_internal_code  -->
+                {{-- <div class="col-12 col-md-6 mb-3">
                     <label class="mb-2">{{ __('رقم المنتفع') }}</label>
                     <div class="select-container">
                         <select id="orphan_id" name="orphan_id" class="form-control form-select @error('orphan_id') is-invalid @enderror">
@@ -47,12 +53,12 @@
                             {{$message}}
                         </div>
                     @enderror
-                </div>
+                </div> --}}
 
                 <!--  amount -->
-                <div class="col-12 col-md-6 mb-3">
+                {{-- <div class="col-12 col-md-6 mb-3">
                     <x-form.input name="amount"  class="border" type="text" label=" {{__('المبلغ')}} "  placeholder="{{__('أدخل المبلغ')}}"/>
-                </div>
+                </div> --}}
 
             </div>
         </div>
@@ -64,8 +70,8 @@
 
             {{-- add_file --}}
             <div class="col-12 col-md-6 mb-3">
-                <label for="payment_image" class="custom-file-upload w-75 text-center"> {{__('اضافة ملف')}}</label>
-                <x-form.input name="payment_image" class="border hidden-file-style" type="file" id="payment_image" style="display: none;"  autocomplete="" />
+                <label for="payment_file" class="custom-file-upload w-75 text-center"> {{__('اضافة ملف')}}</label>
+                <x-form.input name="payment_file" class="border hidden-file-style" type="file" id="payment_file" style="display: none;"  autocomplete="" accept=".xlsx,.xls"/>
             </div>
 
             <div class="col-12 row gap-1 mb-4">
@@ -92,7 +98,7 @@
     @push('scripts')
 
         {{-- script for two select --}}
-        <script>
+        {{-- <script>
             document.addEventListener("DOMContentLoaded", function () {
                 let orphanIdSelect = document.getElementById("orphan_id");
                 let orphanNameSelect = document.getElementById("orphan_name");
@@ -115,12 +121,12 @@
                     orphanIdSelect.value = selectedId; // تحديث القائمة الأولى بنفس القيمة
                 });
             });
-        </script>
+        </script> --}}
 
         {{-- script for file to show file path --}}
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-                let fileInput = document.getElementById("payment_image"); // حقل اختيار الصورة
+                let fileInput = document.getElementById("payment_file"); // حقل اختيار الصورة
                 let fileNameInput = document.querySelector(".file_name"); // حقل عرض اسم الملف
                 let deleteButton = document.querySelector(".delete_image_path"); // زر حذف الملف
 

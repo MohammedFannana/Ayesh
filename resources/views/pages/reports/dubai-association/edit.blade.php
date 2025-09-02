@@ -1,5 +1,11 @@
 <x-main-layout>
 
+    @push('styles')
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    @endpush
+
     <h2 class="mb-5"> {{__('تعديل التقرير')}}</h2>
 
     <div class="supporters bg-white rounded shadow-sm p-3">
@@ -29,48 +35,48 @@
 
                     {{-- nationality --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="nationality" :value="$report->orphan->getFieldValueByDatabaseName('nationality')" id="nationality" class="border" type="text" label=" {{__('الجنسية')}} " autocomplete="" placeholder=" أدخل الجنسية  " disabled/>
+                        <x-form.input name="nationality" value="مصري" id="nationality" class="border" type="text" label=" {{__('الجنسية')}} " autocomplete="" placeholder=" أدخل الجنسية  " disabled/>
                     </div>
 
                     {{-- birth_date --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="birth_date" :value="$report->orphan->birth_date" id="birth_date" class="border" type="date" label="  {{__('تاريخ الميلاد')}}" autocomplete="" disabled/>
+                        <x-form.input name="birth_date" :value="$report->orphan->birth_date ?? $report->fields['birth_date']" id="birth_date" class="border" type="text" label="  {{__('تاريخ الميلاد')}}" autocomplete="" :disabled ="$report->orphan->birth_date  ? true : false"/>
                     </div>
 
                     {{-- birth_place --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="birth_place" :value="$report->orphan->birth_place" id="birth_place" class="border" type="text" label=" {{__('مكان الميلاد')}} " autocomplete="" placeholder=" أدخل مكان الميلاد   " disabled/>
+                        <x-form.input name="birth_place" :value="$report->orphan->birth_place ?? $report->fields['birth_place']" id="birth_place" class="border" type="text" label=" {{__('مكان الميلاد')}} " autocomplete="" placeholder=" أدخل مكان الميلاد   " :disabled ="$report->orphan->birth_place  ? true : false"/>
                     </div>
 
                     {{-- gender --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="gender" id="gender" :value="$report->orphan->gender" class="border" type="text" label=" {{__('الجنس')}} " autocomplete="" placeholder=" أدخل الجنس  " disabled/>
+                        <x-form.input name="gender" id="gender" :value="$report->orphan->gender ?? $report->fields['gender']" class="border" type="text" label=" {{__('الجنس')}} " autocomplete="" placeholder=" أدخل الجنس  " :disabled="$report->orphan->gender ? true : false"/>
                     </div>
 
                     {{-- person_responsible--}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="guardian_name" :value="$report->orphan->guardian->guardian_name" id="guardian_name" class="border" type="text" label=" {{__('اسم المسؤول عن اليتيم')}}" autocomplete="" placeholder="أدخل اسم المسؤول عن اليتيم" disabled/>
+                        <x-form.input name="guardian_name" :value="$report->orphan->guardian->guardian_name ?? $report->fields['guardian_name']" id="guardian_name" class="border" type="text" label=" {{__('اسم المسؤول عن اليتيم')}}" autocomplete="" placeholder="أدخل اسم المسؤول عن اليتيم" :disabled="$report->orphan->guardian->guardian_name ? true : false"/>
                     </div>
 
                     {{-- mother_name--}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="mother_name" :value="$report->orphan->profile->mother_name" id="mother_name" class="border" type="text" label=" {{__('اسم الأم')}}" autocomplete="" placeholder="أدخل اسم الأم" disabled/>
+                        <x-form.input name="mother_name" :value="$report->orphan->profile->mother_name ?? $report->fields['mother_name']" id="mother_name" class="border" type="text" label=" {{__('اسم الأم')}}" autocomplete="" placeholder="أدخل اسم الأم" :disabled="$report->orphan->profile->mother_name ? true : false"/>
                     </div>
 
                     {{-- father_death --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="father_death_date" :value="$report->orphan->profile->father_death_date" id="father_death_date" class="border" type="date" label=" {{__('تاريخ وفاة الأب')}}" autocomplete="" disabled/>
+                        <x-form.input name="father_death_date" :value="$report->orphan->profile->father_death_date ?? $report->fields['father_death_date']" id="father_death_date" class="border" type="text" label=" {{__('تاريخ وفاة الأب')}}" autocomplete="" :disabled="$report->orphan->profile->father_death_date ? true : false"/>
                     </div>
 
 
                     {{-- academic_stage --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="academic_stage" :value="$report->orphan->profile->academic_stage" id="academic_stage" class="border" type="text" label=" {{__('المرحلة الدراسية')}}" autocomplete="" placeholder="أدخل المرحلة الدراسية" disabled/>
+                        <x-form.input name="academic_stage" :value="$report->orphan->profile->academic_stage ?? $report->fields['academic_stage']" id="academic_stage" class="border" type="text" label=" {{__('المرحلة الدراسية')}}" autocomplete="" placeholder="أدخل المرحلة الدراسية" :disabled="$report->orphan->profile->academic_stage ? true : false"/>
                     </div>
 
                     {{-- health_status --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="health_status" :value="$report->orphan->health_status" id="health_status" class="border" type="text" label="  {{__('الحالة الصحية')}}" autocomplete="" placeholder="أدخل الحالة الصحية" disabled/>
+                        <x-form.input name="health_status" :value="$report->orphan->health_status ?? $report->fields['health_status']" id="health_status" class="border" type="text" label="  {{__('الحالة الصحية')}}" autocomplete="" placeholder="أدخل الحالة الصحية" :disabled="$report->orphan->health_status ? true : false"/>
                     </div>
 
 
@@ -167,5 +173,29 @@
         </form>
 
     </div>
+
+    @push('scripts')
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        <script>
+            const dateFields = [
+                "#father_death_date",
+                "#birth_date",
+                "#report_date"
+            ];
+
+            dateFields.forEach(id => {
+                flatpickr(id, {
+                    dateFormat: "Y-m-d",
+                    altInput: true,
+                    altFormat: "d-m-Y",
+                    allowInput: true
+                });
+            });
+
+        </script>
+    @endpush
 
 </x-main-layout>

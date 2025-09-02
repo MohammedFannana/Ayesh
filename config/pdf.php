@@ -3,8 +3,8 @@
 return [
     'mode'                     => '',
     'format'                   => 'A4',
-    'default_font_size'        => '12',
-    'default_font'             => 'sans-serif',
+    'default_font_size'        => '15',
+    'default_font'             => 'arialarabic',
     'margin_left'              => 10,
     'margin_right'             => 10,
     'margin_top'               => 10,
@@ -25,11 +25,20 @@ return [
     'watermark_image_alpha'    => 0.2,
     'watermark_image_size'     => 'D',
     'watermark_image_position' => 'P',
-    'custom_font_dir'          => '',
-    'custom_font_data'         => [],
+    'custom_font_dir'          => resource_path('fonts/'),
+    'custom_font_data' => [
+        'arialarabic' => [
+            'R' => 'arial.ttf',     // Regular
+            'B' => 'arialbd.ttf',   // Bold
+            'useOTL' => 0xFF,
+            'useKashida' => 75,
+        ],
+    ],
     'auto_language_detection'  => false,
     'temp_dir'                 => storage_path('app'),
     'pdfa'                     => false,
     'pdfaauto'                 => false,
     'use_active_forms'         => false,
+
+
 ];

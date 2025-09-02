@@ -41,7 +41,7 @@ class UserController extends Controller
             'name' => ['required' ,'string'],
             'email' => ['required', 'email', Rule::unique('users' , 'email')],
             'phone' => ['required' , 'string' , 'unique:users,phone'],
-            'type' => ['required' , 'in:registered,references,certified,financial_manager'],
+            'type' => ['required' , 'in:registered,references,certified,marketer,financial_manager'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -79,7 +79,7 @@ class UserController extends Controller
             'phone' => ['sometimes', Rule::unique(User::class)->ignore($id)],
             'name' => ['sometimes','string', 'min:3'],
             'email' => ['sometimes' , 'email', 'max:255', Rule::unique(User::class)->ignore($id)],
-            'type' => ['sometimes' , 'in:registered,references,certified,financial_manager'],
+            'type' => ['sometimes' , 'in:registered,references,marketer,certified,financial_manager'],
         ]);
 
 

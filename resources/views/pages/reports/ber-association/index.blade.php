@@ -72,7 +72,7 @@
                                 <span style="color: var(--text-color);">  {{__('تعديل')}} </span>
                             </a>
 
-                            <form action="{{route('report.destroy' , $report->id)}}" method="post" style="margin-right: -5px">
+                            <form action="{{route('report.destroy' , $report->id)}}" method="post">
                                 @csrf
                                 @method('delete')
                                 <button class="submit border-0 p-0 bg-transparent">

@@ -13,7 +13,7 @@
 
         <p class="text-center p-3  fw-semibold " style="background-color: #ECECEC; font-size:18px"> {{__('الرصيد الكلي')}} :<span class="title-color fs-5 fw-bold">{{ $expenseAmount }}</span> </p>
 
-        <table class="table">
+        {{-- <table class="table">
             <thead>
                 <tr>
                     <th scope="col"> {{__('المبلغ')}} </th>
@@ -47,7 +47,53 @@
                 @endforelse
 
             </tbody>
-        </table>
+        </table> --}}
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+
+                    <tr>
+                        <th scope="col">{{__('الكود الداخلي')}}</th>
+                        <th scope="col"> {{__('الكود الخارجي')}}</th>
+                        <th scope="col"> {{__('الاسم')}}</th>
+                        <th scope="col">  {{__('اجمالي المدفوع')}}</th>
+                        <th scope="col">  {{__('تاريخ بدأ الكفالة')}}</th>
+                        <th scope="col">  {{__('تاريخ نهاية الكفالة')}}</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @forelse ($orphan->expenses as $expense)
+
+                        <tr>
+                            <th scope="row"> {{$expense->internal_code}} </th>
+                            <td> {{$expense->external_code}} </td>
+                            <td> {{$expense->orphan}} </td>
+                            <td> {{$expense->net_amount}} </td>
+                            <td> {{$expense->start_date}} </td>
+                            <td> {{$expense->end_date}} </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+                            <th colspan="6" class="text-center text-danger">
+                                {{__('لا يوجد كفالات لعرضها')}}
+                            </th>
+                        </tr>
+
+                    @endforelse
+
+
+                </tbody>
+
+            </table>
+        </div>
 
 
 

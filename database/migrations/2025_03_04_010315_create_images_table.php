@@ -26,6 +26,10 @@ return new class extends Migration
             $table->string('guardianship_decision');
             $table->string('data_validation')->nullable();
             $table->string('agricultural_holding')->nullable();
+            $table->string('visa_file')->nullable();
+
+
+
             $table->timestamps();
         });
     }

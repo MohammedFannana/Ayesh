@@ -91,7 +91,44 @@
                     {{-- @csrf --}}
 
                 {{-- this button use to send orphan_ids[] input to {{route('orphan.generate.pdf')}} --}}
-                <a href="{{route('orphan.generate.pdf')}}" type="button" id="export_pdf" class="btn add-button" style="width: 170px" id="submit_two_form"> {{ __('تحميل pdf') }} </a>
+                    <div class="dropdown">
+                    <button class="btn add-button dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="width: 170px;">
+                        {{ __('تحميل') }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="exportDropdown">
+                        {{-- <li>
+                            <a class="dropdown-item" href="{{ route('orphan.generate.pdf', ['type' => 'pdf']) }}" id="export_pdf" class="btn add-button" style="width: 170px" id="submit_two_form">
+                                {{ __('تحميل PDF') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('orphan.generate.pdf', ['type' => 'word']) }}" id="export_pdf" class="btn add-button" style="width: 170px" id="submit_two_form">
+                                {{ __('تحميل Word') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('orphan.generate.pdf', ['type' => 'powerpoint']) }}" id="export_pdf" class="btn add-button" style="width: 170px" id="submit_two_form">
+                                {{ __('تحميل PowerPoint') }}
+                            </a>
+                        </li> --}}
+                        <li>
+                            <a class="dropdown-item export-btn" href="#" data-type="pdf">
+                                {{ __('تحميل PDF') }}
+                            </a>
+                        </li>
+                        {{-- <li>
+                            <a class="dropdown-item export-btn" href="#" data-type="word">
+                                {{ __('تحميل Word') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item export-btn" href="#" data-type="powerpoint">
+                                {{ __('تحميل PowerPoint') }}
+                            </a>
+                        </li> --}}
+
+                    </ul>
+                </div>
                 {{-- </form> --}}
 
                 <button id="reset_button" class="btn btn-danger ps-4 pe-4"> {{__('الغاء')}} </button>
@@ -131,8 +168,8 @@
                         <td scope="row"> {{$orphan->internal_code}} </ف>
                         <td> {{$orphan->name}} </td>
                         <td> {{$orphan->marketing->supporter->name}} </td>
-                        <td> {{$orphan->profile->phone}}  </td>
-                        <td> {{$orphan->family->address}} </td>
+                        <td> {{$orphan->phones[0]->phone_number}}  </td>
+                        <td> {{$orphan->profile->full_address}} </td>
 
                         <td style="position: relative;">
 
@@ -261,7 +298,7 @@
         </script>
 
         {{-- to show and hide the associations_list and make reset button work --}}
-        <script>
+        {{-- <script>
             $(document).ready(function () {
 
                 // عند النقر على reset_button
@@ -287,11 +324,11 @@
                     }
                 });
             });
-        </script>
+        </script> --}}
 
         {{-- when click in submit_two_form button send associations_list and checkbox input--}}
 
-        <script>
+        {{-- <script>
             document.getElementById('export_pdf').addEventListener('click', function(event) {
                 event.preventDefault(); // منع السلوك الافتراضي للرابط
 
@@ -306,7 +343,28 @@
                 // توجيه المستخدم إلى الـ route مع المعرفات المحددة
                 window.location.href = `{{ route('orphan.generate.pdf') }}?orphan_ids=${orphanIds}`;
             });
+        </script> --}}
+
+        <script>
+            document.querySelectorAll('.export-btn').forEach(function (btn) {
+                btn.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    let type = this.dataset.type;
+                    let orphanCheckboxes = document.querySelectorAll('.convert_waiting_checkbox:checked');
+
+                    if (orphanCheckboxes.length === 0) {
+                        alert("يرجى اختيار يتيم واحد على الأقل.");
+                        return;
+                    }
+
+                    let orphanIds = Array.from(orphanCheckboxes).map(cb => cb.value).join(',');
+                    let url = `{{ route('orphan.generate.pdf') }}?type=${type}&orphan_ids=${orphanIds}`;
+                    window.location.href = url;
+                });
+            });
         </script>
+
 
 
     @endpush

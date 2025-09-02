@@ -188,7 +188,10 @@
                 <p style="color:var(--text-color)" class="mb-3">{{__('الصور والملفات المطلوبة')}}</p>
 
                 <label for="image" class="mb-3">{{__('صورة تحقق شخصية')}}</label> <br>
-                <label for="selfie_image" class="custom-file-upload text-center" style="width:30%">{{__('ارفق صورة تحقق شخصية')}}</label>
+                <label for="selfie_image" class="custom-file-upload text-center" style="width:30%">{{__('ارفق صورة تحقق شخصية')}}
+                    <img src="" width="60" alt="">
+                    <div class="file-preview mt-2"></div>
+                </label>
                 <input class="hidden-file-style" name="selfie_image" type="file" id="selfie_image" style="display: none;">
             </div>
 

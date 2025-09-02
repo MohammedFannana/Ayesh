@@ -21,6 +21,11 @@
 
         <!-- style.css -->
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <!-- Flatpickr CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+
 
 
 
@@ -30,7 +35,7 @@
                 background-color:#3B9E2933 !important;
                 color: var(--color) !important;
                 border-radius: 5px;
-                padding-left: 6px !important;
+                padding-left:6px !important;
             }
 
             .active-text{
@@ -164,7 +169,7 @@
 
                                 <li class="nav-item p-2 me-5" style="height: 40px">
                                     <a  href="{{ route('supporter.index')}}" class="nav-link direction {{Route::is('supporter.*')?'active':''}}"  style="text-align: start;">
-                                        {{__('الداعمين')}}
+                                        {{__('الجهات المانحة')}}
                                     </a>
                                 </li>
 
@@ -294,6 +299,12 @@
                                         </a>
                                     </li>
 
+                                    <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
+                                        <a  href="{{route('report.follow.albar.index')}}" class="two dropdown-item direction "  style="text-align: start;">
+                                            {{__(' تقرير متابعة دار البر ')}}
+                                        </a>
+                                    </li>
+
                                     <li class="nav-item two p-2 ps-3 me-5 status-item d-none" style="height: 40px">
                                         <a  href="{{route('report.index' , 4)}}" class="dropdown-item direction {{Route::is('report.index' , 4)?'active-text':''}}"  style="text-align: start;">
                                             {{__('تقرير دبي الخيرية')}}
@@ -362,7 +373,7 @@
 
                                     <li class="nav-item p-2 me-5" style="height: 40px">
                                         <a  href="{{ route('supporter.index')}}" class="nav-link direction {{Route::is('supporter.*')?'active':''}}"   style="text-align: start;">
-                                            {{__('الداعمين')}}
+                                            {{__('الجهات المانحة')}}
                                         </a>
                                     </li>
 
@@ -431,14 +442,18 @@
                                                     {{__('الحالات المعتمدة')}}
                                                 </a>
                                             </li>
+                                            
+                                        @endcan
 
+                                        @can('access-marketer')
                                             <li class="nav-item p-2  ps-4 me-5 orphan-menu d-none" style="height: 40px">
                                                 <a  href="{{route('orphan.marketing.index')}}" class="three dropdown-item direction"  style="text-align: start;">
                                                     {{__('الحالات المقدمة للتسويق')}}
                                                 </a>
                                             </li>
+                                        @endcan
 
-
+                                        @can('access-admin')
                                             <li class="nav-item  p-2 ps-4 me-5 orphan-menu d-none" style="height: 40px">
                                                 <a  href="{{route('orphan.waiting.index')}}" class="three dropdown-item direction"   style="text-align: start;">
                                                     {{__('الحالات انتظار الرد')}}
@@ -532,6 +547,12 @@
                                         </li>
 
                                         <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
+                                            <a  href="{{route('report.follow.albar.index')}}" class="two dropdown-item direction "  style="text-align: start;">
+                                                {{__(' تقرير متابعة دار البر ')}}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
                                             <a  href="{{route('report.index' , 4)}}" class="two dropdown-item direction"  style="text-align: start;">
                                                 {{__('تقرير دبي الخيرية')}}
                                             </a>
@@ -608,6 +629,8 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="{{asset('js/script.js')}}"></script>
+        <!-- Flatpickr JS -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -709,7 +732,6 @@
                 }
             });
         </script> --}}
-
 
 
         {{-- <script>

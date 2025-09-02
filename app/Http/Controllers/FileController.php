@@ -42,8 +42,8 @@ class FileController extends Controller
             $validated = $request->validate([
                 'type' => 'required|in:orphan,project,supporter,volunteer',  // تحقق من القيمة المحددة
                 'owner_file' => 'required|integer',  // يجب أن تكون قيمة owner_file ID صحيحة
-                'file' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                                    'dimensions:min_width=100,min_height=100','max:1048576',],
+                'file' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                                    'max:1048576',],
             ]);
 
             // dd($validated);

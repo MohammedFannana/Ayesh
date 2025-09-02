@@ -63,62 +63,84 @@
         <hr>
 
 
-        <table class="table">
-            <thead>
+        <div class="table-responsive">
 
-                <tr>
-                    <th scope="col"> {{__('رقم المنتفع')}}</th>
-                    <th scope="col"> {{__('اسم المنتفع')}}</th>
-                    <th scope="col"> {{__('المبلغ')}} </th>
-                    <th scope="col" class="text-center">  {{__('الملفات المرفقة')}}</th>
-                    <th scope="col"> {{__('الاجراءات')}} </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                @forelse ($expenses as $expense)
+            <table class="table">
+                <thead>
 
                     <tr>
-                        <td scope="row">{{$expense->orphan->id}}</td>
-                        <td> {{$expense->orphan->name}} </td>
-                        <td class="title-color"> {{$expense->amount}} </td>
-                        <td class="text-center">
-                            <a href="{{route('orphan.image' , ['file' => encrypt($expense->payment_image)])}}" type="button" class="text-decoration-none view-file w-100">
-                                {{ __('وصل استلام المبلغ') }}.{{ pathinfo($expense->payment_image, PATHINFO_EXTENSION) }}
-                            </a>
-                        </td>
-                        <td>
-
-                            <form action="{{route('expenses.destroy' , $expense->id)}}" method="post" style="margin-right: -5px">
-                                @csrf
-                                @method('delete')
-                                <button class="submit border-0 bg-transparent">
-                                    <img src="{{asset('image/Delete.svg')}}" alt="">
-                                </button>
-                            </form>
-
-                        </td>
+                        <th scope="col"> {{__(' الكود الداخلي ')}}</th>
+                        <th scope="col"> {{__('اسم اليتيم')}}</th>
+                        <th scope="col"> {{__('الكود الخارجي')}} </th>
+                        <th scope="col"> {{__('رقم الفيزا')}} </th>
+                        <th scope="col"> {{__('اسم البنك')}} </th>
+                        <th scope="col"> {{__('اسم الوصي')}} </th>
+                        <th scope="col"> {{__('الرقم القومي')}} </th>
+                        <th scope="col"> {{__('عدد الأيتام')}} </th>
+                        <th scope="col"> {{__('عدد الأشهر')}} </th>
+                        <th scope="col"> {{__('المحصل')}} </th>
+                        <th scope="col"> {{__('النسبة الادارية')}} </th>
+                        <th scope="col"> {{__('صافي الاجمالي')}} </th>
+                        <th scope="col"> {{__('الكفالة الشهرية')}} </th>
+                        <th scope="col"> {{__('بداية الكفالة')}} </th>
+                        <th scope="col"> {{__('نهاية الكفالة')}} </th>
+                        <th scope="col"> {{__('الاجراءات')}} </th>
 
                     </tr>
 
-                @empty
+                </thead>
 
-                    <tr>
-                        <td colspan="5" class="text-center fs-5 rounded text-white" style="background-color: var(--title-color)">
-                            {{__('لا يوجد مبالغ مدفوعة')}}
-                        </td>
-                    </tr>
+                <tbody>
 
-                @endforelse
+                    @forelse ($expenses as $expense)
+
+                        <tr>
+                            <td>{{$expense->internal_code}}</td>
+                            <td>{{$expense->orphan}}</td>
+                            <td>{{$expense->external_code}}</td>
+                            <td>{{$expense->visa_number}}</td>
+                            <td>{{$expense->bank_name}}</td>
+                            <td>{{$expense->guardian_name}}</td>
+                            <td>{{$expense->guardian_national_id}}</td>
+                            <td>{{$expense->orphan_number}}</td>
+                            <td>{{$expense->month_number}}</td>
+                            <td>{{$expense->total}}</td>
+                            <td>{{$expense->administrative_ratio}}</td>
+                            <td>{{$expense->net_amount}}</td>
+                            <td>{{$expense->orphan_paid_monthly}}</td>
+                            <td>{{$expense->start_date}}</td>
+                            <td>{{$expense->end_date}}</td>
+                            <td>
+
+                                <form action="{{route('expenses.destroy' , $expense->id)}}" method="post" style="margin-right: -5px">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="submit border-0 bg-transparent">
+                                        <img src="{{asset('image/Delete.svg')}}" alt="">
+                                    </button>
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+                            <td colspan="16" class="text-center fs-5 rounded text-white" style="background-color: var(--title-color)">
+                                {{__('لا يوجد مبالغ مدفوعة')}}
+                            </td>
+                        </tr>
+
+                    @endforelse
 
 
 
-            </tbody>
+                </tbody>
 
-        </table>
+            </table>
+
+        </div>
 
     </div>
 

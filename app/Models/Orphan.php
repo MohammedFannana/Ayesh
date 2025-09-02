@@ -8,29 +8,29 @@ class Orphan extends Model
 {
     protected $fillable = [
         'name' ,'status' , 'internal_code' , 'application_form'  , 'national_id',
-        'birth_date' , 'birth_place' , 'gender' ,'age' , 'case_type' ,'health_status',
-        'bank_name' , 'visa_number',
+        'birth_date' , 'birth_place' , 'gender' ,'age' , 'case_type' ,'health_status','disease_description',
+        'disability_type','bank_name' , 'visa_number',
     ];
 
 
     // one to one relationship with profile table
     public function profile() {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class)->withDefault();
     }
 
     // one to one relationship with guardians table
     public function guardian() {
-        return $this->hasOne(Guardian::class);
+        return $this->hasOne(Guardian::class)->withDefault();
     }
 
     // one to one relationship with family table
     public function family() {
-        return $this->hasOne(Family::class);
+        return $this->hasOne(Family::class)->withDefault();
     }
 
     // one to one relationship with image table
     public function image() {
-        return $this->hasOne(Image::class);
+        return $this->hasOne(Image::class)->withDefault();
     }
 
     // one to one relationship with certified_orphan_extras table
@@ -92,10 +92,15 @@ class Orphan extends Model
     }
 
     // one to many relation ship with expenses model المدفوعات
-    public function expenses()
-    {
-        return $this->hasMany(Expense::class);
-    }
+    // public function expenses()
+    // {
+    //     return $this->hasMany(Expense::class);
+    // }
+
+       public function expenses()
+        {
+            return $this->hasMany(ExpenseOrphan::class, 'internal_code', 'internal_code');
+        }
 
     // one to one relationship with report
     // كل يتيم لديه تقرير واحد فقط.
@@ -108,6 +113,16 @@ class Orphan extends Model
     {
         return $this->morphMany(File::class, 'owner_file');
     }
+
+    public function sponsor()
+    {
+        return $this->hasOne(Sponsor::class, 'internal_code', 'internal_code');
+    }
+
+    public function data(){
+        return $this->hasOne(FollowReportData::class);
+    }
+
 
 
 }

@@ -1,5 +1,41 @@
 <x-main-layout>
 
+    @push('styles')
+        <style>
+
+            input[type="radio"][disabled]:checked::before {
+                background-color: #000; /* لون الدائرة الداخلية */
+            }
+
+            input[type="radio"][disabled] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                border: 2px solid #999;
+                border-radius: 50%;
+                position: relative;
+                background-color: #fff;
+                cursor: not-allowed;
+            }
+
+            input[type="radio"][disabled]:checked::before {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 8px;
+                height: 8px;
+                background-color: #000;
+                border-radius: 50%;
+            }
+
+
+
+
+        </style>
+    @endpush
+
     <h2 class="mb-4"> {{__('الأيتام المقدمين')}}</h2>
     <h4 class="mb-5 title-color">  {{__('الحالات المدخلة - جمعية المجموعة')}}</h4>
 
@@ -32,10 +68,10 @@
 
             {{-- birth_date --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="birth_date" :value="$orphan->birth_date" class="border" type="date" label=" {{__('تاريخ ميلاد اليتيم')}}" autocomplete="" disabled/>
+                <x-form.input name="birth_date" :value="$orphan->birth_date" class="border" type="text" label=" {{__('تاريخ ميلاد اليتيم')}}" autocomplete="" disabled/>
             </div>
 
-            <div class="col-12 col-md-6 mb-3 ">
+            {{-- <div class="col-12 col-md-6 mb-3 ">
                 <label for="orphan" class="mb-2"> {{__('يتيم الأبوين')}}</label>
                 <div class="d-flex" style="gap: 180px">
                     <div>
@@ -48,11 +84,11 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
 
             {{-- father_death --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="father_death_date" :value="$orphan->profile->father_death_date" class="border" type="date" label=" {{__('تاريخ وفاة الأب')}}" autocomplete="" disabled/>
+                <x-form.input name="father_death_date" :value="$orphan->profile->father_death_date" class="border" type="text" label=" {{__('تاريخ وفاة الأب')}}" autocomplete="" disabled/>
             </div>
 
 
@@ -67,9 +103,12 @@
             </div>
 
             {{-- class --}}
-            <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="class" :value="$orphan->profile->class" class="border" type="text" label=" {{__('الصف')}}" autocomplete="" placeholder="أدخل الصف" disabled/>
-            </div>
+            @if ($orphan->profile && $orphan->profile->class)
+                <div class="col-12 col-md-6 mb-3">
+                    <x-form.input name="class" :value="$orphan->profile->class" class="border" type="text" label=" {{__('الصف')}}" autocomplete="" placeholder="أدخل الصف" disabled/>
+                </div>
+            @endif
+
 
 
             {{-- Health status --}}
@@ -110,7 +149,7 @@
 
             {{--  address --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="address" :value="$orphan->family->address" class="border" type="text" label=" {{__('العنوان')}} " autocomplete="" placeholder="أدخل العنوان " disabled/>
+                <x-form.input name="full_address" :value="$orphan->profile->full_address" class="border" type="text" label=" {{__('العنوان')}} " autocomplete="" placeholder="أدخل العنوان " disabled/>
             </div>
 
             {{-- notes --}}
@@ -123,15 +162,19 @@
                 <x-form.input name="date" class="border" type="text" label=" التاريخ " autocomplete="" placeholder="أدخل تاريخ  "/>
             </div> --}}
 
+            
 
-            {{-- signature --}}
-            {{-- <div class="col-12 col-md-6 mb-3">
+            {{-- signature_seal --}}
+            <div class="col-12 col-md-6 mb-3">
+                <label class="mb-2"> {{__(' التوقيع و الختم  ')}}</label> <br>
+                <label for="signature_seal" class="custom-file-upload w-50 text-center"> {{__('ارفق صورة التوقيع ')}}
+                    <img src="" width="60" alt="">
+                    <div class="file-preview mt-2"></div>
+                </label>
+                <x-form.input name="signature_seal" class="border hidden-file-style" type="file" id="signature_seal" style="display: none;"  autocomplete="" />
 
-                <label class="mb-2"> توقيع المسؤول </label> <br>
-                <label for="signature" class="custom-file-upload w-50 text-center"> ارفق  صورة التوقيع  </label>
-                <input class="hidden-file-style" name="signature" type="file" id="signature" style="display: none;">
+            </div>
 
-            </div> --}}
 
             @foreach ($fields as $field)
                 <div class="col-12 col-md-6 mb-3">
@@ -140,6 +183,8 @@
                         <br>
                         <label for="field_{{ $field->id }}" class="custom-file-upload w-75 text-center">
                             {{ translate_text('ارفق صورة ' . $field->field_name) }}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
                         </label>
                         <input
                             name="fields[{{ $field->id }}][file]"
@@ -187,6 +232,8 @@
                     @endif
                 </div>
             @endforeach
+            {{-- signature --}}
+
 
 
             <div class="d-flex justify-content-center gap-4 mt-4">

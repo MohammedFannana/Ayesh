@@ -41,9 +41,9 @@ class VolunteerController extends Controller
             'phone' => ['string' , 'required'],
             'email' => ['string' , 'email' , 'required'],
             'address' => ['string' , 'required'],
-            'selfie_image' => ['required' , 'image', 'max:1048576', // 1MB
-                                'mimes:png,jpg,JPEG', // يسمح فقط بملفات PNG و JPG/JPEG
-                                'dimensions:min_width=100,min_height=100',
+            'selfie_image' => ['required' , 'file', 'max:1048576', // 1MB
+                                'mimes:png,jpg,JPEG,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                                
             ],
             'languages' => ['required', 'json'], // تحقق من أن القيمة JSON
             'area' => ['required', 'json'], // تحقق من أن القيمة JSON

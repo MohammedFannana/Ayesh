@@ -59,6 +59,11 @@ class AppServiceProvider extends ServiceProvider
             return $user->type === 'financial_manager' || $user->can('access-admin');
         });
 
+        // Gate للتحقق من صلاحية الوصول لصفحات التسويق (مراجع)
+        Gate::define('access-marketer', function ($user) {
+            return $user->type === 'marketer' || $user->can('access-admin');
+        });
+
 
         // صلاحية لمنع اليتيم الانتقال من حالة الاعتماد الا بعد اكمال البيانات
 

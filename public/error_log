@@ -1,0 +1,13 @@
+[09-May-2025 18:43:11 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.32. in /home/ayesh/orphans.ayesh.org/vendor/composer/platform_check.php on line 24
+[17-May-2025 08:52:34 UTC] PHP Warning:  POST Content-Length of 12307765 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[17-May-2025 08:57:27 UTC] PHP Warning:  POST Content-Length of 15046907 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[17-May-2025 09:09:06 UTC] PHP Warning:  POST Content-Length of 9940990 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[17-May-2025 09:26:56 UTC] PHP Warning:  POST Content-Length of 9965862 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[17-May-2025 09:37:00 UTC] PHP Warning:  POST Content-Length of 9965862 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[17-May-2025 09:37:33 UTC] PHP Warning:  POST Content-Length of 9965862 bytes exceeds the limit of 8388608 bytes in Unknown on line 0
+[17-May-2025 10:40:40 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.32. in /home/ayesh/orphans.ayesh.org/vendor/composer/platform_check.php on line 24
+[17-May-2025 10:40:50 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.32. in /home/ayesh/orphans.ayesh.org/vendor/composer/platform_check.php on line 24
+[17-May-2025 10:41:55 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.32. in /home/ayesh/orphans.ayesh.org/vendor/composer/platform_check.php on line 24
+[19-Jun-2025 18:05:28 Africa/Cairo] PHP Fatal error:  Cannot use empty array elements in arrays in /home/ayesh/orphans.ayesh.org/app/Http/Controllers/FirstLineFamilyController.php on line 100
+[23-Jun-2025 08:57:09 Africa/Cairo] PHP Fatal error:  Cannot use empty array elements in arrays in /home/ayesh/orphans.ayesh.org/app/Http/Controllers/FirstLineFamilyController.php on line 100
+[23-Jun-2025 09:00:25 Africa/Cairo] PHP Fatal error:  Cannot use empty array elements in arrays in /home/ayesh/orphans.ayesh.org/app/Http/Controllers/FirstLineFamilyController.php on line 100

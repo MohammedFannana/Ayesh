@@ -14,3 +14,11 @@ if (! function_exists('translate_text')) {
         return \Stichoza\GoogleTranslate\GoogleTranslate::trans($text, $language);
     }
 }
+
+if (!function_exists('calculateAge')) {
+    function calculateAge($birthdate)
+    {
+        if (!$birthdate) return null;
+        return \Carbon\Carbon::parse($birthdate)->age;
+    }
+}

@@ -72,7 +72,17 @@
 
         <div class="row">
 
-            <p class="title mb-4">{{__('الصور و الملفات')}}</p>
+            <div class="d-flex justify-content-between flex-wrap">
+                <p class="title mb-4">{{__(' الصور و الملفات')}}</p>
+
+                <div class="dropdown">
+                    <a  href="{{ route('attachments.download.all', $orphan->id) }}" class="btn  add-button" type="button" >
+                        تنزيل المرفقات
+                    </a>
+                </div>
+
+            </div>
+
 
 
             <div class="flex flex-column col-3 mb-3">
@@ -88,12 +98,14 @@
                 </a>
             </div>
 
+            @if($orphan->image && $orphan->image->mother_death_certificate)
             <div class="flex flex-column col-3 mb-3">
                 <p class="title"> {{__('شهادة وفاة الأم اصل كمبيوتر')}} </p>
                 <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->mother_death_certificate)])}}" type="button" class="text-decoration-none view-file w-100">
                     {{ __('شهادة وفاة الأم') }}.{{ pathinfo($orphan->image->mother_death_certificate, PATHINFO_EXTENSION) }}
                 </a>
             </div>
+            @endif
 
             <div class="flex flex-column col-3 mb-3">
                 <p class="title">   {{__('صورة من بطاقة الأم أو الوصي')}}</p>

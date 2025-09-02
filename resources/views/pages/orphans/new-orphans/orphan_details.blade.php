@@ -1,6 +1,9 @@
 <x-main-layout>
     <h2 class="mb-5">{{ __('يتيم جديد') }}</h2>
 
+    <x-alert name="success" />
+    <x-alert name="danger" />
+
     <div class="orphans-view bg-white rounded shadow-sm p-3 mb-4">
         <div class="row">
             <p class="title mb-4">{{ __('المعلومات الأساسية') }}</p>
@@ -50,7 +53,7 @@
             @endif
             <div class="flex flex-column col-3 mb-3">
                 <p class="title">{{ __('السن') }}</p>
-                <p class="fw-semibold">{{ $orphan->age }} {{ __('سنوات') }}</p>
+                <p class="fw-semibold">{{ calculateAge($orphan->birth_date) }} {{ __('سنوات') }}</p>
             </div>
 
             <hr />
@@ -60,10 +63,24 @@
                     <p class="fw-semibold">{{ $orphan->case_type }}</p>
                 </div>
             @endif
-            @if ($orphan->health_status)
+            @if($orphan->health_status)
                 <div class="flex flex-column col-3 mb-3">
-                    <p class="title">{{ __('الحالة الصحية لليتيم') }}</p>
-                    <p class="fw-semibold">{{ $orphan->health_status }}</p>
+                    <p class="title">  {{__('الحالة الصحية لليتيم')}}</p>
+                    <p class="fw-semibold">  {{$orphan->health_status}}  </p>
+                </div>
+            @endif
+
+            @if($orphan->disease_description)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title">  {{__('وصف المرض')}}</p>
+                    <p class="fw-semibold">  {{$orphan->disease_description}}  </p>
+                </div>
+            @endif
+
+            @if($orphan->disability_type)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title">  {{__('نوع الإعاقة')}}</p>
+                    <p class="fw-semibold">  {{$orphan->disability_type}}  </p>
                 </div>
             @endif
             @if ($orphan->profile->father_death_date)
@@ -160,24 +177,29 @@
                     <p class="fw-semibold">{{ $orphan->family->income_source }}</p>
                 </div>
             @endif
-
-            @if ($orphan->family && $orphan->family->address)
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title">{{ __('العنوان') }}</p>
-                <p class="fw-semibold">{{ $orphan->family->address }}</p>
-            </div>
+            
+            @if ($orphan->profile && $orphan->profile->governorate)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title">{{ __('المحافظة') }}</p>
+                    <p class="fw-semibold">{{ $orphan->profile->governorate }}</p>
+                </div>
             @endif
 
-            <div class="flex flex-column col-3 mb-3">
-                <p class="title">{{ __('المحافظة') }}</p>
-                <p class="fw-semibold">{{ $orphan->profile->governorate }}</p>
-            </div>
-            @if ($orphan->profile->center)
+            @if ($orphan->profile && $orphan->profile->center)
                 <div class="flex flex-column col-3 mb-3">
-                    <p class="title">{{ __('المركز') }}</p>
+                    <p class="title">{{ __('المدينة') }}</p>
                     <p class="fw-semibold">{{ $orphan->profile->center }}</p>
                 </div>
             @endif
+
+            @if ($orphan->profile && $orphan->profile->full_address)
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title">{{ __('العنوان') }}</p>
+                <p class="fw-semibold">{{ $orphan->profile->full_address }}</p>
+            </div>
+            @endif
+
+          
             <hr />
             @if ($orphan->family && $orphan->family->housing_type)
                 <div class="flex flex-column col-3 mb-3">
@@ -192,18 +214,46 @@
                     </p>
                 </div>
             @endif
-            @if ($orphan->profile->academic_stage)
+            
+            <div class="flex flex-column col-3 mb-3">
+                <p class="title"> {{__('التعليم')}}</p>
+                <p class="fw-semibold">  {{$orphan->profile->academic_stage}} </p>
+            </div>
+
+            @if($orphan->profile && $orphan->profile->academic_stage_details)
                 <div class="flex flex-column col-3 mb-3">
-                    <p class="title">{{ __('المرحلة الدراسية') }}</p>
-                    <p class="fw-semibold">
-                        {{ $orphan->profile->academic_stage }}</p>
+                    <p class="title"> {{__('المرحلة الدراسية')}}</p>
+                    <p class="fw-semibold">  {{$orphan->profile->academic_stage_details}} </p>
                 </div>
             @endif
-            @if ($orphan->profile->class)
+
+            @if($orphan->profile && $orphan->profile->academic_secondary_details)
                 <div class="flex flex-column col-3 mb-3">
-                    <p class="title">{{ __('الصف') }}</p>
-                    <p class="fw-semibold">
-                        {{ $orphan->profile->class }}</p>
+                    <p class="title"> {{__('المرحلة الثانوية')}}</p>
+                    <p class="fw-semibold">  {{$orphan->profile->academic_secondary_details}} </p>
+                </div>
+            @endif
+
+            @if($orphan->profile && $orphan->profile->reason_not_registering)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('سبب عدم القيد')}}</p>
+                    <p class="fw-semibold">  {{$orphan->profile->reason_not_registering}} </p>
+                </div>
+            @endif
+
+            <hr>
+
+            @if($orphan->profile && $orphan->profile->other_reason_not_registering)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('سبب عدم القيد')}}</p>
+                    <p class="fw-semibold">  {{$orphan->profile->other_reason_not_registering}} </p>
+                </div>
+            @endif
+
+            @if($orphan->profile && $orphan->profile->class)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('الصف')}}</p>
+                    <p class="fw-semibold">  {{$orphan->profile->class}}</p>
                 </div>
             @endif
             <hr />
@@ -238,7 +288,8 @@
 
                 <hr />
             @endif
-            @if ($orphan->profile->knowledge)
+
+            {{--@if ($orphan->profile->knowledge)
                 <div class="flex flex-column mb-3">
                     <p class="title mb-1">
                         {{ __('اليه معرفتكم بجمعية عايش') }}
@@ -248,7 +299,7 @@
                 </div>
 
                 <hr />
-            @endif
+            @endif--}}
             <div class="d-flex justify-content-end">
                 <a href="{{ url()->previous() }}"
                     class="add-button pt-2 pb-2 text-decoration-none">{{ __('عرض أقل للتفاصيل') }}</a>
@@ -258,7 +309,19 @@
 
     <div class="orphans-view bg-white rounded shadow-sm p-3 mb-4">
         <div class="row">
-            <p class="title mb-4">{{ __('الصور و الملفات') }}</p>
+
+            <div class="d-flex justify-content-between flex-wrap">
+                <p class="title mb-4">{{__(' الصور و الملفات')}}</p>
+
+                <div class="dropdown">
+                    <a  href="{{ route('attachments.download.all', $orphan->id) }}" class="btn  add-button" type="button" >
+                        تنزيل المرفقات
+                    </a>
+                </div>
+
+            </div>
+
+
             @if ($orphan->image->birth_certificate)
                 <div class="flex flex-column col-3 mb-3">
                     <p class="title">{{ __('شهادة الميلاد') }}</p>
@@ -351,26 +414,57 @@
                     </a>
                 </div>
             @endif
+
+            @if ($orphan->image->data_validation)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__('إقرار بصحة البيانات')}} </p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->data_validation)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __('إقرار بصحة البيانات') }}.{{ pathinfo($orphan->image->data_validation, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+            @endif
+
+            @if ($orphan->image->agricultural_holding)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title"> {{__(' حيازة زراعية ')}} </p>
+                    <a href="{{route('orphan.image' , ['file' => encrypt($orphan->image->agricultural_holding)])}}" type="button" class="text-decoration-none view-file w-100">
+                        {{ __(' حيازة زراعية ') }}.{{ pathinfo($orphan->image->agricultural_holding, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+            @endif
+
+            <hr>
+
+
+            @if ($orphan->image->visa_file)
+                <div class="flex flex-column col-3 mb-3">
+                    <p class="title">{{ __('بطاقة الفيزا') }}</p>
+                    <a href="{{ route('orphan.image', ['file' => encrypt($orphan->image->visa_file)]) }}"
+                        type="button" class="text-decoration-none view-file w-100">
+                        {{ __('بطاقة الفيزا ') }}.{{ pathinfo($orphan->image->visa_file, PATHINFO_EXTENSION) }}
+                    </a>
+                </div>
+            @endif
             <hr />
-            @if ($orphan->profile->phone)
+            {{--@if ($orphan->profile->phone)
                 <div class="flex flex-column col-3 mb-3">
                     <p class="title">{{ __('رقم التليفون') }}</p>
                     <p class="fw-semibold">{{ $orphan->profile->phone }}</p>
                 </div>
-            @endif
-            @if ($orphan->profile->full_address)
+            @endif--}}
+            {{--@if ($orphan->profile->full_address)
                 <div class="flex flex-column col-3 mb-3">
                     <p class="title">{{ __('العنوان بالكامل') }}</p>
                     <p class="fw-semibold">{{ $orphan->profile->full_address }}</p>
                 </div>
-            @endif
-            @if ($orphan->profile->recipient_name)
+            @endif--}}
+            {{--@if ($orphan->profile->recipient_name)
                 <div class="flex flex-column col-3 mb-3">
                     <p class="title">{{ __('اسم المستلم') }}</p>
                     <p class="fw-semibold">{{ $orphan->profile->recipient_name }}
                     </p>
                 </div>
-            @endif
+            @endif--}}
             @if ($orphan->profile->registrar_name)
                 <div class="flex flex-column col-3 mb-3">
                     <p class="title">{{ __('اسم المسجل') }}</p>

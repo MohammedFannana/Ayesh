@@ -21,8 +21,9 @@ class ReviewOrphanController extends Controller
             $builder->where('name', 'LIKE', "%{$value}%");
         })->select('id', 'internal_code', 'name' ,'case_type') //to return Special fields
         ->with(['profile' => function ($query) {  // to get phone from profile table
-            $query->select('id', 'phone', 'orphan_id');
+            $query->select('id', 'orphan_id');
         }])
+        ->with('phones')
         ->paginate(8);
 
         return view('pages.orphans.review-orphans.index' , compact('orphans'));
@@ -48,8 +49,7 @@ class ReviewOrphanController extends Controller
             'review_date' => ['required' , 'date'],
             'orphan_id' => ['required' , 'exists:orphans,id'],
             'status' => ['required' , 'in:approved,rejected'],
-            'report' => ['required' , 'string'],
-            'rejected_reason' => ['nullable', 'string', 'required_if:status,rejected'],
+            'report' => ['nullable' , 'string','required_if:status,rejected'],
             'name' => ['required' , 'string']
         ]);
 

@@ -40,12 +40,12 @@ class WaitingOrphanController extends Controller
                     });
                 }
             })
-            ->select('id', 'internal_code', 'name')
+            ->select('id', 'internal_code', 'name' ,'case_type' ,'health_status')
             ->with(['profile' => function ($query) {  // to get phone from profile table
-                $query->select('phone', 'orphan_id');
+                $query->select('orphan_id');
             }])
             ->with(['family' => function ($query) {  // to get phone from profile table
-                $query->select('address', 'orphan_id');
+                $query->select('orphan_id');
             }])
             ->with(['marketing' => function ($query) {  // to get only supporter data through marketing table
                 $query->select('orphan_id', 'supporter_id') // اختر الحقول المطلوبة من جدول marketing
@@ -53,6 +53,7 @@ class WaitingOrphanController extends Controller
                         $query->select('id', 'name'); // اختر الحقول التي تريدها من جدول supporters
                 }]);
             }])
+            ->with('phones')
             ->paginate(8);
 
 
@@ -114,15 +115,16 @@ class WaitingOrphanController extends Controller
 
         $orphan = Orphan::where('id', $id)
         ->where('status', 'waiting') // إضافة شرط status بعد id
-        ->select('id', 'internal_code', 'name', 'application_form')
+        ->select('id', 'internal_code', 'name', 'application_form','case_type' ,'health_status')
         ->with(['profile' => function ($query) {  // to get phone from profile table
-            $query->select('phone', 'orphan_id');
+            $query->select('orphan_id');
         }])
         ->with(['image' => function ($query) {
             $query->select('orphan_id' ,'birth_certificate' , 'mother_card' ,
             'father_death_certificate' , 'mother_death_certificate');
         }])
         ->with(['certified_orphan_extras'])
+        ->with('phones')
         ->firstOrFail(); //
 
         return view('pages.orphans.awaiting-orphans.view' , compact('orphan'));

@@ -9,7 +9,6 @@
 //     });
 // });
 
-
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".show-action").forEach(item => {
         item.addEventListener("click", function (event) {
@@ -44,29 +43,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //this code to show image in input when create any thing need image
-document.querySelectorAll('.hidden-file-style').forEach((input,index) => {
+// document.querySelectorAll('.hidden-file-style').forEach((input,index) => {
+//     input.addEventListener('change', function (event) {
+
+//         const file = event.target.files[0];
+//         if (file && file.type.startsWith('image/')) {
+
+
+//             const reader = new FileReader();
+//             reader.onload = function (e) {
+
+//                 // بنوصل للصورة داخل نفس العنصر الأب
+//                 const wrapper = document.querySelectorAll('.custom-file-upload')[index] || input.closest('label');
+
+//                 if (wrapper) {
+
+//                     const img = wrapper.querySelector('img');
+//                     if (img) {
+//                         img.classList.remove('show-image-label');
+//                         img.src = e.target.result;
+//                     }
+//                 }
+//             };
+//             reader.readAsDataURL(file);
+//         }
+//     });
+// });
+
+
+document.querySelectorAll('.hidden-file-style').forEach((input, index) => {
     input.addEventListener('change', function (event) {
-
         const file = event.target.files[0];
-        if (file && file.type.startsWith('image/')) {
+        const wrapper = document.querySelectorAll('.custom-file-upload')[index] || input.closest('label');
 
+        if (!file || !wrapper) return;
 
+        const img = wrapper.querySelector('img');
+        const filePreview = wrapper.querySelector('.file-preview');
+
+        // إذا كان الملف صورة
+        if (file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onload = function (e) {
-
-                // بنوصل للصورة داخل نفس العنصر الأب
-                const wrapper = document.querySelectorAll('.custom-file-upload')[index] || input.closest('label');
-
-                if (wrapper) {
-
-                    const img = wrapper.querySelector('img');
-                    if (img) {
-                        img.classList.remove('show-image-label')
-                        img.src = e.target.result;
-                    }
+                if (img) {
+                    img.classList.remove('show-image-label');
+                    img.src = e.target.result;
+                }
+                if (filePreview) {
+                    filePreview.innerHTML = ''; // إخفاء النص الخاص بـ PDF إن وجد
                 }
             };
             reader.readAsDataURL(file);
+        } else {
+            // إذا كان الملف PDF أو غير صورة
+            if (img) {
+                img.src = ''; // إخفاء الصورة
+                img.classList.add('show-image-label');
+            }
+            if (filePreview) {
+                filePreview.innerHTML = `<span class="text-success">📄 ${file.name} تم رفعه</span>`;
+            }
         }
     });
 });

@@ -1,4 +1,39 @@
 <x-main-layout>
+    @push('styles')
+        <style>
+
+            input[type="radio"][disabled]:checked::before {
+                background-color: #000; /* لون الدائرة الداخلية */
+            }
+
+            input[type="radio"][disabled] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                border: 2px solid #999;
+                border-radius: 50%;
+                position: relative;
+                background-color: #fff;
+                cursor: not-allowed;
+            }
+
+            input[type="radio"][disabled]:checked::before {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 8px;
+                height: 8px;
+                background-color: #000;
+                border-radius: 50%;
+            }
+
+
+
+
+        </style>
+    @endpush
 
     <h2 class="mb-4"> {{__('الأيتام المقدمين')}}</h2>
     <h4 class="mb-5 title-color">  {{__('الحالات المدخلة - جمعية دار البر')}}</h4>
@@ -43,33 +78,14 @@
                 <x-form.input name="name" :value="$orphan->name"  class="border" type="text" label="{{__('اسم اليتيم')}}" placeholder="{{__('أدخل اسم اليتيم')}}" disabled/>
             </div>
 
-            <!-- father_name -->
-            {{-- <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="father_name"  class="border" type="text" label="{{__('اسم الاب')}}" placeholder="أدخل اسم الاب"/>
-            </div> --}}
 
-            <!-- grandfather_name -->
-            {{-- <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="grandfather_name"  class="border" type="text" label="{{__('اسم الجد')}}" placeholder="أدخل اسم الجد"/>
-            </div> --}}
-
-
-            <!-- last_name -->
-            {{-- <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="last_name"  class="border" type="text" label="{{__('اسم العائلة')}}" placeholder="أدخل اسم العائلة"/>
-            </div> --}}
-
-            {{--nationality--}}
-            {{-- <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="nationality" class="border" type="text" label=" {{__('الجنسيه')}} " autocomplete="" placeholder="أدخل الجنسيه"/>
-            </div> --}}
 
             {{-- gender --}}
             <div class="col-12 col-md-6 mb-3 ">
                 <label class="mb-2"> {{__('الجنس')}} </label>
                 <div class="d-flex" style="gap: 180px">
                     <div>
-                        <input type="radio" name="gender" id="male" value="ذكر" @checked($orphan->gender === 'ذكر') disabled>
+                        <input type="radio" name="gender" id="male" value="ذكر" @checked($orphan->gender === 'ذكر') disabled >
                         <label for="male">{{__('ذكر')}}</label>
                     </div>
                     <div>
@@ -81,7 +97,7 @@
             </div>
 
             {{-- orphan --}}
-            <div class="col-12 col-md-6 mb-3 ">
+            {{-- <div class="col-12 col-md-6 mb-3 ">
                 <label for="orphan" class="mb-2"> {{__('يتيم الأبوين')}}</label>
                 <div class="d-flex" style="gap: 180px">
                     <div>
@@ -94,11 +110,11 @@
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
 
             {{-- birth_date --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="birth_date" class="border" :value="$orphan->birth_date" type="date" label=" {{__('تاريخ ميلاد اليتيم')}}" autocomplete="" disabled/>
+                <x-form.input name="birth_date" class="border" :value="$orphan->birth_date" type="text" label=" {{__('تاريخ ميلاد اليتيم')}}" autocomplete="" disabled/>
             </div>
 
             {{-- birth_place--}}
@@ -108,7 +124,7 @@
 
             {{-- father_death --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="father_death_date" :value="$orphan->profile->father_death_date" class="border" type="date" label=" {{__('تاريخ وفاة الأب')}}" autocomplete="" disabled/>
+                <x-form.input name="father_death_date" :value="$orphan->profile->father_death_date" class="border" type="text" label=" {{__('تاريخ وفاة الأب')}}" autocomplete="" disabled/>
             </div>
 
             {{-- father_religion--}}
@@ -131,31 +147,28 @@
                 <x-form.input name="mother_name" :value="$orphan->profile->mother_name" class="border" type="text" label=" {{__('اسم الأم')}}" autocomplete="" placeholder="ادخل اسم الأم" disabled/>
             </div>
 
-            {{-- mother_salary--}}
-            {{-- <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="mother_salary" class="border" type="text" label=" {{__('الراتب الشهري للأم ')}}" autocomplete="" placeholder="ادخل الراتب الشهري للأم"/>
-            </div> --}}
 
             {{-- mother_marital_status --}}
-            <div class="col-12 col-md-6 mb-3 ">
-                <label for="orphan" class="mb-2"> {{__('الحالة الاجتماعية للأم')}}</label>
-                <div class="d-flex" style="gap: 180px">
-                    <div>
-                        <input type="radio" name="mother_marital_status" id="married" value="متزوجة" @checked($orphan->profile->mother_status === 'متزوجة') disabled>
-                        <label for="married">{{__('متزوجة')}}</label>
+            @if ($orphan->profile && $orphan->profile->mother_status)
+
+                <div class="col-12 col-md-6 mb-3 ">
+                    <label for="orphan" class="mb-2"> {{__('الحالة الاجتماعية للأم')}}</label>
+                    <div class="d-flex" style="gap: 180px">
+                        <div>
+                            <input type="radio" name="mother_marital_status" id="married" value="متزوجة" @checked($orphan->profile->mother_status === 'متزوجة') disabled>
+                            <label for="married">{{__('متزوجة')}}</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="mother_marital_status" id="widow" value="أرملة" @checked($orphan->profile->mother_status === 'أرملة') disabled>
+                            <label for="widow">{{__('أرملة')}}</label>
+                        </div>
                     </div>
-                    <div>
-                        <input type="radio" name="mother_marital_status" id="widow" value="أرملة" @checked($orphan->profile->mother_status === 'أرملة') disabled>
-                        <label for="widow">{{__('أرملة')}}</label>
-                    </div>
+
                 </div>
 
-            </div>
+            @endif
 
-            {{--  subsidies --}}
-            {{-- <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="other_subsidies" class="border" type="text" label=" {{__('اعانات أخرى')}}" autocomplete="" placeholder=" أدخل عدد المكفولين عنهم " />
-            </div> --}}
+
 
             {{-- family_number --}}
             <div class="col-12 col-md-6 mb-3">
@@ -189,9 +202,11 @@
             </div>
 
             {{-- class --}}
-            <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="class" class="border" :value="$orphan->profile->class" type="text" label=" {{__('الصف')}}" autocomplete="" placeholder="أدخل الصف" disabled/>
-            </div>
+            @if ($orphan->profile && $orphan->profile->class)
+                <div class="col-12 col-md-6 mb-3">
+                    <x-form.input name="class" class="border" :value="$orphan->profile->class" type="text" label=" {{__('الصف')}}" autocomplete="" placeholder="أدخل الصف" disabled/>
+                </div>
+            @endif
 
 
             {{-- responsible --}}
@@ -210,9 +225,10 @@
                 <x-form.input name="full_address" :value="$orphan->profile->full_address" class="border" type="text" label=" {{__('عنوان اليتيم بالكامل')}}" autocomplete="" placeholder="أدخل عنوان اليتيم بالكامل " disabled/>
             </div>
 
+           
             {{--  phone --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="phone" :value="$orphan->profile->phone" class="border" type="text" label=" {{__('الهاتف')}} " autocomplete="" placeholder="أدخل رقم الهاتف " disabled/>
+                <x-form.input name="phone" :value="$orphan->phones[0]->phone_number" class="border" type="text" label=" {{__('الهاتف')}} " autocomplete="" placeholder="أدخل رقم الهاتف " disabled/>
             </div>
 
             {{--  authority_official --}}
@@ -230,8 +246,11 @@
             {{-- signature_seal --}}
             {{-- <div class="col-12 col-md-6 mb-3">
                 <label class="mb-2"> {{__(' التوقيع و الختم  ')}}</label> <br>
-                <label for="signature_seal" class="custom-file-upload w-50 text-center"> {{__('ارفق صورة التوقيع ')}}</label>
-                <x-form.input name="signature_seal" class="border hidden-file-style" type="file" id="signature_seal" style="display: none;"  autocomplete="" />
+                <label for="signature_seal" class="custom-file-upload w-50 text-center"> {{__('ارفق صورة التوقيع ')}}
+                    <img src="" width="60" alt="">
+                    <div class="file-preview mt-2"></div>
+                </label>
+                <x-form.input name="signature_seal" class="border hidden-file-style" type="file" id="signature_seal" style="display: none;"  accept=".jpg,.jpeg,.png,.pdf" autocomplete="" />
 
             </div> --}}
 
@@ -242,6 +261,8 @@
                         <br>
                         <label for="field_{{ $field->id }}" class="custom-file-upload w-75 text-center">
                             {{ translate_text('ارفق صورة ' . $field->field_name) }}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
                         </label>
                         <input
                             name="fields[{{ $field->id }}][file]"

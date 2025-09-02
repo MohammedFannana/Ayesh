@@ -31,12 +31,12 @@
 
                 <tr>
                     <th scope="col">{{__('الكود الداخلي')}}</th>
-                <th scope="col"> {{__('الكود الخارجي')}}</th>
-                <th scope="col"> {{__('الاسم')}}</th>
-                <th scope="col"> {{__('الهاتف')}} </th>
-                <th scope="col">  {{__('اجمالي المدفوع')}}</th>
-                <th scope="col"> {{__('الاجراءات')}} </th>
-
+                    <th scope="col"> {{__('الكود الخارجي')}}</th>
+                    <th scope="col"> {{__('الاسم')}}</th>
+                    <th scope="col">  {{__('اجمالي المدفوع')}}</th>
+                    <th scope="col">  {{__('تاريخ بدأ الكفالة')}}</th>
+                    <th scope="col">  {{__('تاريخ نهاية الكفالة')}}</th>
+                    <th scope="col"> {{__('الاجراءات')}} </th>
                 </tr>
 
             </thead>
@@ -48,11 +48,12 @@
                     @foreach ($orphan->expenses as $expense)
 
                         <tr>
-                            <th scope="row"> {{$orphan->internal_code}} </th>
-                            <td> {{$orphan->sponsorship->external_code}} </td>
-                            <td> {{$orphan->name}} </td>
-                            <td> {{$orphan->profile->phone}} </td>
-                            <td> {{$expense->amount}} </td>
+                            <th scope="row"> {{$expense->internal_code}} </th>
+                            <td> {{$expense->external_code}} </td>
+                            <td> {{$expense->orphan}} </td>
+                            <td> {{$expense->net_amount}} </td>
+                            <td> {{$expense->start_date}} </td>
+                            <td> {{$expense->end_date}} </td>
 
                             <td style="position: relative;">
 

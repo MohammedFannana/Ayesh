@@ -67,6 +67,7 @@ class ReportController extends Controller
         ->with('orphan.supporterFieldValues')
         ->with('orphan.guardian')
         ->with('orphan.family')
+        ->with('orphan.phones')
         ->get();
 
         // dd($orphans);
@@ -111,6 +112,16 @@ class ReportController extends Controller
             'authority_comment_guarantee' => ['required' , 'string'],
             'orphan_message' => ['required' , 'string'],
 
+            'gender'=> ['nullable' , 'string'],
+            'age'=> ['nullable' , 'string'],
+            'health_status' => ['nullable' , 'string'],
+            'academic_stage' => ['nullable' , 'string'],
+            'class' => ['nullable' , 'string'],
+            'guardian_name' => ['nullable' , 'string'],
+            'guardian_relationship' => ['nullable' , 'string'],
+            'disease_description' => ['nullable' , 'string'],
+
+
         ]);
 
         $jsonData = [
@@ -125,6 +136,14 @@ class ReportController extends Controller
             'authority_comment_guarantee' => $validated['authority_comment_guarantee'],
             'orphan_message' => $validated['orphan_message'],
 
+            'gender' => $validated['gender'] ?? null,
+            'age' => $validated['age'] ?? null,
+            'health_status' => $validated['health_status'] ?? null,
+            'academic_stage' => $validated['academic_stage'] ?? null,
+            'class' => $validated['class'] ?? null,
+            'guardian_name' => $validated['guardian_name'] ?? null,
+            'guardian_relationship' => $validated['guardian_relationship'] ?? null,
+            'disease_description' => $validated['disease_description'] ?? null,
         ];
 
         DB::beginTransaction();
@@ -179,7 +198,7 @@ class ReportController extends Controller
             'reason_live' => ['required' , 'string'],
             'conditions_orphan' => ['required' , 'string'],
             'chronic_disease' => ['nullable' , 'string'],
-            'Type_disease' => ['nullable' , 'string'],
+            // 'Type_disease' => ['nullable' , 'string'],
             'academic_level' => ['required' , 'string'],
             'reason_notStudying' => ['nullable' , 'string'],
             'alternative_approach' => ['required' , 'string'],
@@ -193,25 +212,38 @@ class ReportController extends Controller
             'date' => ['required' , 'date'],
 
 
+            'gender' => ['nullable' , 'string'],
+            'birth_place' => ['nullable' , 'string'],
+            'birth_date' => ['nullable' , 'date'],
+            'age' => ['nullable' , 'string'],
+            'reason_continuing_sponsorship' => ['nullable' , 'string'],
+            'father_death_date' => ['nullable' , 'date'],
+            'mother_name' => ['nullable' , 'string'],
+            'mother_death_date' => ['nullable' , 'string'],
+            'family_number' => ['nullable' , 'string'],
+            'guardian_name' => ['nullable' , 'string'],
+            'guardian_relationship' => ['nullable' , 'string'],
+            'phone_number' => ['nullable' , 'string'],
+            'whatsapp_phone' => ['nullable' , 'string'],
+            'housing_type' => ['nullable' , 'string'],
+            'health_status' => ['nullable' , 'string'],
+            'disease_description' => ['nullable' , 'string'],
+            'academic_stage' => ['nullable' , 'string'],
+
+
             // image
-            'signature' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'signature' =>['required','file' ,'mimes:png,jpg,jpeg,pdf','max:1048576'],
 
-            'supporter_seal' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'supporter_seal' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', 'max:1048576'],
 
-            'group_photo' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'group_photo' =>['required','file' ,'mimes:png,jpg,jpeg,pdf','max:1048576'],
 
-            'thanks_letter' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'thanks_letter' =>['required','file' ,'mimes:png,jpg,jpeg,pdf','max:1048576'],
 
 
-            'academic_certificate' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'academic_certificate' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', 'max:1048576'],
 
-            'sponsorship_transfer_receipt' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'sponsorship_transfer_receipt' =>['required','file' ,'mimes:png,jpg,jpeg,pdf','max:1048576'],
 
         ]);
 
@@ -227,7 +259,7 @@ class ReportController extends Controller
             'reason_live' => $validated['reason_live'],
             'conditions_orphan' => $validated['conditions_orphan'],
             'chronic_disease' => $validated['chronic_disease'],
-            'Type_disease' => $validated['Type_disease'],
+            // 'Type_disease' => $validated['Type_disease'],
             'academic_level' => $validated['academic_level'],
             'reason_notStudying' => $validated['reason_notStudying'],
             'alternative_approach' => $validated['alternative_approach'],
@@ -239,6 +271,25 @@ class ReportController extends Controller
             'quran_memorized' => $validated['quran_memorized'],
             'orphan_supervisor' => $validated['orphan_supervisor'],
             'date' => $validated['date'],
+
+            'gender' => $validated['gender'] ?? null,
+            'birth_place' => $validated['birth_place'] ?? null,
+            'birth_date' => $validated['birth_date'] ?? null,
+            'age' => $validated['age'] ?? null,
+            'reason_continuing_sponsorship' => $validated['reason_continuing_sponsorship'] ?? null,
+            'father_death_date' => $validated['father_death_date'] ?? null,
+            'mother_name' => $validated['mother_name'] ?? null,
+            'mother_death_date' => $validated['mother_death_date'] ?? null,
+            'family_number' => $validated['family_number'] ?? null,
+            'guardian_name' => $validated['guardian_name'] ?? null,
+            'guardian_relationship' => $validated['guardian_relationship'] ?? null,
+            'phone_number' => $validated['phone_number'] ?? null,
+            'whatsapp_phone' => $validated['whatsapp_phone'] ?? null,
+            'housing_type' => $validated['housing_type'] ?? null,
+            'health_status' => $validated['health_status'] ?? null,
+            'disease_description' => $validated['disease_description'] ?? null,
+            'academic_stage' => $validated['academic_stage'] ?? null,
+
         ];
 
         DB::beginTransaction();
@@ -309,12 +360,12 @@ class ReportController extends Controller
 
     }
 
-    public function MaryamStore(Request $request)
+   public function MaryamStore(Request $request)
     {
         $validated = $request->validate([
             'supporter_id' => ['required' ,'exists:supporters,id'],
             'orphan_id' => ['required' , 'exists:orphans,id'],
-            'supervising_authority' => ['required' , 'string'],
+            // 'supervising_authority' => ['required' , 'string'],
             'country' => ['required' , 'string'],
             'supervising_authority_place' => ['required' , 'string'],
             'sponsor_name' => ['required' , 'string'],
@@ -324,14 +375,33 @@ class ReportController extends Controller
             'academic_level' => ['required' , 'string'],
             'letter_thanks' => ['required' , 'string'],
 
+            //
+            'gender' => ['nullable' , 'string'],
+            'case_type' => ['nullable' , 'string'],
+            'health_status' => ['nullable' , 'string'],
+            'class' => ['nullable' , 'string'],
+            'birth_date' => ['nullable' , 'string'],
+            'address' => ['nullable' , 'string'],
+            'case_type' => ['nullable' , 'string'],
+            'disease_description' => ['nullable' , 'string'],
+            'mother_name' => ['nullable' , 'string'],
+            'guardian_name' => ['nullable' , 'string'],
+            'guardian_relationship' => ['nullable' , 'string'],
+
+
             // image
-            'academic_certificate' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'academic_certificate' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                        'max:1048576',],
+            'payment_receipt' =>['nullable','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                        'max:1048576',],
+
+            'profile_image' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                        'max:1048576',],
 
         ]);
 
         $jsonData = [
-            'supervising_authority' => $validated['supervising_authority'],
+            // 'supervising_authority' => $validated['supervising_authority'],
             'country' => $validated['country'],
             'supervising_authority_place' => $validated['supervising_authority_place'],
             'sponsor_name' => $validated['sponsor_name'],
@@ -340,6 +410,19 @@ class ReportController extends Controller
             'memorize_quran' =>$validated['memorize_quran'],
             'academic_level' => $validated['academic_level'],
             'letter_thanks' => $validated['letter_thanks'],
+
+            'gender' => $validated['gender'] ?? '',
+            'case_type' => $validated['case_type'] ?? '',
+            'health_status' => $validated['health_status'] ?? '',
+            'class' => $validated['class'] ?? '',
+            'birth_date' => $validated['birth_date'] ?? '',
+            'address' => $validated['address'] ?? '',
+            'case_type' => $validated['case_type'] ?? '',
+            'disease_description' => $validated['disease_description'] ?? '',
+            'mother_name' => $validated['mother_name'] ?? '',
+            'guardian_name' => $validated['guardian_name'] ?? '',
+            'guardian_relationship' => $validated['guardian_relationship'] ?? '',
+
         ];
 
         DB::beginTransaction();
@@ -350,6 +433,14 @@ class ReportController extends Controller
 
             if (!empty($validated['academic_certificate'])) {
                 Storage::disk('public')->delete($validated['academic_certificate']);
+            }
+
+            if (!empty($validated['payment_receipt'])) {
+                Storage::disk('public')->delete($validated['payment_receipt']);
+            }
+
+            if (!empty($validated['profile_image'])) {
+                Storage::disk('public')->delete($validated['profile_image']);
             }
 
             if($orphan->report){
@@ -368,12 +459,35 @@ class ReportController extends Controller
                 $validated['academic_certificate'] = $path;
             }
 
+            if ($request->hasFile('payment_receipt')) { //to check if image file is exit
+                $file = $request->file('payment_receipt');
+                // تحديد اسم الصورة
+                $fileName = 'payment_receipt' . '.' . $file->getClientOriginalExtension();
+                // تخزين الصورة في المجلد المحدد
+                $path = $file->storeAs('reports/' . $orphan->name, $fileName, 'public');
+                // إضافة المسار إلى البيانات المعتمدة
+                $validated['payment_receipt'] = $path;
+            }
+
+            if ($request->hasFile('profile_image')) { //to check if image file is exit
+                $file = $request->file('profile_image');
+                // تحديد اسم الصورة
+                $fileName = 'profile_image' . '.' . $file->getClientOriginalExtension();
+                // تخزين الصورة في المجلد المحدد
+                $path = $file->storeAs('reports/' . $orphan->name, $fileName, 'public');
+                // إضافة المسار إلى البيانات المعتمدة
+                $validated['profile_image'] = $path;
+            }
+
 
             Report::create([
                 'supporter_id' => $validated['supporter_id'],
                 'orphan_id' => $validated['orphan_id'],
                 'fields' => json_encode($jsonData),
                 'academic_certificate' =>$validated['academic_certificate'],
+                'payment_receipt' =>$validated['payment_receipt'],
+                'profile_image' =>$validated['profile_image'],
+
             ]);
 
             DB::commit();
@@ -401,24 +515,36 @@ class ReportController extends Controller
             'address_supervising_authority' => ['required' , 'string'],
 
 
+             'birth_date' => ['nullable' , 'date'],
+             'birth_place' => ['nullable' , 'string'],
+             'gender' => ['nullable' , 'string'],
+             'guardian_name' => ['nullable' , 'string'],
+             'mother_name' => ['nullable' , 'string'],
+             'father_death_date' => ['nullable' , 'date'],
+             'academic_stage' => ['nullable' , 'string'],
+             'health_status' => ['nullable' , 'string'],
+
+
+
+
 
             // image
 
-            'supporter_seal' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'supporter_seal' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                        'max:1048576',],
 
-            'group_photo' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'group_photo' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                       'max:1048576',],
 
-            'thanks_letter' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'thanks_letter' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                        'max:1048576',],
 
 
-            'academic_certificate' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'academic_certificate' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                        'max:1048576',],
 
-            'supporter_accreditation' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                        'dimensions:min_width=100,min_height=100','max:1048576',],
+            'supporter_accreditation' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                        'max:1048576',],
 
         ]);
 
@@ -427,6 +553,14 @@ class ReportController extends Controller
             'health_notes' => $validated['health_notes'],
             'orphan_management_notes' => $validated['orphan_management_notes'],
             'address_supervising_authority' => $validated['address_supervising_authority'],
+            'birth_date' => $validated['birth_date'] ?? null,
+            'birth_place' => $validated['birth_place'] ?? null,
+            'gender' => $validated['gender'] ?? null,
+            'guardian_name' => $validated['guardian_name'] ?? null,
+            'mother_name' => $validated['mother_name'] ?? null,
+            'father_death_date' => $validated['father_death_date'] ?? null ,
+            'academic_stage' => $validated['academic_stage'] ?? null,
+            'health_status' => $validated['health_status'] ?? null,
 
         ];
 
@@ -515,7 +649,7 @@ class ReportController extends Controller
             ->with('orphan')
             ->with('orphan.image')
             ->with(['orphan.profile' => function ($query) {
-                    $query->select('orphan_id', 'father_death_date' , 'mother_name' ,'mother_death_date' , 'phone' ,'academic_stage');
+                    $query->select('orphan_id', 'father_death_date' , 'mother_name' ,'mother_death_date' ,'academic_stage');
             }])
             ->with('orphan.supporterFieldValues')
             ->with(['orphan.guardian' => function ($query) {
@@ -572,6 +706,15 @@ class ReportController extends Controller
                     'changes_orphan_year' => ['sometimes', 'string'],
                     'authority_comment_guarantee' => ['sometimes', 'string'],
                     'orphan_message' => ['sometimes', 'string'],
+
+                    'gender' => $validated['gender'] ?? null,
+                    'age' => $validated['age'] ?? null,
+                    'health_status' => $validated['health_status'] ?? null,
+                    'academic_stage' => $validated['academic_stage'] ?? null,
+                    'class' => $validated['class'] ?? null,
+                    'guardian_name' => $validated['guardian_name'] ?? null,
+                    'guardian_relationship' => $validated['guardian_relationship'] ?? null,
+                    'disease_description' => $validated['disease_description'] ?? null,
                 ]);
                 break;
 
@@ -600,6 +743,24 @@ class ReportController extends Controller
                     'quran_memorized' => ['sometimes', 'string'],
                     'orphan_supervisor' => ['sometimes', 'string'],
                     'date' => ['sometimes', 'string'],
+
+                    'gender' => ['nullable' , 'string'],
+                    'birth_place' => ['nullable' , 'string'],
+                    'birth_date' => ['nullable' , 'date'],
+                    'age' => ['nullable' , 'string'],
+                    'reason_continuing_sponsorship' => ['nullable' , 'string'],
+                    'father_death_date' => ['nullable' , 'date'],
+                    'mother_name' => ['nullable' , 'string'],
+                    'mother_death_date' => ['nullable' , 'string'],
+                    'family_number' => ['nullable' , 'string'],
+                    'guardian_name' => ['nullable' , 'string'],
+                    'guardian_relationship' => ['nullable' , 'string'],
+                    'phone_number' => ['nullable' , 'string'],
+                    'whatsapp_phone' => ['nullable' , 'string'],
+                    'housing_type' => ['nullable' , 'string'],
+                    'health_status' => ['nullable' , 'string'],
+                    'disease_description' => ['nullable' , 'string'],
+                    'academic_stage' => ['nullable' , 'string'],
                 ]);
 
 
@@ -616,6 +777,18 @@ class ReportController extends Controller
                     'memorize_quran' => ['sometimes', 'string'],
                     'academic_level' => ['sometimes', 'string'],
                     'letter_thanks' => ['sometimes', 'string'],
+
+                    'gender' => ['nullable' , 'string'],
+                    'case_type' => ['nullable' , 'string'],
+                    'health_status' => ['nullable' , 'string'],
+                    'class' => ['nullable' , 'string'],
+                    'birth_date' => ['nullable' , 'string'],
+                    'address' => ['nullable' , 'string'],
+                    'case_type' => ['nullable' , 'string'],
+                    'disease_description' => ['nullable' , 'string'],
+                    'mother_name' => ['nullable' , 'string'],
+                    'guardian_name' => ['nullable' , 'string'],
+                    'guardian_relationship' => ['nullable' , 'string'],
                 ]);
                 break;
 
@@ -625,6 +798,15 @@ class ReportController extends Controller
                     'health_notes' => ['sometimes', 'string'],
                     'orphan_management_notes' => ['sometimes', 'string'],
                     'address_supervising_authority' => ['sometimes', 'string'],
+
+                    'birth_date' => ['nullable' , 'date'],
+                    'birth_place' => ['nullable' , 'string'],
+                    'gender' => ['nullable' , 'string'],
+                    'guardian_name' => ['nullable' , 'string'],
+                    'mother_name' => ['nullable' , 'string'],
+                    'father_death_date' => ['nullable' , 'date'],
+                    'academic_stage' => ['nullable' , 'string'],
+                    'health_status' => ['nullable' , 'string'],
                 ]);
                 break;
         }
@@ -632,7 +814,7 @@ class ReportController extends Controller
         // قائمة الصور المتاحة للتحديث
         $imageFields = [
             'signature', 'supporter_seal', 'group_photo', 'thanks_letter',
-            'academic_certificate', 'sponsorship_transfer_receipt', 'supporter_accreditation'
+            'academic_certificate',  'profile_image',  'payment_receipt', 'sponsorship_transfer_receipt', 'supporter_accreditation'
         ];
 
         // جلب الصور القديمة
@@ -721,7 +903,7 @@ class ReportController extends Controller
         ->with('orphan')
         ->with('orphan.image')
         ->with(['orphan.profile' => function ($query) {
-                $query->select('orphan_id', 'father_death_date' , 'mother_name' ,'mother_death_date' , 'phone' ,'academic_stage' , 'class' , 'full_address');
+                $query->select('orphan_id', 'father_death_date' , 'mother_name' ,'mother_death_date'  ,'academic_stage' , 'class' , 'full_address' ,'governorate' , 'center');
         }])
         ->with('orphan.supporterFieldValues')
         ->with(['orphan.guardian' => function ($query) {
@@ -738,8 +920,16 @@ class ReportController extends Controller
         $viewName = 'pdf.reports.supporter_' . $report->supporter->id;
 
         if(view()->exists($viewName)){
-            $pdf = PDF::loadView($viewName, ['report' => $report]);
+            // $pdf = PDF::loadView($viewName, ['report' => $report]);
+
+            $pdf = PDF::loadView($viewName, ['report' => $report] ,[] , [
+                'default_font' => 'arialarabic',
+            ]);
+
+
             return $pdf->stream('supporter_' . $report->supporter->id . '.pdf');
+            // return $pdf->download('supporter_' . $report->supporter->id . '.pdf');
+
         }
 
         abort(404, 'لا يوجد قالب PDF مخصص لهذه الجمعية');

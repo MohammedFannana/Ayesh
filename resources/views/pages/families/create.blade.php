@@ -192,7 +192,10 @@
                     <div class="col-12 col-md-6 mb-3">
 
                         <label class="mb-2"> {{__('التوقيع')}}  </label> <br>
-                        <label for="signature" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة التوقيع')}}  </label>
+                        <label for="signature" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة التوقيع')}}  
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div> 
+                        </label>
                         <input class="hidden-file-style" name="signature" type="file" id="signature" style="display: none;">
 
                     </div>
@@ -206,7 +209,10 @@
                     <div class="col-12 col-md-6 mb-3">
 
                         <label class="mb-2"> {{__('المستندات الثبوتية')}} </label> <br>
-                        <label for="supporting_documents" class="custom-file-upload w-75 text-center"> {{__('ارفق المستندات الثبوتية')}} </label>
+                        <label for="supporting_documents" class="custom-file-upload w-75 text-center"> {{__('ارفق المستندات الثبوتية')}} 
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="supporting_documents" type="file" id="supporting_documents" style="display: none;">
 
                     </div>
@@ -220,7 +226,10 @@
                     <div class="col-12 col-md-6 mb-3">
 
                         <label class="mb-2"> {{__('التوقيع')}}  </label> <br>
-                        <label for="authority_official_signature" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة التوقيع')}}  </label>
+                        <label for="authority_official_signature" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة التوقيع')}}  
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="authority_official_signature" type="file" id="authority_official_signature" style="display: none;">
 
                     </div>
@@ -229,7 +238,10 @@
                     <div class="col-12 col-md-6 mb-3">
 
                         <label class="mb-2"> {{__('شهادة الميلاد اصل كمبيوتر')}}</label> <br>
-                        <label for="birth_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة الميلاد')}} </label>
+                        <label for="birth_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة الميلاد')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="birth_certificate" type="file" id="birth_certificate" style="display: none;">
 
                     </div>
@@ -237,7 +249,10 @@
                     {{-- death_certificate --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2"> {{__('شهادة الوفاة اصل كمبيوتر')}}</label> <br>
-                        <label for="death_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة وفاة الأب')}}</label>
+                        <label for="death_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة شهادة وفاة الأب')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="death_certificate" type="file" id="death_certificate" style="display: none;">
                     </div>
 

@@ -9,12 +9,17 @@ use Illuminate\Support\Facades\Storage;
 class Expense extends Model
 {
     protected $fillable = [
-        'orphan_id' , 'payment_date' , 'amount'  , 'payment_image'
+        // , 'amount' ,  'orphan_id' ,
+        'payment_date'  , 'payment_file' , 'start_sponsored'
     ];
 
-    public function orphan()
-    {
-        return $this->belongsTo(Orphan::class);
+    // public function orphan()
+    // {
+    //     return $this->belongsTo(Orphan::class);
+    // }
+    
+    public function expenseOrphans(){
+        return $this->hasMany(ExpenseOrphan::class);
     }
 
 

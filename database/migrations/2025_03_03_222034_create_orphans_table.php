@@ -24,10 +24,12 @@ return new class extends Migration
             $table->string('birth_place');
             $table->enum('gender' , ['ذكر' , 'أنثى']);
             $table->integer('age');
-            $table->integer('visa_number');
-            $table->string('bank_name');
-            $table->enum('case_type' , ['يتيم الأبوين' , 'مريض مزمن' ,'حالات خاصة' , 'قريب السن']);
-            $table->string('health_status')->nullable();
+            $table->integer('visa_number')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->enum('case_type' , ['يتيم الأبوين' , 'يتيم']);
+            $table->enum('health_status' ,['مريض','جيدة','معاق'])->nullable();
+            $table->string('disease_description')->nullable();
+            $table->string('disability_type')->nullable();
             $table->timestamps();
         });
     }

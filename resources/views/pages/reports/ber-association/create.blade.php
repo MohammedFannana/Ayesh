@@ -54,8 +54,13 @@
 
                     {{-- orphan_nationality --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="nationality" id="nationality" class="border" type="text" label="  {{__('جنسية اليتيم')}}" autocomplete="" placeholder=" {{__('أدخل جنسية اليتيم')}} "/>
+                        <x-form.input name="nationality" class="border" type="text" label="  {{__('جنسية اليتيم')}}" value="مصري/ة" disabled/>
                     </div>
+
+                    <div class="col-12 col-md-6 mb-3">
+                        <x-form.input name="gender" id="gender" class="border" type="text" label="  {{__('جنس اليتيم')}}" placeholder=" {{__('أدخل جنس اليتيم')}} "/>
+                    </div>
+
 
                     {{-- orphan_age --}}
                     <div class="col-12 col-md-6 mb-3">
@@ -63,9 +68,17 @@
                     </div>
 
 
-                    {{-- Health status --}}
-                    <div class="col-12  mb-3">
-                        <x-form.textarea name="health_status" id="health_status" label="{{__('الحالة الصحية لليتيم')}}"  placeholder="{{__('أدخل الحالة الصحية لليتبم')}}"/>
+                    <!--{{-- Health status --}}-->
+
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="mb-2"> {{__('الحالة الصحية لليتيم')}} </label>
+                        <x-form.select id="health_status" name="health_status"
+                        :options="['' =>  __('اختر'), 'مريض' => __('مريض'), 'جيدة' => __('جيدة')]"/>
+                    </div>
+
+                    {{-- disease_description --}}
+                    <div class="col-12 col-md-6 mb-3"  id="disease_description_wrapper" style="display:none;">
+                        <x-form.input name="disease_description" id="disease_description" class="border" type="text" label=" {{__('تفاصيل المرض')}}" autocomplete="" placeholder="{{__('أدخل تفاصيل المرض ')}}"/>
                     </div>
 
                     {{-- academic_stage --}}
@@ -78,6 +91,17 @@
                         <x-form.input name="class" id="class" class="border" type="text" label=" {{__('الصف')}}" autocomplete="" placeholder="{{__('أدخل الصف')}}"/>
                     </div>
 
+                    {{-- person_responsible--}}
+                    <div class="col-12 col-md-6 mb-3">
+                        <x-form.input name="guardian_name" id="guardian_name" class="border" type="text" label=" {{__('المسؤول المباشر عن اليتيم')}}" autocomplete="" placeholder="{{__('أدخل المسؤول المباشر عن اليتيم')}}"/>
+                    </div>
+
+                    {{-- relationship_orphan --}}
+                    <div class="col-12 col-md-6 mb-3">
+                        <x-form.input name="guardian_relationship" id="guardian_relationship" class="border" type="text" label=" {{__('صلته باليتيم')}}" autocomplete="" placeholder="{{__('أدخل صلته باليتيم')}}"/>
+                    </div>
+
+
 
                     {{-- academic_level --}}
                     <div class="col-12 col-md-6 mb-3">
@@ -88,23 +112,18 @@
 
                     {{-- orphan_obligations_islam --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="orphan_obligations_islam" class="border" type="text" label=" {{__('التزامات اليتيم بتعاليم الاسلام')}}" autocomplete="" placeholder="{{__('أدخل التزامات اليتيم بتعاليم الاسلام')}}"/>
+                        <label for="" class="mb-2"> {{__('التزم اليتيم بتعاليم الاسلام')}} </label>
+                        <x-form.select id="orphan_obligations_islam" name="orphan_obligations_islam"
+                        :options="['' =>  __('اختر'), 'جيد' => __('جيد'), 'جيد جدا' => __('جيد جدا') , 'ممتاز' => __('ممتاز')]"/>
                     </div>
 
                     {{-- save_orphan_quran --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="save_orphan_quran" class="border" type="text" label=" {{__('حفظ اليتيم من القران الكريم')}}" autocomplete="" placeholder="{{__('أدخل حفظ اليتيم من القران الكريم')}}"/>
+                        <x-form.input name="save_orphan_quran" class="border" type="number" min="0" max="30" label=" {{__('حفظ اليتيم من القران الكريم')}}" autocomplete="" placeholder="{{__('أدخل حفظ اليتيم من القران الكريم')}}"/>
                     </div>
 
-                    {{-- person_responsible--}}
-                    <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="guardian_name" id="guardian_name" class="border" type="text" label=" {{__('المسؤول المباشر عن اليتيم')}}" autocomplete="" placeholder="{{__('أدخل المسؤول المباشر عن اليتيم')}}"/>
-                    </div>
 
-                    {{-- relationship_orphan --}}
-                    <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="guardian_relationship" id="guardian_relationship" class="border" type="text" label=" {{__('صلته باليتيم')}}" autocomplete="" placeholder="{{__('أدخل صلته باليتيم')}}"/>
-                    </div>
+
 
 
                     {{-- changes_orphan_year --}}
@@ -149,11 +168,12 @@
                 var orphanIdInput = document.getElementById("orphan_id");
                 var orphanCodeInput = document.getElementById("orphan_code");
                 var orphanNameInput = document.getElementById("orphan_name");
-                var orphanNationalityInput = document.getElementById("nationality");
+                var orphanGenderInput = document.getElementById("gender");
                 var orphanAgeInput = document.getElementById("age");
                 var orphanGuardianRelationshipInput = document.getElementById("guardian_relationship");
                 var orphanGuardianNameInput = document.getElementById("guardian_name");
                 var orphanHealthStatusInput = document.getElementById("health_status");
+                var orphanDiseaseDescriptionInput = document.getElementById("disease_description");
                 var orphanAcademicStageInput = document.getElementById("academic_stage");
                 var orphanClassInput = document.getElementById("class");
 
@@ -166,11 +186,12 @@
                         orphanIdInput.value = orphan.orphan.id || '';
                         orphanCodeInput.value = orphan.orphan.internal_code || '';
                         orphanNameInput.value = orphan.orphan.name || '';
-                        orphanNationalityInput.value = getFieldValueByDatabaseName(orphan, 'nationality') || '';
+                        orphanGenderInput.value = orphan.orphan.gender || '';
                         orphanAgeInput.value = orphan.orphan.age || '';
                         orphanGuardianNameInput.value = orphan.orphan.guardian.guardian_name || '';
                         orphanGuardianRelationshipInput.value = orphan.orphan.guardian.guardian_relationship || '';
                         orphanHealthStatusInput.value = orphan.orphan.health_status || '';
+                        orphanDiseaseDescriptionInput.value = orphan.orphan.disease_description || orphan.orphan.disability_type || '';
                         orphanAcademicStageInput.value = orphan.orphan.profile.academic_stage || '';
                         orphanClassInput.value = orphan.orphan.profile.class || '';
 
@@ -179,11 +200,12 @@
                         // make input have value disabled
                         orphanCodeInput.disabled = orphanCodeInput.value !== '';
                         orphanNameInput.disabled = orphanNameInput.value !== '';
-                        orphanNationalityInput.disabled = orphanNationalityInput.value !== '';
+                        orphanGenderInput.disabled = orphanGenderInput.value !== '';
                         orphanAgeInput.disabled = orphanAgeInput.value !== '';
                         orphanGuardianNameInput.disabled = orphanGuardianNameInput.value !== '';
                         orphanGuardianRelationshipInput.disabled = orphanGuardianRelationshipInput.value !== '';
                         orphanHealthStatusInput.disabled = orphanHealthStatusInput.value !== '';
+                        orphanDiseaseDescriptionInput.disabled = orphanDiseaseDescriptionInput.value !== '';
                         orphanAcademicStageInput.disabled = orphanAcademicStageInput.value !== '';
                         orphanClassInput.disabled = orphanClassInput.value !== '';
 
@@ -212,6 +234,29 @@
 
             });
         </script>
+
+        <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let healthSelect = document.getElementById("health_status");
+        let diseaseWrapper = document.getElementById("disease_description_wrapper");
+
+        function toggleDiseaseField() {
+            if (healthSelect.value === "مريض") {
+                diseaseWrapper.style.display = "block";
+            } else {
+                diseaseWrapper.style.display = "none";
+                document.getElementById("disease_description").value = ""; // تصفير الحقل
+            }
+        }
+
+        // أول تحميل للصفحة
+        toggleDiseaseField();
+
+        // عند التغيير
+        healthSelect.addEventListener("change", toggleDiseaseField);
+    });
+</script>
+
 
 
         @endpush

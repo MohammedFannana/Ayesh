@@ -69,7 +69,8 @@
                     <th scope="col"> {{__('رقم الداعم')}}</th>
                     <th scope="col"> {{__('اسم الداعم')}}</th>
                     <th scope="col"> {{__('المبلغ')}} </th>
-                    <th scope="col" class="text-center">  {{__('الملفات المرفقة')}}</th>
+                    <th scope="col" class="text-center">  {{__('الملفات المرفقة')}}</th> 
+                    <th scope="col"> {{__('تاريخ بدأ الكفالة ')}}</th>
                     <th scope="col"> {{__('الاجراءات')}} </th>
 
                 </tr>
@@ -85,10 +86,18 @@
                         <td> {{$balance->supporter->name}} </td>
                         <td class="title-color"> {{$balance->amount}} </td>
                         <td class="text-center">
-                            <a href="{{route('orphan.image' , ['file' => encrypt($balance->payment_image)])}}" type="button" class="text-decoration-none view-file w-100">
+                            <a href="{{route('orphan.image' , ['file' => encrypt($balance->payment_image)])}}" type="button" class="text-decoration-none view-file w-100 d-inline-block mb-1" >
                                 {{ __('وصل استلام المبلغ') }}.{{ pathinfo($balance->payment_image, PATHINFO_EXTENSION) }}
                             </a>
+                            <br>
+                            @if($balance->orphan_name)
+                            <a href="{{route('orphan.image' , ['file' => encrypt($balance->orphan_name)])}}" type="button" class="text-decoration-none view-file w-100">
+                                {{ __('اسماء الأيتام') }}.{{ pathinfo($balance->orphan_name, PATHINFO_EXTENSION) }}
+                            </a>
+                            @endif
                         </td>
+                        <td> {{$balance->start_sponsored}} </td>
+
                         <td>
 
                             <form action="{{route('balance.destroy' , $balance->id)}}" method="post" style="margin-right: -5px">

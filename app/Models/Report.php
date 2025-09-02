@@ -15,7 +15,7 @@ class Report extends Model
     protected $fillable = [
         'supporter_id' , 'orphan_id' , 'fields' , 'signature'
         ,'supporter_seal' , 'group_photo' , 'thanks_letter' ,'academic_certificate',
-        'sponsorship_transfer_receipt','supporter_accreditation',
+        'sponsorship_transfer_receipt','supporter_accreditation', 'payment_receipt' , 'profile_image'
     ];
 
     // one to many relation

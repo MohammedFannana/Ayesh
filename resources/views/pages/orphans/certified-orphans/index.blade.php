@@ -55,22 +55,11 @@
                         </div>
 
                         <div class="d-flex align-items-center gap-2 mb-1">
-                            <input type="checkbox" class="checkbox_filter" name="filter[]" value="مريض مزمن" id="chronic_patient"
-                                @if(in_array('مريض مزمن', request()->get('filter', []))) checked @endif>
-                            <label for="chronic_patient" class="count">{{ __('مريض مزمن') }}</label>
+                            <input type="checkbox" class="checkbox_filter" name="filter[]" value="يتيم" id="orphan"
+                                @if(in_array('يتيم', request()->get('filter', []))) checked @endif>
+                            <label for="orphan" class="count">{{ __('يتيم') }}</label>
                         </div>
-
-                        <div class="d-flex align-items-center gap-2 mb-1">
-                            <input type="checkbox" class="checkbox_filter" name="filter[]" value="الحالات الخاصة" id="special_case"
-                                @if(in_array('الحالات الخاصة', request()->get('filter', []))) checked @endif>
-                            <label for="special_case" class="count">{{ __('الحالات الخاصة') }}</label>
-                        </div>
-
-                        <div class="d-flex align-items-center gap-2 mb-1">
-                            <input type="checkbox" class="checkbox_filter" name="filter[]" value="قريب السن" id="close_age"
-                                @if(in_array('قريب السن', request()->get('filter', []))) checked @endif>
-                            <label for="close_age" class="count">{{ __('قريب السن') }}</label>
-                        </div>
+                        
                     </form>
 
                 </div>
@@ -138,7 +127,7 @@
                     <th scope="col"></th>
                     <th scope="col">{{__('كود اليتيم الداخلي')}}</th>
                     <th scope="col"> {{__('الاسم')}} </th>
-                    <th scope="col"> {{__('السن')}} </th>
+                    {{--<th scope="col"> {{__('السن')}} </th> --}}
                     <th scope="col"> {{__('حالة اليتيم')}}</th>
                     <th scope="col"> {{__('الاجراءات')}} </th>
 
@@ -165,7 +154,7 @@
                             {{$orphan->internal_code}}
                         </th>
                         <td> {{$orphan->name}} </td>
-                        <td>{{$orphan->age}} {{('عام')}}</td>
+                        {{-- <td>{{calculateAge($orphan->birth_date)}} {{('عام')}}</td> --}}
                         <td> {{$orphan->case_type}}</td>
                         <td style="position: relative;">
 

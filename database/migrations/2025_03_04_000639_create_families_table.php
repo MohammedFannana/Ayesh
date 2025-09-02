@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('female_number')->default(0);
             $table->string('income');
             $table->string('income_source');
-            $table->string('address');
+            // $table->string('address');
 
             // بيانات السكن
             $table->enum('housing_type', ['ملك', 'ايجار', 'مشترك']);

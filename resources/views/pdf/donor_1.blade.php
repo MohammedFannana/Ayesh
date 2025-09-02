@@ -96,7 +96,7 @@
             <tr>
                 <td style="width:25%;">
                     <span style="font-size: 19px;">  الجنسية: </span>
-                    <span style="font-size: 17px;"> {{$orphan->getFieldValueByDatabaseName('nationality')}} </span>
+                    <span style="font-size: 17px;"> مصري/ة </span>
                 </td>
 
                 <td style="width:25%;">
@@ -106,7 +106,7 @@
 
                 <td style="width:25%;">
                     <span style="font-size: 19px;">  يتيم الأبوين: </span>
-                    <span style="font-size: 17px;"> {{$orphan->profile->parents_orphan}} </span>
+                    <span style="font-size: 17px;"> @if ($orphan->case_type === 'يتيم الأبوين') نعم  @else لا @endif  </span>
                 </td>
 
                 <td style=" width:25%;">
@@ -171,7 +171,7 @@
 
                     <td style="width:25%;">
                         <span style="font-size: 19px;">  متزوجة: </span>
-                        <span style="font-size: 17px;"> نعم </span>
+                        <span style="font-size: 17px;"> @if($orphan->profile->mother_status === "متزوجة") نعم @else لا  @endif</span>
                     </td>
 
                     <td style=" width:25%;">
@@ -220,11 +220,13 @@
                         <span style="font-size: 19px;">  المرحلة الدراسية: </span>
                         <span style="font-size: 17px;"> {{$orphan->profile->academic_stage}} </span>
                     </td>
-
+                    
+                    @if($orphan->profile->class)
                     <td style="width:33%;">
                         <span style="font-size: 19px;"> الصف: </span>
                         <span style="font-size: 17px;"> {{$orphan->profile->class}} </span>
                     </td>
+                    @endif
 
                 </tr>
             </table>
@@ -249,12 +251,15 @@
                 <tr>
                     <td style="width:49%;">
                         <span style="font-size: 19px;">  عنوان اليتيم بالكامل: </span>
-                        <span style="font-size: 17px;"> {{$orphan->profile->full_address}} </span>
+                        <span style="font-size: 17px;">
+                            {{ $orphan->profile->governorate . '/' . $orphan->profile->center . '/' . $orphan->profile->full_address }}
+                        </span>
+
                     </td>
 
                     <td style="width:49%;">
                         <span style="font-size: 19px;"> هاتف: </span>
-                        <span style="font-size: 17px;"> {{$orphan->profile->phone}} </span>
+                        <span style="font-size: 17px;"> {{$orphan->phones[0]->phone_number}} </span>
                     </td>
 
                 </tr>

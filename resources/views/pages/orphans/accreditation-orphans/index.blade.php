@@ -37,7 +37,7 @@
                     <th scope="col">{{__('كود اليتيم')}}</th>
                     <th scope="col"> {{__('الاسم')}} </th>
                     <th scope="col"> {{__('الهاتف')}} </th>
-                    <th scope="col"> {{__('نوع الحالة')}}</th>
+                    {{--<th scope="col"> {{__('نوع الحالة')}}</th>--}}
                     <th scope="col"> {{__('الاجراءات')}} </th>
 
                 </tr>
@@ -51,8 +51,8 @@
                     <tr>
                         <th scope="row">{{$orphan->internal_code}}</th>
                         <td> {{$orphan->name}} </td>
-                        <td>{{$orphan->profile->phone}}</td>
-                        <td> {{$orphan->case_type}}</td>
+                        <td>{{$orphan->phones[0]->phone_number}}</td>
+                        {{--<td> {{$orphan->case_type}}</td>--}}
                         <td style="position: relative;">
 
                             <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">

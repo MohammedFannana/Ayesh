@@ -89,18 +89,13 @@ class FirstLineFamilyController extends Controller
             'housing_status' => ['required' , 'string' ,'in:ملك,ايجار,مشترك'],
             'search_status' => ['required' , 'string'],
             'researcher_name' => ['required' , 'string'],
-            'signature' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                            'dimensions:min_width=100,min_height=100','max:1048576',],
+            'signature' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', 'max:1048576'],
             'phone' => ['required' , 'string'],
-            'supporting_documents' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                                    'dimensions:min_width=100,min_height=100','max:1048576',],
+            'supporting_documents' =>['required','file' ,'mimes:png,jpg,jpeg,pdf','max:1048576'],
             'authority_official' => ['required' , 'string'],
-            'authority_official_signature' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                                            'dimensions:min_width=100,min_height=100','max:1048576',],
-            'birth_certificate' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                            'dimensions:min_width=100,min_height=100','max:1048576',],
-            'death_certificate' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                            'dimensions:min_width=100,min_height=100','max:1048576',],
+            'authority_official_signature' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', 'max:1048576'],
+            'birth_certificate' =>['required','file' ,'mimes:png,jpg,jpeg,pdf','max:1048576'],
+            'death_certificate' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', 'max:1048576'],
             'date' => ['required' , 'date'],
             'sponsor_number' => ['required' , 'string'],
 
@@ -129,35 +124,35 @@ class FirstLineFamilyController extends Controller
                 'authority_official_signature' , 'birth_certificate' , 'death_certificate', 'date' , 'sponsor_number'
             ]);
 
-            if ($request->hasFile('signature')) {    //to check if image file is exit
+            if ($request->hasFile('signature')) {    //to check if file file is exit
                 $file = $request->file('signature');
                 $fileName = $request->input('researcher_name') . '_توقيع' . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('families/' . $request->input('name'), $fileName, 'public');
                 $profileData['signature'] = $path;
             }
 
-            if ($request->hasFile('supporting_documents')) {    //to check if image file is exit
+            if ($request->hasFile('supporting_documents')) {    //to check if file file is exit
                 $file = $request->file('supporting_documents');
                 $fileName =  'المستندات_الثيوتية' . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('families/' . $request->input('name'), $fileName, 'public');
                 $profileData['supporting_documents'] = $path;
             }
 
-            if ($request->hasFile('authority_official_signature')) {    //to check if image file is exit
+            if ($request->hasFile('authority_official_signature')) {    //to check if file file is exit
                 $file = $request->file('authority_official_signature');
                 $fileName = $request->input('authority_official') . '_توقيع_الهيئة'  . '.' .$file->getClientOriginalExtension();
                 $path = $file->storeAs('families/' . $request->input('name'), $fileName, 'public');
                 $profileData['authority_official_signature'] = $path;
             }
 
-            if ($request->hasFile('birth_certificate')) {    //to check if image file is exit
+            if ($request->hasFile('birth_certificate')) {    //to check if file file is exit
                 $file = $request->file('birth_certificate');
                 $fileName =  'شهادة_ميلاد'  . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('families/' . $request->input('name'), $fileName, 'public');
                 $profileData['birth_certificate'] = $path;
             }
 
-            if ($request->hasFile('death_certificate')) {    //to check if image file is exit
+            if ($request->hasFile('death_certificate')) {    //to check if file file is exit
                 $file = $request->file('death_certificate');
                 $fileName =  'شهادة_وفاة'  . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('families/' . $request->input('name'), $fileName, 'public');
@@ -176,7 +171,7 @@ class FirstLineFamilyController extends Controller
             DB::rollBack();
             // return redirect()->back()->with('danger', 'فشل في تسجيل العائلة: ' . $e->getMessage());
 
-            return redirect()->back()->with('danger', __(' فشل في تسجيل العائلة. يرجى المحاولة مرة أخرى. '));
+            return redirect()->back()->with('danger', __(' فشل في تسجيل العائلة. يرجى المحاولة مرة أخرى. '))->withInput(); 
         }
 
 

@@ -71,10 +71,12 @@ class SupporterController extends Controller
 
         $supporter_balances = $supporter->balances()->take(5)->get();
 
+
         $orphans = Orphan::where('status' , 'sponsored')
         ->whereHas('sponsorship', function ($query) use ($supporterId) {
             $query->where('supporter_id', $supporterId);
-        })->with(['expenses:id,orphan_id,amount' , 'profile:orphan_id,phone' , 'sponsorship:orphan_id,external_code'])
+        })->with(['expenses:id,orphan,start_date,end_date,net_amount,internal_code,external_code' , 'profile:orphan_id' , 'sponsorship:orphan_id,external_code'])
+        ->latest()
         ->take(5)
         ->get();
 
@@ -149,7 +151,8 @@ class SupporterController extends Controller
         ->when($request->search, function ($builder, $value) {
             $builder->where('name', 'LIKE', "%{$value}%");
         })
-        ->with(['expenses:id,orphan_id,amount' , 'profile:orphan_id,phone' , 'sponsorship:orphan_id,external_code'])
+        ->with(['expenses:id,orphan,start_date,end_date,net_amount,internal_code,external_code' , 'profile:orphan_id' , 'sponsorship:orphan_id,external_code'])
+        ->latest()
         ->paginate(10);
 
         return view('pages.supporters.sponsored_listed' ,compact('supporter' , 'orphans'));

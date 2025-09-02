@@ -18,9 +18,9 @@
                 <input type="hidden" name="orphan_id" value=""  id="orphan_id"/>
 
                 <!-- supervising_authority -->
-                <div class="col-12 mb-3">
+                {{-- <div class="col-12 mb-3">
                     <x-form.input name="supervising_authority"  class="border" type="text" label=" {{__('الجهة المشرفة')}}"  placeholder="{{__('أدخل اسم الجهة المشرفة')}}"/>
-                </div>
+                </div> --}}
 
                 <!-- country -->
                 {{-- :value="$admin->email" --}}
@@ -62,7 +62,7 @@
 
                 {{-- birth_date --}}
                 <div class="col-12 col-md-6 mb-3">
-                    <x-form.input name="birth_date" id="birth_date" class="border" type="date" label=" {{__('تاريخ الميلاد')}}" autocomplete=""/>
+                    <x-form.input name="birth_date" id="birth_date" class="border" type="text" label=" {{__('تاريخ الميلاد')}}" autocomplete=""/>
                 </div>
 
                 {{-- address--}}
@@ -83,6 +83,16 @@
                 {{-- health_status --}}
                 <div class="col-12 col-md-6 mb-3">
                     <x-form.input name="health_status" id="health_status" class="border" type="text" label="  {{__('الحالة الصحية')}}" autocomplete="" placeholder="{{__('أدخل الحالة الصحية')}}"/>
+                </div>
+
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="" class="mb-2"> {{__('الحالة الصحية لليتيم')}} </label>
+                    <x-form.select id="health_status" name="health_status"
+                    :options="['' =>  __('اختر'), 'مريض' => __('مريض'), 'جيدة' => __('جيدة')]"/>
+                </div>
+
+                <div class="col-12 col-md-6 mb-3" id="disease_description1">
+                    <x-form.input name="disease_description" id="disease_description" class="border" type="text" label="  {{__('نوع المرض')}}" autocomplete="" placeholder="{{__('أدخل نوع المرض')}}"/>
                 </div>
 
                 {{-- mother_name--}}
@@ -108,7 +118,7 @@
 
                 {{-- memorize_quran --}}
                 <div class="col-12 col-md-6 mb-3">
-                    <x-form.input name="memorize_quran" class="border" type="text" label=" {{__('حفظه للقران')}}" autocomplete="" placeholder="{{__('أدخل حفظه للقران')}}"/>
+                    <x-form.input name="memorize_quran" class="border" type="number" min="0" max="30" label=" {{__('حفظه للقران')}}" autocomplete="" placeholder="{{__('أدخل حفظه للقران')}}"/>
                 </div>
 
                 {{-- class --}}
@@ -132,16 +142,42 @@
                 {{-- orphan_birth_certificate  --}}
                 <div class="col-12 col-md-6 mb-3">
                     <label class="mb-2"> {{__('شهادة ميلاد اليتيم')}}</label> <br>
-                    <label for="birth_certificate" id="birth_report_label" class="custom-file-upload w-75 text-center"> {{__('ارفق شهادة ميلاد اليتيم')}}</label>
+                    <label for="birth_certificate" id="birth_report_label" class="custom-file-upload w-75 text-center"> {{__('ارفق شهادة ميلاد اليتيم')}}
+                    <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                    </label>
                     <input class="hidden-file-style" name="birth_certificate" type="file" id="birth_certificate" style="display: none;">
                     <input id="birth_report"   class="text-decoration-none view-file w-75" readonly />
+                </div>
+
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="mb-2"> {{__(' صورة اليتيم ')}}</label> <br>
+                    <label for="profile_image" id="birth_report_label" class="custom-file-upload w-75 text-center"> {{__('ارفق  صورة اليتيم')}}
+                    <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                    </label>
+                    <input class="hidden-file-style" name="profile_image" type="file" id="profile_image" style="display: none;">
                 </div>
 
                 {{-- academic_certificate   --}}
                 <div class="col-12 col-md-6 mb-3">
                     <label class="mb-2">  {{__('صورة الشهادة الدراسية')}}</label> <br>
-                    <label for="academic_certificate"  class="custom-file-upload w-75 text-center"> {{__('ارفق صورة الشهادة الدراسية')}}</label>
+                    <label for="academic_certificate"  class="custom-file-upload w-75 text-center"> {{__('ارفق صورة الشهادة الدراسية')}}
+                        <img src="" width="60" alt="">
+                        <div class="file-preview mt-2"></div>
+                    </label>
                     <input class="hidden-file-style" name="academic_certificate" type="file" id="academic_certificate" style="display: none;">
+                </div>
+
+
+                {{--    --}}
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="mb-2">  {{__('صورة إيصال الدفع')}}</label> <br>
+                    <label for="payment_receipt"  class="custom-file-upload w-75 text-center"> {{__('ارفق صورة إيصال الدفع')}}
+                        <img src="" width="60" alt="">
+                        <div class="file-preview mt-2"></div>
+                    </label>
+                    <input class="hidden-file-style" name="payment_receipt" type="file" id="payment_receipt" style="display: none;">
                 </div>
 
 
@@ -176,6 +212,7 @@
             var orphanGuardianRelationshipInput = document.getElementById("guardian_relationship");
             var orphanGuardianNameInput = document.getElementById("guardian_name");
             var orphanHealthStatusInput = document.getElementById("health_status");
+            var orphanDiseaseDescriptionInput = document.getElementById("disease_description");
             var orphanCaseTypeInput = document.getElementById("case_type");
             var orphanClasseInput = document.getElementById("class");
 
@@ -199,9 +236,14 @@
                     orphanMotherNameInput.value = orphan.orphan.profile.mother_name || '';
                     orphanGuardianNameInput.value = orphan.orphan.guardian.guardian_name || '';
                     orphanGuardianRelationshipInput.value = orphan.orphan.guardian.guardian_relationship || '';
-                    orphanPhoneInput.value = orphan.orphan.profile.phone || '';
-                    orphanAddressInput.value = orphan.orphan.profile.full_address || '';
+                    orphanPhoneInput.value = orphan.orphan.phones[0].phone_number || '';
+                    orphanAddressInput.value =
+                        (orphan.orphan.profile.governorate || '') + ' / ' +
+                        (orphan.orphan.profile.center || '') + ' / ' +
+                        (orphan.orphan.profile.full_address || '');
+
                     orphanHealthStatusInput.value = orphan.orphan.health_status || '';
+                    orphanDiseaseDescriptionInput.value = orphan.orphan.disease_description || '';
                     orphanCaseTypeInput.value = orphan.orphan.case_type || '';
                     orphanClasseInput.value = orphan.orphan.profile.class || '';
 
@@ -229,6 +271,7 @@
                     orphanPhoneInput.disabled = orphanPhoneInput.value !== '';
                     orphanAddressInput.disabled = orphanAddressInput.value !== '';
                     orphanHealthStatusInput.disabled = orphanHealthStatusInput.value !== '';
+                    orphanDiseaseDescriptionInput.disabled = orphanDiseaseDescriptionInput.value !== '';
                     orphanCaseTypeInput.disabled = orphanCaseTypeInput.value !== '';
                     orphanClasseInput.disabled = orphanClasseInput.value !== '';
 
@@ -258,6 +301,33 @@
 
         });
     </script>
+
+
+{{-- for id="health_status" --}}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const healthSelect = document.getElementById('health_status');
+                const diseaseField = document.getElementById('disease_description1');
+
+                function toggleFields() {
+                    const value = healthSelect.value;
+
+                    // أخفِ الجميع أولاً
+                    diseaseField.style.display = 'none';
+
+                    // ثم أظهر حسب الاختيار
+                    if (value === 'مريض') {
+                        diseaseField.style.display = 'block';
+                    }
+                }
+
+                // عند تحميل الصفحة
+                toggleFields();
+
+                // عند تغيير الخيار
+                healthSelect.addEventListener('change', toggleFields);
+            });
+        </script>
 
 
     @endpush

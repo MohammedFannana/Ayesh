@@ -142,7 +142,7 @@
 
                 <div class="cell" style="float: left">
                     <span class="title" style=" border-right: 1px solid #737373;">  الجنسية : </span>
-                    <span class="span-value"> {{ $orphan->getFieldValueByDatabaseName('nationality')}} </span>
+                    <span class="span-value"> مصري/ة  </span>
                 </div>
 
             </div>
@@ -216,37 +216,49 @@
                         <span> متزوجة </span>
                     </div> --}}
 
-                    <div style="float: right; width:50%;font-size:1.25rem;border-right: 1px solid #737373;">
+                    @if($orphan->profile->mother_status === 'متزوجة')
+                        <div style="float: right; width:50%;font-size:1.25rem;border-right: 1px solid #737373;">
 
-                            @if($orphan->profile->mother_status === 'متزوجة')
-                                <span style="border: 1px solid #000; width:5px; height:5px">
-                                    ✔
-                                </span>
-                            @else
-                                <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'متزوجة')>
-                            @endif
+                                @if($orphan->profile->mother_status === 'متزوجة')
+                                    <span style="border: 1px solid #000; width:5px; height:5px">
+                                        ✔
+                                    </span>
+                                @else
+                                    <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'متزوجة')>
+                                @endif
 
-                        <label for="متزوجة">متزوجة</label>
-                    </div>
+                            <label for="متزوجة">متزوجة</label>
+                        </div>
+                    @elseif ($orphan->profile->mother_status === 'أرملة')
 
-                    {{-- <div  style="float:left; width:49%;font-size:1.25rem;border-right: 1px solid #737373;" >
-                        <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'أرملة')>
-                        <span> أرملة </span>
-                    </div> --}}
+                        <div style="float:left; width:49%;font-size:1.25rem;border-right: 1px solid #737373; height:5px">
 
-                    <div style="float:left; width:49%;font-size:1.25rem;border-right: 1px solid #737373; height:5px">
+                                @if($orphan->profile->mother_status === 'أرملة')
+                                    <span style="border: 2px solid #000;">
+                                        ✔
+                                    </span>
+                                @else
+                                    <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'أرملة')>
+                                @endif
 
-                            @if($orphan->profile->mother_status === 'أرملة')
-                                <span style="border: 2px solid #000;">
-                                    ✔
-                                </span>
-                            @else
-                                <input type="radio" name="mother_status" @checked($orphan->profile->mother_status === 'أرملة')>
-                            @endif
+                            <label for="أرملة">أرملة</label>
+                        </div>
+                    @else
 
-                        <label for="أرملة">أرملة</label>
-                    </div>
+                        <div style="float: right; width:50%;font-size:1.25rem;border-right: 1px solid #737373;">
 
+                                @if(is_null($orphan->profile->mother_work))
+                                    <span style="border: 1px solid #000; width:5px; height:5px">
+                                        ✔
+                                    </span>
+                                @else
+                                    <input type="radio" name="mother_status" @checked(is_null($orphan->profile->mother_work))>
+                                @endif
+
+                            <label for="متوفاة">متوفاة</label>
+                        </div>
+
+                    @endif
 
                 </div>
             </div>
@@ -284,11 +296,11 @@
                                     <span class="title"> عدد اخوان اليتيم : </span>
                                     <span class="span-value"> {{$orphan->family->family_number}} </span>
                                 </td>
-                                <td style="width: 18%; text-align: right;">
+                                <td style="width: 17%; text-align: right;">
                                     <span class="title"> ذكور : </span>
                                     <span class="span-value"> {{$orphan->family->male_number}} </span>
                                 </td>
-                                <td style="width: 18%; text-align: left;">
+                                <td style="width: 17%; text-align: left;">
                                     <span class="title"> اناث : </span>
                                     <span class="span-value"> {{$orphan->family->female_number}} </span>
                                 </td>
@@ -318,12 +330,12 @@
             <div class="name">
                 <div class="cell" style="float: right">
                     <span class="title">  العنوان : </span>
-                    <span class="span-value" > {{$orphan->profile->full_address}} </span>
+                    <span class="span-value" >  {{ $orphan->profile->governorate . '/' . $orphan->profile->center . '/' . $orphan->profile->full_address }} </span>
                 </div>
 
                 <div class="cell" style="float: left">
                     <span class="title"> الهاتف : </span>
-                    <span class="span-value"> {{$orphan->profile->phone}} </span>
+                    <span class="span-value"> {{$orphan->phones[0]->phone_number}} </span>
                 </div>
             </div>
 
@@ -424,13 +436,16 @@
             <div class="name">
                 <div class="cell" style="float: right">
                     <span class="title" style="width: 37%; ;margin-right:8px">المرحلة الدراسية : </span>
-                    <span class="span-value" > {{$orphan->profile->academic_stage}} </span>
+                    <span class="span-value" >  {{ $orphan->profile->academic_stage	 . '/' . $orphan->profile->academic_stage_details . '/' . $orphan->profile->academic_secondary_details   }} </span>
                 </div>
 
-                <div class="cell" style="float: left">
-                    <span class="title"> الصف : </span>
-                    <span class="span-value"> {{$orphan->profile->class}} </span>
-                </div>
+                @if ($orphan->profile->class)
+                    <div class="cell" style="float: left">
+                        <span class="title"> الصف : </span>
+                        <span class="span-value"> {{$orphan->profile->class}} </span>
+                    </div>
+                @endif
+
             </div>
 
         </div>

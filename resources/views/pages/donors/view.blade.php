@@ -49,7 +49,7 @@
 
     </div>
 
-    <div class="payment-details bg-white rounded shadow-sm p-3 mb-4">
+{{-- <div class="payment-details bg-white rounded shadow-sm p-3 mb-4">
 
         <div class="d-flex justify-content-between align-items-center">
             <p class="mb-3 fs-5 fw-semibold title-color"> {{__('الكشوفات الواردة')}} </p>
@@ -94,13 +94,13 @@
                 @endforelse --}}
 
 
-            </tbody>
+            {{--</tbody>
 
         </table>
 
-    </div>
+    </div> --}}
 
-    <div class="case-list bg-white rounded shadow-sm p-3 mb-4">
+    {{-- <div class="case-list bg-white rounded shadow-sm p-3 mb-4">
 
         <div class="intro d-flex justify-content-between align-items-center">
             <div class="col-2 fs-5 fw-semibold title-color">
@@ -142,7 +142,7 @@
 
             </thead>
 
-            <tbody>
+            <tbody> --}}
 
                 {{-- @forelse ($orphans as $orphan)
 
@@ -200,12 +200,12 @@
                 @endforelse --}}
 
 
-            </tbody>
+            {{-- </tbody>
 
         </table>
 
 
 
-    </div>
+    </div> --}}
 
 </x-main-layout>

@@ -1,5 +1,38 @@
 <x-main-layout>
 
+    @push('styles')
+        <style>
+
+            input[type="radio"][disabled]:checked::before {
+                background-color: #000; /* لون الدائرة الداخلية */
+            }
+
+            input[type="radio"][disabled] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 16px;
+                height: 16px;
+                border: 2px solid #999;
+                border-radius: 50%;
+                position: relative;
+                background-color: #fff;
+                cursor: not-allowed;
+            }
+
+            input[type="radio"][disabled]:checked::before {
+                content: '';
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 8px;
+                height: 8px;
+                background-color: #000;
+                border-radius: 50%;
+            }
+
+        </style>
+    @endpush
+
     <h2 class="mb-4"> {{__('الأيتام المقدمين')}}</h2>
     <h4 class="mb-5 title-color">  {{__('الحالات المدخلة - جمعية دبي الخيرية')}}</h4>
 
@@ -27,7 +60,7 @@
 
             {{-- birth_date --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input  name="birth_date" :value="$orphan->birth_date" class="border" type="date" label=" {{__('تاريخ ميلاد اليتيم')}}" autocomplete="" disabled/>
+                <x-form.input  name="birth_date" :value="$orphan->birth_date" class="border" type="text" label=" {{__('تاريخ ميلاد اليتيم')}}" autocomplete="" disabled/>
             </div>
 
             {{-- gender --}}
@@ -52,25 +85,29 @@
             </div>
 
             {{-- mother_marital_status --}}
-            <div class="col-12 col-md-6 mb-3 ">
-                <label for="orphan" class="mb-2"> {{__('الحالة الاجتماعية للأم')}}</label>
-                <div class="d-flex" style="gap: 180px">
-                    <div>
-                        <input type="radio" name="mother_marital_status" id="married" value="متزوجة" @checked($orphan->profile->mother_status === 'متزوجة') disabled>
-                        <label for="married">{{__('متزوجة')}}</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="mother_marital_status" id="widow" value="أرملة" @checked($orphan->profile->mother_status === 'أرملة') disabled>
-                        <label for="widow">{{__('أرملة')}}</label>
-                    </div>
-                </div>
+            @if ($orphan->profile && $orphan->profile->mother_status)
 
-            </div>
+                    <div class="col-12 col-md-6 mb-3 ">
+                        <label for="orphan" class="mb-2"> {{__('الحالة الاجتماعية للأم')}}</label>
+                        <div class="d-flex" style="gap: 180px">
+                            <div>
+                                <input type="radio" name="mother_marital_status" id="married" value="متزوجة" @checked($orphan->profile->mother_status === 'متزوجة') disabled>
+                                <label for="married">{{__('متزوجة')}}</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="mother_marital_status" id="widow" value="أرملة" @checked($orphan->profile->mother_status === 'أرملة') disabled>
+                                <label for="widow">{{__('أرملة')}}</label>
+                            </div>
+                        </div>
+
+                    </div>
+            @endif
+
 
 
             {{-- father_death --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="father_death_date" :value="$orphan->profile->father_death_date" class="border" type="date" label=" {{__('تاريخ وفاة الأب')}}" autocomplete="" />
+                <x-form.input name="father_death_date"  id="father_death_date"  :value="$orphan->profile->father_death_date" class="border" type="text" label=" {{__('تاريخ وفاة الأب')}}" autocomplete="" disabled/>
             </div>
 
             {{-- death_reason --}}
@@ -121,12 +158,12 @@
 
             {{--  address --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="address" :value="$orphan->family->address" class="border" type="text" label=" {{__('العنوان')}} " autocomplete="" placeholder="أدخل العنوان  " disabled/>
+                <x-form.input name="address" :value="$orphan->profile->full_address" class="border" type="text" label=" {{__('العنوان')}} " autocomplete="" placeholder="أدخل العنوان  " disabled/>
             </div>
 
             {{--  phone --}}
             <div class="col-12 col-md-6 mb-3">
-                <x-form.input name="phone" :value="$orphan->profile->phone" class="border" type="text" label=" {{__('الهاتف')}} " autocomplete="" placeholder="أدخل رقم الهاتف " disabled/>
+                <x-form.input name="phone" :value="$orphan->phones[0]->phone_number" class="border" type="text" label=" {{__('الهاتف')}} " autocomplete="" placeholder="أدخل رقم الهاتف " disabled/>
             </div>
 
             {{-- housing_type --}}

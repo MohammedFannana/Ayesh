@@ -113,6 +113,12 @@
                             <a href="{{route('orphan.image' , ['file' => encrypt($balance->payment_image)])}}" type="button" class="text-decoration-none text-dark w-100">
                                 {{ __('صورة استلام المبلغ') }}.{{ pathinfo($balance->payment_image, PATHINFO_EXTENSION) }}
                             </a>
+
+                            @if ($balance->orphan_name)
+                                <a href="{{route('orphan.image' , ['file' => encrypt($balance->orphan_name)])}}" type="button" class="text-decoration-none text-dark w-100">
+                                    {{ __('كشف استلام الأيتام') }}.{{ pathinfo($balance->orphan_name, PATHINFO_EXTENSION) }}
+                                </a>
+                            @endif
                         </td>
                     </tr>
 
@@ -158,82 +164,70 @@
         <hr>
 
 
-        <table class="table">
-            <thead>
-
-                <tr>
-                    <th scope="col">{{__('الكود الداخلي')}}</th>
-                    <th scope="col"> {{__('الكود الخارجي')}}</th>
-                    <th scope="col"> {{__('الاسم')}}</th>
-                    <th scope="col"> {{__('الهاتف')}} </th>
-                    <th scope="col">  {{__('اجمالي المدفوع')}}</th>
-                    <th scope="col"> {{__('الاجراءات')}} </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                @forelse ($orphans as $orphan)
-
-                    @foreach ($orphan->expenses->take(1) as $expense)
-
-                        <tr>
-                            <th scope="row"> {{$orphan->internal_code}} </th>
-                            <td> {{$orphan->sponsorship->external_code}} </td>
-                            <td> {{$orphan->name}} </td>
-                            <td> {{$orphan->profile->phone}} </td>
-                            <td> {{$expense->amount}} </td>
-
-                            <td style="position: relative;">
-
-                                <img class="show-action" src="{{asset('image/Group 8.svg')}}" alt="">
-
-                                <div class="action" style="left: -50px; width:186px">
-                                    <a href="{{route('orphan.sponsored.show' ,$orphan->id)}}" class="text-decoration-none">
-                                        <img src="{{asset('image/Show.svg')}}" alt="">
-                                        <span style="color: var(--text-color);">{{__('مشاهدة التفاصيل')}}</span>
-                                    </a>
-
-                                    <br>
-                                    <a href="" class="text-decoration-none">
-                                        <img src="{{asset('image/Message.svg')}}" alt="">
-                                        <span style="color: var(--text-color);"> {{__('مراسلة الجمعية')}} </span>
-                                    </a>
-
-
-                                    <form action="{{route('expenses.destroy' , $expense->id)}}" method="post" style="margin-right: -5px">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="submit border-0 p-0 bg-transparent">
-                                            <img src="{{asset('image/Delete.svg')}}" alt="">
-                                            <span style="color: var(--text-color);">{{__('حذف')}}</span>
-                                        </button>
-                                    </form>
-                                </div>
-
-                            </td>
-
-                        </tr>
-
-                    @endforeach
-
-
-                @empty
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
 
                     <tr>
-                        <th colspan="6" class="text-center text-danger">
-                            {{__('لا يوجد مكفولين')}}
-                        </th>
+                        <th scope="col">{{__('الكود الداخلي')}}</th>
+                        <th scope="col"> {{__('الكود الخارجي')}}</th>
+                        <th scope="col"> {{__('الاسم')}}</th>
+                        <th scope="col">  {{__('اجمالي المدفوع')}}</th>
+                        <th scope="col">  {{__('تاريخ بدأ الكفالة')}}</th>
+                        <th scope="col">  {{__('تاريخ نهاية الكفالة')}}</th>
+
                     </tr>
 
-                @endforelse
+                </thead>
+
+                <tbody>
+
+                    @forelse ($orphans as $orphan)
+
+                        @if ($orphan->expenses)
+
+                            @foreach ($orphan->expenses->take(1) as $expense)
+
+                                <tr>
+                                    <th scope="row"> {{$expense->internal_code}} </th>
+                                    <td> {{$expense->external_code}} </td>
+                                    <td> {{$expense->orphan}} </td>
+                                    <td> {{$expense->net_amount}} </td>
+                                    <td> {{$expense->start_date}} </td>
+                                    <td> {{$expense->end_date}} </td>
+                                    
+
+                                </tr>
+
+                            @endforeach
+
+                        @else
+
+                            <tr>
+                                <th colspan="6" class="text-center text-danger">
+                                    {{__('لا يوجد كفالات لعرضها')}}
+                                </th>
+                            </tr>
+
+                        @endif
 
 
-            </tbody>
 
-        </table>
+                    @empty
+
+                        <tr>
+                            <th colspan="6" class="text-center text-danger">
+                                {{__('لا يوجد مكفولين')}}
+                            </th>
+                        </tr>
+
+                    @endforelse
+
+
+                </tbody>
+
+            </table>
+        </div>
 
 
 

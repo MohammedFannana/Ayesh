@@ -29,7 +29,7 @@ class OrphanSupporterFieldValueController extends Controller
 
         foreach ($fields as $field_id => $field_type) {
             if ($field_type === 'file') {
-                $rules["fields.$field_id.file"] = ['required', 'image', 'mimes:png,jpg,jpeg', 'dimensions:min_width=100,min_height=100', 'max:1048576'];
+                $rules["fields.$field_id.file"] = ['required', 'file', 'mimes:png,jpg,jpeg,pdf', 'max:1048576'];
             } else {
                 $rules["fields.$field_id.value"] = ['required'];
             }

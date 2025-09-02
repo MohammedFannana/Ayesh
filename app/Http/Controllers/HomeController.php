@@ -12,6 +12,8 @@ use App\Models\Report;
 use App\Models\Supporter;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
+use App\Models\ExpenseOrphan;
+
 
 class HomeController extends Controller
 {
@@ -24,7 +26,7 @@ class HomeController extends Controller
         $file_count = File::count();
         $report_count = Report::count();
         $balance_amount = Balance::sum('amount');
-        $expense_amount = Expense::sum('amount');
+        $expense_amount = ExpenseOrphan::sum('net_amount');
 
         //orphan
         $orphan_registered_count = Orphan::where('status' , 'registered')->count();

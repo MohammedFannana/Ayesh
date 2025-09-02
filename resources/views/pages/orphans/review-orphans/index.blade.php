@@ -50,7 +50,7 @@
                     <tr>
                         <th scope="row">{{$orphan->internal_code}}</th>
                         <td> {{$orphan->name}} </td>
-                        <td>{{$orphan->profile->phone}}</td>
+                        <td>{{$orphan->phones[0]->phone_number}}</td>
                         <td> {{$orphan->case_type}}</td>
                         <td style="position: relative;">
 

@@ -31,14 +31,8 @@ class CertifiedOrphanController extends Controller
                 if (in_array('يتيم الأبوين', $filters)) {
                     $builder->where('case_type', 'يتيم الأبوين');
                 }
-                elseif (in_array('مريض مزمن', $filters)) {
-                    $builder->where('case_type', 'مريض مزمن');
-                }
-                elseif (in_array('الحالات الخاصة', $filters)) {
-                    $builder->where('case_type', 'الحالات الخاصة');
-                }
-                elseif (in_array('قريب السن', $filters)) {
-                    $builder->where('case_type' , 'قريب السن');
+                elseif (in_array('يتيم', $filters)) {
+                    $builder->where('case_type', 'يتيم');
                 }
             })
             ->select('id', 'internal_code', 'name', 'case_type', 'age')
@@ -63,8 +57,8 @@ class CertifiedOrphanController extends Controller
         $orphan_id = $request->orphan_id;
 
         $supporters = Supporter::pluck('name', 'id')->toArray();
-        $volunteers = Volunteer::pluck('name', 'id')->toArray();
-        return view('pages.orphans.certified-orphans.edit' , compact('supporters' , 'volunteers' , 'orphan_id'));
+        // $volunteers = Volunteer::pluck('name', 'id')->toArray();
+        return view('pages.orphans.certified-orphans.edit' , compact('supporters' , 'orphan_id'));
     }
 
     /**
@@ -72,41 +66,44 @@ class CertifiedOrphanController extends Controller
      */
     public function store(Request $request)
     {
-
+        $request->merge([
+            'country' => 'مصر',
+            'city' => 'الكردي',
+        ]);
 
         $validated = $request->validate([
             'orphan_id' => ['required' , 'exists:orphans,id'],
-            'country' => ['required' , 'string'],
+            'country' => ['required' , 'string' , 'in:مصر'],
             'city' => ['required' , 'string'],
-            'description_orphan_condition' => ['required' , 'string'],
-            'volunteer_id' => ['required' , 'exists:volunteers,id' ],
+            // 'description_orphan_condition' => ['required' , 'string'],
+            // 'volunteer_id' => ['required' , 'exists:volunteers,id' ],
             'supporter_id' => ['required' , 'exists:supporters,id'],
 
-            'father_card' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                                    'dimensions:min_width=100,min_height=100','max:1048576',],
+            // 'father_card' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+            //                         ],
 
-            'school_enrollment' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                                    'dimensions:min_width=100,min_height=100','max:1048576',],
+            // 'school_enrollment' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+            //                         ],
 
-            'health_insurance' =>['required','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                                    'dimensions:min_width=100,min_height=100','max:1048576',],
+            // 'health_insurance' =>['required','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+            //                         ],
 
-            'signature' =>['nullable','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                                    'dimensions:min_width=100,min_height=100','max:1048576',],
+            'signature' =>['nullable','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                                    ],
 
-            'supervisory_accreditation' =>['nullable','image' ,'mimes:png,jpg,jpeg', // يسمح فقط بملفات PNG و JPG/JPEG
-                                    'dimensions:min_width=100,min_height=100','max:1048576',],
+            'supervisory_accreditation' =>['nullable','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
+                                    ],
         ]);
 
-        // get the name of orphan to store image in special folder
+        // get the name of orphan to store file in special folder
         $orphan_name = Orphan::where('id' , $validated['orphan_id'])->value('name');
 
 
-        $imageFields = ['father_card', 'school_enrollment', 'health_insurance' , 'signature' ,'supervisory_accreditation']; // حدد الحقول التي تحتوي على صور
+        $imageFields = ['signature' ,'supervisory_accreditation']; // حدد الحقول التي تحتوي على صور
         $imageData = []; // مصفوفة لتخزين المسارات
 
-        // تعريف counter ليبدأ من 13
-        $counter = 13;
+        // تعريف counter ليبدأ من 14
+        $counter = 14;
 
         foreach ($imageFields as $field) {
             if ($request->hasFile($field)) {
@@ -119,11 +116,8 @@ class CertifiedOrphanController extends Controller
                 // $path = $file->storeAs('public/images', $fileName);
                 $path = $file->storeAs('orphans/' . $orphan_name, $fileName, 'public');
 
-
                 // حفظ المسار في المصفوفة مع مفتاح الحقل
                 $imageData[$field] = $path;
-
-                // زيادة counter ليبدأ من 11 ثم يزيد إلى 13 11، وهكذا
                 $counter++;
             }
         }
@@ -145,11 +139,9 @@ class CertifiedOrphanController extends Controller
     {
         $orphan = Orphan::where('id', $id)
                 ->where('status', 'approved') // إضافة شرط status بعد id
-                // ->with(['profile', 'guardian', 'family', 'image', 'phones' ,
+                // ->with(['profile', 'guardian', 'family', 'file', 'phones' ,
                 // ])
-                ->with(['profile' => function ($query) {  // to get phone from profile table
-                    $query->select('id', 'phone', 'orphan_id');
-                } , 'image'])
+                ->with(['profile' , 'image' , 'phones'])
                 ->firstOrFail(); // إذا لم يكن موجودًا سيرمي استثناء
 
 
@@ -160,10 +152,7 @@ class CertifiedOrphanController extends Controller
 
         $orphan = Orphan::where('id', $id)
         ->where('status', 'approved') // إضافة شرط status بعد id
-        ->select('id', 'internal_code', 'name', 'case_type', 'age' , 'application_form')
-        ->with(['profile' => function ($query) {  // to get phone from profile table
-            $query->select('id', 'phone', 'orphan_id');
-        } , 'image' , 'certified_orphan_extras'])
+        ->with(['profile', 'image' , 'certified_orphan_extras' ,'phones'])
         ->firstOrFail(); // إذا لم يكن موجودًا سيرمي استثناء
 
 

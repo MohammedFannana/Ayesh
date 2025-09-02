@@ -77,27 +77,27 @@
 
                     {{-- orphan_type --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="orphan_type" :value="$report->orphan->gender" id="orphan_type" class="border" type="text" label=" {{__('نوع اليتيم')}}" autocomplete="" placeholder=" أدخل نوع اليتيم" disabled/>
+                        <x-form.input name="orphan_type" :value="$report->orphan->gender ?? $report->fields['gender']" id="orphan_type" class="border" type="text" label=" {{__('نوع اليتيم')}}" autocomplete="" placeholder=" أدخل نوع اليتيم"  :disabled="$report->orphan->gender ? true : false" />
                     </div>
 
                     {{-- birth_place --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="birth_place" :value="$report->orphan->birth_place" id="birth_place" class="border" type="text" label="  {{__('مكان الميلاد')}}" autocomplete="" placeholder=" أدخل مكان الميلاد " disabled/>
+                        <x-form.input name="birth_place" :value="$report->orphan->birth_place ?? $report->fields['birth_place']" id="birth_place" class="border" type="text" label="  {{__('مكان الميلاد')}}" autocomplete="" placeholder=" أدخل مكان الميلاد " :disabled="$report->orphan->birth_place ? true : false"/>
                     </div>
 
                     {{-- nationality --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="nationality" :value="$report->orphan->getFieldValueByDatabaseName('nationality')" id="nationality" class="border" type="text" label=" {{__('الجنسية')}} " autocomplete="" placeholder=" أدخل الجنسية  " disabled/>
+                        <x-form.input name="nationality" value="مصري/ة" id="nationality" class="border" type="text" label=" {{__('الجنسية')}} " autocomplete="" placeholder=" أدخل الجنسية  " disabled/>
                     </div>
 
                     {{-- gender --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="gender" :value="$report->orphan->gender" id="gender" class="border" type="text" label=" {{__('الجنس')}} " autocomplete="" placeholder=" أدخل الجنس  " disabled/>
+                        <x-form.input name="gender" :value="$report->orphan->gender ?? $report->fields['gender']" id="gender" class="border" type="text" label=" {{__('الجنس')}} " autocomplete="" placeholder=" أدخل الجنس  " :disabled="$report->orphan->gender ? true : false"/>
                     </div>
 
                     {{-- birth_date --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="birth_date" :value="$report->orphan->birth_date" id="birth_date" class="border" type="date" label="  {{__('تاريخ الميلاد')}}" autocomplete="" disabled/>
+                        <x-form.input name="birth_date" :value="$report->orphan->birth_date ?? $report->fields['birth_date']" id="birth_date" class="border" type="text" label="  {{__('تاريخ الميلاد')}}" autocomplete="" :disabled="$report->orphan->birth_date ? true : false"/>
                     </div>
 
 
@@ -108,48 +108,51 @@
 
                     {{-- reason_continuing_sponsorship--}}
                     <div class="col-12  mb-3">
-                        <x-form.textarea name="reason_continuing_sponsorship" :value="$report->orphan->getFieldValueByDatabaseName('reason_continuing_sponsorship')" id="reason_continuing_sponsorship" label=" {{__('سبب استمرار الكفالة بعد البلوغ')}}" disabled />
+                        <x-form.textarea name="reason_continuing_sponsorship" :value="$report->orphan->getFieldValueByDatabaseName('reason_continuing_sponsorship') ?? $report->fields['reason_continuing_sponsorship']" id="reason_continuing_sponsorship" label=" {{__('سبب استمرار الكفالة بعد البلوغ')}}"  :disabled="$report->orphan->getFieldValueByDatabaseName('reason_continuing_sponsorship') ? true : false"/>
                     </div>
 
                     {{-- father_death --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="father_death_date" :value="$report->orphan->profile->father_death_date" class="border" id="father_death" type="date" label="  {{__('تاريخ وفاة الأب')}}" autocomplete="" disabled/>
+                        <x-form.input name="father_death_date" :value="$report->orphan->profile->father_death_date ?? $report->fields['father_death_date']" class="border" id="father_death" type="text" label="  {{__('تاريخ وفاة الأب')}}" autocomplete="" :disabled="$report->orphan->profile->father_death_date ? true : false"/>
                     </div>
 
                     {{-- mother_name --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="mother_name" :value="$report->orphan->profile->mother_name" class="border" id="mother_name" type="text" label=" {{__('اسم الأم')}}" autocomplete="" placeholder=" أدخل اسم الأم  " disabled/>
+                        <x-form.input name="mother_name" :value="$report->orphan->profile->mother_name ?? $report->fields['mother_name'] " class="border" id="mother_name" type="text" label=" {{__('اسم الأم')}}" autocomplete="" placeholder=" أدخل اسم الأم  " :disabled="$report->orphan->profile->mother_name ? true : false"/>
                     </div>
 
                     {{-- mother_death --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="mother_death_date" :value="$report->orphan->profile->mother_death_date" class="border" id="mother_death" type="date" label="  {{__('تاريخ وفاة الأم')}}" autocomplete="" disabled/>
+
+                        <x-form.input name="mother_death_date" :value="$report->orphan->profile->mother_death_date
+        ? $report->orphan->profile->mother_death_date
+        : (isset($report->fields['mother_death_date']) ? $report->fields['mother_death_date'] : '')"  class="border" id="mother_death" type="text" label="  {{__('تاريخ وفاة الأم')}}" autocomplete="" :disabled="$report->orphan->profile->mother_death_date? true : false"/>
                     </div>
 
                     {{-- family_number --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="family_number" :value="$report->orphan->family->family_number" class="border" id="family_number" type="number" label=" {{__('عدد افراد الاسرة')}} " min="0" autocomplete="" placeholder=" أدخل عدد افراد الاسرة   " disabled/>
+                        <x-form.input name="family_number" :value="$report->orphan->family->family_number ?? $report->fields['family_number']" class="border" id="family_number" type="number" label=" {{__('عدد افراد الاسرة')}} " min="0" autocomplete="" placeholder=" أدخل عدد افراد الاسرة   "  :disabled="$report->orphan->family->family_number ? true : false"/>
                     </div>
 
 
                     {{-- person_responsible--}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="guardian_name" :value="$report->orphan->guardian->guardian_name" class="border" id="guardian_name" type="text" label=" {{__('اسم ولي الأمر')}}"  autocomplete="" placeholder="أدخل اسم  ولي الأمر " disabled/>
+                        <x-form.input name="guardian_name" :value="$report->orphan->guardian->guardian_name ?? $report->fields['guardian_name']" class="border" id="guardian_name" type="text" label=" {{__('اسم ولي الأمر')}}"  autocomplete="" placeholder="أدخل اسم  ولي الأمر " :disabled="$report->orphan->guardian->guardian_name ? true : false" />
                     </div>
 
                     {{-- relationship_orphan --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="guardian_relationship" :value="$report->orphan->guardian->guardian_relationship" class="border" id="guardian_relationship" type="text" label=" {{__('صلة القرابة')}}" autocomplete="" placeholder="أدخل صلة القرابة" disabled/>
+                        <x-form.input name="guardian_relationship" :value="$report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship']" class="border" id="guardian_relationship" type="text" label=" {{__('صلة القرابة')}}" autocomplete="" placeholder="أدخل صلة القرابة" :disabled="$report->orphan->guardian->guardian_relationship ? true : false" />
                     </div>
 
                     {{-- person_responsible_phone --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="phone" class="border" :value="$report->orphan->profile->phone" id="phone" type="text" label=" {{__('الهاتف')}} " autocomplete="" placeholder="أدخل الهاتف " disabled/>
+                        <x-form.input name="phone" class="border" :value="$report->orphan->phones[0]->phone_number ?? $report->fields['phone_number']" id="phone" type="text" label=" {{__('الهاتف')}} " autocomplete="" placeholder="أدخل الهاتف " :disabled="$report->orphan->phones[0]->phone_number? true : false"/>
                     </div>
 
                     {{-- person_responsible_whatsapp --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="whatsapp_phone" id="whatsapp_phone" :value="$report->orphan->getFieldValueByDatabaseName('whatsapp_phone')" class="border" type="text" label=" {{__('هاتف واتس اب')}}" autocomplete="" placeholder="أدخل هاتف واتس اب  " disabled/>
+                        <x-form.input name="whatsapp_phone" id="whatsapp_phone" :value="$report->orphan->getFieldValueByDatabaseName('whatsapp_phone') ?? $report->fields['whatsapp_phone']" class="border" type="text" label=" {{__('هاتف واتس اب')}}" autocomplete="" placeholder="أدخل هاتف واتس اب  " :disabled="$report->orphan->getFieldValueByDatabaseName('whatsapp_phone')  ? true : false"/>
                     </div>
 
 
@@ -165,7 +168,7 @@
 
                     {{-- housing_type --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="housing_type" :value="$report->orphan->family->housing_type"  id="housing_type" class="border" type="text" label="  {{__('نوع السكن')}} " autocomplete="" placeholder="أدخل نوع السكن   " disabled/>
+                        <x-form.input name="housing_type" :value="$report->orphan->family->housing_type ?? $report->fields['housing_type']"  id="housing_type" class="border" type="text" label="  {{__('نوع السكن')}} " autocomplete="" placeholder="أدخل نوع السكن   "  :disabled="$report->orphan->family->housing_type  ? true : false"/>
                     </div>
 
                 </div>
@@ -180,23 +183,23 @@
 
                     {{-- health_status --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="health_status" id="health_status" :value="$report->orphan->health_status" class="border" type="text" label="  {{__('الحالة الصحية لليتيم')}}" autocomplete="" placeholder="أدخل الحالة الصحية لليتيم" disabled/>
+                        <x-form.input name="health_status" id="health_status" :value="$report->orphan->health_status ?? $report->fields['health_status']" class="border" type="text" label="  {{__('الحالة الصحية لليتيم')}}" autocomplete="" placeholder="أدخل الحالة الصحية لليتيم" :disabled="$report->orphan->health_status  ? true : false"/>
                     </div>
 
                     {{-- chronic_disease --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="chronic_disease" :value="$report->fields['chronic_disease']" class="border" type="text" label=" {{__('مرض مزمن')}} " autocomplete="" placeholder="أدخل  مرض مزمن"/>
+                        <x-form.input name="chronic_disease" :value="$report->fields['chronic_disease']" class="border" type="text" label=" {{__('مرض مزمن')}} " autocomplete=""   placeholder="أدخل  مرض مزمن"/>
                     </div>
 
                     {{-- Type_disease --}}
                     <div class="col-12  mb-3">
-                        <x-form.input name="Type_disease" :value="$report->fields['Type_disease']" class="border" type="text" label="  {{__('نوع المرض و أسبابه')}}" autocomplete="" placeholder="أدخل  نوع المرض و أسبابه"/>
+                        <x-form.input name="Type_disease" :value="$report->orphan->disease_description ?? $report->fields['disease_description']" class="border" type="text" label="  {{__('نوع المرض و أسبابه')}}" autocomplete="" placeholder="أدخل  نوع المرض و أسبابه" :disabled="$report->orphan->disease_description  ? true : false"/>
                     </div>
 
 
                     {{-- academic_stage --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="academic_stage" :value="$report->orphan->profile->academic_stage" id="academic_stage" class="border" type="text" label=" {{__('المرحلة الدراسية')}}" autocomplete="" placeholder="أدخل  المرحلة الدراسية" disabled/>
+                        <x-form.input name="academic_stage" :value="$report->orphan->profile->academic_stage ??  $report->fields['academic_stage']" id="academic_stage" class="border" type="text" label=" {{__('المرحلة الدراسية')}}" autocomplete="" placeholder="أدخل  المرحلة الدراسية" :disabled="$report->orphan->profile->academic_stage  ? true : false"/>
                     </div>
 
 

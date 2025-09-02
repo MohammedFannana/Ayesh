@@ -6,6 +6,8 @@ use App\Models\Orphan;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\ExpenseOrphan;
+
 
 class SponsoredOrphanController extends Controller
 {
@@ -40,10 +42,10 @@ class SponsoredOrphanController extends Controller
             })
             ->select('id', 'internal_code', 'name')
             ->with(['profile' => function ($query) {  // to get phone from profile table
-                $query->select('phone', 'orphan_id');
+                $query->select('orphan_id');
             }])
             ->with(['family' => function ($query) {  // to get phone from profile table
-                $query->select('address', 'orphan_id');
+                $query->select('orphan_id');
             }])
             ->with(['sponsorship' => function ($query) {  // to get phone from profile table
                 $query->select('external_code', 'orphan_id');
@@ -73,7 +75,7 @@ class SponsoredOrphanController extends Controller
             ->where('status', 'sponsored') // إضافة شرط status بعد id
             ->select('id', 'internal_code', 'name', 'application_form','birth_date')
             ->with(['profile' => function ($query) {  // to get phone from profile table
-                $query->select('phone', 'orphan_id' , 'mother_name');
+                $query->select('orphan_id' , 'mother_name');
             }])
             ->with(['sponsorship' => function ($query) {  // to get phone from profile table
                 $query->select('external_code', 'orphan_id');
@@ -90,7 +92,8 @@ class SponsoredOrphanController extends Controller
 
 
         // جمع المبالغ من جدول Expense
-        $expenseAmount = $orphan->expenses()->sum('amount');
+        // $expenseAmount = $orphan->expenses()->sum('amount');
+        $expenseAmount = ExpenseOrphan::sum('net_amount');
 
 
 
@@ -113,12 +116,12 @@ class SponsoredOrphanController extends Controller
 
         $orphan = Orphan::where('id', $id)
         ->where('status', 'sponsored') // إضافة شرط status بعد id
-        ->select('id','name')
+        ->select('id','name','internal_code')
         ->with('expenses')
         ->firstOrFail();
 
-        $expenseAmount = $orphan->expenses()->sum('amount');
-
+        // $expenseAmount = $orphan->expenses()->sum('amount');
+        $expenseAmount = ExpenseOrphan::sum('net_amount');
 
         return view('pages.orphans.sponsored-orphans.transfers_view' , compact('orphan' , 'expenseAmount'));
 

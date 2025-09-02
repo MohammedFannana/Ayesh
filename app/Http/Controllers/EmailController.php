@@ -20,7 +20,7 @@ class EmailController extends Controller
         ]);
 
         // الإيميل الثابت الذي سيستلم الإشعار
-        $adminEmail = 'support@ayesh.org';
+        $adminEmail = 'mohamed.fannana10@gnail.com';
 
         // إرسال إشعار إلى بريد إلكتروني معيّن
         Notification::route('mail', $adminEmail)

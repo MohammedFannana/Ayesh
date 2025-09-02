@@ -24,7 +24,7 @@
             <div class="mt-3">
                 <label for="" class="mb-2"> {{__(' نوع المستخدم ')}} </label>
                 <x-form.select style="direction: rtl" name="type" selected="{{$user->type}}"
-                    :options="['' => ' اختر ', 'registered' => ' مسجل ', 'references' => ' مراجع ', 'certified' => ' معتمد ', 'financial_manager' => ' مدير مالي ']"
+                    :options="['' => ' اختر ', 'registered' => ' مسجل ', 'references' => ' مراجع ', 'certified' => ' معتمد ', 'marketer' => ' مسوق ' ,'financial_manager' => ' مدير مالي ']"
                 />
 
             </div>

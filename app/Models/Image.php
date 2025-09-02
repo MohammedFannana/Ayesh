@@ -10,8 +10,8 @@ class Image extends Model
 
     protected $fillable = [
         'orphan_id' , 'birth_certificate' , 'father_death_certificate' , 'mother_death_certificate' , 'mother_card' ,
-        'orphan_image_4_6' , 'orphan_image_9_12' , 'school_benefit' , 'medical_report' , 'social_research' , 'guardianship_decision'
-        ,'agricultural_holding' , 'data_validation'
+        'orphan_image_4_6' , 'orphan_image_9_12' , 'school_benefit' , 'medical_report' , 'social_research' ,
+        'guardianship_decision' ,'agricultural_holding' , 'data_validation' , 'visa_file'
     ];
 
     public function orphan(){
@@ -59,6 +59,7 @@ class Image extends Model
                 $this->medical_report ??
                 $this->social_research ??
                 $this->guardianship_decision ??
+                $this->visa_file ??
                 null;
 
     if (!$filePath) {
@@ -89,7 +90,9 @@ class Image extends Model
         $name = 'بحث اجتماعي';
     } elseif ($this->guardianship_decision) {
         $name = 'قرار الوصاية';
-    } else {
+    } elseif ($this->visa_file) {
+        $name = ' بطاقة الفيزا ';
+    }else {
         $name = 'ملف غير محدد';
     }
 

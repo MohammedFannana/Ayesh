@@ -16,7 +16,10 @@ return new class extends Migration
             $table->foreignId('supporter_id')->constrained()->cascadeOnDelete();
             $table->string('amount');
             $table->string('payment_image');
+            $table->string('orphan_name');
             $table->date('payment_date');
+            $table->date('start_sponsored');
+
             $table->timestamps();
         });
     }

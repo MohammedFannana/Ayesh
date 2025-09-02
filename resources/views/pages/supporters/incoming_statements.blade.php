@@ -31,6 +31,12 @@
                             <a href="{{route('orphan.image' , ['file' => encrypt($balance->payment_image)])}}" type="button" class="text-decoration-none text-dark w-100">
                                 {{ __('صورة استلام المبلغ') }}.{{ pathinfo($balance->payment_image, PATHINFO_EXTENSION) }}
                             </a>
+                            
+                            @if ($balance->orphan_name)
+                                <a href="{{route('orphan.image' , ['file' => encrypt($balance->orphan_name)])}}" type="button" class="text-decoration-none text-dark w-100">
+                                    {{ __('كشف استلام الأيتام') }}.{{ pathinfo($balance->orphan_name, PATHINFO_EXTENSION) }}
+                                </a>
+                            @endif
                         </td>
                     </tr>
 

@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class CertifiedOrphanExtra extends Model
 {
     protected $fillable = [
-        'orphan_id' , 'country' , 'city' , 'description_orphan_condition' , 'supporter_id' , 'volunteer_id'
-        , 'father_card' , 'school_enrollment' , 'health_insurance','signature' , 'supervisory_accreditation'
+        // 'description_orphan_condition'  - 'volunteer_id' -  'father_card' ,  'health_insurance' , 'school_enrollment'
+        'orphan_id' , 'country' , 'city'  , 'supporter_id'
+         ,'signature' , 'supervisory_accreditation'
     ];
 
     public function orphan() {

@@ -96,7 +96,7 @@
                     <th scope="col"> {{__('الاسم')}} </th>
                     <th scope="col"> {{__('مقدم ل')}}</th>
                     <th scope="col"> {{__('الهاتف')}} </th>
-                    <th scope="col"> {{__('العنوان')}} </th>
+                    <!--<th scope="col"> {{__('العنوان')}} </th>-->
                     <th scope="col"> {{__('الاجراءات')}} </th>
 
                 </tr>
@@ -116,8 +116,8 @@
                         <td scope="row"> {{$orphan->internal_code}} </td>
                         <td> {{$orphan->name}} </td>
                         <td> {{translate_text($orphan->marketing->supporter->name)}} </td>
-                        <td> {{$orphan->profile->phone}}  </td>
-                        <td> {{$orphan->family->address}} </td>
+                        <td> {{$orphan->phones[0]->phone_number}}  </td>
+                        <!--<td> {{$orphan->family->address}} </td>-->
 
                         <td style="position: relative;">
 
@@ -164,7 +164,7 @@
 
 
 
-                                <form action="{{route('orphan.waiting.destroy' , $orphan->id)}}" method="post" style="margin-right: -5px">
+                                <form action="{{route('orphan.waiting.destroy' , $orphan->id)}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="submit p-0 border-0 bg-transparent">

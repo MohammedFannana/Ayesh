@@ -2,9 +2,13 @@
     --color: green;
     --text-color:#737373;
     --title-color:#3B9E29;
-
 }
 
+
+
+.show-image-label{
+    display:none;
+}
 /* font */
 .tajawal-regular {
     font-family: "Tajawal", serif;
@@ -52,7 +56,7 @@ main{
 .sidebar li,
 .sidebar a{
     text-decoration: none;
-    color: var(--text-color) ;
+    color: var(--text-color);
     font-size: 17px;
 }
 

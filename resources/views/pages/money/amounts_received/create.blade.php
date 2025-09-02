@@ -52,6 +52,11 @@
                 <div class="col-12 col-md-6 mb-3">
                     <x-form.input name="amount"  class="border" type="text" label=" {{__('المبلغ')}} "  placeholder="{{__('أدخل المبلغ')}}"/>
                 </div>
+                
+                <!--  start_sponsored -->
+                <div class="col-12 col-md-6 mb-3">
+                    <x-form.input name="start_sponsored"  class="border" type="date" label=" {{__('تاريخ بداية الكفالة')}} "  placeholder="{{__('أدخل تاريخ بداية الكفالة')}}"/>
+                </div>
 
             </div>
         </div>
@@ -61,21 +66,42 @@
             <p class="title mb-4">  {{__('الصور و الملفات المطلوبة')}}</p>
 
 
-            {{-- add_file --}}
-            <div class="col-12 col-md-6 mb-3">
-                <label for="payment_image" class="custom-file-upload w-75 text-center"> {{__('اضافة ملف')}}</label>
-                <x-form.input name="payment_image" class="border hidden-file-style" type="file" id="payment_image" style="display: none;"  autocomplete="" />
-            </div>
-
-            <div class="col-12 row gap-1 mb-4">
-                <div class="col-5">
-                    <x-form.input name=""  class="border file_name" type="text" placeholder="{{__('اسم الملف')}}" disabled/>
+            <div class="col-12 col-md-6">
+                {{-- add_file --}}
+                <div class="mb-3">
+                    <label for="payment_image" class="custom-file-upload w-75 text-center"> {{__('اضافة ملف')}}</label>
+                    <x-form.input name="payment_image" class="border hidden-file-style" type="file" id="payment_image" style="display: none;"  autocomplete="" />
                 </div>
 
-                <div class="col-1">
-                    <button class="btn delete_image_path" class="submit border-0 bg-transparent">
-                        <img src="{{asset('image/Delete.svg')}}" alt="">
-                    </button>
+                <div class="row gap-1 mb-4">
+                    <div class="col-9">
+                        <x-form.input name=""  class="border file_name" type="text" placeholder="{{__('اسم الملف')}}" disabled/>
+                    </div>
+
+                    <div class="col-1">
+                        <button class="btn delete_image_path" class="submit border-0 bg-transparent">
+                            <img src="{{asset('image/Delete.svg')}}" alt="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label for="orphan_name" class="custom-file-upload w-75 text-center"> {{__(' اضافة ملف اكسل بأسماء الأيتام ')}}</label>
+                    <x-form.input name="orphan_name" class="border hidden-file-style" type="file" id="orphan_name" style="display: none;" accept=".xlsx,.xls" />
+                </div>
+
+                <div class="row gap-1 mb-4">
+                    <div class="col-9">
+                        <x-form.input name=""  class="border file_orphan_name" type="text" placeholder="{{__('اسم الملف')}}" disabled/>
+                    </div>
+
+                    <div class="col-1">
+                        <button class="btn delete_image_orphan_path" class="submit border-0 bg-transparent">
+                            <img src="{{asset('image/Delete.svg')}}" alt="">
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -122,7 +148,11 @@
             document.addEventListener("DOMContentLoaded", function () {
                 let fileInput = document.getElementById("payment_image"); // حقل اختيار الصورة
                 let fileNameInput = document.querySelector(".file_name"); // حقل عرض اسم الملف
+                let fileOrphanInput = document.getElementById("orphan_name"); // حقل اختيار الصورة
+                let fileOrphanNameInput = document.querySelector(".file_orphan_name"); // حقل عرض اسم الملف
                 let deleteButton = document.querySelector(".delete_image_path"); // زر حذف الملف
+                let deleteOrphanButton = document.querySelector(".delete_image_orphan_path"); // زر حذف الملف
+
 
                 // عند اختيار ملف
                 fileInput.addEventListener("change", function () {
@@ -131,11 +161,23 @@
                     }
                 });
 
+                fileOrphanInput.addEventListener("change", function () {
+                    if (this.files.length > 0) {
+                        fileOrphanNameInput.value = this.files[0].name; // عرض اسم الملف
+                    }
+                });
+
                 // عند الضغط على زر الحذف
                 deleteButton.addEventListener("click", function (e) {
                     e.preventDefault(); // منع إرسال الفورم
                     fileInput.value = ""; // إعادة تعيين حقل اختيار الصورة
                     fileNameInput.value = ""; // مسح اسم الملف
+                });
+
+                deleteOrphanButton.addEventListener("click", function (e) {
+                    e.preventDefault(); // منع إرسال الفورم
+                    fileOrphanInput.value = ""; // إعادة تعيين حقل اختيار الصورة
+                    fileOrphanNameInput.value = ""; // مسح اسم الملف
                 });
             });
         </script>

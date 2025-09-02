@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Family extends Model
 {
     protected $fillable = [
+        // , 'address'
         'orphan_id' , 'family_number' ,'male_number' , 'female_number' ,'income',
-        'income_source', 'address' , 'housing_type' , 'housing_case'
+        'income_source' , 'housing_type' , 'housing_case'
     ];
 
     public function orphan()

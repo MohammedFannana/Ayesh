@@ -1,5 +1,12 @@
 <x-main-layout>
 
+    @push('styles')
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    @endpush
+
+
     <h2 class="mb-4">  {{__('انشاء تقرير')}}</h2>
     <h4 class="mb-4" style="color:var(--title-color);"> {{__('جمعية الشارقة الخيرية')}}</h4>
 
@@ -25,7 +32,7 @@
 
                     {{-- orphan_name --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="orphan_name" id="orphan_name" class="border" type="text" label=" {{__('اسم اليتيم')}}" autocomplete="" placeholder=" {{__('أدخل اسم اليتيم')}}" readonly/>
+                        <x-form.input name="orphan_name" id="orphan_name" class="border" type="text" label=" {{__('اسم اليتيم')}}" autocomplete="" placeholder="أدخل اسم اليتيم"/>
                     </div>
 
                     {{-- orphan_code --}}
@@ -90,7 +97,7 @@
 
                     {{-- nationality --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="nationality" id="nationality" class="border" type="text" label=" {{__('الجنسية')}} " autocomplete="" placeholder=" {{__('أدخل الجنسية')}} "/>
+                        <x-form.input name="nationality"  class="border" type="text" label=" {{__('الجنسية')}} " value="مصري/ة" autocomplete="" placeholder=" {{__('أدخل الجنسية')}} " disabled/>
                     </div>
 
                     {{-- gender --}}
@@ -100,7 +107,7 @@
 
                     {{-- birth_date --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="birth_date" id="birth_date" class="border" type="date" label="  {{__('تاريخ الميلاد')}}" autocomplete=""/>
+                        <x-form.input name="birth_date" id="birth_date" class="border flatpickr-input" type="text" label="  {{__('تاريخ الميلاد')}}" autocomplete=""/>
                     </div>
 
 
@@ -116,7 +123,7 @@
 
                     {{-- father_death --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="father_death" class="border" id="father_death" type="date" label="  {{__('تاريخ وفاة الأب')}}" autocomplete=""/>
+                        <x-form.input name="father_death" class="border flatpickr-input" id="father_death" type="text" label="  {{__('تاريخ وفاة الأب')}}" autocomplete=""/>
                     </div>
 
                     {{-- mother_name --}}
@@ -126,7 +133,7 @@
 
                     {{-- mother_death --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="mother_death" class="border" id="mother_death" type="date" label="  {{__('تاريخ وفاة الأم')}}" autocomplete=""/>
+                        <x-form.input name="mother_death" class="border flatpickr-input" id="mother_death" type="text" label="  {{__('تاريخ وفاة الأم')}}" autocomplete=""/>
                     </div>
 
                     {{-- family_number --}}
@@ -158,7 +165,7 @@
 
                     {{-- live_mother --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="live_mother" class="border" type="text" label=" {{__('هل يعيش مع امه؟')}}" autocomplete="" placeholder="{{__('أدخل هل يعيش مع امه؟')}} "/>
+                        <x-form.input name="live_mother" class="border" type="text" label=" {{__('هل يعيش مع امه؟')}}"   placeholder=" {{__('أجب بنعم أو لا')}}" autocomplete="" />
                     </div>
 
                     {{-- reason --}}
@@ -193,7 +200,7 @@
 
                     {{-- Type_disease --}}
                     <div class="col-12  mb-3">
-                        <x-form.input name="Type_disease" class="border" type="text" label="  {{__('نوع المرض و أسبابه')}}" autocomplete="" placeholder="{{__('أدخل  نوع المرض و أسبابه')}}"/>
+                        <x-form.input name="Type_disease"  id="Type_disease" class="border" type="text" label="  {{__('نوع المرض و أسبابه')}}" autocomplete="" placeholder="{{__('أدخل  نوع المرض و أسبابه')}}"/>
                     </div>
 
 
@@ -247,7 +254,7 @@
 
                     {{--quran_memorized? --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="quran_memorized" class="border" type="text" label="   {{__('كم يحفظ من القران الكريم')}}" autocomplete="" placeholder=" {{__('أدخل كم يحفظ من القران الكريم')}}"/>
+                        <x-form.input name="quran_memorized" class="border" type="number"  min="0" max="30" label="   {{__('كم يحفظ من القران الكريم')}}" autocomplete="" placeholder=" {{__('أدخل كم يحفظ من القران الكريم')}}"/>
                     </div>
 
                 </div>
@@ -264,57 +271,82 @@
                     <!-- date -->
                     {{-- :value="$admin->email" --}}
                     <div class="col-12 col-md-6  mb-3">
-                        <x-form.input name="date"  class="border" type="date" label=" {{__('التاريخ')}} " />
+                        <x-form.input name="date" id="date1" class="border flatpickr-input" type="text"  label=" {{__('التاريخ')}} " />
                     </div>
 
 
                     {{-- signature  --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">  {{__('التوقيع')}}</label> <br>
-                        <label for="signature" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة التوقيع')}}  </label>
+                        <label for="signature" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة التوقيع')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="signature" type="file" id="signature" style="display: none;">
                     </div>
 
                     {{-- seal_association   --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">  {{__('ختم الجمعية المشرفة')}}</label> <br>
-                        <label for="supporter_seal" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة ختم الجمعية المشرفة')}}</label>
+                        <label for="supporter_seal" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة ختم الجمعية المشرفة')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="supporter_seal" type="file" id="supporter_seal" style="display: none;">
                     </div>
 
                     {{-- orphan_photo with batch plate  --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">  {{__('صوة اليتيم مع لوحة الدفعة')}}</label> <br>
-                        <label for="group_photo" class="custom-file-upload w-75 text-center"> {{__('ارفق صوة اليتيم مع لوحة الدفعة')}}</label>
+                        <label for="group_photo" class="custom-file-upload w-75 text-center"> {{__('ارفق صوة اليتيم مع لوحة الدفعة')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="group_photo" type="file" id="group_photo" style="display: none;">
                     </div>
 
                     {{-- Thank you letter from orphan to sponsor  --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">  {{__('رسالة شكر من اليتيم للكافل')}}</label> <br>
-                        <label for="thanks_letter" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة رسالة شكر من اليتيم للكافل')}}</label>
+                        <label for="thanks_letter" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة رسالة شكر من اليتيم للكافل')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="thanks_letter" type="file" id="thanks_letter" style="display: none;">
                     </div>
 
                     {{-- The last certificate the orphan obtained and the last grades  --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">  {{__('اخر شهادة حصل عليها اليتيم و اخر درجات')}}</label> <br>
-                        <label for="academic_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة اخر شهادة')}}  </label>
+                        <label for="academic_certificate" class="custom-file-upload w-75 text-center"> {{__('ارفق صورة اخر شهادة')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="academic_certificate" type="file" id="academic_certificate" style="display: none;">
                     </div>
 
                     {{-- medical_report  --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">  {{__('التقرير الطبي')}}</label> <br>
-                        <label for="medical_report" id="medical_report_label"  class="custom-file-upload w-75 text-center" disabled> {{__('ارفق صورة التقرير الطبي')}}</label>
-                        <input class="hidden-file-style" id="medical_report"  name="medical_report" type="file" style="">
-                        <input id="medical_report_read" class="text-decoration-none view-file w-75" readonly />
+                        <label for="medical_report" id="medical_report_label"  class="custom-file-upload w-75 text-center"> {{__('ارفق صورة التقرير الطبي')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
+                        <input class="hidden-file-style" id="medical_report" name="medical_report" type="file" style="display: none;" >
+                        <input id="medical_report_read"   class="text-decoration-none view-file w-75" readonly />
+
                     </div>
+
+
+
 
                     {{-- Receipt of transferring the sponsorship amount to the orphan’s account  --}}
                     <div class="col-12 col-md-6 mb-3">
                         <label class="mb-2">  {{__('ايصال تحويل مبلغ الكفالة الى حساب اليتيم')}}</label> <br>
-                        <label for="sponsorship_transfer_receipt" class="custom-file-upload w-75 text-center"> {{__('أرفق صورة الايصال')}} </label>
+                        <label for="sponsorship_transfer_receipt" class="custom-file-upload w-75 text-center"> {{__('أرفق صورة الايصال')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
                         <input class="hidden-file-style" name="sponsorship_transfer_receipt" type="file" id="sponsorship_transfer_receipt" style="display: none;">
                     </div>
 
@@ -333,6 +365,29 @@
 
     @push('scripts')
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        const dateFields = [
+            "#father_death",
+            "#birth_date",
+            "#mother_death",
+            '#date1',
+
+        ];
+
+        dateFields.forEach(id => {
+            flatpickr(id, {
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "d-m-Y",
+                allowInput: true
+            });
+        });
+
+    </script>
+
     <script>
         let orphans = @json($orphans);
     </script>
@@ -346,7 +401,6 @@
             var orphanfullNameInput = document.getElementById("orphan_fullname");
             var orphanTypeInput = document.getElementById("orphan_type");
             var orphanBirthPlaceInput = document.getElementById("birth_place");
-            var orphanNationalityInput = document.getElementById("nationality");
             var orphanGenderInput = document.getElementById("gender");
             var orphanBirthDateInput = document.getElementById("birth_date");
             var orphanAgeInput = document.getElementById("age");
@@ -361,6 +415,7 @@
             var orphanGuardianNameInput = document.getElementById("guardian_name");
             var orphanHousingTypeInput = document.getElementById("housing_type");
             var orphanHealthStatusInput = document.getElementById("health_status");
+            var orphanHTypeDiseaseInput = document.getElementById("Type_disease");
             var orphanAcademicStageInput = document.getElementById("academic_stage");
 
 
@@ -369,8 +424,6 @@
             var MedicalReportImageLabel = document.getElementById("medical_report_label");
             orphanMedicalReportImage.style.display = "none";
             MedicalReportImageLabel.style.display = "block";
-
-
 
 
 
@@ -385,21 +438,59 @@
                     orphanfullNameInput.value = orphan.orphan.name || '';
                     orphanTypeInput.value = orphan.orphan.gender || '';
                     orphanBirthPlaceInput.value = orphan.orphan.birth_place || '';
-                    orphanNationalityInput.value = getFieldValueByDatabaseName(orphan, 'nationality') || '';
                     orphanGenderInput.value = orphan.orphan.gender || '';
-                    orphanBirthDateInput.value = orphan.orphan.birth_date || '';
+                    // orphanBirthDateInput.value = orphan.orphan.birth_date || '';
+                    if (orphan.orphan.birth_date) {
+                        if (orphanBirthDateInput._flatpickr) {
+                            orphanBirthDateInput._flatpickr.setDate(orphan.orphan.birth_date, true, "d-m-Y");
+                        } else {
+                            orphanBirthDateInput.value = orphan.orphan.birth_date;
+                        }
+                        orphanBirthDateInput.disabled = true;
+                    } else {
+                        orphanBirthDateInput.value = '';
+                        orphanBirthDateInput.disabled = false;
+                    }
+
+
                     orphanAgeInput.value = orphan.orphan.age || '';
                     orphanReasonContinuingSponsorshipInput.value = getFieldValueByDatabaseName(orphan, 'reason_continuing_sponsorship') || '';
-                    orphanFatherDeathInput.value = orphan.orphan.profile.father_death_date || '';
+                    // orphanFatherDeathInput.value = orphan.orphan.profile.father_death_date || '';
+                    if (orphan.orphan.profile.father_death_date) {
+                        if (orphanFatherDeathInput._flatpickr) {
+                            orphanFatherDeathInput._flatpickr.setDate(orphan.orphan.profile.father_death_date, true, "d-m-Y");
+                        } else {
+                            orphanFatherDeathInput.value = orphan.orphan.profile.father_death_date;
+                        }
+                        orphanFatherDeathInput.disabled = true;
+                    } else {
+                        orphanFatherDeathInput.value = '';
+                        orphanFatherDeathInput.disabled = false;
+                    }
+
+
                     orphanMotherNameInput.value = orphan.orphan.profile.mother_name || '';
-                    orphanMotherDeathInput.value = orphan.orphan.profile.mother_death_date || '';
+                    // orphanMotherDeathInput.value = orphan.orphan.profile.mother_death_date || '';
+                    if (orphan.orphan.profile.mother_death_date) {
+                        if (orphanMotherDeathInput._flatpickr) {
+                            orphanMotherDeathInput._flatpickr.setDate(orphan.orphan.profile.mother_death_date, true, "d-m-Y");
+                        } else {
+                            orphanMotherDeathInput.value = orphan.orphan.profile.mother_death_date;
+                        }
+                        orphanMotherDeathInput.disabled = true;
+                    } else {
+                        orphanMotherDeathInput.value = '';
+                        orphanMotherDeathInput.disabled = false;
+                    }
+
                     orphanGuardianNameInput.value = orphan.orphan.guardian.guardian_name || '';
                     orphanGuardianRelationshipInput.value = orphan.orphan.guardian.guardian_relationship || '';
                     orphanFamilyNumberInput.value = orphan.orphan.family.family_number || '';
-                    orphanPhoneInput.value = orphan.orphan.profile.phone || '';
+                    orphanPhoneInput.value = orphan.orphan.phones[0]?.phone_number || '';
                     orphanWhatsappPhoneInput.value =  getFieldValueByDatabaseName(orphan, 'whatsapp_phone') || '';
                     orphanHousingTypeInput.value = orphan.orphan.family.housing_type || '';
                     orphanHealthStatusInput.value = orphan.orphan.health_status || '';
+                    orphanHTypeDiseaseInput.value = orphan.orphan.disease_description || '';
                     orphanAcademicStageInput.value = orphan.orphan.profile.academic_stage || '';
 
                     // image
@@ -421,7 +512,6 @@
                     orphanfullNameInput.disabled = orphanfullNameInput.value !== '';
                     orphanTypeInput.disabled = orphanTypeInput.value !== '';
                     orphanBirthPlaceInput.disabled = orphanBirthPlaceInput.value !== '';
-                    orphanNationalityInput.disabled = orphanNationalityInput.value !== '';
                     orphanGenderInput.disabled = orphanGenderInput.value !== '';
                     orphanBirthDateInput.disabled = orphanBirthDateInput.value !== '';
                     orphanAgeInput.disabled = orphanAgeInput.value !== '';
@@ -436,6 +526,7 @@
                     orphanWhatsappPhoneInput.disabled = orphanWhatsappPhoneInput.value !== '';
                     orphanHousingTypeInput.disabled = orphanHousingTypeInput.value !== '';
                     orphanHealthStatusInput.disabled = orphanHealthStatusInput.value !== '';
+                    orphanHTypeDiseaseInput.disabled = orphanHTypeDiseaseInput.value !== '';
                     orphanAcademicStageInput.disabled = orphanAcademicStageInput.value !== '';
 
 
