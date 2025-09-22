@@ -13,15 +13,15 @@
                 <div class="row" style="justify-content:between;">
 
                     <!-- supervising_authority -->
-                    <div class="col-12 col-md-6 mb-3">
+                    {{-- <div class="col-12 col-md-6 mb-3">
                         <x-form.input name="supervising_authority" :value="$report->fields['supervising_authority']"  class="border" type="text" label="  {{__('الجهة المشرفة')}}"  placeholder="أدخل اسم الجهة المشرفة"/>
-                    </div>
+                    </div> --}}
 
 
                     <!-- country -->
-                    <div class="col-12 col-md-6 mb-3">
+                    {{-- <div class="col-12 col-md-6 mb-3">
                         <x-form.input name="supervising_authority_country" :value="$report->fields['supervising_authority_country']"  class="border" type="text" label=" {{__('الدولة')}} " placeholder="أدخل الدولة"/>
-                    </div>
+                    </div> --}}
 
                     <!-- sponsor_name -->
                     <div class="col-12 col-md-6 mb-3">
@@ -60,13 +60,13 @@
 
 
                     {{-- Health status --}}
-
+                    
                     <div class="col-12 col-md-6 mb-3">
                         <label for="" class="mb-2"> {{__('الحالة الصحية لليتيم')}} </label>
                         <x-form.select id="health_status" name="health_status" :selected="$report->orphan->health_status ?? $report->fields['health_status']" :disabled="$report->orphan->health_status ?true :false"
                         :options="['' =>  __('اختر'), 'مريض' => __('مريض'), 'جيدة' => __('جيدة')]"/>
                     </div>
-
+                    
                     {{-- disease_description --}}
                     <div class="col-12  mb-3">
                         <x-form.textarea name="disease_description" :value="$report->orphan->disease_description ??  $report->orphan->disability_type ?? $report->fields['disease_description']" id="disease_description" label="{{__('تفاصيل المرض')}}"  placeholder="أدخل تفاصيل المرض لليتبم" :disabled="$report->orphan->disease_description || $report->orphan->disability_type ?true :false"/>
@@ -75,6 +75,10 @@
                     {{-- academic_stage --}}
                     <div class="col-12 col-md-6 mb-3">
                         <x-form.input name="academic_stage" id="academic_stage" :value="$report->orphan->profile->academic_stage ?? $report->fields['academic_stage']" class="border" type="text" label=" {{__('المرحلة الدراسية')}}" autocomplete="" placeholder="أدخل المرحلة الدراسية" :disabled="$report->orphan->profile->academic_stage ?true :false"/>
+                    </div>
+                    
+                    <div class="col-12 mb-3">
+                        <x-form.textarea name="academic_stage_detailes" id="academic_stage_detailes" :value="$report->fields['academic_stage_detailes'] ?? '' " class="border"  label=" {{__(' تفاصيل المرحلة الدراسية ')}}"  placeholder="{{__('أدخل تفاصيل المرحلة الدراسية ')}}"/>
                     </div>
 
                     {{-- class --}}
@@ -85,13 +89,13 @@
 
                     {{-- academic_level --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="academic_level" :value="$report->fields['academic_level']" class="border" type="text" label=" {{__('المستوى الدراسي')}}" autocomplete="" placeholder="أدخل المستوى الدراسي"/>
+                        <x-form.input name="academic_level" :value="$report->fields['academic_level'] ?? '' " class="border" type="text" label=" {{__('المستوى الدراسي')}}" autocomplete="" placeholder="أدخل المستوى الدراسي"/>
                     </div>
 
 
 
                     {{-- orphan_obligations_islam --}}
-
+                   
                     <div class="col-12 col-md-6 mb-3">
                         <label for="" class="mb-2"> {{__('التزم اليتيم بتعاليم الاسلام')}} </label>
                         <x-form.select id="orphan_obligations_islam" name="orphan_obligations_islam" :selected="$report->fields['orphan_obligations_islam']"
@@ -100,7 +104,7 @@
 
                     {{-- save_orphan_quran --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="save_orphan_quran" :value="$report->fields['save_orphan_quran']" class="border" type="number" min="0" max="30" label=" {{__('حفظ اليتيم من القران الكريم')}}" autocomplete="" placeholder="أدخل حفظ اليتيم من القران الكريم"/>
+                        <x-form.input name="save_orphan_quran" :value="$report->fields['save_orphan_quran'] ?? '' " class="border" type="number" min="0" max="30" label=" {{__('حفظ اليتيم من القران الكريم')}}" autocomplete="" placeholder="أدخل حفظ اليتيم من القران الكريم"/>
                     </div>
 
                     {{-- person_responsible--}}
@@ -130,6 +134,25 @@
                     <div class="col-12  mb-3">
                         <x-form.textarea name="orphan_message"  :value="$report->fields['orphan_message']" label=" {{__('رسالة اليتيم للكافل')}}"  />
                     </div>
+                    
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="mb-2">  {{__(' صورة اليتيم ')}}</label> <br>
+                        <label for="profile_image"  class="custom-file-upload w-75 text-center mb-1"> {{__('ارفق صورة اليتيم')}}
+                            <img src="" width="60" alt="">
+                            <div class="file-preview mt-2"></div>
+                        </label>
+                        
+                        <x-form.input name="profile_image" class="border hidden-file-style" type="file" id="profile_image" style="display: none;"  accept=".jpg,.jpeg,.png,.pdf"/>
+
+                        
+                        <a href="{{route('orphan.image' , ['file' => encrypt($report->profile_image)])}}" type="button" class="text-decoration-none view-file w-75">
+                            {{ __('صورة اليتيم') }}.{{ pathinfo($report->profile_image, PATHINFO_EXTENSION) }}
+                        </a>
+
+                    </div>
+                    
+
+             
 
 
                 </div>

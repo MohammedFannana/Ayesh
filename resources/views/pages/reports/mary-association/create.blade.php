@@ -82,16 +82,14 @@
 
                 {{-- health_status --}}
                 <div class="col-12 col-md-6 mb-3">
-                    <x-form.input name="health_status" id="health_status" class="border" type="text" label="  {{__('الحالة الصحية')}}" autocomplete="" placeholder="{{__('أدخل الحالة الصحية')}}"/>
-                </div>
-
-                <div class="col-12 col-md-6 mb-3">
                     <label for="" class="mb-2"> {{__('الحالة الصحية لليتيم')}} </label>
                     <x-form.select id="health_status" name="health_status"
                     :options="['' =>  __('اختر'), 'مريض' => __('مريض'), 'جيدة' => __('جيدة')]"/>
                 </div>
+                
+                
 
-                <div class="col-12 col-md-6 mb-3" id="disease_description1">
+                <div class="col-12 col-md-6 mb-3">
                     <x-form.input name="disease_description" id="disease_description" class="border" type="text" label="  {{__('نوع المرض')}}" autocomplete="" placeholder="{{__('أدخل نوع المرض')}}"/>
                 </div>
 
@@ -301,33 +299,6 @@
 
         });
     </script>
-
-
-{{-- for id="health_status" --}}
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const healthSelect = document.getElementById('health_status');
-                const diseaseField = document.getElementById('disease_description1');
-
-                function toggleFields() {
-                    const value = healthSelect.value;
-
-                    // أخفِ الجميع أولاً
-                    diseaseField.style.display = 'none';
-
-                    // ثم أظهر حسب الاختيار
-                    if (value === 'مريض') {
-                        diseaseField.style.display = 'block';
-                    }
-                }
-
-                // عند تحميل الصفحة
-                toggleFields();
-
-                // عند تغيير الخيار
-                healthSelect.addEventListener('change', toggleFields);
-            });
-        </script>
 
 
     @endpush

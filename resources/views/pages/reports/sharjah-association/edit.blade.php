@@ -29,6 +29,13 @@
                     <div class="col-12 col-md-6 mb-3">
                         <x-form.input name="orphan_code" :value="$report->orphan->internal_code" id="orphan_code" class="border" type="text" label="  {{__('كود اليتيم')}}" autocomplete="" placeholder=" أدخل كود اليتيم " disabled/>
                     </div>
+                    
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="mb-2"> {{__('نوع الحالة')}} </label>
+                        <x-form.select id="case_type"  name="case_type" :selected="$report->orphan->case_type"
+                            :options="['' =>  __('اختر'), 'يتيم الأبوين' => __('يتيم الأبوين'), 'يتيم' => __('يتيم')]"/>
+        
+                    </div>
 
 
                     {{-- month_number --}}
@@ -123,9 +130,9 @@
 
                     {{-- mother_death --}}
                     <div class="col-12 col-md-6 mb-3">
-
-                        <x-form.input name="mother_death_date" :value="$report->orphan->profile->mother_death_date
-        ? $report->orphan->profile->mother_death_date
+                        
+                        <x-form.input name="mother_death_date" :value="$report->orphan->profile->mother_death_date 
+        ? $report->orphan->profile->mother_death_date 
         : (isset($report->fields['mother_death_date']) ? $report->fields['mother_death_date'] : '')"  class="border" id="mother_death" type="text" label="  {{__('تاريخ وفاة الأم')}}" autocomplete="" :disabled="$report->orphan->profile->mother_death_date? true : false"/>
                     </div>
 

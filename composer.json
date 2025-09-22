@@ -23,6 +23,8 @@
         "phpoffice/phppresentation": "^1.1",
         "phpoffice/phpword": "^1.4",
         "simplesoftwareio/simple-qrcode": "^4.2",
+        "spatie/browsershot": "^5.0",
+        "spatie/laravel-pdf": "^1.6",
         "stichoza/google-translate-php": "^5.2"
     },
     "require-dev": {

@@ -8,7 +8,12 @@
 
 
     <h2 class="mb-4">  {{__('يتيم جديد')}}</h2>
-    <h4 class="mb-4" style="color:var(--title-color);"> {{__('استمارة التسجيل')}}</h4>
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4  style="color:var(--title-color);"> {{__('استمارة التسجيل')}}</h4>
+        <a href="{{route('orphans.excel.index')}}" class="add-button text-decoration-none pt-1 pb-1"> رفع ملف </a>
+
+    </div>
 
     <x-alert name="success" />
     <x-alert name="danger" />

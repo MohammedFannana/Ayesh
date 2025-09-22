@@ -36,6 +36,8 @@ use App\Http\Controllers\AlbarFollowReportController;
 
 use App\Http\Controllers\AccreditationOrphanController;
 use App\Http\Controllers\OrphanSupporterFieldValueController;
+use App\Http\Controllers\UploadExcel\UploadExcelController;
+
 
 
 Route::middleware(ApplyUserLanguage::class)->group(function(){
@@ -59,6 +61,9 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
         Route::resource('/donor' , DonorController::class);
         Route::get('/donor/incoming/statements/{donor}' , [DonorController::class , 'incomingStatements'])->name('donor.income.statement');
         Route::get('/donor/list/sponsored/{donor}' , [DonorController::class , 'ListSponsored'])->name('donor.list.sponsored');
+
+        Route::get('/orphans/import', [UploadExcelController::class, 'index'])->name('orphans.excel.index');
+        Route::post('/orphans/import', [UploadExcelController::class, 'import'])->name('orphans.excel.import');
 
 
         Route::resource('/volunteer' , VolunteerController::class);
@@ -119,19 +124,17 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
 
 
         // ReportController التقارير
-        Route::resource('/report' , ReportController::class);
-        Route::get('/report/{report}', [ReportController::class, 'index'])->name('report.index'); //index route
+        // Route::get('/report/{report}', [ReportController::class, 'index'])->name('report.index'); //index route
         Route::get('/report/{report}/create', [ReportController::class, 'create'])->name('report.create'); //create route
         Route::post('Albar/report', [ReportController::class, 'AlbarStore'])->name('report.Albar.store'); //Albar store route
         Route::post('sharjah/report', [ReportController::class, 'SharjahStore'])->name('report.sharjah.store'); //sharjah store route
         Route::post('maryam/report', [ReportController::class, 'MaryamStore'])->name('report.maryam.store'); //maryam store route
         Route::post('dubai/report', [ReportController::class, 'DubaiStore'])->name('report.dubai.store'); //dubai store route
-        Route::put('/report/{report}/{supporter_id}' , [ReportController::class , 'update'])->name('report.update'); //update route
-        Route::get('/download-report/{report}', [ReportController::class, 'DownloadReport'])->name('download.report');
+        // Route::put('/report/{report}/{supporter_id}' , [ReportController::class , 'update'])->name('report.update'); //update route
+        // Route::get('/download-report/{report}', [ReportController::class, 'DownloadReport'])->name('download.report');
 
 
-        Route::get('alber/follow/report' , [AlbarFollowReportController::class , 'index'])->name('report.follow.albar.index');
-        Route::get('download/alber/follow/report/{id}' , [AlbarFollowReportController::class , 'createReport'])->name('report.follow.albar.download');
+
         Route::get('alber/follow/report/create' , [AlbarFollowReportController::class , 'create'])->name('report.follow.albar.create');
         Route::post('alber/follow/report' , [AlbarFollowReportController::class , 'store'])->name('report.follow.albar.store');
         Route::delete('alber/follow/report/{id}' , [AlbarFollowReportController::class , 'destroy'])->name('report.follow.albar.delete');
@@ -152,6 +155,13 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
 
     });
 
+    Route::resource('/report' , ReportController::class)->except('create');
+    Route::get('/report/{report}', [ReportController::class, 'index'])->name('report.index'); //index route
+    Route::put('/report/{report}/{supporter_id}' , [ReportController::class , 'update'])->name('report.update'); //update route
+    Route::get('/download-report/{report}', [ReportController::class, 'DownloadReport'])->name('download.report');
+    Route::get('alber/follow/report' , [AlbarFollowReportController::class , 'index'])->name('report.follow.albar.index');
+    Route::get('download/alber/follow/report/{id}' , [AlbarFollowReportController::class , 'createReport'])->name('report.follow.albar.download');
+
     Route::prefix('orphans')->name('orphan.')->group(function(){
         //image Controller
         Route::get('/image/show' , [ImageController::class , 'index'])->name('image');
@@ -159,6 +169,8 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
         // Route::get('/download/visa/{file}', [ImageController::class, 'visaDownload'])->name('visa.download');
 
     });
+
+
 
     // registered صلاحيات
     Route::prefix('orphans')->name('orphan.')->middleware(['can:access-registrations'])->group(function(){
@@ -277,7 +289,7 @@ Route::get('/create/link', function () {
 
 
 Route::get('/unzip-orphan', function () {
-    $zipPath = storage_path('app/public/orphans/جمعية دبى الخيرية 1.zip');
+    $zipPath = storage_path('app/public/orphans/دار البر البرنامج القديم 3.zip');
     $extractTo = storage_path('app/public/orphans');
 
     if (!file_exists($zipPath)) {

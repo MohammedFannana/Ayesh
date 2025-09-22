@@ -5,6 +5,8 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     @endpush
+    
+
 
     <h2 class="mb-4"> {{__('انشاء تقرير')}}</h2>
     <h4 class="mb-4" style="color:var(--title-color);"> {{__('جمعية دبي الخيرية')}}</h4>
@@ -53,8 +55,26 @@
                     </div>
 
                     {{-- birth_place --}}
-                    <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="birth_place" id="birth_place" class="border" type="text" label=" {{__('مكان الميلاد')}} " autocomplete="" placeholder=" {{__('أدخل مكان الميلاد')}}  "/>
+                    <div class="col-12 col-md-6 mb-3 row">
+                        <label class="mb-2"> {{__('مكان الميلاد')}}  </label>
+                        <div class="col-6  mb-3">
+                            <select id="governorate" class="form-control form-select" name="governorate">
+                                <option value="">اختر المحافظة</option>
+                                @foreach($governorates as $gov)
+                                    <option value="{{ $gov->id }}" data-name="{{ $gov->name }}" >
+                                        {{ $gov->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <div class="col-6 mb-3">
+                            <!--<label for="city-select" class="mb-3"> اسم المدينة </label>-->
+                            <select id="city-select" class="form-control form-select" name="center">
+                                <option value="">اختر المدينة</option>
+                            </select>
+                        </div>
+                        
                     </div>
 
                     {{-- gender --}}
@@ -65,6 +85,11 @@
                     {{-- person_responsible--}}
                     <div class="col-12 col-md-6 mb-3">
                         <x-form.input name="guardian_name" id="guardian_name" class="border" type="text" label=" {{__('اسم المسؤول عن اليتيم')}}" autocomplete="" placeholder="{{__('أدخل اسم المسؤول عن اليتيم')}}"/>
+                    </div>
+                    
+                    {{-- person_responsible--}}
+                    <div class="col-12 col-md-6 mb-3">
+                        <x-form.input name="guardian_relationship" id="guardian_relationship" class="border" type="text" label=" {{__(' صلة القرابة ')}}"  placeholder="{{__('أدخل صلة القرابة ')}}"/>
                     </div>
 
                     {{-- mother_name--}}
@@ -189,6 +214,12 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+   
+
+
+     {{-- for governorate and city- --}}
+
 
     <script>
         const dateFields = [
@@ -218,7 +249,10 @@
             var orphanIdInput = document.getElementById("orphan_id");
             var orphanCodeInput = document.getElementById("orphan_code");
             var orphanNameInput = document.getElementById("orphan_name");
-            var orphanBirthPlaceInput = document.getElementById("birth_place");
+            
+            var orphanGovernorateInput = document.getElementById("governorate");
+            var orphanCityInput = document.getElementById("city-select");
+            
             var orphanGenderInput = document.getElementById("gender");
             var orphanBirthDateInput = document.getElementById("birth_date");
             var orphanFatherDeathInput = document.getElementById("father_death_date");
@@ -242,9 +276,31 @@
                     orphanCodeInput.value = orphan.orphan.internal_code || '';
                     orphanNameInput.value = orphan.orphan.name || '';
 
+                    // governorate
+                    if (orphan.orphan.profile.governorate) {
+                        let govName = orphan.orphan.profile.governorate;
+                        let govOption = Array.from(orphanGovernorateInput.options).find(opt => opt.text === govName);
+                        if (govOption) {
+                            orphanGovernorateInput.value = govOption.value;
+                            $(orphanGovernorateInput).trigger('change'); // لتحديث select2
+                        }
+                    }
+                    
+                    // city
+                    if (orphan.orphan.profile.center) {
+                        let cityName = orphan.orphan.profile.center;
+                        // بعد ملء قائمة المدن بناءً على المحافظة
+                        setTimeout(() => { // ننتظر حتى يتم ملء المدن
+                            let cityOption = Array.from(orphanCityInput.options).find(opt => opt.text === cityName);
+                            if (cityOption) {
+                                orphanCityInput.value = cityOption.value;
+                                $(orphanCityInput).trigger('change');
+                                orphanCityInput.disabled = true;
+                            }
+                        }, 100);
+                    }
 
-
-                    orphanBirthPlaceInput.value = orphan.orphan.birth_place || '';
+                    // 
                     orphanGenderInput.value = orphan.orphan.gender || '';
 
                     if (orphan.orphan.profile.father_death_date) {
@@ -294,7 +350,10 @@
                     // make input have value disabled
                     orphanCodeInput.disabled = orphanCodeInput.value !== '';
                     orphanNameInput.disabled = orphanNameInput.value !== '';
-                    orphanBirthPlaceInput.disabled = orphanBirthPlaceInput.value !== '';
+                    
+                    orphanGovernorateInput.disabled = orphanGovernorateInput.value !== '';
+                    orphanCityInput.disabled = orphanCityInput.value !== '';
+                    
                     orphanGenderInput.disabled = orphanGenderInput.value !== '';
                     orphanBirthDateInput.disabled = orphanBirthDateInput.value !== '';
                     orphanFatherDeathInput.disabled = orphanFatherDeathInput.value !== '';
@@ -327,6 +386,38 @@
 
         });
     </script>
+    
+    <script>
+            const governorates = @json($governorates);
+
+            $(document).ready(function () {
+                $('#governorate').select2({
+                    placeholder: 'اختر المحافظة'
+                });
+
+                $('#city-select').select2({
+                    placeholder: 'اختر المدينة'
+                });
+
+                $('#governorate').on('change', function () {
+                    const selectedId = parseInt($(this).val());
+                    const selectedName = $('#governorate option:selected').data('name'); // نستفيد منه لتخزين الاسم لاحقاً
+                    const citySelect = $('#city-select');
+
+                    citySelect.empty().append('<option value="">اختر المدينة</option>');
+
+                    const selectedGov = governorates.find(g => g.id === selectedId);
+                    if (selectedGov && selectedGov.cities.length > 0) {
+                        selectedGov.cities.forEach(city => {
+                            citySelect.append(`<option value="${city.name}">${city.name}</option>`);
+                        });
+                    }
+
+                    citySelect.trigger('change');
+                });
+
+            });
+        </script>
 
 
 

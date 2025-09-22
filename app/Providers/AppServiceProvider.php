@@ -63,6 +63,50 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('access-marketer', function ($user) {
             return $user->type === 'marketer' || $user->can('access-admin');
         });
+        
+        // Gate للتحقق من صلاحية الوصول لصفحات التسويق (مراجع)
+        Gate::define('all-orphan', function ($user) {
+            return $user->can('registered') || $user->can('references') ||
+             $user->can('certified') || $user->can('financial_manager')
+             ||$user->can('marketer') ||$user->can('access-admin');
+        });
+
+        Gate::define('Dar_Al_Ber', function ($user) {
+            return $user->type === 'Dar_Al_Ber' || $user->can('access-admin');
+        });
+        
+        Gate::define('Sharjah', function ($user) {
+            return $user->type === 'Sharjah' || $user->can('access-admin');
+        });
+        
+        Gate::define('Maryam', function ($user) {
+            return $user->type === 'Maryam' || $user->can('access-admin');
+        });
+        
+        
+        Gate::define('Dubai', function ($user) {
+            return $user->type === 'Dubai' || $user->can('access-admin');
+        });
+        
+        
+        Gate::define('Dar_Al_Ber_fisrt', function ($user) {
+            return $user->type === 'Dar_Al_Ber';
+        });
+        
+        Gate::define('Sharjah_fisrt', function ($user) {
+            return $user->type === 'Sharjah';
+        });
+        
+        Gate::define('Maryam_fisrt', function ($user) {
+            return $user->type === 'Maryam';
+        });
+        
+        
+        Gate::define('Dubai_fisrt', function ($user) {
+            return $user->type === 'Dubai' ;
+        });
+        
+        
 
 
         // صلاحية لمنع اليتيم الانتقال من حالة الاعتماد الا بعد اكمال البيانات

@@ -2,25 +2,42 @@
 
 namespace App\Http\Controllers\UploadExcel;
 
-use App\Http\Controllers\Controller;
+use App\Models\Supporter;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\OrphansImport;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UploadExcelController extends Controller
 {
-    public function import()
+
+    public function index()
     {
-        $filePath = storage_path('app/orphans.xlsx'); // تأكد أن الملف موجود هنا
+        $supporters = Supporter::get(['id', 'name']);
+        return view('pages.orphans.new-orphans.upload_excel' , compact('supporters'));
+    }
+
+
+    public function import(Request $request)
+    {
+        $validated = $request->validate([
+            'excelFile' => 'required|mimes:xlsx,xls,csv',
+            'supporter_id' => 'required|integer'
+            , 'status' => 'required|string|in:registered,under_review,approved,marketing_provider,waiting,sponsored'
+        ]);
+
 
         try {
-            Excel::import(new OrphansImport, $filePath);
-            return response()->json(['message' => 'تم الاستيراد بنجاح'], 200);
+            Excel::import(new OrphansImport($request->supporter_id , $request->status), $request->file('excelFile'));
+
+            return redirect()
+                ->back()
+                ->with('success', 'تم استيراد الملف بنجاح ✅');
+
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'حدث خطأ أثناء الاستيراد',
-                'error' => $e->getMessage()
-            ], 500);
+            return redirect()
+                ->back()
+                ->with('danger', 'حدث خطأ أثناء الاستيراد: ' . $e->getMessage());
         }
     }
 

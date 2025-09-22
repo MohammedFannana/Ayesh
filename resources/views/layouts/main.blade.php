@@ -388,17 +388,21 @@
 
                                 <li class="nav-item dropdown  p-2 me-5 " style="height: 40px" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                    <a type="button" class="nav-link one dropdown-toggle d-flex justify-content-between align-items-center status direction {{Route::is('orphan.*') || Route::is('family.*') ?'active':''}}"  style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {{__('الحالات')}}
-                                    </a>
+                                    @can('all-orphan')
+                                        <a type="button" class="nav-link one dropdown-toggle d-flex justify-content-between align-items-center status direction {{Route::is('orphan.*') || Route::is('family.*') ?'active':''}}"  style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{__('الحالات')}}
+                                        </a>
+                                    @endcan
 
                                     <li class="nav-item dropdown  p-2 ps-3 me-5  status-item d-none" style="height: 40px;" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                        <a type="button" class="two four p-2 dropdown-toggle d-flex justify-content-between align-items-center orphan direction {{Route::is('orphan.*')?'active':''}}"  style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {{__('الايتام المقدمين')}}
-                                        </a>
+                                        @can('all-orphan')
 
+                                            <a type="button" class="two four p-2 dropdown-toggle d-flex justify-content-between align-items-center orphan direction {{Route::is('orphan.*')?'active':''}}"  style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{__('الايتام المقدمين')}}
+                                            </a>
 
+                                        @endcan
 
                                         {{-- <ul class="orphan-menu d-none"> --}}
 
@@ -442,7 +446,7 @@
                                                     {{__('الحالات المعتمدة')}}
                                                 </a>
                                             </li>
-                                            
+
                                         @endcan
 
                                         @can('access-marketer')
@@ -526,19 +530,24 @@
                                             {{__('الملفات')}}
                                         </a>
                                     </li>
+                                @endcan
 
-                                    <li class="nav-item dropdown  p-2 me-5" style="height: 40px;" data-bs-toggle="dropdown" aria-expanded="false">
+                                <li class="nav-item dropdown  p-2 me-5" style="height: 40px;" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                        <a type="button" class="nav-link one report dropdown-toggle d-flex justify-content-between align-items-center orphan direction {{Route::is('report.*')?'active':''}}"  style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {{__('التقارير')}}
+                                    <a type="button" class="nav-link  report dropdown-toggle d-flex justify-content-between align-items-center orphan direction {{Route::is('report.*')?'active':''}}"  style="text-align: start;" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{__('التقارير')}}
+                                    </a>
+
+
+                                    @can('Sharjah')
+                                    <li class="nav-item p-2 ps-4 me-5 report-list  d-none" style="height: 40px">
+                                        <a  href="{{route('report.index' , 2)}}" class="two dropdown-item direction "  style="text-align: start;">
+                                            {{__('تقرير الشارقة الخيرية')}}
                                         </a>
+                                    </li>
+                                    @endcan
 
-
-                                        <li class="nav-item p-2 ps-4 me-5 report-list  d-none" style="height: 40px">
-                                            <a  href="{{route('report.index' , 2)}}" class="two dropdown-item direction "  style="text-align: start;">
-                                                {{__('تقرير الشارقة الخيرية')}}
-                                            </a>
-                                        </li>
+                                    @can('Dar_Al_Ber')
 
                                         <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
                                             <a  href="{{route('report.index' , 1)}}" class="two dropdown-item direction "  style="text-align: start;">
@@ -552,23 +561,29 @@
                                             </a>
                                         </li>
 
-                                        <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
-                                            <a  href="{{route('report.index' , 4)}}" class="two dropdown-item direction"  style="text-align: start;">
-                                                {{__('تقرير دبي الخيرية')}}
-                                            </a>
-                                        </li>
+                                    @endcan
 
-
-                                        <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
-                                            <a  href="{{route('report.index' , 3)}}" class="two dropdown-item direction "  style="text-align: start;">
-                                                {{__('تقرير السيدة مريم')}}
-                                            </a>
-                                        </li>
-
+                                    @can('Dubai')
+                                    <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
+                                        <a  href="{{route('report.index' , 4)}}" class="two dropdown-item direction"  style="text-align: start;">
+                                            {{__('تقرير دبي الخيرية')}}
+                                        </a>
                                     </li>
+                                    @endcan
 
 
+                                    @can('Maryam')
+                                    <li class="nav-item p-2 ps-4 me-5  report-list d-none" style="height: 40px">
+                                        <a  href="{{route('report.index' , 3)}}" class="two dropdown-item direction "  style="text-align: start;">
+                                            {{__('تقرير السيدة مريم')}}
+                                        </a>
+                                    </li>
+                                    @endcan
 
+                                </li>
+
+
+                                @can('access-admin')
                                     <li class="nav-item p-2 me-5" style="height: 40px">
                                         <a href="{{ route('file.index')}}" class="nav-link direction "  style="text-align: start;">
                                             {{__('الرسائل')}}
@@ -577,6 +592,7 @@
 
                                 @endcan
 
+                                @can('all-orphan')
                                 <li class="nav-item p-2 me-5 " style="height: 40px">
                                     <a href="{{ route('notification.index')}}" class="nav-link direction {{Route::is('notification.*')?'active':''}}"  style="text-align: start;">
                                         {{__('الاشعارات')}}
@@ -593,8 +609,10 @@
                                         {{__('الشكاوي')}}
                                     </a>
                                 </li>
+                                @endcan
 
                             </ul>
+
 
                         </div>
 
@@ -633,35 +651,41 @@
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                let status = document.querySelector(".status");
-                let orphan = document.querySelector(".orphan");
-                let report = document.querySelector(".report");
-                let reportList = document.querySelectorAll(".report-list");
-                let statusItems = document.querySelectorAll(".status-item");
-                let orphanMenu = document.querySelectorAll(".orphan-menu");
+document.addEventListener("DOMContentLoaded", function () {
+    const status = document.querySelector(".status");
+    const orphan = document.querySelector(".orphan");
+    const report = document.querySelector(".report");
+    const reportList = document.querySelectorAll(".report-list");
+    const statusItems = document.querySelectorAll(".status-item");
+    const orphanMenu = document.querySelectorAll(".orphan-menu");
 
-                // عند الضغط على الحالات
-                status.addEventListener("click", function (e) {
-                    e.preventDefault();  // إلغاء السلوك الافتراضي
-                    statusItems.forEach(item => item.classList.toggle("d-none"));
-                    orphanMenu.forEach(item => item.classList.add("d-none")); // إخفاء قائمة الأيتام عند فتح الحالات
-                });
+    // الحالات
+    if (status) {
+        status.addEventListener("click", function (e) {
+            e.preventDefault();
+            statusItems.forEach(item => item.classList.toggle("d-none"));
+            orphanMenu.forEach(item => item.classList.add("d-none"));
+        });
+    }
 
-                // عند الضغط على الأيتام المقدمين
-                orphan.addEventListener("click", function (e) {
-                    e.preventDefault();  // إلغاء السلوك الافتراضي
-                    orphanMenu.forEach(item => item.classList.toggle("d-none")); // إظهار أو إخفاء القائمة الفرعية
-                });
+    // الأيتام المقدمين
+    if (orphan) {
+        orphan.addEventListener("click", function (e) {
+            e.preventDefault();
+            orphanMenu.forEach(item => item.classList.toggle("d-none"));
+        });
+    }
 
-                // عند الضغط على التقارير
-                report.addEventListener("click", function (e) {
-                    e.preventDefault();  // إلغاء السلوك الافتراضي
-                    reportList.forEach(item => item.classList.toggle("d-none")); // إظهار أو إخفاء القائمة
-                });
-            });
+    // التقارير
+    if (report) {
+        report.addEventListener("click", function (e) {
+            e.preventDefault();
+            reportList.forEach(item => item.classList.toggle("d-none"));
+        });
+    }
+});
+</script>
 
-        </script>
 
         {{-- <script>
 

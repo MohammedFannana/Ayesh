@@ -167,7 +167,21 @@
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:21%;" class="cell font"> العمر </p>
-                <p style="float: left; width:75%;" class="cell border">  {{$report->orphan->age ??  \Carbon\Carbon::parse($report->orphan->birth_date)->age }} </p>
+                @php
+                    $birthDate = \Carbon\Carbon::parse($report->orphan->birth_date);
+                    $years = $birthDate->age;
+                    $months = $birthDate->diffInMonths(now());
+                @endphp
+                
+                
+
+                <p style="float: left; width:75%;" class="cell border">
+                    @if($years >= 1)
+                        {{ $years }} سنة
+                    @else
+                        {{ $months }} شهر
+                    @endif
+                </p>
             </div>
 
         </div>
@@ -195,21 +209,23 @@
                 <p style="float: left; width:68%;" class="cell border"> {{$report->orphan->health_status ?? $report->fields['health_status']}}  </p>
             </div>
 
-            @if($report->orphan->health_status == "مريض" || $report->fields['health_status'] == "مريض")
+            {{-- @if($report->orphan->health_status == "مريض" || $report->fields['health_status'] == "مريض")
                 <div style="width:48%; float: left; overflow: hidden; text-align:center;">
                     <p style="float: right; width:27%;" class="cell font"> وصف المرض </p>
                     <p style="float: left; width:68%;" class="cell border">  {{$report->orphan->disease_description ?? $report->fields['disease_description']}}  </p>
                 </div>
-            @endif
-
-        </div>
-
-        <div style="width: 100%;margin-top:8px">
-            <div style="width: 48%;  float: right; text-align:center;">
+            @endif --}}
+            
+            <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:24%;" class="cell font"> اسم الأم </p>
                 <p style="float: left; width:71%;" class="cell border"> {{$report->orphan->profile->mother_name ?? $report->fields['mother_name']}}  </p>
             </div>
+
         </div>
+
+        {{-- <div style="width: 100%;margin-top:8px">
+            
+        </div> --}}
 
         {{--  صلة القرابة and اسم المسؤول عن اليتيم--}}
         <div style="width: 100%;margin-top:8px">
@@ -235,7 +251,7 @@
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:24%;" class="cell font"> حفظه للقران</p>
-                <p style="float: left; width:71%;" class="cell border"> {{$report->fields['memorize_quran']}} </p>
+                <p style="float: left; width:71%;" class="cell border"> {{$report->fields['memorize_quran']}} جزء</p>
             </div>
 
         </div>
@@ -256,7 +272,7 @@
         </div>
 
         {{--  المستوى الدراسي and   الصف --}}
-        <div style="width: 100%;margin-bottom:8px">
+        <div style="width: 100%;margin-bottom:50px">
             <p style="font-size: 25px;font-weight:bold;margin:auto;margin-top:18px;border-bottom:3px solid black;width:250px;padding-right:12px"> رسالة شكر و تقدير من اليتيم </p>
             <p style="margin-top:5px; width:100%; height:100px;border:2px solid #BA3A37;border-radius:20px" class="cell border"> {{$report->fields['letter_thanks']}} </p>
         </div>
@@ -390,7 +406,7 @@
 
             <div>
 
-                <p style="font-size: 25px;font-weight:bold;margin:30 auto;border-bottom:3px solid black;width:120px;padding-right:12px">  إيصال الدفع </p>
+                <p style="font-size: 25px;font-weight:bold;margin:30 auto;border-bottom:3px solid black;width:350px;padding-right:12px"> إيصال تحويل مبلغ الكفالة الي حساب اليتيم </p>
 
                 <img src="{{ public_path('storage/' . $report->payment_receipt) }}" alt="صورة" width="650px" height="850px">
 

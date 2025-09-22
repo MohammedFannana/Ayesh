@@ -25,7 +25,7 @@
 
                     {{-- report_date --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="report_date" value="{{$report->fields['report_date']}}" class="border" type="date" label="  {{__('تاريخ التقرير')}}" autocomplete=""/>
+                        <x-form.input name="report_date" id="report_date" value="{{$report->fields['report_date']}}" class="border" type="text" label="  {{__('تاريخ التقرير')}}" autocomplete=""/>
                     </div>
 
                     {{-- orphan_name --}}
@@ -40,12 +40,30 @@
 
                     {{-- birth_date --}}
                     <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="birth_date" :value="$report->orphan->birth_date ?? $report->fields['birth_date']" id="birth_date" class="border" type="text" label="  {{__('تاريخ الميلاد')}}" autocomplete="" :disabled ="$report->orphan->birth_date  ? true : false"/>
+                        <x-form.input name="birth_date" :value="$report->orphan->birth_date ?? $report->fields['birth_date']" id="birth_date" class="border" type="text" label="{{__('تاريخ الميلاد')}}" />
                     </div>
 
                     {{-- birth_place --}}
-                    <div class="col-12 col-md-6 mb-3">
-                        <x-form.input name="birth_place" :value="$report->orphan->birth_place ?? $report->fields['birth_place']" id="birth_place" class="border" type="text" label=" {{__('مكان الميلاد')}} " autocomplete="" placeholder=" أدخل مكان الميلاد   " :disabled ="$report->orphan->birth_place  ? true : false"/>
+                    <div class="col-12 col-md-6 row mb-3">
+                        <label class="mb-2"> {{__('مكان الميلاد')}}  </label>
+                        <div class="col-6  mb-3">
+                            
+                            <select id="governorate" class="form-control form-select" name="governorate">
+                                <option value="">اختر المحافظة</option>
+                                @foreach($governorates as $gov)
+                                    <option value="{{ $gov->id }}" data-name="{{ $gov->name }}" @selected(($report->orphan->profile->governorate ?? $report->fields['governorate']) === $gov->name) >
+                                        {{ $gov->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <div class="col-6 mb-3">
+                            <!--<label for="city-select" class="mb-3"> اسم المدينة </label>-->
+                            <select id="city-select" class="form-control form-select" name="center">
+                                <option value="">اختر المدينة</option>
+                            </select>
+                        </div>
                     </div>
 
                     {{-- gender --}}
@@ -56,6 +74,11 @@
                     {{-- person_responsible--}}
                     <div class="col-12 col-md-6 mb-3">
                         <x-form.input name="guardian_name" :value="$report->orphan->guardian->guardian_name ?? $report->fields['guardian_name']" id="guardian_name" class="border" type="text" label=" {{__('اسم المسؤول عن اليتيم')}}" autocomplete="" placeholder="أدخل اسم المسؤول عن اليتيم" :disabled="$report->orphan->guardian->guardian_name ? true : false"/>
+                    </div>
+                    
+                    {{-- person_responsible--}}
+                    <div class="col-12 col-md-6 mb-3">
+                        <x-form.input name="guardian_relationship" :value="$report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship']"  id="guardian_relationship" class="border" type="text" label=" {{__(' صلة القرابة ')}}"  placeholder="{{__('أدخل صلة القرابة ')}} " :disabled="$report->orphan->guardian->guardian_relationship? true : false"/>
                     </div>
 
                     {{-- mother_name--}}
@@ -195,6 +218,39 @@
                 });
             });
 
+        </script>
+        
+        <script>
+            const governorates = @json($governorates);
+            const selectedCenter = @json($report->orphan->profile->center ?? $report->fields['center']);
+        
+            $(document).ready(function () {
+                $('#governorate').select2({ placeholder: 'اختر المحافظة' });
+                $('#city-select').select2({ placeholder: 'اختر المدينة' });
+        
+                // عند تحميل الصفحة: تشغيل تغيير لتعبئة المدن إذا كانت المحافظة مختارة
+                if ($('#governorate').val()) {
+                    $('#governorate').trigger('change');
+                }
+        
+                $('#governorate').on('change', function () {
+                    const selectedId = parseInt($(this).val());
+                    const citySelect = $('#city-select');
+        
+                    citySelect.empty().append('<option value="">اختر المدينة</option>');
+        
+                    const selectedGov = governorates.find(g => g.id === selectedId);
+                    if (selectedGov && selectedGov.cities.length > 0) {
+                        selectedGov.cities.forEach(city => {
+                            const isSelected = city.name === selectedCenter ? 'selected' : '';
+                            citySelect.append(`<option value="${city.name}" ${isSelected}>${city.name}</option>`);
+                        });
+                    }
+        
+                    citySelect.trigger('change');
+                });
+                    $('#governorate').trigger('change');
+            });
         </script>
     @endpush
 

@@ -60,7 +60,7 @@
                     </div>
 
                     {{-- address--}}
-
+                    
 
                     <div class="col-12 col-md-6 mb-3">
                         <x-form.input name="address" id="address" class="border" type="text" :value=" $report->orphan->profile->full_address ?? $report->fields['address']" label=" {{__('العنوان')}} " autocomplete="" placeholder="أدخل  العنوان"  :disabled="$report->orphan->profile->full_address ? true : false" />

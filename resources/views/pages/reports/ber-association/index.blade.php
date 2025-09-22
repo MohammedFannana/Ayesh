@@ -27,9 +27,12 @@
 
             </div>
 
-            <div class="d-flex justify-content-end">
-                <a href="{{route('report.create' , $supporter_id)}}" class="btn add-button ps-4 pe-4"> {{__('إضافة تقرير')}}</a>
-            </div>
+            @cannot('Dar_Al_Ber_fisrt')
+                <div class="d-flex justify-content-end">
+                    <a href="{{route('report.create' , $supporter_id)}}" class="btn add-button ps-4 pe-4"> {{__('إضافة تقرير')}}</a>
+                </div>
+            @endcannot
+
 
         </div>
 
@@ -61,6 +64,8 @@
                         <img class="show-action" src="{{asset('image/point.svg')}}" alt="" width="20px" height="18px">
 
                         <div class="action" style="top:18px; width:170px">
+
+
                             <a href="{{route('download.report' , $report->id)}}" class="text-decoration-none">
                                 <img src="{{asset('image/Downlaod.png')}}" alt="">
                                 <span style="color: var(--text-color);"> {{__('تحميل التقرير')}}</span>
@@ -72,14 +77,19 @@
                                 <span style="color: var(--text-color);">  {{__('تعديل')}} </span>
                             </a>
 
-                            <form action="{{route('report.destroy' , $report->id)}}" method="post">
-                                @csrf
-                                @method('delete')
-                                <button class="submit border-0 p-0 bg-transparent">
-                                    <img src="{{asset('image/Delete.svg')}}" alt="">
-                                    <span style="color: var(--text-color);">{{__('حذف')}}</span>
-                                </button>
-                            </form>
+                            
+
+                            @cannot('Dar_Al_Ber_fisrt')    
+                                <form action="{{route('report.destroy' , $report->id)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="submit border-0 p-0 bg-transparent">
+                                        <img src="{{asset('image/Delete.svg')}}" alt="">
+                                        <span style="color: var(--text-color);">{{__('حذف')}}</span>
+                                    </button>
+                                </form>
+                            @endcannot
+                                
                         </div>
 
                     </div>

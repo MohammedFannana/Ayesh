@@ -40,6 +40,12 @@
                         <x-form.input name="orphan_code" id="orphan_code" class="border" type="text" label="  {{__('كود اليتيم')}}" autocomplete="" placeholder=" {{__('أدخل كود اليتيم')}}"/>
                     </div>
 
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="mb-2"> {{__('نوع الحالة')}} </label>
+                        <x-form.select id="case_type"  name="case_type"
+                            :options="['' =>  __('اختر'), 'يتيم الأبوين' => __('يتيم الأبوين'), 'يتيم' => __('يتيم')]"/>
+        
+                    </div>
 
                     {{-- month_number --}}
                     <div class="col-12 col-md-6 mb-3">
@@ -417,6 +423,7 @@
             var orphanHealthStatusInput = document.getElementById("health_status");
             var orphanHTypeDiseaseInput = document.getElementById("Type_disease");
             var orphanAcademicStageInput = document.getElementById("academic_stage");
+            var orphanCaseTypeInput = document.getElementById("case_type");
 
 
             // for image  Medical Report
@@ -482,7 +489,7 @@
                         orphanMotherDeathInput.value = '';
                         orphanMotherDeathInput.disabled = false;
                     }
-
+                    
                     orphanGuardianNameInput.value = orphan.orphan.guardian.guardian_name || '';
                     orphanGuardianRelationshipInput.value = orphan.orphan.guardian.guardian_relationship || '';
                     orphanFamilyNumberInput.value = orphan.orphan.family.family_number || '';
@@ -492,6 +499,7 @@
                     orphanHealthStatusInput.value = orphan.orphan.health_status || '';
                     orphanHTypeDiseaseInput.value = orphan.orphan.disease_description || '';
                     orphanAcademicStageInput.value = orphan.orphan.profile.academic_stage || '';
+                    orphanCaseTypeInput.value = orphan.orphan.case_type || '';
 
                     // image
                     // orphanMedicalReportImage.value = orphan.orphan.image.medical_report || '';
@@ -528,6 +536,7 @@
                     orphanHealthStatusInput.disabled = orphanHealthStatusInput.value !== '';
                     orphanHTypeDiseaseInput.disabled = orphanHTypeDiseaseInput.value !== '';
                     orphanAcademicStageInput.disabled = orphanAcademicStageInput.value !== '';
+                    orphanCaseTypeInput.disabled = orphanCaseTypeInput.value !== '';
 
 
                 }

@@ -26,10 +26,12 @@
                 </form>
 
             </div>
-
+    
+            @cannot('Maryam_fisrt')
             <div class="d-flex justify-content-end">
                 <a href="{{route('report.create' , $supporter_id)}}" class="btn add-button ps-4 pe-4"> {{__('إضافة تقرير')}}</a>
             </div>
+            @endcannot
 
         </div>
 
@@ -71,6 +73,7 @@
                                 <span style="color: var(--text-color);">  {{__('تعديل')}} </span>
                             </a>
 
+                            @cannot('Maryam_fisrt')
                             <form action="{{route('report.destroy' , $report->id)}}" method="post" style="margin-right: -5px">
                                 @csrf
                                 @method('delete')
@@ -79,6 +82,7 @@
                                     <span style="color: var(--text-color);">{{__('حذف')}}</span>
                                 </button>
                             </form>
+                            @endcannot
                         </div>
 
                     </div>
