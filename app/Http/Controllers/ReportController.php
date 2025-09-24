@@ -11,7 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
+use setasign\Fpdi\Tcpdf\Fpdi;
+use TCPDF;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
+
 use App\Models\Governorate;
 
 
@@ -98,7 +102,7 @@ class ReportController extends Controller
 
     public function AlbarStore(Request $request)
     {
-        
+
         $validated = $request->validate([
             'supporter_id' => ['required' ,'exists:supporters,id'],
             'orphan_id' => ['required' , 'exists:orphans,id'],
@@ -129,12 +133,12 @@ class ReportController extends Controller
 
 
         ]);
-        
 
-        
-        
-        
-        
+
+
+
+
+
 
         $jsonData = [
             // 'supervising_authority' => $validated['supervising_authority'],
@@ -164,11 +168,11 @@ class ReportController extends Controller
         try {
 
             $orphan = Orphan::findOrFail($validated['orphan_id']);
-            
+
             if (!empty($validated['profile_image'])) {
                 Storage::disk('public')->delete($validated['profile_image']);
             }
-            
+
             if ($request->hasFile('profile_image')) { //to check if image file is exit
                     $file = $request->file('profile_image');
                     // تحديد اسم الصورة
@@ -178,7 +182,7 @@ class ReportController extends Controller
                     // إضافة المسار إلى البيانات المعتمدة
                     $validated['profile_image'] = $path;
                 }
-        
+
 
 
             if($orphan->report){
@@ -535,7 +539,7 @@ class ReportController extends Controller
     public function DubaiStore(Request $request)
     {
         $governorate = Governorate::find($request->governorate)?->name;
-        
+
         $request->merge([
             'governorate' => $governorate,
         ]);
@@ -553,7 +557,7 @@ class ReportController extends Controller
 
             'governorate' => ['nullable' , 'string'],
             'center' => ['nullable' , 'string'],
-            
+
 
              'birth_date' => ['nullable' , 'date'],
              'gender' => ['nullable' , 'string'],
@@ -602,14 +606,14 @@ class ReportController extends Controller
             'father_death_date' => $validated['father_death_date'] ?? null ,
             'academic_stage' => $validated['academic_stage'] ?? null,
             'health_status' => $validated['health_status'] ?? null,
-            
+
             'governorate' => $validated['governorate'] ?? null,
             'center' => $validated['center'] ?? null,
-            
-           
+
+
 
         ];
-        
+
 
         DB::beginTransaction();
 
@@ -757,8 +761,8 @@ class ReportController extends Controller
                     'academic_stage_detailes' => ['sometimes', 'string'],
                     'profile_image' =>['sometimes','file' ,'mimes:png,jpg,jpeg,pdf', // يسمح فقط بملفات PNG و JPG/JPEG
                         'max:1048576',],
-                    
-                    
+
+
                     'gender'=> ['nullable' , 'string'],
                     'age'=> ['nullable' , 'string'],
                     'health_status' => ['nullable' , 'string'],
@@ -767,7 +771,7 @@ class ReportController extends Controller
                     'guardian_name' => ['nullable' , 'string'],
                     'guardian_relationship' => ['nullable' , 'string'],
                     'disease_description' => ['nullable' , 'string'],
-                    
+
 
                 ]);
                 break;
@@ -978,20 +982,58 @@ class ReportController extends Controller
         if(view()->exists($viewName)){
             // $pdf = PDF::loadView($viewName, ['report' => $report]);
 
-            $pdf = PDF::loadView($viewName, ['report' => $report] ,[] , [
-                'default_font' => 'arialarabic',
-            ]);
+                     // 1) توليد PDF عبر mPDF
+            $pdf = \Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::loadView($viewName, ['report' => $report]);
+            $pdfPath = storage_path('app/public/temp_report.pdf');
+            file_put_contents($pdfPath, $pdf->output());
 
+            $pdfPath = storage_path('app/public/temp_report.pdf');
+            file_put_contents($pdfPath, $pdf->output());
 
-            return $pdf->stream('supporter_' . $report->supporter->id . '.pdf');
-            // return $pdf->download('supporter_' . $report->supporter->id . '.pdf');
+            // نستخدم FPDI
+            $tcpdf = new \setasign\Fpdi\Tcpdf\Fpdi();
 
-        }
+            // اجلب عدد صفحات الملف
+            $pageCount = $tcpdf->setSourceFile($pdfPath);
+
+            // مر على كل الصفحات
+            for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+                $tcpdf->AddPage();
+                $tplId = $tcpdf->importPage($pageNo);
+                $tcpdf->useTemplate($tplId, 0, 0, 210);
+
+                // مثال: حط input بس في الصفحة الأولى
+                if ($pageNo == 1) {
+                    // اسم ايتيم
+                $tcpdf->SetFont('dejavusans', '', 12);
+                // بدك تجيبو يمين بتكبر ال X بدك تجيبو فوق بتصغر ال y
+
+// اسم الكفيل
+$tcpdf->SetXY(52, 65);
+$tcpdf->TextField('sponsor_name', 66, 8, [
+    'value' => $report->orphan->name ?? '',
+    'align' => 'C', // نص في المنتصف
+]);
+
+// مبلغ الكفالة
+$tcpdf->SetXY(52, 72);
+$tcpdf->TextField('sponsor_number', 66, 8, [
+    'value' => $report->orphan->name ?? '',
+    'align' => 'C', // نص في المنتصف
+]);
+
+$tcpdf->SetXY(52, 79);
+$tcpdf->TextField('orphan_name', 66, 8, [
+    'value' => $report->orphan->name,
+    'align' => 'C', // نص في المنتصف
+]);
+                    }
+                     }
+
+            return response($tcpdf->Output('supporter_' . $report->supporter->id . '.pdf', 'S'))
+                ->header('Content-Type', 'application/pdf');
 
         abort(404, 'لا يوجد قالب PDF مخصص لهذه الجمعية');
-
-
-
-
-    }
+        }
+   }
 }

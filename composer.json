@@ -22,6 +22,7 @@
         "pharaonic/laravel-locations": "^1.5",
         "phpoffice/phppresentation": "^1.1",
         "phpoffice/phpword": "^1.4",
+        "setasign/fpdi-tcpdf": "^2.3",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/browsershot": "^5.0",
         "spatie/laravel-pdf": "^1.6",

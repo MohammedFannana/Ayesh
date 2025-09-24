@@ -35,7 +35,7 @@
             margin: 0;
             padding:2px 3px 2px 5px;
         }
-        
+
         .center{
             text-align: center;
         }
@@ -43,23 +43,23 @@
         .border{
             border:1px solid #777;
         }
-        
+
         .border2{
             border : 1px solid #3A8DDE;
         }
 
-       
-        
+
+
         p {
             margin-top: 3px !important;
             line-height: 1.4; /* يقلل التباعد العمودي */
         }
-        
+
         div {
             margin: 0 !important;
             padding: 0 !important;
         }
-        
+
         .container > div {
             margin-bottom: 1px; /* لو بدك مسافة صغيرة جداً بين الأقسام */
         }
@@ -88,7 +88,7 @@
                     <div style="width: 70%;  float: right; text-align:center ; padding-top:55px">
                         <p style="font-size: 27px;color:#4389C8;margin-bottom:6px;padding-bottom:6px;font-weight: bold;">التقريــــر الــــدوري لليتيــــم</p>
                         <p style="font-size: 23px;margin-top:0px;padding-top:0px;font-weight: bold; ">
-                            لعـــــــــــــــــــــــــــــــــام : 
+                            لعـــــــــــــــــــــــــــــــــام :
                             <span style="color: #4389C8 ; background-color:#DDE4FF; " class="border"> {{ date('Y') }} </span>
                         </p>
                     </div>
@@ -188,11 +188,11 @@
                 <p style="float: right; width:29%;height:28px;background-color:#F4F4F4;" class="cell center border2"> الحالة الصحية لليتيم </p>
                 <p style="float: left; width:67%;height:28px; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->health_status ?? $report->fields['health_status']}} </p>
             </div>
-            
+
             <div style="width: 100%;">
                 <!--<p style="float: right; width:29%;height:30px;background-color:#F4F4F4;" class="cell center border2">  تفاصيل المرض  </p>-->
-                <p style="float: left; width:98.5%;height:28px; background-color:#DDE4FF;" class="cell border"> {{ $report->orphan->disease_description 
-                    ?? $report->orphan->disability_type 
+                <p style="float: left; width:98.5%;height:28px; background-color:#DDE4FF;" class="cell border"> {{ $report->orphan->disease_description
+                    ?? $report->orphan->disability_type
                     ?? $report->fields['disease_description'] ?? '' }}  </p>
             </div>
 
@@ -203,7 +203,7 @@
 
             <p style="background-color:#3A8DDE;color:white;margin-bottom:1px;padding:0px 3px"> الحالة التعليمية لليتيم</p>
 
-            <?php 
+            <?php
                 $academic_stage = collect([
                     optional($report->orphan->profile)->academic_stage,
                     optional($report->orphan->profile)->academic_stage_details,
@@ -224,15 +224,15 @@
                     <p style="float: left; width:44%; background-color:#DDE4FF;" class="cell border"> {{$report->fields['academic_level']}} </p>
                 </div>
 
-                <div style="width: 33%;  float: left; text-align:center;"> 
+                <div style="width: 33%;  float: left; text-align:center;">
                     <p style="float: right; width:21%;background-color:#F4F4F4;" class="cell center border2"> الصف </p>
                     <p style="float: left; width:70%; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->profile->class ?? $report->fields['class']}} </p>
                 </div>
             </div>
-            
+
             <div style="width: 100%;margin-top:3px">
                 <div style="width: 100%; float:right; overflow: hidden; background-color:#DDE4FF;" class="cell border">
-                     {{$report->fields['academic_stage_detailes']}} 
+                     {{$report->fields['academic_stage_detailes']}}
                 </div>
             </div>
 
