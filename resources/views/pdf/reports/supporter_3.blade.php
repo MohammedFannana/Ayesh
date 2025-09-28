@@ -38,6 +38,7 @@
             margin: 0;
             /* padding: 5px; */
             padding:5px 0 5px 5px;
+              /* background-color: white */
         }
 
         /* .border{
@@ -55,6 +56,8 @@
             box-shadow: 4px 4px 0px black;
             direction: rtl;
             font-family: 'Arial', sans-serif;
+            height: 26px;
+            background-color: white;
         }
 
 
@@ -103,12 +106,16 @@
         <div style="width: 100%;margin-top:8px">
             <div style="width: 48%; float:right; overflow: hidden;">
                 <p style="float: right; width:21%;" class="cell font"> الدولــــــة </p>
-                <p style="float: left; width:75%;" class="cell border"> {{$report->fields['country']}} </p>
+                <p style="float: left; width:75%;" class="cell border">
+                    {{-- {{$report->fields['country']}}  --}}
+                </p>
             </div>
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:43%;" class="cell font"> عنوان الجهة المشرفة </p>
-                <p style="float: left; width:52%;" class="cell border"> {{$report->fields['supervising_authority_place']}} </p>
+                <p style="float: left; width:52%;" class="cell border">
+                    {{-- {{$report->fields['supervising_authority_place']}} --}}
+                </p>
             </div>
         </div>
 
@@ -116,12 +123,16 @@
         <div style="width: 100%;margin-top:8px">
             <div style="width:48%; float: right; overflow: hidden;">
                 <p style="float: right; width:21%;" class="cell font"> اسم الكافل </p>
-                <p style="float: left; width:75%;" class="cell border"> {{$report->fields['sponsor_name']}} </p>
+                <p style="float: left; width:75%;" class="cell border">
+                     {{-- {{$report->fields['sponsor_name']}}  --}}
+                    </p>
             </div>
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:21%;" class="cell font"> رقم الكافل</p>
-                <p style="float: left; width:75%;" class="cell border"> {{$report->fields['sponsor_number']}} </p>
+                <p style="float: left; width:75%;" class="cell border">
+                     {{-- {{$report->fields['sponsor_number']}} --}}
+                    </p>
             </div>
 
         </div>
@@ -130,12 +141,16 @@
         <div style="width: 100%;margin-top:8px">
             <div style="width:48%; float: right; overflow: hidden;">
                 <p style="float: right; width:21%;" class="cell font"> اسم اليتيم</p>
-                <p style="float: left; width:75%;" class="cell border"> {{$report->orphan->name}} </p>
+                <p style="float: left; width:75%;height:50px" class="cell border">
+                    {{-- {{$report->orphan->name}} --}}
+                </p>
             </div>
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:21%;" class="cell font"> رقم اليتيم</p>
-                <p style="float: left; width:75%;" class="cell border"> {{$report->orphan->internal_code}} </p>
+                <p style="float: left; width:75%;" class="cell border">
+                    {{-- {{$report->orphan->internal_code}} --}}
+                 </p>
             </div>
 
         </div>
@@ -144,12 +159,16 @@
         <div style="width: 100%;margin-top:8px">
             <div style="width:48%; float: right; overflow: hidden;">
                 <p style="float: right; width:21%;" class="cell font"> الجنس </p>
-                <p style="float: left; width:75%;" class="cell border">  {{$report->orphan->gender ?? $report->fields['gender']}}  </p>
+                <p style="float: left; width:75%;" class="cell border">
+                      {{-- {{$report->orphan->gender ?? $report->fields['gender']}}  --}}
+                    </p>
             </div>
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:33%;" class="cell font"> تاريخ ميلاد اليتيم </p>
-                <p style="float: left; width:61%;" class="cell border"> {{$report->orphan->birth_date ?? $report->fields['birth_date']}} </p>
+                <p style="float: left; width:61%;" class="cell border">
+                     {{-- {{$report->orphan->birth_date ?? $report->fields['birth_date']}} --}}
+                    </p>
             </div>
 
         </div>
@@ -162,7 +181,9 @@
                         $address = $report->orphan->profile->governorate . '/' . $report->orphan->profile->center . '/' . $report->orphan->profile->full_address;
                     @endphp
 
-                <p style="float: left; width:75%;" class="cell border"> {{$address ?? $report->fields['address']}} </p>
+                <p style="float: left; width:75%;" class="cell border">
+                     {{-- {{$address ?? $report->fields['address']}}  --}}
+                    </p>
             </div>
 
             <div style="width: 48%;  float: left; text-align:center;">
@@ -172,15 +193,15 @@
                     $years = $birthDate->age;
                     $months = $birthDate->diffInMonths(now());
                 @endphp
-                
-                
+
+
 
                 <p style="float: left; width:75%;" class="cell border">
-                    @if($years >= 1)
+                    {{-- @if($years >= 1)
                         {{ $years }} سنة
                     @else
                         {{ $months }} شهر
-                    @endif
+                    @endif --}}
                 </p>
             </div>
 
@@ -190,13 +211,17 @@
             <div style="width: 48%; float: right; overflow: hidden;">
 
                 <p style="float: right; width:21%;" class="cell font"> حالة اليتم </p>
-                <p style="float: left; width:75%;" class="cell border">  {{$report->orphan->case_type ?? $report->fields['case_type']}}   </p>
+                <p style="float: left; width:75%;" class="cell border">
+                      {{-- {{$report->orphan->case_type ?? $report->fields['case_type']}} --}}
+                       </p>
 
             </div>
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:24%;" class="cell font"> رقم التيلفون </p>
-                <p style="float: left; width:72%;" class="cell border"> {{$report->orphan->phones[0]->phone_number}} </p>
+                <p style="float: left; width:72%;" class="cell border">
+                     {{-- {{$report->orphan->phones[0]->phone_number}}  --}}
+                    </p>
             </div>
         </div>
 
@@ -206,7 +231,9 @@
         <div style="width: 100%;margin-top:8px">
             <div style="width:48%; float: right; overflow: hidden;">
                 <p style="float: right; width:27%;" class="cell font"> الحالة الصحية </p>
-                <p style="float: left; width:68%;" class="cell border"> {{$report->orphan->health_status ?? $report->fields['health_status']}}  </p>
+                <p style="float: left; width:68%;" class="cell border">
+                     {{-- {{$report->orphan->health_status ?? $report->fields['health_status']}} --}}
+                     </p>
             </div>
 
             {{-- @if($report->orphan->health_status == "مريض" || $report->fields['health_status'] == "مريض")
@@ -215,28 +242,34 @@
                     <p style="float: left; width:68%;" class="cell border">  {{$report->orphan->disease_description ?? $report->fields['disease_description']}}  </p>
                 </div>
             @endif --}}
-            
+
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:24%;" class="cell font"> اسم الأم </p>
-                <p style="float: left; width:71%;" class="cell border"> {{$report->orphan->profile->mother_name ?? $report->fields['mother_name']}}  </p>
+                <p style="float: left; width:71%;" class="cell border">
+                     {{-- {{$report->orphan->profile->mother_name ?? $report->fields['mother_name']}} --}}
+                    </p>
             </div>
 
         </div>
 
         {{-- <div style="width: 100%;margin-top:8px">
-            
+
         </div> --}}
 
         {{--  صلة القرابة and اسم المسؤول عن اليتيم--}}
         <div style="width: 100%;margin-top:8px">
             <div style="width:48%; float: right; overflow: hidden;">
                 <p style="float: right; width:44%;" class="cell font"> اسم المسؤول عن اليتيم </p>
-                <p style="float: left; width:52%;" class="cell border"> {{$report->orphan->guardian->guardian_name ?? $report->fields['guardian_name']}}   </p>
+                <p style="float: left; width:52%; height:45px" class="cell border">
+                     {{-- {{$report->orphan->guardian->guardian_name ?? $report->fields['guardian_name']}} --}}
+                     </p>
             </div>
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:24%;" class="cell font"> صلة القرابة </p>
-                <p style="float: left; width:71%;" class="cell border"> {{$report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship']}} </p>
+                <p style="float: left; width:71%;" class="cell border">
+                     {{-- {{$report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship']}} --}}
+                    </p>
             </div>
 
         </div>
@@ -246,12 +279,16 @@
         <div style="width: 100%;margin-top:8px">
             <div style="width:48%; float: right; overflow: hidden;">
                 <p style="float: right; width:27%;" class="cell font"> السلوك الديني</p>
-                <p style="float: left; width:68%;" class="cell border"> {{$report->fields['religious_behavior']}} </p>
+                <p style="float: left; width:68%;" class="cell border">
+                     {{-- {{$report->fields['religious_behavior']}} --}}
+                     </p>
             </div>
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:24%;" class="cell font"> حفظه للقران</p>
-                <p style="float: left; width:71%;" class="cell border"> {{$report->fields['memorize_quran']}} جزء</p>
+                <p style="float: left; width:71%;" class="cell border">
+                     {{-- {{$report->fields['memorize_quran']}} جزء --}}
+                    </p>
             </div>
 
         </div>
@@ -261,12 +298,16 @@
         <div style="width: 100%;margin-top:8px">
             <div style="width:48%; float: right; overflow: hidden;">
                 <p style="float: right; width:32%;" class="cell font"> الصف </p>
-                <p style="float: left; width:64%;" class="cell border">  {{$report->orphan->profile->academic_stage ?? $report->fields['class']}} </p>
+                <p style="float: left; width:64%;" class="cell border">
+                      {{-- {{$report->orphan->profile->academic_stage ?? $report->fields['class']}} --}}
+                    </p>
             </div>
 
             <div style="width: 48%;  float: left; text-align:center;">
                 <p style="float: right; width:35%;" class="cell font"> المستوى الدراسي </p>
-                <p style="float: left; width:60%;" class="cell border"> {{$report->fields['academic_level']}} </p>
+                <p style="float: left; width:60%;" class="cell border">
+                     {{-- {{$report->fields['academic_level']}}  --}}
+                    </p>
             </div>
 
         </div>
@@ -274,7 +315,9 @@
         {{--  المستوى الدراسي and   الصف --}}
         <div style="width: 100%;margin-bottom:50px">
             <p style="font-size: 25px;font-weight:bold;margin:auto;margin-top:18px;border-bottom:3px solid black;width:250px;padding-right:12px"> رسالة شكر و تقدير من اليتيم </p>
-            <p style="margin-top:5px; width:100%; height:100px;border:2px solid #BA3A37;border-radius:20px" class="cell border"> {{$report->fields['letter_thanks']}} </p>
+            <p style="margin-top:5px; width:100%; height:100px;border:2px solid #BA3A37;border-radius:20px" class="cell border">
+                {{-- {{$report->fields['letter_thanks']}}  --}}
+            </p>
         </div>
 
         <div style="border-top: 2px solid #BA3A37; border-bottom: 2px solid #BA3A37; padding: 5px 0; font-size: 12px; color: #d48d8d; font-family: arial; direction: rtl;">

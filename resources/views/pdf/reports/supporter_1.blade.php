@@ -205,6 +205,7 @@
 
             <div style="width: 100%;">
                 <!--<p style="float: right; width:29%;height:30px;background-color:#F4F4F4;" class="cell center border2">  تفاصيل المرض  </p>-->
+
                 <p style="float: left; width:98.5%;height:28px; background-color:#DDE4FF;" class="cell border">
                 {{-- {{ $report->orphan->disease_description
                     ?? $report->orphan->disability_type
@@ -253,6 +254,7 @@
             </div>
 
             <div style="width: 100%;margin-top:3px">
+
                 <div style="width: 100%;height:28px; float:right; overflow: hidden; background-color:#DDE4FF;" class="cell border">
                      {{-- {{$report->fields['academic_stage_detailes']}} --}}
                 </div>

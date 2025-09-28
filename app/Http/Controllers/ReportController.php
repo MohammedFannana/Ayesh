@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supporter;
+use Exception;
+use ZipArchive;
 use App\Models\Orphan;
 use App\Models\Report;
+use App\Models\Supporter;
+use App\Models\Governorate;
 use App\Models\Sponsorship;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use TCPDF;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
-use App\Models\Governorate;
+
 
 
 
@@ -1157,8 +1159,326 @@ class ReportController extends Controller
             }
         }
 
-        return response($tcpdf->Output('supporter_' . $report->supporter->id . '.pdf', 'S'))
+        elseif($report->supporter->id == 3) {
+            for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+                $tcpdf->AddPage();
+                $tplId = $tcpdf->importPage($pageNo);
+                $tcpdf->useTemplate($tplId, 0, 0, 210);
+
+                $tcpdf->setRTL(true);
+                $tcpdf->SetFont('arial', '', 14);
+                $tcpdf->SetTextColor(0,0,0);
+
+
+
+                if ($pageNo == 1) {
+                    // الدولة
+                    // 120 + يسار
+                    // 97 - فوق
+                    $tcpdf->SetXY(101, 74);
+                    $tcpdf->TextField('country', 70, 9, [
+                        'value' => $report->fields['country'] ?? '',
+                        'align' => 'C',
+                        'multiline' => true,
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null, // اللون الصحيح
+                    ]);
+
+
+
+                    // عنوان الجهة المشرفة
+                    $tcpdf->SetXY(200, 74);
+                    $tcpdf->TextField('supervising_authority_place', 49, 9, [
+                        'value' => $report->fields['supervising_authority_place'] ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // اسم الكافل
+                    $tcpdf->SetXY(101, 85.5);
+                    $tcpdf->TextField('sponsor_name', 70, 9, [
+                        'value' => $report->fields['sponsor_name'] ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    //  رقم الكافل
+                    $tcpdf->SetXY(200, 85.5);
+                    $tcpdf->TextField('sponsor_number', 70, 9, [
+                        'value' =>$report->fields['sponsor_number'] ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // اسم اليتيم
+                    $tcpdf->SetXY(101, 97);
+                    $tcpdf->TextField('name', 70, 16, [
+                        'value' => $report->orphan->name ,
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // رقم اليتيم
+                    $tcpdf->SetXY(200, 97.2);
+                    $tcpdf->TextField('internal_code', 70, 9, [
+                        'value' => $report->orphan->internal_code,
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // الجنس
+                    $tcpdf->SetXY(101, 115);
+                    $tcpdf->TextField('orphan_status', 70, 9.5, [
+                        'value' => $report->orphan->gender ?? $report->fields['gender'] ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // تاريخ ميلاد اليتيم
+                    $tcpdf->SetXY(200, 115);
+                    $tcpdf->TextField('birth_date',57.5, 9.5, [
+                        'value' => $report->orphan->birth_date ?? $report->fields['birth_date'] ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // العنوان
+
+                    $tcpdf->SetXY(101, 127);
+                    $tcpdf->TextField('orphan_status', 70, 9.5, [
+                        'value' => $report->orphan->profile->governorate . '/' . $report->orphan->profile->center . '/' . $report->orphan->profile->full_address,
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    //  العمر
+                    $tcpdf->SetXY(200, 127);
+                    $birthDate = \Carbon\Carbon::parse($report->orphan->birth_date);
+                    $years = $birthDate->age;
+                    $months = $birthDate->diffInMonths(now());
+                    $tcpdf->TextField('birth_date',70, 9.5, [
+                        'value' => $years>=1 ? $years . ' سنة' : $months . ' شهر',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // حالة اليتم
+                    $tcpdf->SetXY(101, 138);
+                    $tcpdf->TextField('orphan_status', 70, 9.5, [
+                        'value' => $report->orphan->case_type ?? $report->fields['case_type'],
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // رقم التيلفون
+                    $tcpdf->SetXY(200, 138);
+                    $birthDate = \Carbon\Carbon::parse($report->orphan->birth_date);
+                    $years = $birthDate->age;
+                    $months = $birthDate->diffInMonths(now());
+                    $tcpdf->TextField('phone_number',67.5, 10, [
+                        'value' => $report->orphan->phones[0]->phone_number ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    //  الحالة الصحية
+                    $tcpdf->SetXY(101, 164);
+                    $tcpdf->TextField('health_status', 64, 9.5, [
+                        'value' => $report->orphan->health_status ?? $report->fields['health_status'],
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    //  اسم الأم
+                    $tcpdf->SetXY(200, 164);
+                    $tcpdf->TextField('mother_name',66.5, 9.5, [
+                        'value' =>  $report->orphan->profile->mother_name ?? $report->fields['mother_name'],
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // اسم المسؤول عن اليتيم
+                    $tcpdf->SetXY(101, 175.5);
+                    $tcpdf->TextField('guardian_name', 49.5, 15, [
+                        'value' => $report->orphan->guardian->guardian_name ?? $report->fields['guardian_name'],
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+
+                    ]);
+
+                    // صلة القرابة
+                    $tcpdf->SetXY(200, 175.5);
+                    $tcpdf->TextField('guardian_relationship',66.5, 9.5, [
+                        'value' =>  $report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship'],
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // السلوك الديني
+                    $tcpdf->SetXY(101, 192);
+                    $tcpdf->TextField('religious_behavior', 64, 9.5, [
+                        'value' => $report->fields['religious_behavior'] ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // حفظه للقران
+                    $tcpdf->SetXY(200, 192);
+                    $tcpdf->TextField('memorize_quran',66.5, 9.5, [
+                        'value' =>  $report->fields['memorize_quran'] . 'جزء' ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // الصف
+                    $tcpdf->SetXY(101, 204);
+                    $tcpdf->TextField('academic_stage', 60, 9.5, [
+                        'value' => $report->orphan->profile->academic_stage ?? $report->fields['class'] ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    // المستوى الدراسي
+                    $tcpdf->SetXY(200, 204);
+                    $tcpdf->TextField('academic_level',57, 9.5, [
+                        'value' =>  $report->fields['academic_level'] ?? '',
+                        'align' => 'C',
+                        'textColor' => [0, 0, 0],
+                        'fillColor' => null,
+                        'multiline' => true,
+                    ]);
+
+                    $tcpdf->SetXY(200, 229);
+                    $tcpdf->TextField('academic_level',190, 29, [
+                        'value' => $report->fields['letter_thanks'],
+                        'align' => 'C',
+                        'borderStyle' => 'none',       // لإلغاء الإطار
+                        'borderColor' => null, // لون الإطار أبيض (شفاف عملياً)
+                        'fillColor' => null,          // الخلفية شفافة
+                        'textColor' => [0, 0, 0],      // لون النص
+                    ]);
+
+
+                    // // مش عارف حاليا لشو
+                    // $tcpdf->SetXY(200, 159);
+                    // $tcpdf->TextField('orphan_dkno', 189, 8, [
+                    //     'value' => $report->orphan->disease_description
+                    //     ?? $report->orphan->disability_type
+                    //     ?? $report->fields['disease_description'] ?? 'بيىم' ,
+                    //     'align' => 'C',
+                    // ]);
+
+                    //  // المرحلة الدراسية
+                    //  $tcpdf->SetXY(70, 177);
+                    //  $tcpdf->TextField('orphan_academic_stage', 27, 8, [
+                    //      'value' => $report->orphan->profile->academic_stage ?: $report->fields['academic_stage'] ?? '',
+                    //      'align' => 'C',
+                    //  ]);
+                }
+            }
+        }
+
+        return response($tcpdf->Output('supporter_' . $report->supporter->id . '.pdf', 'D'))
             ->header('Content-Type', 'application/pdf');
     }
+
+
+
+    public function DownloadAllReports($supporter_id)
+    {
+        $reports = Report::where('supporter_id', $supporter_id)
+            ->with('orphan')
+            ->with('orphan.image')
+            ->with(['orphan.profile' => function ($query) {
+                $query->select('orphan_id', 'father_death_date', 'mother_name', 'mother_death_date', 'academic_stage', 'class', 'full_address', 'governorate', 'center');
+            }])
+            ->with('orphan.supporterFieldValues')
+            ->with(['orphan.guardian' => function ($query) {
+                $query->select('orphan_id', 'guardian_name', 'guardian_relationship');
+            }])
+            ->with(['orphan.family' => function ($query) {
+                $query->select('orphan_id', 'family_number', 'housing_type');
+            }])
+            ->with('supporter')
+            ->get();
+
+        if ($reports->isEmpty()) {
+            return back()->with('danger', 'لا يوجد تقارير للتحميل');
+        }
+
+        $zipFileName = 'reports_' . now()->format('Y_m_d_His') . '.zip';
+        $zipPath = storage_path('app/' . $zipFileName);
+
+        $zip = new \ZipArchive;
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($reports as $report) {
+                $report->fields = json_decode($report->fields, true);
+
+                $viewName = 'pdf.reports.supporter_' . $report->supporter->id;
+
+                if (view()->exists($viewName)) {
+                    $pdf = PDF::loadView($viewName, ['report' => $report], [], [
+                        'default_font' => 'arialarabic',
+                    ]);
+
+                    $fileName = ($report->orphan->name ?? 'report') . '_' . $report->id . '.pdf';
+
+                    $tempPath = storage_path("app/temp_report_{$report->id}.pdf");
+                    File::put($tempPath, $pdf->output());
+
+                    // 📂 إضافة داخل مجلد وهمي
+                    $zip->addFile($tempPath, "reports/" . $fileName);
+                }
+            }
+            $zip->close();
+        }
+
+        // حذف الملفات المؤقتة
+        foreach ($reports as $report) {
+            $tempPath = storage_path("app/temp_report_{$report->id}.pdf");
+            if (File::exists($tempPath)) {
+                File::delete($tempPath);
+            }
+        }
+
+        return response()->download($zipPath, $zipFileName)->deleteFileAfterSend(true);
+    }
+
 
 }

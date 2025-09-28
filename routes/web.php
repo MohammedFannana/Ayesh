@@ -161,6 +161,8 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
     Route::get('/download-report/{report}', [ReportController::class, 'DownloadReport'])->name('download.report');
     Route::get('alber/follow/report' , [AlbarFollowReportController::class , 'index'])->name('report.follow.albar.index');
     Route::get('download/alber/follow/report/{id}' , [AlbarFollowReportController::class , 'createReport'])->name('report.follow.albar.download');
+    Route::get('/reports/{supporter}/download-all', [ReportController::class, 'DownloadAllReports'])->name('download.all.reports');
+
 
     Route::prefix('orphans')->name('orphan.')->group(function(){
         //image Controller

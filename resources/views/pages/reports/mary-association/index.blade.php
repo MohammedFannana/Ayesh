@@ -26,8 +26,15 @@
                 </form>
 
             </div>
-    
+
+            <a href="{{route('download.all.reports' , $supporter_id)}}" class="btn add-button ps-4 pe-4">
+                {{__('تحميل التقارير')}}
+            </a>
+
             @cannot('Maryam_fisrt')
+
+
+
             <div class="d-flex justify-content-end">
                 <a href="{{route('report.create' , $supporter_id)}}" class="btn add-button ps-4 pe-4"> {{__('إضافة تقرير')}}</a>
             </div>
@@ -92,7 +99,7 @@
 
             @empty
 
-        
+
         </div>
 
         <div class="bg-white p-2 fs-5 w-100 text-danger text-center" >

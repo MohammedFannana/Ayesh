@@ -27,10 +27,15 @@
 
             </div>
 
+            <a href="{{route('download.all.reports' , $supporter_id)}}" class="btn add-button ps-4 pe-4">
+                {{__('تحميل التقارير')}}
+            </a>
+
             @cannot('Sharjah_fisrt')
-            <div class="d-flex justify-content-end">
-                <a href="{{route('report.create' , $supporter_id)}}" class="btn add-button ps-4 pe-4"> {{__('إضافة تقرير')}}</a>
-            </div>
+
+                <div class="d-flex justify-content-end">
+                    <a href="{{route('report.create' , $supporter_id)}}" class="btn add-button ps-4 pe-4"> {{__('إضافة تقرير')}}</a>
+                </div>
             @endcannot
 
         </div>
