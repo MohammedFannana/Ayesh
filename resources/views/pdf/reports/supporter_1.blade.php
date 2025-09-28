@@ -122,12 +122,15 @@
 
                     <div style="width: 100%; overflow: hidden;margin-bottom:2px">
                         <p style="float: right; width:30%;background-color:#F4F4F4;" class="cell center border2"> اسم الكافل </p>
-                        <p style="float: left; width:66%; background-color:#DDE4FF;" class="cell border"> {{$report->fields['sponsor_name']}} </p>
+                        <p style="float: left; width:66%;height:28px;  background-color:#DDE4FF;" class="cell border">
+                             {{-- {{$report->fields['sponsor_name']}} --}}
+                            </p>
                     </div>
 
                     <div style="width: 100%;  float: right; text-align:center;margin-top:1px">
                         <p style="float: right; width:30%;background-color:#F4F4F4;" class="cell center border2"> رقم ملف الكافل </p>
-                        <p style="float: left; width:66%; background-color:#DDE4FF;text-align:right;" class="cell border"> {{$report->fields['sponsor_number']}} </p>
+                        <p style="float: left; width:66%;height:28px; background-color:#DDE4FF;text-align:right;" class="cell border">
+                            {{-- {{$report->fields['sponsor_number']}} </p> --}}
                     </div>
 
                 </div>
@@ -149,29 +152,38 @@
             <div style="width: 100%;margin-top:1px">
                 <div style="width: 49%; float:right; overflow: hidden;">
                     <p style="float: right; width:28%;background-color:#F4F4F4;" class="cell center border2"> اسم اليتيم</p>
-                    <p style="float: left; width:66%; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->name}} </p>
+                    <p style="float: left; width:66%;height:28px; background-color:#DDE4FF;" class="cell border">
+                         {{-- {{$report->orphan->name}} --}}
+                        </p>
                 </div>
 
                 <div style="width: 49%;  float: left; text-align:center;">
                     <p style="float: right; width:29%;background-color:#F4F4F4;" class="cell center border2"> رقم ملف اليتيم</p>
-                    <p style="float: left; width:65%; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->internal_code}} </p>
+                    <p style="float: left; width:65%;height:28px; background-color:#DDE4FF;" class="cell border">
+                         {{-- {{$report->orphan->internal_code}} --}}
+                        </p>
                 </div>
             </div>
 
             <div style="width: 100%;margin-top:1px">
                 <div style="width: 33%; float: right; overflow: hidden;">
                     <p style="float: right; width:39%;background-color:#F4F4F4;" class="cell center border2"> جنسية اليتيم </p>
-                    <p style="float: left; width:52%; background-color:#DDE4FF;" class="cell border"> مصري/ة </p>
+                    <p style="float: left; width:52%;height:28px; background-color:#DDE4FF;" class="cell border"> مصري/ة </p>
                 </div>
 
                 <div style="width: 33%;  float: left; text-align:center;">
                     <p style="float: right; width:29%;background-color:#F4F4F4;" class="cell center border2"> الجنس</p>
-                    <p style="float: left; width:62%; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->gender ?? $report->fields['gender']}} </p>
+                    <p style="float: left; width:62%;height:28px; background-color:#DDE4FF;" class="cell border">
+                         {{-- {{$report->orphan->gender ?? $report->fields['gender']}} --}}
+                         </p>
                 </div>
 
                 <div style="width: 33%;  float: left; text-align:center;">
-                    <p style="float: right; width:29%;background-color:#F4F4F4;" class="cell center border2"> عمر اليتيم</p>
-                    <p style="float: left; width:62%; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->age ?? $report->fields['age']}} سنوات</p>
+                    <p style="float: right; width:29%;height:28px;background-color:#F4F4F4;" class="cell center border2"> عمر اليتيم</p>
+                    <p style="float: left; width:62%;height:28px; background-color:#DDE4FF;" class="cell border">
+                         {{-- {{$report->orphan->age ?? $report->fields['age']}} --}}
+                         {{-- سنوات --}}
+                        </p>
                 </div>
 
 
@@ -186,14 +198,18 @@
 
             <div style="width: 100%;">
                 <p style="float: right; width:29%;height:28px;background-color:#F4F4F4;" class="cell center border2"> الحالة الصحية لليتيم </p>
-                <p style="float: left; width:67%;height:28px; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->health_status ?? $report->fields['health_status']}} </p>
+                <p style="float: left; width:67%;height:28px; background-color:#DDE4FF;" class="cell border">
+                    {{-- {{$report->orphan->health_status ?? $report->fields['health_status']}} --}}
+                 </p>
             </div>
 
             <div style="width: 100%;">
                 <!--<p style="float: right; width:29%;height:30px;background-color:#F4F4F4;" class="cell center border2">  تفاصيل المرض  </p>-->
-                <p style="float: left; width:98.5%;height:28px; background-color:#DDE4FF;" class="cell border"> {{ $report->orphan->disease_description
+                <p style="float: left; width:98.5%;height:28px; background-color:#DDE4FF;" class="cell border">
+                {{-- {{ $report->orphan->disease_description
                     ?? $report->orphan->disability_type
-                    ?? $report->fields['disease_description'] ?? '' }}  </p>
+                    ?? $report->fields['disease_description'] ?? '' }} --}}
+                     </p>
             </div>
 
         </div>
@@ -214,24 +230,26 @@
             <div style="width: 100%;margin-top:1px">
                 <div style="width: 33%; float: right; overflow: hidden;">
                     <p style="float: right; width:47%;background-color:#F4F4F4;" class="cell center border2"> المرحلة الدراسية </p>
-                    <p style="float: left; width:44%; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->profile->academic_stage ?: $report->fields['academic_stage']}} </p>
+                    <p style="float: left; width:44%;height:28px; background-color:#DDE4FF;" class="cell border">
+                        {{-- {{$report->orphan->profile->academic_stage ?: $report->fields['academic_stage']}} --}}
+                    </p>
                 </div>
 
 
 
                 <div style="width: 33%;  float: left; text-align:center;">
                     <p style="float: right; width:47%;background-color:#F4F4F4;" class="cell center border2"> المستوى الدراسي </p>
-                    <p style="float: left; width:44%; background-color:#DDE4FF;" class="cell border"> {{$report->fields['academic_level']}} </p>
+                    <p style="float: left; width:44%;height:28px; background-color:#DDE4FF;" class="cell border"> {{$report->fields['academic_level']}} </p>
                 </div>
 
                 <div style="width: 33%;  float: left; text-align:center;">
                     <p style="float: right; width:21%;background-color:#F4F4F4;" class="cell center border2"> الصف </p>
-                    <p style="float: left; width:70%; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->profile->class ?? $report->fields['class']}} </p>
+                    <p style="float: left; width:70%;height:28px; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->profile->class ?? $report->fields['class']}} </p>
                 </div>
             </div>
 
             <div style="width: 100%;margin-top:3px">
-                <div style="width: 100%; float:right; overflow: hidden; background-color:#DDE4FF;" class="cell border">
+                <div style="width: 100%;height:28px; float:right; overflow: hidden; background-color:#DDE4FF;" class="cell border">
                      {{$report->fields['academic_stage_detailes']}}
                 </div>
             </div>

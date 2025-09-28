@@ -957,83 +957,139 @@ class ReportController extends Controller
 
     }
 
-    public function DownloadReport(string $report_id){
-
+    public function DownloadReport(string $report_id)
+    {
         $report = Report::where('id', $report_id)
-        ->with('orphan')
-        ->with('orphan.image')
-        ->with(['orphan.profile' => function ($query) {
-                $query->select('orphan_id', 'father_death_date' , 'mother_name' ,'mother_death_date'  ,'academic_stage' , 'class' , 'full_address' ,'governorate' , 'center');
-        }])
-        ->with('orphan.supporterFieldValues')
-        ->with(['orphan.guardian' => function ($query) {
-            $query->select('orphan_id', 'guardian_name' ,'guardian_relationship');
-        }])
-        ->with(['orphan.family' => function ($query) {
-            $query->select('orphan_id', 'family_number','housing_type');
-        }])
-        ->with('supporter')
-        ->firstOrFail();
+            ->with('orphan')
+            ->with('orphan.image')
+            ->with(['orphan.profile' => function ($query) {
+                $query->select(
+                    'orphan_id',
+                    'father_death_date',
+                    'mother_name',
+                    'mother_death_date',
+                    'academic_stage',
+                    'class',
+                    'full_address',
+                    'governorate',
+                    'center'
+                );
+            }])
+            ->with('orphan.supporterFieldValues')
+            ->with(['orphan.guardian' => function ($query) {
+                $query->select('orphan_id', 'guardian_name', 'guardian_relationship');
+            }])
+            ->with(['orphan.family' => function ($query) {
+                $query->select('orphan_id', 'family_number', 'housing_type');
+            }])
+            ->with('supporter')
+            ->firstOrFail();
 
-        $report->fields = json_decode($report->fields, true); // تحويل JSON إلى Array
+        $report->fields = json_decode($report->fields, true);
 
         $viewName = 'pdf.reports.supporter_' . $report->supporter->id;
 
-        if(view()->exists($viewName)){
-            // $pdf = PDF::loadView($viewName, ['report' => $report]);
+        if (!view()->exists($viewName)) {
+            abort(404, 'لا يوجد قالب PDF مخصص لهذه الجمعية');
+        }
 
-                     // 1) توليد PDF عبر mPDF
-            $pdf = \Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::loadView($viewName, ['report' => $report]);
-            $pdfPath = storage_path('app/public/temp_report.pdf');
-            file_put_contents($pdfPath, $pdf->output());
+        // 1) توليد PDF عبر mPDF
+        $pdf = \Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::loadView($viewName, [
+            'report' => $report
+        ]);
 
-            $pdfPath = storage_path('app/public/temp_report.pdf');
-            file_put_contents($pdfPath, $pdf->output());
+        $pdfPath = storage_path('app/public/temp_report.pdf');
+        file_put_contents($pdfPath, $pdf->output());
 
-            // نستخدم FPDI
-            $tcpdf = new \setasign\Fpdi\Tcpdf\Fpdi();
+        // 2) نستخدم FPDI
+        $tcpdf = new \setasign\Fpdi\Tcpdf\Fpdi();
+        $pageCount = $tcpdf->setSourceFile($pdfPath);
 
-            // اجلب عدد صفحات الملف
-            $pageCount = $tcpdf->setSourceFile($pdfPath);
-
-            // مر على كل الصفحات
+        // مر على كل الصفحات
+        if ($report->supporter->id == 1) {
             for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
                 $tcpdf->AddPage();
                 $tplId = $tcpdf->importPage($pageNo);
                 $tcpdf->useTemplate($tplId, 0, 0, 210);
 
-                // مثال: حط input بس في الصفحة الأولى
+                $tcpdf->setRTL(true);
+                $tcpdf->SetFont('arial', '', 14);
+                $tcpdf->SetTextColor(0,0,0);
+
+
+
                 if ($pageNo == 1) {
-                    // اسم ايتيم
-                $tcpdf->SetFont('dejavusans', '', 12);
-                // بدك تجيبو يمين بتكبر ال X بدك تجيبو فوق بتصغر ال y
+                    // اسم الكفيل
+                    // 120 + يسار
+                    // 97 - فوق
+                    $tcpdf->SetXY(120, 97);
+                    $tcpdf->TextField('sponsor_name', 66, 8, [
+                        'value' => $report->fields['sponsor_name'] ?? '',
+                        'align' => 'C',
+                        'multiline' => false,
+                        'background_color' => null // اللون الصحيح
+                    ]);
 
-// اسم الكفيل
-$tcpdf->SetXY(52, 65);
-$tcpdf->TextField('sponsor_name', 66, 8, [
-    'value' => $report->orphan->name ?? '',
-    'align' => 'C', // نص في المنتصف
-]);
 
-// مبلغ الكفالة
-$tcpdf->SetXY(52, 72);
-$tcpdf->TextField('sponsor_number', 66, 8, [
-    'value' => $report->orphan->name ?? '',
-    'align' => 'C', // نص في المنتصف
-]);
 
-$tcpdf->SetXY(52, 79);
-$tcpdf->TextField('orphan_name', 66, 8, [
-    'value' => $report->orphan->name,
-    'align' => 'C', // نص في المنتصف
-]);
-                    }
-                     }
+                    // رقم الكفيل
+                    $tcpdf->SetXY(120, 107);
+                    $tcpdf->TextField('sponsor_number', 66, 8, [
+                        'value' => $report->fields['sponsor_number'] ?? '',
+                        'align' => 'C',
+                    ]);
 
-            return response($tcpdf->Output('supporter_' . $report->supporter->id . '.pdf', 'S'))
-                ->header('Content-Type', 'application/pdf');
+                    // اسم اليتيم
+                    $tcpdf->SetXY(106, 124);
+                    $tcpdf->TextField('orphan_name', 66, 8, [
+                        'value' => $report->orphan->name ?? '',
+                        'align' => 'C',
+                    ]);
+                    // كود اليتيم
+                    $tcpdf->SetXY(205, 124);
+                    $tcpdf->TextField('orphan_code', 66, 8, [
+                        'value' => $report->orphan->internal_code ?? '',
+                        'align' => 'C',
+                    ]);
+                    // جنس اليتيم
+                    $tcpdf->SetXY(190, 134);
+                    $tcpdf->TextField('orphan_gender', 30, 8, [
+                        'value' => $report->orphan->gender ?? $report->fields['gender'] ?? '',
+                        'align' => 'C',
+                    ]);
+                    // عمر اليتيم
+                    $tcpdf->SetXY(127, 134);
+                    $tcpdf->TextField('orphan_old', 30, 8, [
+                        'value' => $report->orphan->age ?? $report->fields['age'] . ' سنوات' ?? '',
+                        'align' => 'C',
+                    ]);
+                    // حالة صحية ل اليتيم
+                    $tcpdf->SetXY(200, 150);
+                    $tcpdf->TextField('orphan_status', 130, 8, [
+                        'value' => $report->orphan->health_status ?? $report->fields['health_status'] ?? '',
+                        'align' => 'C',
+                    ]);
+                    // مش عارف حاليا لشو
+                    $tcpdf->SetXY(200, 159);
+                    $tcpdf->TextField('orphan_dkno', 189, 8, [
+                        'value' => $report->orphan->disease_description
+                        ?? $report->orphan->disability_type
+                        ?? $report->fields['disease_description'] ?? 'بيىم' ,
+                        'align' => 'C',
+                    ]);
 
-        abort(404, 'لا يوجد قالب PDF مخصص لهذه الجمعية');
+                     // المرحلة الدراسية
+                     $tcpdf->SetXY(70, 177);
+                     $tcpdf->TextField('orphan_academic_stage', 27, 8, [
+                         'value' => $report->orphan->profile->academic_stage ?: $report->fields['academic_stage'] ?? '',
+                         'align' => 'C',
+                     ]);
+                }
+            }
         }
-   }
+
+        return response($tcpdf->Output('supporter_' . $report->supporter->id . '.pdf', 'S'))
+            ->header('Content-Type', 'application/pdf');
+    }
+
 }
