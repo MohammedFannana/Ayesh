@@ -1022,67 +1022,136 @@ class ReportController extends Controller
                     // اسم الكفيل
                     // 120 + يسار
                     // 97 - فوق
-                    $tcpdf->SetXY(120, 97);
-                    $tcpdf->TextField('sponsor_name', 66, 8, [
+
+                    $tcpdf->SetXY(143, 95);
+                    $tcpdf->TextField('sponsor_name', 90, 9, [
                         'value' => $report->fields['sponsor_name'] ?? '',
                         'align' => 'C',
                         'multiline' => false,
-                        'background_color' => null // اللون الصحيح
+                        // 'bgcolor' => [221,228,255] // مهم
                     ]);
+                    // $tcpdf->IncludeJS("
+                    //     var f = this.getField('sponsor_name');
+                    //     f.fillColor = color.rgb(221/255,228/255,255/255);
+                    //     f.setAction('Keystroke', 'event.target.fillColor = color.rgb(221/255,228/255,255/255);');
+                    //     f.setAction('Format', 'event.target.fillColor = color.rgb(221/255,228/255,255/255);');
+                    // ");
+
+
 
 
 
                     // رقم الكفيل
-                    $tcpdf->SetXY(120, 107);
-                    $tcpdf->TextField('sponsor_number', 66, 8, [
+                    $tcpdf->SetXY(143, 105);
+                    $tcpdf->TextField('sponsor_number', 90, 9, [
                         'value' => $report->fields['sponsor_number'] ?? '',
                         'align' => 'C',
                     ]);
 
                     // اسم اليتيم
-                    $tcpdf->SetXY(106, 124);
-                    $tcpdf->TextField('orphan_name', 66, 8, [
+                    $tcpdf->SetXY(103, 122.5);
+                    $tcpdf->TextField('orphan_name', 64, 8.5, [
                         'value' => $report->orphan->name ?? '',
                         'align' => 'C',
                     ]);
                     // كود اليتيم
-                    $tcpdf->SetXY(205, 124);
-                    $tcpdf->TextField('orphan_code', 66, 8, [
+                    $tcpdf->SetXY(200, 122.5);
+                    $tcpdf->TextField('orphan_code', 63, 8.5, [
                         'value' => $report->orphan->internal_code ?? '',
                         'align' => 'C',
                     ]);
                     // جنس اليتيم
-                    $tcpdf->SetXY(190, 134);
-                    $tcpdf->TextField('orphan_gender', 30, 8, [
+                    $tcpdf->SetXY(200, 132);
+                    $tcpdf->TextField('orphan_gender', 41.3, 8.5, [
                         'value' => $report->orphan->gender ?? $report->fields['gender'] ?? '',
                         'align' => 'C',
                     ]);
                     // عمر اليتيم
-                    $tcpdf->SetXY(127, 134);
-                    $tcpdf->TextField('orphan_old', 30, 8, [
+                    $tcpdf->SetXY(137.3, 132);
+                    $tcpdf->TextField('orphan_old', 41.3, 8.5, [
                         'value' => $report->orphan->age ?? $report->fields['age'] . ' سنوات' ?? '',
                         'align' => 'C',
                     ]);
                     // حالة صحية ل اليتيم
-                    $tcpdf->SetXY(200, 150);
-                    $tcpdf->TextField('orphan_status', 130, 8, [
+                    $tcpdf->SetXY(200, 149);
+                    $tcpdf->TextField('orphan_status', 130, 8.5, [
                         'value' => $report->orphan->health_status ?? $report->fields['health_status'] ?? '',
                         'align' => 'C',
                     ]);
-                    // مش عارف حاليا لشو
-                    $tcpdf->SetXY(200, 159);
-                    $tcpdf->TextField('orphan_dkno', 189, 8, [
+                    // وصف المرض
+                    $tcpdf->SetXY(200, 158);
+                    $tcpdf->TextField('orphan_dkno', 190, 8.5, [
                         'value' => $report->orphan->disease_description
                         ?? $report->orphan->disability_type
-                        ?? $report->fields['disease_description'] ?? 'بيىم' ,
+                        ?? $report->fields['disease_description'] ?? '' ,
                         'align' => 'C',
                     ]);
 
                      // المرحلة الدراسية
-                     $tcpdf->SetXY(70, 177);
-                     $tcpdf->TextField('orphan_academic_stage', 27, 8, [
+                     $tcpdf->SetXY(72.5, 175);
+                     $tcpdf->TextField('orphan_academic_stage', 30, 8.5, [
                          'value' => $report->orphan->profile->academic_stage ?: $report->fields['academic_stage'] ?? '',
                          'align' => 'C',
+                     ]);
+                     // المستوى الدراسي
+                     $tcpdf->SetXY(200, 175);
+                     $tcpdf->TextField('orphan_academic_level', 30, 9, [
+                         'value' => $report->fields['academic_level'] ?? '',
+                         'align' => '',
+                     ]);
+                     // الصف الدراسي
+                     $tcpdf->SetXY(137, 175);
+                     $tcpdf->TextField('orphan_class', 46, 9, [
+                         'value' => $report->orphan->profile->class ?? $report->fields['class'] ?? '',
+                         'align' => '',
+                     ]);
+                     //  وصف الصف الدراسي
+                     $tcpdf->SetXY(200, 185);
+                     $tcpdf->TextField('orphan_class_description', 190, 8, [
+                         'value' => $report->fields['academic_stage_detailes'] ?? '',
+                         'align' => '',
+                     ]);
+                     //  التزام بتعاليم اليتيم
+                     $tcpdf->SetXY(103, 194);
+                     $tcpdf->TextField('orphan_obligations_islam', 39, 9, [
+                         'value' => $report->fields['orphan_obligations_islam'] ?? '',
+                         'align' => '',
+                     ]);
+                     //  حفظ اليتيم من القران الكريم
+                     $tcpdf->SetXY(200, 194);
+                     $tcpdf->TextField('save_orphan_quran', 39, 9, [
+                         'value' => $report->fields['save_orphan_quran'] . ' جزء' ?? '',
+                         'align' => '',
+                     ]);
+                     //  المسؤول عن اليتيم
+                     $tcpdf->SetXY(133, 212);
+                     $tcpdf->TextField('orphan_guardian_name', 60, 8, [
+                         'value' => $report->orphan->guardian->guardian_name ?? $report->fields['guardian_name'] ?? '',
+                         'align' => '',
+                     ]);
+                     //  صلته باليتيم
+                     $tcpdf->SetXY(200, 212);
+                     $tcpdf->TextField('orphan_guardian_relationship', 37, 9, [
+                         'value' => $report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship'] ?? '',
+                         'align' => '',
+                     ]);
+                     //  ابرز التغييرات التي طرات على اليتيم
+                     $tcpdf->SetXY(200, 221.7);
+                     $tcpdf->TextField('orphan_changes_orphan_year', 130, 15, [
+                         'value' => $report->fields['changes_orphan_year'] ?? '',
+                         'align' => '',
+                     ]);
+                     // تعليق الهيئة على اثر الكفالة
+                     $tcpdf->SetXY(200, 247);
+                     $tcpdf->TextField('orphan_authority_comment_guarantee', 190, 9, [
+                         'value' => $report->fields['authority_comment_guarantee'] ?? '',
+                         'align' => '',
+                     ]);
+                     // رسالة اليتيم للكافل
+                     $tcpdf->SetXY(200, 265);
+                     $tcpdf->TextField('orphan_message', 190, 9, [
+                         'value' => $report->fields['orphan_message'] ?? '',
+                         'align' => '',
                      ]);
                 }
             }

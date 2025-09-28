@@ -239,30 +239,38 @@
 
                 <div style="width: 33%;  float: left; text-align:center;">
                     <p style="float: right; width:47%;background-color:#F4F4F4;" class="cell center border2"> المستوى الدراسي </p>
-                    <p style="float: left; width:44%;height:28px; background-color:#DDE4FF;" class="cell border"> {{$report->fields['academic_level']}} </p>
+                    <p style="float: left; width:44%;height:28px; background-color:#DDE4FF;" class="cell border">
+                        {{-- {{$report->fields['academic_level']}}  --}}
+                    </p>
                 </div>
 
                 <div style="width: 33%;  float: left; text-align:center;">
                     <p style="float: right; width:21%;background-color:#F4F4F4;" class="cell center border2"> الصف </p>
-                    <p style="float: left; width:70%;height:28px; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->profile->class ?? $report->fields['class']}} </p>
+                    <p style="float: left; width:70%;height:28px; background-color:#DDE4FF;" class="cell border">
+                         {{-- {{$report->orphan->profile->class ?? $report->fields['class']}} --}}
+                        </p>
                 </div>
             </div>
 
             <div style="width: 100%;margin-top:3px">
                 <div style="width: 100%;height:28px; float:right; overflow: hidden; background-color:#DDE4FF;" class="cell border">
-                     {{$report->fields['academic_stage_detailes']}}
+                     {{-- {{$report->fields['academic_stage_detailes']}} --}}
                 </div>
             </div>
 
             <div style="width: 100%;margin-top:3px">
                 <div style="width: 49%; float:right; overflow: hidden;">
                     <p style="float: right; width:55%;background-color:#F4F4F4;" class="cell center border2"> التزم اليتيم بتعاليم الاسلام</p>
-                    <p style="float: left; width:39%; background-color:#DDE4FF;" class="cell border"> {{$report->fields['orphan_obligations_islam']}} </p>
+                    <p style="float: left; width:39%;height:28px; background-color:#DDE4FF;" class="cell border">
+                        {{-- {{$report->fields['orphan_obligations_islam']}} --}}
+                    </p>
                 </div>
 
                 <div style="width: 49%;  float: left; text-align:center;">
                     <p style="float: right; width:55%;background-color:#F4F4F4;" class="cell center border2"> حفظ اليتيم من القرآن الكريم </p>
-                    <p style="float: left; width:39%; background-color:#DDE4FF;" class="cell border"> {{$report->fields['save_orphan_quran']}} جزء</p>
+                    <p style="float: left; width:39%;height:28px; background-color:#DDE4FF;" class="cell border">
+                        {{-- {{$report->fields['save_orphan_quran']}} جزء --}}
+                    </p>
                 </div>
             </div>
 
@@ -276,12 +284,16 @@
             <div style="width: 100%;margin-top:1px">
                 <div style="width: 65%; float:right; overflow: hidden;">
                     <p style="float: right; width:48%;background-color:#F4F4F4;" class="cell center border2"> المسؤول المباشر عن اليتيم</p>
-                    <p style="float: left; width:47%; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->guardian->guardian_name ?? $report->fields['guardian_name']}} </p>
+                    <p style="float: left; width:47%;height:28px; background-color:#DDE4FF;" class="cell border">
+                         {{-- {{$report->orphan->guardian->guardian_name ?? $report->fields['guardian_name']}} --}}
+                        </p>
                 </div>
 
                 <div style="width: 33%;  float: left; text-align:center;">
                     <p style="float: right; width:35%;background-color:#F4F4F4;" class="cell center border2"> صلته باليتيم </p>
-                    <p style="float: left; width:55%; background-color:#DDE4FF;" class="cell border"> {{$report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship']}} </p>
+                    <p style="float: left; width:55%;height:28px; background-color:#DDE4FF;" class="cell border">
+                         {{-- {{$report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship']}} --}}
+                         </p>
                 </div>
             </div>
 
@@ -289,7 +301,9 @@
                 <p style="float: right; width:30%;height:45px;background-color:#F4F4F4;" class="cell center border2">
                     أبرز التغيرات التي طرأت على اليتيم في هذه السنة
                 </p>
-                <p style="float: left; width:67%; height:55px; background-color:#DDE4FF;" class="cell border"> {{$report->fields['changes_orphan_year']}} </p>
+                <p style="float: left; width:67%; height:55px; background-color:#DDE4FF;" class="cell border">
+                     {{-- {{$report->fields['changes_orphan_year']}} --}}
+                    </p>
             </div>
 
 
@@ -301,7 +315,9 @@
             <p style="background-color:#3A8DDE;color:white;margin-bottom:2px; padding:0px 3px" class="border2"> تعليق الهيئة على أثر الكفالة </p>
 
             <div style="width: 100%; margin-top:2px">
-                <p style="width:100%; background-color:#DDE4FF;" class="cell border"> {{$report->fields['authority_comment_guarantee']}} </p>
+                <p style="width:100%;height:31px; background-color:#DDE4FF;" class="cell border">
+                     {{-- {{$report->fields['authority_comment_guarantee']}} --}}
+                    </p>
             </div>
 
 
@@ -313,7 +329,9 @@
             <p style="background-color:#3A8DDE;color:white;margin-bottom:2px ; padding:0px 3px"> رسالة اليتيم للكافل </p>
 
             <div style="width: 100%; margin-top:2px">
-                <p style="width:100%; background-color:#DDE4FF;" class="cell"> {{$report->fields['orphan_message']}} </p>
+                <p style="width:100%;height:31px; background-color:#DDE4FF;" class="cell">
+                     {{-- {{$report->fields['orphan_message']}} --}}
+                    </p>
             </div>
 
 
