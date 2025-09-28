@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supporter;
+use Exception;
+use ZipArchive;
 use App\Models\Orphan;
 use App\Models\Report;
-use App\Models\Sponsorship;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-// use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
-use setasign\Fpdi\Tcpdf\Fpdi;
-use TCPDF;
-use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
-
+use App\Models\Supporter;
 use App\Models\Governorate;
+use App\Models\Sponsorship;
+use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 
 
@@ -982,58 +980,80 @@ class ReportController extends Controller
         if(view()->exists($viewName)){
             // $pdf = PDF::loadView($viewName, ['report' => $report]);
 
-                     // 1) توليد PDF عبر mPDF
-            $pdf = \Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::loadView($viewName, ['report' => $report]);
-            $pdfPath = storage_path('app/public/temp_report.pdf');
-            file_put_contents($pdfPath, $pdf->output());
+            $pdf = PDF::loadView($viewName, ['report' => $report] ,[] , [
+                'default_font' => 'arialarabic',
+            ]);
 
-            $pdfPath = storage_path('app/public/temp_report.pdf');
-            file_put_contents($pdfPath, $pdf->output());
 
-            // نستخدم FPDI
-            $tcpdf = new \setasign\Fpdi\Tcpdf\Fpdi();
+            return $pdf->stream('supporter_' . $report->supporter->id . '.pdf');
+            // return $pdf->download('supporter_' . $report->supporter->id . '.pdf');
 
-            // اجلب عدد صفحات الملف
-            $pageCount = $tcpdf->setSourceFile($pdfPath);
-
-            // مر على كل الصفحات
-            for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
-                $tcpdf->AddPage();
-                $tplId = $tcpdf->importPage($pageNo);
-                $tcpdf->useTemplate($tplId, 0, 0, 210);
-
-                // مثال: حط input بس في الصفحة الأولى
-                if ($pageNo == 1) {
-                    // اسم ايتيم
-                $tcpdf->SetFont('dejavusans', '', 12);
-                // بدك تجيبو يمين بتكبر ال X بدك تجيبو فوق بتصغر ال y
-
-// اسم الكفيل
-$tcpdf->SetXY(52, 65);
-$tcpdf->TextField('sponsor_name', 66, 8, [
-    'value' => $report->orphan->name ?? '',
-    'align' => 'C', // نص في المنتصف
-]);
-
-// مبلغ الكفالة
-$tcpdf->SetXY(52, 72);
-$tcpdf->TextField('sponsor_number', 66, 8, [
-    'value' => $report->orphan->name ?? '',
-    'align' => 'C', // نص في المنتصف
-]);
-
-$tcpdf->SetXY(52, 79);
-$tcpdf->TextField('orphan_name', 66, 8, [
-    'value' => $report->orphan->name,
-    'align' => 'C', // نص في المنتصف
-]);
-                    }
-                     }
-
-            return response($tcpdf->Output('supporter_' . $report->supporter->id . '.pdf', 'S'))
-                ->header('Content-Type', 'application/pdf');
+        }
 
         abort(404, 'لا يوجد قالب PDF مخصص لهذه الجمعية');
+
+    }
+
+
+    public function DownloadAllReports($supporter_id)
+    {
+        $reports = Report::where('supporter_id', $supporter_id)
+            ->with('orphan')
+            ->with('orphan.image')
+            ->with(['orphan.profile' => function ($query) {
+                $query->select('orphan_id', 'father_death_date', 'mother_name', 'mother_death_date', 'academic_stage', 'class', 'full_address', 'governorate', 'center');
+            }])
+            ->with('orphan.supporterFieldValues')
+            ->with(['orphan.guardian' => function ($query) {
+                $query->select('orphan_id', 'guardian_name', 'guardian_relationship');
+            }])
+            ->with(['orphan.family' => function ($query) {
+                $query->select('orphan_id', 'family_number', 'housing_type');
+            }])
+            ->with('supporter')
+            ->get();
+
+        if ($reports->isEmpty()) {
+            return back()->with('danger', 'لا يوجد تقارير للتحميل');
         }
-   }
+
+        $zipFileName = 'reports_' . now()->format('Y_m_d_His') . '.zip';
+        $zipPath = storage_path('app/' . $zipFileName);
+
+        $zip = new \ZipArchive;
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($reports as $report) {
+                $report->fields = json_decode($report->fields, true);
+
+                $viewName = 'pdf.reports.supporter_' . $report->supporter->id;
+
+                if (view()->exists($viewName)) {
+                    $pdf = PDF::loadView($viewName, ['report' => $report], [], [
+                        'default_font' => 'arialarabic',
+                    ]);
+
+                    $fileName = ($report->orphan->name ?? 'report') . '_' . $report->id . '.pdf';
+
+                    $tempPath = storage_path("app/temp_report_{$report->id}.pdf");
+                    File::put($tempPath, $pdf->output());
+
+                    // 📂 إضافة داخل مجلد وهمي
+                    $zip->addFile($tempPath, "reports/" . $fileName);
+                }
+            }
+            $zip->close();
+        }
+
+        // حذف الملفات المؤقتة
+        foreach ($reports as $report) {
+            $tempPath = storage_path("app/temp_report_{$report->id}.pdf");
+            if (File::exists($tempPath)) {
+                File::delete($tempPath);
+            }
+        }
+
+        return response()->download($zipPath, $zipFileName)->deleteFileAfterSend(true);
+    }
+
+
 }
