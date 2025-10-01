@@ -24,7 +24,7 @@
             margin: 0 !important;
             margin-top: 2px !important;
             padding: 0 !important;
-            /*box-sizing: border-box !important;*/
+            /box-sizing: border-box !important;/
         }
 
         @page {
