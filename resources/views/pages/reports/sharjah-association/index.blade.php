@@ -15,7 +15,7 @@
                 {{$count}} {{__('تقرير')}}
             </div>
 
-            <div class="search mb-1 w-50">
+            <div class="search mb-1" style="width: 40%">
 
                 <form action="{{route('report.index' , $supporter_id)}}" method="GET" class="input-group flex-nowrap">
                     <button type="submit" class="input-group-text" id="addon-wrapping">
