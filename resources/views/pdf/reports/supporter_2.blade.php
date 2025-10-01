@@ -112,19 +112,31 @@
 
                 <div style="width:100%; height:590px; background: url('{{ public_path('image/sharjah/header.png') }}') no-repeat center top; background-size: cover; text-align:center;">
 
-                    <p style="padding-top: 31.5%;margin-right:30% ;color:#1d1dfe;font-size:23px;font-weight:bold" class="cell"> {{$report->fields['sponsor_code']}} </p>
+                    <p style="padding-top: 31.5%;margin-right:30% ;color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                         {{-- {{$report->fields['sponsor_code']}}  --}}
+                    </p>
 
                     <div style="float">
-                        <p style="float:right;width:75% ;padding-top: 3% ; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">  {{$report->fields['sponsor_name']}} </p>
-                        <p style="float:left;width:23%;margin-left:4.5% ;padding-top: 2.8%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">  {{$report->fields['sponsor_phone']}} </p>
+                        <p style="float:right;width:75% ;padding-top: 3% ; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['sponsor_name']}} --}}
+                        </p>
+                        <p style="float:left;width:23%;margin-left:4.5% ;padding-top: 2.8%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['sponsor_phone']}}  --}}
+                            </p>
                     </div>
 
                     <div style="float">
-                        <p style="float:right;width:90% ;padding-top: 3.2% ; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">  {{$report->fields['sponsor_email']}} </p>
-                        <p style="float:left;width:26% ;padding-top: -3.5%; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">  {{$report->fields['sponsor_mailbox']}} </p>
+                        <p style="float:right;width:90% ;padding-top: 3.2% ; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['sponsor_email']}} --}}
+                            </p>
+                        <p style="float:left;width:26% ;padding-top: -3.5%; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['sponsor_mailbox']}} --}}
+                            </p>
                     </div>
 
-                    <p style="padding-top:3.5%;float:right;width:100%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell"> {{$report->fields['sponsor_address']}} </p>
+                    <p style="padding-top:3.5%;float:right;width:100%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                         {{-- {{$report->fields['sponsor_address']}} --}}
+                        </p>
 
                 </div>
 
@@ -133,40 +145,70 @@
 
 
                     <div style="float">
-                        <p style="float:right;width:68% ;padding-top: 1.4% ; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">  {{$report->orphan->name}} </p>
-                        <p style="float:left;width:29% ;padding-top: 1.7%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">  {{$report->orphan->case_type ?? $report->fields['case_type']}} </p>
+                        <p style="float:right;width:68% ;padding-top: 1.4% ; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->name}} --}}
+                        </p>
+                        <p style="float:left;width:29% ;padding-top: 1.7%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->case_type ?? $report->fields['case_type']}} --}}
+                            </p>
                     </div>
 
                     <div style="float">
-                        <p style="float:right;width:65% ;padding-top: 2.4% ; color:#1d1dfe;font-weight:bold" class="cell">  {{$report->orphan->birth_place ?? $report->fields['birth_place']}} </p>
-                        <p style="float:left;width:29% ;padding-top: 2.4%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->orphan->gender ?? $report->fields['gender']}} </p>
+                        <p style="float:right;width:65% ;padding-top: 2.4% ; color:#1d1dfe;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->birth_place ?? $report->fields['birth_place']}} --}}
+                            </p>
+                        <p style="float:left;width:29% ;padding-top: 2.4%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->gender ?? $report->fields['gender']}} --}}
+                            </p>
                     </div>
 
                     <div style="float">
-                        <p style="float:right;width:58% ;padding-top: 2.8% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->orphan->birth_date ?? $report->fields['birth_date']}} </p>
-                        <p style="float:right ;padding-right:-43%;padding-top: 2.3%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->orphan->age ?? $report->fields['age']}} </p>
+                        <p style="float:right;width:58% ;padding-top: 2.8% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->birth_date ?? $report->fields['birth_date']}} --}}
+                            </p>
+                        <p style="float:right ;padding-right:-43%;padding-top: 2.3%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->age ?? $report->fields['age']}} --}}
+                             </p>
                     </div>
 
-                    <p style="padding-top:0.5%;float:right;width:100%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell"> {{$report->orphan->getFieldValueByDatabaseName('reason_continuing_sponsorship') ?? $report->fields['reason_continuing_sponsorship']}} </p>
+                    <p style="padding-top:0.5%;float:right;width:100%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                         {{-- {{$report->orphan->getFieldValueByDatabaseName('reason_continuing_sponsorship') ?? $report->fields['reason_continuing_sponsorship']}} --}}
+                        </p>
 
                     <div style="float">
-                        <p style="float:right ;width:65% ;padding-top:3.7%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->orphan->profile->father_death_date ?? $report->fields['father_death_date']}}  </p>
-                        <p style="float:left ;padding-right:-34%;padding-top: 4.5%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">  {{$report->orphan->profile->mother_name ?? $report->fields['mother_name']}} </p>
+                        <p style="float:right ;width:65% ;padding-top:3.7%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->profile->father_death_date ?? $report->fields['father_death_date']}} --}}
+                            </p>
+                        <p style="float:left ;padding-right:-34%;padding-top: 4.5%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->profile->mother_name ?? $report->fields['mother_name']}} --}}
+                             </p>
                     </div>
 
                     <div style="float">
-                        <p style="float:right;padding-top:2.3%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell"> {{$report->orphan->profile->mother_death_date ?? 'غير متوفاة' }}  </p>
-                        <p style="float:left;padding-right:80%;padding-top: -4%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->orphan->family->family_number ?? $report->fields['family_number']}} </p>
+                        <p style="float:right;padding-top:2.3%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                             {{-- {{$report->orphan->profile->mother_death_date ?? 'غير متوفاة' }} --}}
+                            </p>
+                        <p style="float:left;padding-right:80%;padding-top: -4%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->family->family_number ?? $report->fields['family_number']}} --}}
+                            </p>
                     </div>
 
                     <div style="float">
-                        <p style="float:right;width:67% ;padding-top: 2.7% ; color:#1d1dfe;font-weight:bold" class="cell">  {{$report->orphan->guardian->guardian_name ?? $report->fields['guardian_name']}} </p>
-                        <p style="float:left;width:29% ;padding-top: 2.2%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship']}} </p>
+                        <p style="float:right;width:67% ;padding-top: 2.7% ; color:#1d1dfe;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->guardian->guardian_name ?? $report->fields['guardian_name']}} --}}
+                            </p>
+                        <p style="float:left;width:29% ;padding-top: 2.2%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->guardian->guardian_relationship ?? $report->fields['guardian_relationship']}} --}}
+                            </p>
                     </div>
 
                     <div style="float">
-                        <p style="float:right;width:58% ;padding-top: 2.7% ; color:#1d1dfe;font-weight:bold" class="cell">   {{$report->orphan->phones[0]->phone_number ?? $report->fields['phone_number']}} </p>
-                        <p style="float:left;width:38% ;padding-top: 2.4%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->orphan->getFieldValueByDatabaseName('whatsapp_phone') ?? $report->fields['whatsapp_phone']}}</p>
+                        <p style="float:right;width:58% ;padding-top: 2.7% ; color:#1d1dfe;font-weight:bold" class="cell">
+                             {{-- {{$report->orphan->phones[0]->phone_number ?? $report->fields['phone_number']}} --}}
+                            </p>
+                        <p style="float:left;width:38% ;padding-top: 2.4%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                            {{-- {{$report->orphan->getFieldValueByDatabaseName('whatsapp_phone') ?? $report->fields['whatsapp_phone']}} --}}
+                        </p>
                     </div>
 
 
@@ -188,21 +230,35 @@
 
 
                     <div style="float">
-                        <p style="margin-right:-35%;padding-top: 20.7% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->fields['live_mother']}} </p>
-                        <p style="float:left;width:68%;margin-right:-100%: left;padding-top: -4.5%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell"> {{$report->fields['reason_live']}} </p>
+                        <p style="margin-right:-35%;padding-top: 20.7% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['live_mother']}} --}}
+                            </p>
+                        <p style="float:left;width:68%;margin-right:-100%: left;padding-top: -4.5%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                             {{-- {{$report->fields['reason_live']}} --}}
+                            </p>
                     </div>
 
-                    <p style="padding-top:1%;float:right;width:100%;color:#1d1dfe;font-size:23px;font-weight:bold" class="cell"> {{$report->orphan->family->housing_type ?? $report->fields['housing_type']}} </p>
+                    <p style="padding-top:1%;float:right;width:100%;color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                        {{-- {{$report->orphan->family->housing_type ?? $report->fields['housing_type']}} --}}
+                    </p>
 
-                    <p style="padding-top:2.8%;margin-right:5%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell"> {{$report->fields['conditions_orphan']}} </p>
+                    <p style="padding-top:2.8%;margin-right:5%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                         {{-- {{$report->fields['conditions_orphan']}} --}}
+                        </p>
 
 
                     <div style="float">
-                        <p style="float:right;width:47% ;padding-top: 13% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->orphan->health_status ?? $report->fields['health_status']}} </p>
-                        <p style="float:left;width:34% ;padding-top: 12.5%; color:#1d1dfe;font-size:16px;font-weight:bold" class="cell">  {{$report->fields['chronic_disease']}} </p>
+                        <p style="float:right;width:47% ;padding-top: 13% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->health_status ?? $report->fields['health_status']}} --}}
+                            </p>
+                        <p style="float:left;width:34% ;padding-top: 12.5%; color:#1d1dfe;font-size:16px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['chronic_disease']}} --}}
+                            </p>
                     </div>
 
-                    <p style="padding-top:1.8%;margin-right:-34%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell"> {{$report->orphan->disease_description ?? $report->fields['disease_description']  ?? '-' }} </p>
+                    <p style="padding-top:1.8%;margin-right:-34%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                        {{-- {{$report->orphan->disease_description ?? $report->fields['disease_description']  ?? '-' }} --}}
+                    </p>
 
 
                 </div>
@@ -211,41 +267,65 @@
 
 
                     <div style="float">
-                        <p style="float:right;width:65% ;padding-top: 1.2% ; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">  {{$report->orphan->profile->academic_stage ?? $report->fields['academic_stage']}} </p>
-                        <p style="float:left;width:28% ;padding-top: 1%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">  {{$report->fields['academic_level']}} </p>
+                        <p style="float:right;width:65% ;padding-top: 1.2% ; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                              {{-- {{$report->orphan->profile->academic_stage ?? $report->fields['academic_stage']}} --}}
+                            </p>
+                        <p style="float:left;width:28% ;padding-top: 1%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['academic_level']}} --}}
+                            </p>
                     </div>
 
                     <div style="float">
-                        <p style="float:right;width:45%;margin-right:12.5% ;padding-top: 2% ; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">  {{$report->fields['reason_notStudying']}} </p>
-                        <p style="float:left;width:47% ;padding-top: -3%; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">  {{$report->fields['alternative_approach']}} </p>
+                        <p style="float:right;width:45%;margin-right:12.5% ;padding-top: 2% ; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['reason_notStudying']}} --}}
+                            </p>
+                        <p style="float:left;width:47% ;padding-top: -3%; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">
+                             {{-- {{$report->fields['alternative_approach']}} --}}
+                            </p>
                     </div>
 
-                    <p style="padding-top: 2%;margin-right:13%;width:100%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">  {{$report->fields['actions_supervisor']}} </p>
+                    <p style="padding-top: 2%;margin-right:13%;width:100%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                          {{-- {{$report->fields['actions_supervisor']}} --}}
+                        </p>
 
 
                     <div style="float">
-                        <p style="float:right;width:58% ;padding-top: 9.4% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->fields['regular_praying']}} </p>
-                        <p style="float:right ;padding-right:8%;padding-top: 10%; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">  {{$report->fields['actions_supervisor_praying']}} </p>
+                        <p style="float:right;width:58% ;padding-top: 9.4% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['regular_praying']}} --}}
+                            </p>
+                        <p style="float:right ;padding-right:8%;padding-top: 10%; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['actions_supervisor_praying']}} --}}
+                            </p>
                     </div>
 
                     <div style="float">
-                        <p style="float:right;width:58% ;padding-top: 2.5% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->fields['ramadan_fasting']}} </p>
-                        <p style="float:right ;padding-right:8%;padding-top: 2.5%; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">  {{$report->fields['actions_supervisor_ramadan']}} </p>
+                        <p style="float:right;width:58% ;padding-top: 2.5% ; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['ramadan_fasting']}} --}}
+                            </p>
+                        <p style="float:right ;padding-right:8%;padding-top: 2.5%; color:#1d1dfe;font-size:18px;font-weight:bold" class="cell">
+                              {{-- {{$report->fields['actions_supervisor_ramadan']}} --}}
+                            </p>
                     </div>
 
-                    <p style="padding-top:2%;padding-right:29%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell"> {{$report->fields['quran_memorized']}} </p>
+                    <p style="padding-top:2%;padding-right:29%;color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                         {{-- {{$report->fields['quran_memorized']}} --}}
+                         </p>
 
 
                     <div style="float">
                         <div style="float:right ;width:60%">
-                            <p style="float:right ;width:100%; padding-right:15% ; padding-top:4.4%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">   {{$report->fields['orphan_supervisor']}}  </p>
-                            <p style="float:right ;width:100% ;padding-top:3.5%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">  {{$report->fields['date']}}  </p>
-                            <p style="padding-top:2.8%; margin-right:20%" class="cell">
+                            <p style="float:right ;width:100%; padding-right:15% ; padding-top:4.4%; color:#1d1dfe;font-size:20px;font-weight:bold" class="cell">
+                                   {{-- {{$report->fields['orphan_supervisor']}} --}}
+                                </p>
+                            <p style="float:right ;width:100% ;padding-top:3.5%; color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                                  {{-- {{$report->fields['date']}} --}}
+                            </p>
+                            <p style="padding-top:48%; margin-right:20%" class="cell">
                                 <img src="{{ public_path('storage/' . $report->signature) }}" alt="صورة" width="160px" height="60px">
                             </p>
                         </div>
 
-                        <p style="padding-top:7%;margin-right:30%" class="cell">
+                        <p style="padding-top:26%;margin-right:30%" class="cell">
                             <img src="{{ public_path('storage/' . $report->supporter_seal) }}" alt="صورة" width="130px" height="135px">
                         </p>
 
