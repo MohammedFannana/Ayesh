@@ -124,5 +124,42 @@ class Orphan extends Model
     }
 
 
+public function scopeSponsoredWithRelationsFilters($query, $request)
+{
+    return $query->where('status', 'sponsored')
+        ->when($request->search, function ($builder, $value) {
+            $builder->where('name', 'LIKE', "%{$value}%");
+        })
+        ->when($request->filter, function ($builder, $filters) {
+            $builder->whereHas('marketing.supporter', function ($query) use ($filters) {
+                $query->whereIn('name', $filters);
+            });
+        })
+
+        ->when($request->governorate, function ($builder, $governorate) {
+            $builder->whereHas('profile', function ($query) use ($governorate) {
+                $query->where('governorate', $governorate);
+            });
+        })
+
+        ->when($request->age_from || $request->age_to, function ($builder) use ($request) {
+            $ageFrom = $request->age_from ?? 0;
+            $ageTo   = $request->age_to   ?? 25;
+
+            $builder->whereBetween('age', [$ageFrom, $ageTo]);
+        })
+        ->select('id', 'internal_code', 'name' , 'age')
+        ->with([
+            'profile:id,orphan_id',
+            'family:id,orphan_id',
+            'sponsorship:orphan_id,external_code',
+            'marketing:id,orphan_id,supporter_id',
+            'marketing.supporter:id,name',
+            'phones'
+        ]);
+}
+
+
+
 
 }

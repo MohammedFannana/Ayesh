@@ -105,7 +105,8 @@ Route::middleware(['auth' , ApplyUserLanguage::class])->group(function(){
             Route::get('/sponsored/transfer/{transfer}' , [SponsoredOrphanController::class ,'transfers'])->name('transfer.show');
             Route::delete('/sponsored/{sponsored}', [SponsoredOrphanController::class, 'destroy'])->name('sponsored.destroy');
             Route::get('/convert/archived/{orphanId}', [SponsoredOrphanController::class, 'convertArchived'])->name('convert.archived');
-
+            Route::get('/export/excel' , [SponsoredOrphanController::class , 'exportOrphansDataToExcel'])->name('export.excel');
+            Route::get('/filter-orphans', [SponsoredOrphanController::class, 'filter'])->name('filter');
 
             //ArchivedOrphanController الحالات المؤرشفة
             Route::get('/archived', [ArchivedOrphanController::class, 'index'])->name('archived.index');

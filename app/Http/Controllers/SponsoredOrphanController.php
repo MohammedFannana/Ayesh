@@ -7,63 +7,23 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ExpenseOrphan;
+use App\Models\Governorate;
+use App\Exports\OrphansExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class SponsoredOrphanController extends Controller
 {
     public function index(Request $request){
-
-        $orphans = Orphan::where('status', 'sponsored')
-            ->when($request->search, function ($builder, $value) {  //search input
-                $builder->where('name', 'LIKE', "%{$value}%");
-            })
-            // إضافة الفلاتر بناءً على الـ checkboxes
-            ->when($request->filter, function ($builder, $filters) { //filter input
-                if (in_array('جمعية دار البر', $filters)) {
-                    $builder->whereHas('marketing.supporter', function ($query) {
-                        $query->where('name', 'جمعية دار البر');
-                    });
-                }
-                elseif (in_array('جمعية الشارقة', $filters)) {
-                    $builder->whereHas('marketing.supporter', function ($query) {
-                        $query->where('name', 'جمعية الشارقة');
-                    });
-                }
-                elseif (in_array('جمعية السيدة مريم', $filters)) {
-                    $builder->whereHas('marketing.supporter', function ($query) {
-                        $query->where('name', 'جمعية السيدة مريم');
-                    });
-                }
-                elseif (in_array('جمعية دبي الخيرية', $filters)) {
-                    $builder->whereHas('marketing.supporter', function ($query) {
-                        $query->where('name', 'جمعية دبي الخيرية');
-                    });
-                }
-            })
-            ->select('id', 'internal_code', 'name')
-            ->with(['profile' => function ($query) {  // to get phone from profile table
-                $query->select('orphan_id');
-            }])
-            ->with(['family' => function ($query) {  // to get phone from profile table
-                $query->select('orphan_id');
-            }])
-            ->with(['sponsorship' => function ($query) {  // to get phone from profile table
-                $query->select('external_code', 'orphan_id');
-            }])
-            ->with(['marketing' => function ($query) {  // to get only supporter data through marketing table
-                $query->select('orphan_id', 'supporter_id') // اختر الحقول المطلوبة من جدول marketing
-                    ->with(['supporter' => function ($query) {  // to get supporter data
-                        $query->select('id', 'name'); // اختر الحقول التي تريدها من جدول supporters
-                }]);
-            }])
-            ->with('phones')
+// dd($request->filter);
+    $governorates = Governorate::all();
+        $orphans = Orphan::sponsoredWithRelationsFilters($request)
             ->paginate(10);
-
 
             $count = $orphans->total();
 
 
-            return view('pages.orphans.sponsored-orphans.index' , compact('orphans' , 'count'));
+            return view('pages.orphans.sponsored-orphans.index' , compact('orphans' , 'count' , 'governorates'));
 
     }
 
@@ -155,5 +115,68 @@ class SponsoredOrphanController extends Controller
         }
 
     }
+
+    public function exportOrphansDataToExcel(Request $request){
+
+        return Excel::download(new OrphansExport($request), 'orphans.xlsx');
+
+    }
+
+    public function filter(Request $request)
+    {
+        $query = Orphan::with('profile');
+
+        // فلترة المحافظة
+        if ($request->filled('governorate')) {
+            $query->whereHas('profile', function($q) use ($request) {
+                    $q->where('governorate', $request->governorate);
+            });
+        }
+
+        // فلترة العمر الأدنى
+        if ($request->filled('age_from')) {
+            $ageFrom = $request->age_from;
+            $query->where(function($q) use ($ageFrom) {
+                $q->where('age', '>=', $ageFrom)
+                  ->orWhere(function($q2) use ($ageFrom) {
+                      $q2->whereNull('age')
+                         ->whereNotNull('birth_date')
+                         ->whereDate('birth_date', '<=', now()->subYears($ageFrom));
+                  });
+            });
+        }
+
+        // فلترة العمر الأعلى
+        if ($request->filled('age_to')) {
+            $ageTo = $request->age_to;
+            $query->where(function($q) use ($ageTo) {
+                $q->where('age', '<=', $ageTo)
+                  ->orWhere(function($q2) use ($ageTo) {
+                      $q2->whereNull('age')
+                         ->whereNotNull('birth_date')
+                         ->whereDate('birth_date', '>=', now()->subYears($ageTo));
+                  });
+            });
+        }
+
+        $orphans = $query->get();
+
+        // تجهيز البيانات للـ JSON
+        $data = $orphans->map(function($orphan) {
+            return [
+                'id' => $orphan->id,
+                'internal_code' => $orphan->internal_code,
+                'external_code' => optional($orphan->sponsorship)->external_code,
+                'name' => $orphan->name,
+                'supporter' => optional(optional($orphan->marketing)->supporter)->name,
+                'phone' => optional($orphan->phones->first())->phone_number,
+            ];
+        });
+
+
+        return response()->json($data);
+    }
+
+
 
 }
