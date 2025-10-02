@@ -1,5 +1,18 @@
 <x-main-layout>
 
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <style>
+            /* تحكم بارتفاع القائمة المنسدلة */
+            .custom-dropdown {
+                max-height: 500px; /* ارتفاع الـ dropdown */
+                overflow-y: auto;
+            }
+        </style>
+
+    @endpush
+
     <h2 class="mb-4"> {{__('الأيتام المقدمين')}}</h2>
 
     <x-alert name="success" />
@@ -65,6 +78,47 @@
                     </form>
                 </div>
 
+            </div>
+
+        </div>
+
+        <div class="filter row mt-3">
+
+            {{-- governorate --}}
+            <div class="col-12 col-md-4 mb-3">
+                <select id="governorate" class="select2-governorate">
+                    <option value=""></option>
+                    @foreach($governorates as $gov)
+                        <option value="{{ $gov->id }}">{{ $gov->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+
+            <div class="col-12 col-md-4 mb-3">
+                <select id="age_from" class="select2-age-from">
+                    <option value=""></option>
+                    @foreach(range(0,25) as $i)
+                        @if($i == 0)
+                            <option value="0">{{ __('يوم واحد') }}</option>
+                        @else
+                            <option value="{{ $i }}">{{ $i }} {{ __('سنة') }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-12 col-md-4 mb-3">
+                <select id="age_to" class="select2-age-to">
+                    <option value=""></option>
+                        @foreach(range(0,25) as $i)
+                            @if($i == 0)
+                                <option value="0">{{ __('يوم واحد') }}</option>
+                            @else
+                                <option value="{{ $i }}">{{ $i }} {{ __('سنة') }}</option>
+                            @endif
+                        @endforeach
+                </select>
             </div>
 
         </div>
@@ -156,6 +210,36 @@
     </div>
 
     @push('scripts')
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('.select2-age-from').select2({
+                    placeholder: "اختر العمر من",
+                    allowClear: true,
+                    width: '100%',
+                    dropdownCssClass: "custom-dropdown"
+                });
+
+                $('.select2-age-to').select2({
+                    placeholder: "اختر العمر إلى",
+                    allowClear: true,
+                    width: '100%',
+                    dropdownCssClass: "custom-dropdown"
+                });
+
+                $('.select2-governorate').select2({
+                    placeholder: "اختر المحافظة",
+                    allowClear: true,
+                    width: '100%',
+                    dropdownCssClass: "custom-dropdown"
+                });
+            });
+        </script>
+
+
         {{-- to send filter form auto if not have submit button --}}
         <script>
             // إضافة حدث 'change' لجميع checkboxes في النموذج

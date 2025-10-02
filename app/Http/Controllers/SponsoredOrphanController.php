@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Orphan;
 use Exception;
+use App\Models\Orphan;
+use App\Models\Governorate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\ExpenseOrphan;
+use Illuminate\Support\Facades\DB;
 
 
 class SponsoredOrphanController extends Controller
@@ -62,8 +63,10 @@ class SponsoredOrphanController extends Controller
 
             $count = $orphans->total();
 
+            $governorates = Governorate::with('cities')->get();
 
-            return view('pages.orphans.sponsored-orphans.index' , compact('orphans' , 'count'));
+
+            return view('pages.orphans.sponsored-orphans.index' , compact('orphans' , 'count' , 'governorates'));
 
     }
 
