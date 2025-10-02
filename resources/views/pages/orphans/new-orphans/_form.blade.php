@@ -191,7 +191,7 @@
                     @endforeach
                 </select>
             </div>
-            
+
             <div class="col-6 col-md-3 mb-3">
                 <label for="city-select" class="mb-3"> اسم المدينة </label>
                 <select id="city-select" class="form-control form-select" name="center">
@@ -247,7 +247,7 @@
                 </div>
 
             </div>
-            
+
             {{-- <div class="col-12 col-md-6 mb-3">
                 <x-form.input name="phone_number[]" class="border"  type="text" label=" {{__('رقم التيلفون 1')}}" autocomplete="" placeholder="{{__('أدخل رقم التيلفون 1')}}" />
             </div>
@@ -263,31 +263,31 @@
             <div class="col-12 col-md-6 mb-3">
                 <x-form.input name="phone_number[]" class="border"  type="text" label=" {{__('رقم التيلفون 4')}}" autocomplete="" placeholder="{{__('أدخل رقم التيلفون 4')}}" />
             </div> --}}
-               
+
             @foreach($orphan->phones as $index => $phone)
                 <div class="col-12 col-md-6 mb-3">
-                    <x-form.input 
-                        name="phone_number[]" 
-                        class="border" 
-                        type="text" 
-                        label="{{ __('رقم التليفون') . ' ' . ($index + 1) }}" 
-                        value="{{ $phone->phone_number }}" 
-                        autocomplete="" 
-                        placeholder="{{ __('أدخل رقم التليفون') . ' ' . ($index + 1) }}" 
+                    <x-form.input
+                        name="phone_number[]"
+                        class="border"
+                        type="text"
+                        label="{{ __('رقم التليفون') . ' ' . ($index + 1) }}"
+                        value="{{ $phone->phone_number }}"
+                        autocomplete=""
+                        placeholder="{{ __('أدخل رقم التليفون') . ' ' . ($index + 1) }}"
                     />
                 </div>
             @endforeach
-            
+
             {{-- لو بدك تظهر فراغات إضافية لرقم جديد --}}
             @for($i = count($orphan->phones); $i < 4; $i++)
                 <div class="col-12 col-md-6 mb-3">
-                    <x-form.input 
-                        name="phone_number[]" 
-                        class="border" 
-                        type="text" 
-                        label="{{ __('رقم التليفون') . ' ' . ($i + 1) }}" 
-                        autocomplete="" 
-                        placeholder="{{ __('أدخل رقم التليفون') . ' ' . ($i + 1) }}" 
+                    <x-form.input
+                        name="phone_number[]"
+                        class="border"
+                        type="text"
+                        label="{{ __('رقم التليفون') . ' ' . ($i + 1) }}"
+                        autocomplete=""
+                        placeholder="{{ __('أدخل رقم التليفون') . ' ' . ($i + 1) }}"
                     />
                 </div>
             @endfor

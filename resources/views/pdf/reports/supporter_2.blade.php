@@ -82,9 +82,13 @@
 
             <div style="width:100%; height:568px; background: url('{{ public_path('image/sharjah/page1.png') }}') no-repeat center top; background-size: cover; text-align:center;">
 
-                <p style="padding-top:50%;margin-right:-28% ;color:#1d1dfe;font-size:23px;font-weight:bold" class="cell"> {{$report->orphan->name}} </p>
+                <p style="padding-top:50%;margin-right:-28% ;color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                     {{-- {{$report->orphan->name}}  --}}
+                    </p>
 
-                <p style="padding-top:5%;margin-right:-10%;color:#1d1dfe;font-size:23px;font-weight:bold" class="cell"> {{$report->orphan->sponsorship->external_code}} </p>
+                <p style="padding-top:5%;margin-right:-10%;color:#1d1dfe;font-size:23px;font-weight:bold" class="cell">
+                     {{-- {{$report->orphan->sponsorship->external_code}} --}}
+                    </p>
 
             </div>
 

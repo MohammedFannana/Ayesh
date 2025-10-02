@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Orphan;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\ExpenseOrphan;
+use App\Models\Orphan;
 use App\Models\Governorate;
+use Illuminate\Http\Request;
+use App\Models\ExpenseOrphan;
 use App\Exports\OrphansExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 
 class SponsoredOrphanController extends Controller
@@ -22,8 +22,11 @@ class SponsoredOrphanController extends Controller
 
             $count = $orphans->total();
 
+            $governorates = Governorate::all();
 
-            return view('pages.orphans.sponsored-orphans.index' , compact('orphans' , 'count' , 'governorates'));
+
+
+         return view('pages.orphans.sponsored-orphans.index' , compact('orphans' , 'count' , 'governorates'));
 
     }
 

@@ -1018,9 +1018,9 @@ class ReportController extends Controller
         elseif($report->supporter->id == 3) {
             $this->fillSupporter3Fields($tcpdf, $report, $pageCount);
         }
+
         elseif($report->supporter->id == 4){
             $this->fillSupporter4Fields($tcpdf, $report, $pageCount);
-
         }
 
         return response($tcpdf->Output('supporter_' . $report->supporter->id . '.pdf', 'S'))
@@ -1028,15 +1028,94 @@ class ReportController extends Controller
     }
 
 
+    public function DownloadAllReports($supporter_id)
+    {
+        $reports = Report::where('supporter_id', $supporter_id)
+            ->with('orphan')
+            ->with('orphan.image')
+            ->with(['orphan.profile' => function ($query) {
+                $query->select('orphan_id', 'father_death_date', 'mother_name', 'mother_death_date', 'academic_stage', 'class', 'full_address', 'governorate', 'center');
+            }])
+            ->with('orphan.supporterFieldValues')
+            ->with(['orphan.guardian' => function ($query) {
+                $query->select('orphan_id', 'guardian_name', 'guardian_relationship');
+            }])
+            ->with(['orphan.family' => function ($query) {
+                $query->select('orphan_id', 'family_number', 'housing_type');
+            }])
+            ->with('supporter')
+            ->get();
 
-    /**
- * Fill PDF fields for supporter 1
- *
- * @param \setasign\Fpdi\Tcpdf\Fpdi $tcpdf
- * @param \App\Models\Report $report
- * @param int $pageCount
- * @return void
- */
+        if ($reports->isEmpty()) {
+            return back()->with('danger', 'لا يوجد تقارير للتحميل');
+        }
+
+        $zipFileName = 'reports_' . now()->format('Y_m_d_His') . '.zip';
+        $zipPath = storage_path('app/' . $zipFileName);
+
+        $zip = new \ZipArchive;
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
+            foreach ($reports as $report) {
+                $report->fields = json_decode($report->fields, true);
+                $viewName = 'pdf.reports.supporter_' . $report->supporter->id;
+
+                if (!view()->exists($viewName)) {
+                    continue;
+                }
+
+                // 1) توليد PDF مؤقت عبر mPDF
+                $pdf = \Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::loadView($viewName, [
+                    'report' => $report
+                ]);
+                $tempPdfPath = storage_path("app/temp_report_view_{$report->id}.pdf");
+                file_put_contents($tempPdfPath, $pdf->output());
+
+                // 2) نستخدم FPDI لملء الحقول
+                $tcpdf = new \setasign\Fpdi\Tcpdf\Fpdi();
+                $pageCount = $tcpdf->setSourceFile($tempPdfPath);
+
+                if ($report->supporter->id == 1) {
+                    $this->fillSupporter1Fields($tcpdf, $report, $pageCount);
+                } elseif ($report->supporter->id == 2) {
+                    $this->fillSupporter2Fields($tcpdf, $report, $pageCount);
+                } elseif ($report->supporter->id == 3) {
+                    $this->fillSupporter3Fields($tcpdf, $report, $pageCount);
+                } elseif ($report->supporter->id == 4) {
+                    $this->fillSupporter4Fields($tcpdf, $report, $pageCount);
+                }
+
+                // 3) حفظ نسخة نهائية
+                $finalPdfPath = storage_path("app/final_report_{$report->id}.pdf");
+                file_put_contents($finalPdfPath, $tcpdf->Output('', 'S'));
+
+                $fileName = ($report->orphan->name ?? 'report') . '_' . $report->id . '.pdf';
+
+                // 4) أضف داخل مجلد reports داخل الـ zip
+                $zip->addFile($finalPdfPath, "reports/" . $fileName);
+
+                // حذف ملف العرض المؤقت
+                if (file_exists($tempPdfPath)) {
+                    unlink($tempPdfPath);
+                }
+            }
+            $zip->close();
+        }
+
+        // حذف الملفات النهائية بعد الضغط
+        foreach ($reports as $report) {
+            $finalPdfPath = storage_path("app/final_report_{$report->id}.pdf");
+            if (File::exists($finalPdfPath)) {
+                File::delete($finalPdfPath);
+            }
+        }
+
+        return response()->download($zipPath, $zipFileName)->deleteFileAfterSend(true);
+    }
+
+
+
+
+
 private function fillSupporter1Fields($tcpdf, $report, $pageCount)
 {
     for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
@@ -1159,6 +1238,7 @@ private function fillSupporter1Fields($tcpdf, $report, $pageCount)
         }
     }
 }
+
 private function fillSupporter2Fields($tcpdf, $report, $pageCount)
 {
         for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
@@ -1170,7 +1250,29 @@ private function fillSupporter2Fields($tcpdf, $report, $pageCount)
             $tcpdf->SetFont('arial', '', 16);
             $tcpdf->SetTextColor(0,0,0);
 
+            if($pageNo == 1){
 
+                $tcpdf->SetXY(145, 102.5);
+                $tcpdf->TextField('name', 89 , 13.7, [
+                    'value' =>$report->orphan->name ?? '',
+                    'align' => 'C',
+                    'multiline' => true,
+                    'textColor' => [29, 29, 254],
+                    'fillColor' => null, // اللون الصحيح
+                    // 'bgcolor' => [225,225,255] // مهم
+                ]);
+
+                $tcpdf->SetXY(145 , 121);
+                $tcpdf->TextField('external_code', 89 , 13.7, [
+                    'value' =>$report->orphan->sponsorship->external_code ?? '',
+                    'align' => 'C',
+                    'multiline' => true,
+                    'textColor' => [29, 29, 254],
+                    'fillColor' => null, // اللون الصحيح
+                    // 'bgcolor' => [225,225,255] // مهم
+                ]);
+
+            }
 
             if ($pageNo == 2) {
                 // رقم الكفيل
@@ -1612,6 +1714,7 @@ private function fillSupporter2Fields($tcpdf, $report, $pageCount)
    }
 
 }
+
 private function fillSupporter3Fields($tcpdf, $report, $pageCount)
 {
     for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
@@ -1867,6 +1970,7 @@ private function fillSupporter3Fields($tcpdf, $report, $pageCount)
         }
     }
 }
+
 private function fillSupporter4Fields($tcpdf, $report, $pageCount)
 {
     for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
@@ -1919,11 +2023,14 @@ private function fillSupporter4Fields($tcpdf, $report, $pageCount)
                 'border' => 0
                 // 'bgcolor' => [221,228,255] // مهم
             ]);
+
             $tcpdf->SetXY(149.3, 71);
             $tcpdf->TextField('orphan_governorate_dbi', 46.5 ,9.5, [
-                'value' => ($report->orphan->profile->governorate ?? $report->fields['governorate'])
-                                 . '/' .
-                            ($report->orphan->profile->center ?? $report->fields['center']) ?? '',
+                'value' =>
+                    (($report->orphan->profile->governorate ?? ($report->fields['governorate'] ?? ''))
+                    . '/' .
+                    ($report->orphan->profile->center ?? ($report->fields['center'] ?? '')))
+                    ,
                 'align' => 'C',
                 'multiline' => false,
                 'border' => 0
@@ -2018,65 +2125,7 @@ private function fillSupporter4Fields($tcpdf, $report, $pageCount)
 
 
 
-    public function DownloadAllReports($supporter_id)
-    {
-        $reports = Report::where('supporter_id', $supporter_id)
-            ->with('orphan')
-            ->with('orphan.image')
-            ->with(['orphan.profile' => function ($query) {
-                $query->select('orphan_id', 'father_death_date', 'mother_name', 'mother_death_date', 'academic_stage', 'class', 'full_address', 'governorate', 'center');
-            }])
-            ->with('orphan.supporterFieldValues')
-            ->with(['orphan.guardian' => function ($query) {
-                $query->select('orphan_id', 'guardian_name', 'guardian_relationship');
-            }])
-            ->with(['orphan.family' => function ($query) {
-                $query->select('orphan_id', 'family_number', 'housing_type');
-            }])
-            ->with('supporter')
-            ->get();
 
-        if ($reports->isEmpty()) {
-            return back()->with('danger', 'لا يوجد تقارير للتحميل');
-        }
-
-        $zipFileName = 'reports_' . now()->format('Y_m_d_His') . '.zip';
-        $zipPath = storage_path('app/' . $zipFileName);
-
-        $zip = new \ZipArchive;
-        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
-            foreach ($reports as $report) {
-                $report->fields = json_decode($report->fields, true);
-
-                $viewName = 'pdf.reports.supporter_' . $report->supporter->id;
-
-                if (view()->exists($viewName)) {
-                    $pdf = PDF::loadView($viewName, ['report' => $report], [], [
-                        'default_font' => 'arialarabic',
-                    ]);
-
-                    $fileName = ($report->orphan->name ?? 'report') . '_' . $report->id . '.pdf';
-
-                    $tempPath = storage_path("app/temp_report_{$report->id}.pdf");
-                    File::put($tempPath, $pdf->output());
-
-                    // 📂 إضافة داخل مجلد وهمي
-                    $zip->addFile($tempPath, "reports/" . $fileName);
-                }
-            }
-            $zip->close();
-        }
-
-        // حذف الملفات المؤقتة
-        foreach ($reports as $report) {
-            $tempPath = storage_path("app/temp_report_{$report->id}.pdf");
-            if (File::exists($tempPath)) {
-                File::delete($tempPath);
-            }
-        }
-
-        return response()->download($zipPath, $zipFileName)->deleteFileAfterSend(true);
-    }
 
 
 }

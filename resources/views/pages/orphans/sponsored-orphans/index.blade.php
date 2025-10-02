@@ -90,7 +90,7 @@
                     <option value=""></option>
                     @foreach($governorates as $gov)
                         <option value="{{ $gov->name }}">{{ $gov->name }}</option>
-                    @endforeach
+        @endforeach
                 </select>
             </div>
 
