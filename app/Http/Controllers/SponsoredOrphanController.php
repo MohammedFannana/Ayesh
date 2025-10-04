@@ -19,6 +19,7 @@ class SponsoredOrphanController extends Controller
     $governorates = Governorate::all();
         $orphans = Orphan::sponsoredWithRelationsFilters($request)
             ->paginate(10);
+            // dd($orphans);
 
             $count = $orphans->total();
 
@@ -120,6 +121,7 @@ class SponsoredOrphanController extends Controller
     }
 
     public function exportOrphansDataToExcel(Request $request){
+        // dd($request->query());
 
         return Excel::download(new OrphansExport($request), 'orphans.xlsx');
 

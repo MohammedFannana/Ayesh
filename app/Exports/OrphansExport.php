@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class OrphansExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithCustomStartCell
+class OrphansExport implements FromCollection, WithHeadings, WithMapping ,WithStyles, WithCustomStartCell
 {
     protected $request;
     protected $filters;
@@ -20,7 +20,7 @@ class OrphansExport implements FromCollection, WithHeadings, WithMapping, WithSt
     {
         $this->request = $request;
         $this->filters = [
-            'الداعم' => $request->filter ? implode(", ", $request->filter) : 'الكل',
+            'الجمعية' => $request->filter ? implode(", ", $request->filter) : 'الكل',
             'المحافظة' => $request->governorate ?? 'الكل',
             'العمر من' => $request->age_from ?? '0',
             'العمر إلى' => $request->age_to ?? '25',
@@ -35,12 +35,29 @@ class OrphansExport implements FromCollection, WithHeadings, WithMapping, WithSt
         return Orphan::sponsoredWithRelationsFilters($this->request)->get();
     }
 
+    public function map($orphan): array
+    {
+        return [
+            $orphan->internal_code,
+            $orphan->sponsorship->external_code ?? '',       // الكود الخارجي
+            $orphan->name,
+            $orphan->sponsorship->supporter->name ?? '',     // اسم الجمعية (مقدم ل)
+            $orphan->profile->governorate ?? '',
+            $orphan->age ?? ( $orphan->birth_date ? \Carbon\Carbon::parse($orphan->birth_date)->age : '' ),
+            $orphan->phones->pluck('phone_number')->join(', '),     // ممكن يكون أكثر من هاتف
+            $orphan->guardian->guardian_name ?? '',
+            $orphan->guardian->guardian_national_id ?? '',
+            $orphan->guardian->guardian_relationship ?? '',
+
+        ];
+    }
+
     /**
      * مكان بداية الجدول (بعد الفلاتر)
      */
     public function startCell(): string
     {
-        return 'A6'; // خلي الجدول يبدأ من الصف 6
+        return 'A7'; // خلي الجدول يبدأ من الصف 6
     }
 
     /**
@@ -55,8 +72,10 @@ class OrphansExport implements FromCollection, WithHeadings, WithMapping, WithSt
             'مقدم ل',
             'المحافظة',
             'العمر',
-            'الداعم',
             'الهاتف',
+            'الوصي',
+            'الرقم القومي',
+            'علاقته بالوصي',
         ];
     }
 
@@ -111,7 +130,7 @@ class OrphansExport implements FromCollection, WithHeadings, WithMapping, WithSt
             $row++;
         }
 
-        $sheet->getStyle('A6:G6')->applyFromArray([
+        $sheet->getStyle('A7:G6')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['rgb' => 'FFFFFF'],

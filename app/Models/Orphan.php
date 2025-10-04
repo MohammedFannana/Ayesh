@@ -124,40 +124,61 @@ class Orphan extends Model
     }
 
 
-public function scopeSponsoredWithRelationsFilters($query, $request)
-{
-    return $query->where('status', 'sponsored')
-        ->when($request->search, function ($builder, $value) {
-            $builder->where('name', 'LIKE', "%{$value}%");
-        })
-        ->when($request->filter, function ($builder, $filters) {
-            $builder->whereHas('marketing.supporter', function ($query) use ($filters) {
-                $query->whereIn('name', $filters);
-            });
-        })
+    public function scopeSponsoredWithRelationsFilters($query, $request)
+    {
+        return $query->where('status', 'sponsored')
 
-        ->when($request->governorate, function ($builder, $governorate) {
-            $builder->whereHas('profile', function ($query) use ($governorate) {
-                $query->where('governorate', $governorate);
-            });
-        })
+            // فلتر البحث بالاسم
+            ->when($request->search, function ($builder, $value) {
+                $builder->where('name', 'LIKE', "%{$value}%");
+            })
 
-        ->when($request->age_from || $request->age_to, function ($builder) use ($request) {
-            $ageFrom = $request->age_from ?? 0;
-            $ageTo   = $request->age_to   ?? 25;
+            // فلتر الجمعية (supporter)
+            ->when($request->filter, function ($builder, $filters) {
+                $builder->whereHas('marketing.supporter', function ($q) use ($filters) {
+                    $q->whereIn('name', $filters);
+                });
+            })
 
-            $builder->whereBetween('age', [$ageFrom, $ageTo]);
-        })
-        ->select('id', 'internal_code', 'name' , 'age')
-        ->with([
-            'profile:id,orphan_id',
-            'family:id,orphan_id',
-            'sponsorship:orphan_id,external_code',
-            'marketing:id,orphan_id,supporter_id',
-            'marketing.supporter:id,name',
-            'phones'
-        ]);
-}
+            // فلتر المحافظة من جدول profile
+            ->when($request->governorate, function ($builder, $governorate) {
+                $builder->whereHas('profile', function ($q) use ($governorate) {
+                    $q->where('governorate', $governorate);
+                });
+            })
+
+            // فلتر العمر من جدول orphans (age أو birth_date)
+            ->when($request->age_from || $request->age_to, function ($builder) use ($request) {
+                $ageFrom = $request->age_from ?? 0;
+                $ageTo   = $request->age_to ?? 25;
+
+                $builder->where(function($q) use ($ageFrom, $ageTo) {
+                    // إذا العمر موجود
+                    $q->whereBetween('age', [$ageFrom, $ageTo])
+                      ->orWhere(function($q2) use ($ageFrom, $ageTo) {
+                          $q2->whereNull('age')
+                             ->whereNotNull('birth_date')
+                             ->whereDate('birth_date', '<=', now()->subYears($ageFrom))
+                             ->whereDate('birth_date', '>=', now()->subYears($ageTo));
+                      });
+                });
+            })
+
+            // جلب العلاقات المطلوبة
+            ->with([
+                'profile:id,orphan_id,governorate',
+                'family:id,orphan_id',
+                'sponsorship:orphan_id,external_code,supporter_id',
+                'marketing:id,orphan_id,supporter_id',
+                'marketing.supporter:id,name',
+                'phones'
+            ])
+
+            // اختيار الأعمدة الأساسية
+            ->select('id', 'internal_code', 'name', 'age', 'birth_date');
+    }
+
+
 
 
 
